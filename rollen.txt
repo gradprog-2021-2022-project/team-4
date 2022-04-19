@@ -1,9 +1,0 @@
-product owner : Brent Budts
-SCRUM master : Elias Neel
-Programmeren:
--Brentje
--Elias
--Matthew
--Ibrahim
-Design:
--Matthew

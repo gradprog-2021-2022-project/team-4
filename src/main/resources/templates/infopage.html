@@ -3,9 +3,33 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
     <title>Info</title>
 </head>
 <body>
-<h1>Hier komt de info over ons project</h1>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main>
+    <h1>Welkom!</h1>
+    <article>
+        <section>
+            <h2>Wat is Fash?</h2>
+            <p>
+                Fash zal een website worden waar je je outfit op kan delen en andere outfits kan bekijken. Bovendien zal elke outfit links bevatten zodat je snel en gemakkelijk de kleren kan kopen die je mooi vindt!
+            </p>
+        </section>
+        <section>
+            <h2>Wie zijn wij?</h2>
+            <p>Wij zijn enkele studenten uit Thomas More die samen dit project aanpakken. Samen zullen we er iets mooi van maken!</p>
+            <lu>
+                <li>Brent Budts</li>
+                <li>Matthew De Schepper</li>
+                <li>Ibrahim El Moudden</li>
+                <li>Elias Neel</li>
+            </lu>
+        </section>
+    </article>
+</main>
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

@@ -1,6 +1,19 @@
+header{
+    height: 15%;
+    width: 100%;
+    background: black;
+    color: white;
+}
 body{
+    height: 70%;
     width: 95%;
     background: darkgrey;
     justify-content: center;
     justify-self: center;
+}
+footer{
+    height: 15%;
+    width: 100%;
+    background: black;
+    color: white;
 }

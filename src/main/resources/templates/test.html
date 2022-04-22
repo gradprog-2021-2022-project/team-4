@@ -1,0 +1,31 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <title>Test</title>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="data : ${data}" >
+        <td th:text="${data.id}"></td>
+        <td th:text="${data.nameTest}"></td>
+    </tr>
+    </tbody>
+</table>
+
+
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+</body>
+</html>

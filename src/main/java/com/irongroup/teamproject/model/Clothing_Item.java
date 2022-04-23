@@ -19,6 +19,9 @@ public class Clothing_Item {
     //Prijs van de kleding
     private Double prijs;
 
+    //URL
+    private String linkShop;
+
     public Clothing_Item() {
     }
 }

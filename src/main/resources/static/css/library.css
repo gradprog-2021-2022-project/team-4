@@ -2,18 +2,48 @@ header{
     height: 15%;
     width: 100%;
     background: black;
-    color: white;
+    border-bottom: 2px solid black;
+    padding-bottom: 10px;
+    color: #89B6A5;
+    text-align: center;
+    background-color: #FAFF7F;
+    padding-top: 8px;
 }
+
 body{
     height: 70%;
-    width: 95%;
-    background: darkgrey;
     justify-content: center;
     justify-self: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
 }
+
+main{
+    text-align: center;
+}
+
 footer{
-    height: 15%;
-    width: 100%;
-    background: black;
-    color: white;
+    color: black;
+    position: fixed;
+    bottom: 0;
+    height: 20px;
+    padding-left: 10px;
+    font-size: 12px;
+}
+
+p{
+    color: black;
+}
+
+h1{
+    color: black;
+}
+
+h2{
+    color: black;
+}
+
+li{
+    color: black;
 }

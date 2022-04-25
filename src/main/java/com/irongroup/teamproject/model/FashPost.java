@@ -33,4 +33,60 @@ public class FashPost {
 
     public FashPost() {
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Clothing_Item> getClothes() {
+        return clothes;
+    }
+
+    public void setClothes(List<Clothing_Item> clothes) {
+        this.clothes = clothes;
+    }
+
+    public FashUser getPoster() {
+        return poster;
+    }
+
+    public void setPoster(FashUser poster) {
+        this.poster = poster;
+    }
+
+    public List<FashPost> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<FashPost> comments) {
+        this.comments = comments;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 }

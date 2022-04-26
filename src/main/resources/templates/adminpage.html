@@ -11,7 +11,47 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <h1>Welkom!</h1>
-
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fashposter : ${fashposters}" >
+            <td th:text="${fashposter.getId()}"></td>
+            <td th:text="${fashposter.getUsername()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${fashclothes}" >
+            <td th:text="${item.getId()}"></td>
+            <td th:text="${item.getNaam()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fashpost : ${fashposts}" >
+            <td th:text="${fashpost.getId()}"></td>
+        </tr>
+        </tbody>
+    </table>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

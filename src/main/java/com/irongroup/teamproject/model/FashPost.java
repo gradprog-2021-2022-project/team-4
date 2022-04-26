@@ -13,6 +13,7 @@ public class FashPost {
     @Id
     public Integer id;
 
+
     //Clothes in the post
     @OneToMany(mappedBy = "post")
     private Collection<Clothing_Item> clothes;
@@ -52,12 +53,11 @@ public class FashPost {
     public void setId(Integer id) {
         this.id = id;
     }
-
     public Collection<Clothing_Item> getClothes() {
         return clothes;
     }
 
-    public void setClothes(List<Clothing_Item> clothes) {
+    public void setClothes(Collection<Clothing_Item> clothes) {
         this.clothes = clothes;
     }
 

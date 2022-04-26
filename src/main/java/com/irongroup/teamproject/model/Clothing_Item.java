@@ -1,9 +1,6 @@
 package com.irongroup.teamproject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -25,8 +22,10 @@ public class Clothing_Item {
     //URL
     private String linkShop;
 
-    @ManyToOne(optional = false)
+
+    @ManyToOne(optional = true)
     private FashPost post;
+
 
     @ManyToMany(mappedBy = "clothing_saved")
     private Collection<FashUser> fashUsers;

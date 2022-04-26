@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -21,19 +22,31 @@ public class FashUser {
     private Integer post_allowance;
 
     //Posts and comments user has made
-    @OneToMany
-    private List<FashPost> posts;
-    @OneToMany
+    @OneToMany(mappedBy = "poster")
+    private Collection<FashPost> postsMade;
+    @OneToMany(mappedBy = "user")
     private List<FashComment> comments;
 
     //Clothing that the user has posted and saved
-    @OneToMany
+    @OneToMany(mappedBy = "userOwner")
     private List<Clothing_Item> clothing_posted;
     @ManyToMany
     private List<Clothing_Item> clothing_saved;
 
 
     public FashUser() {
+    }
+
+    public FashUser(Integer id, String username, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved) {
+        this.id = id;
+        this.username = username;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.post_allowance = post_allowance;
+        this.postsMade = postsMade;
+        this.comments = comments;
+        this.clothing_posted = clothing_posted;
+        this.clothing_saved = clothing_saved;
     }
 
     public Integer getId() {
@@ -76,14 +89,6 @@ public class FashUser {
         this.post_allowance = post_allowance;
     }
 
-    public List<FashPost> getPosts() {
-        return posts;
-    }
-
-    public void setPosts(List<FashPost> posts) {
-        this.posts = posts;
-    }
-
     public List<FashComment> getComments() {
         return comments;
     }
@@ -106,5 +111,13 @@ public class FashUser {
 
     public void setClothing_saved(List<Clothing_Item> clothing_saved) {
         this.clothing_saved = clothing_saved;
+    }
+
+    public Collection<FashPost> getPostsMade() {
+        return postsMade;
+    }
+
+    public void setPostsMade(Collection<FashPost> postsMade) {
+        this.postsMade = postsMade;
     }
 }

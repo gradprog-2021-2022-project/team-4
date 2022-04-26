@@ -7,6 +7,8 @@ import java.util.Collection;
 public class Clothing_Item {
 
     //ID
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clothing_generator")
+    @SequenceGenerator(name = "clothing_generator", sequenceName = "clothing_seq",allocationSize = 1)
     @Id
     public Integer id;
 
@@ -20,6 +22,7 @@ public class Clothing_Item {
     private Double prijs;
 
     //URL
+    @Column(length=1000)
     private String linkShop;
 
 
@@ -27,7 +30,7 @@ public class Clothing_Item {
     private FashPost post;
 
 
-    @ManyToMany(mappedBy = "clothing_saved")
+    @ManyToMany(mappedBy = "clothing_saved", cascade = CascadeType.REMOVE)
     private Collection<FashUser> fashUsers;
 
     @ManyToOne(optional = false)

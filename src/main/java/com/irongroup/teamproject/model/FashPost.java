@@ -10,12 +10,14 @@ import java.util.List;
 public class FashPost {
 
     //ID
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_generator")
+    @SequenceGenerator(name = "post_generator", sequenceName = "post_seq",allocationSize = 1)
     @Id
     public Integer id;
 
 
     //Clothes in the post
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<Clothing_Item> clothes;
 
     //Poster
@@ -23,7 +25,7 @@ public class FashPost {
     private FashUser poster;
 
     //All comments on the post
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 
     //Date and time of the post

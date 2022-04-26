@@ -8,6 +8,8 @@ import java.time.LocalTime;
 public class FashComment {
 
     //ID
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "comment_generator")
+    @SequenceGenerator(name = "comment_generator", sequenceName = "comment_seq",allocationSize = 1)
     @Id
     public Integer id;
 

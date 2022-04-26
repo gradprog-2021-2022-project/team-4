@@ -2,16 +2,15 @@ package com.irongroup.teamproject.model;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
 public class FashUser {
     //ID and username are public for all users.
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_seq",allocationSize = 1)
     @Id
     public Integer id;
     public String username;
@@ -22,9 +21,9 @@ public class FashUser {
     private Integer post_allowance;
 
     //Posts and comments user has made
-    @OneToMany(mappedBy = "poster")
+    @OneToMany(mappedBy = "poster", cascade = CascadeType.REMOVE)
     private Collection<FashPost> postsMade;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<FashComment> comments;
 
     //Clothing that the user has posted and saved

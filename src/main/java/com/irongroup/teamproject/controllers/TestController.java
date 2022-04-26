@@ -14,6 +14,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(Model model){
+        //testRepository.save(new Test(4,"Eliasje"));
         Iterable<Test> data = testRepository.findAll();
         model.addAttribute("data", data);
         return "test";

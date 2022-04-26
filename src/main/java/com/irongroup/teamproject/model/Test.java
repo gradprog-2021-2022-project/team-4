@@ -13,6 +13,11 @@ public class Test {
 
     }
 
+    public Test(int id, String nameTest) {
+        this.id = id;
+        this.nameTest = nameTest;
+    }
+
     public int getId() {
         return id;
     }

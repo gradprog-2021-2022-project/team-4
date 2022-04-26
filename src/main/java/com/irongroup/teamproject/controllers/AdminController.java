@@ -30,6 +30,8 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String adminpage(Model model) {
+
+        /*
         //alles leegmaken (enkel voor testjes)
         clothing.deleteAll();
         comments.deleteAll();
@@ -46,7 +48,7 @@ public class AdminController {
         post.setClothes(clothes);
         posts.save(post);
         FashComment comment= new FashComment(1,Allee,post,"Neen","dit is een tekstje",LocalDate.now(),LocalTime.now());
-        comments.save(comment);
+        comments.save(comment);*/
 
         model.addAttribute("fashposters", users.findAll());
         model.addAttribute("fashclothes", clothing.findAll());

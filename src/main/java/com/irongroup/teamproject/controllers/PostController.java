@@ -14,7 +14,7 @@ public class PostController {
     @Autowired
     PostRepository posts;
 
-    @GetMapping({"/explorepage"})
+    @GetMapping({"/explorepage","/"})
     public String explorepage(Model model){
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);

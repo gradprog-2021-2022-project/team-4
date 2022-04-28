@@ -17,7 +17,7 @@
 <section th:each="fashpost : ${fashposts}">
     <h2 th:text="${fashpost.getLocation()}"></h2>
     <article>
-
+        <img th:src="@{/img/placeholderpic.jpg}">
     </article>
 </section>
 </main>

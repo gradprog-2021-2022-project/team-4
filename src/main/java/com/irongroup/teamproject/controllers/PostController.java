@@ -1,10 +1,20 @@
 package com.irongroup.teamproject.controllers;
 
+import com.irongroup.teamproject.model.FashPost;
+import com.irongroup.teamproject.repositories.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+import java.util.Optional;
 
 @Controller
 public class PostController {
+    @Autowired
+    private PostRepository postRepository;
+
     @GetMapping({"/explorepage"})
     public String explorepage(){
         return "explorepage";
@@ -12,5 +22,15 @@ public class PostController {
     @GetMapping({"/foryoupage"})
     public String foryoupage(){
         return "foryoupage";
+    }
+
+    @GetMapping({"/postDetails/{id}","postDetails"})
+    public String postDetails(Model model, @PathVariable(required = false)Integer id){
+        if(id==null) return "postDetails";
+        Optional<FashPost> optionalFashPost = postRepository.findById(id);
+        if(optionalFashPost.isPresent()){
+            model.addAttribute("post", optionalFashPost.get());
+        }
+        return "postDetails";
     }
 }

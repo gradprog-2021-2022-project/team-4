@@ -3,26 +3,30 @@ package com.irongroup.teamproject.model;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 public class FashPost {
 
     //ID
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_generator")
+    @SequenceGenerator(name = "post_generator", sequenceName = "post_seq",allocationSize = 1)
     @Id
     public Integer id;
 
+
     //Clothes in the post
-    @OneToMany
-    private List<Clothing_Item> clothes;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private Collection<Clothing_Item> clothes;
 
     //Poster
     @ManyToOne
     private FashUser poster;
 
     //All comments on the post
-    @OneToMany
-    private List<FashPost> comments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private Collection<FashComment> comments;
 
     //Date and time of the post
     private LocalDate date;
@@ -34,6 +38,16 @@ public class FashPost {
     public FashPost() {
     }
 
+    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location) {
+        this.id = id;
+        this.clothes = clothes;
+        this.poster = poster;
+        this.comments = comments;
+        this.date = date;
+        this.time = time;
+        this.location = location;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -41,12 +55,11 @@ public class FashPost {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public List<Clothing_Item> getClothes() {
+    public Collection<Clothing_Item> getClothes() {
         return clothes;
     }
 
-    public void setClothes(List<Clothing_Item> clothes) {
+    public void setClothes(Collection<Clothing_Item> clothes) {
         this.clothes = clothes;
     }
 
@@ -56,14 +69,6 @@ public class FashPost {
 
     public void setPoster(FashUser poster) {
         this.poster = poster;
-    }
-
-    public List<FashPost> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<FashPost> comments) {
-        this.comments = comments;
     }
 
     public LocalDate getDate() {
@@ -88,5 +93,9 @@ public class FashPost {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public void setComments(Collection<FashComment> comments) {
+        this.comments = comments;
     }
 }

@@ -16,7 +16,7 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <a class="postCard" th:href="@{/postDetails/${fashpost.getId()}}" th:each="fashpost : ${fashposts}">
+    <a class="postCard" th:href="@{|/postDetails/${fashpost.id}}" th:each="fashpost : ${fashposts}">
         <section>
             <h2 th:text="${fashpost.getLocation()}"></h2>
             <article>

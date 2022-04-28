@@ -91,6 +91,16 @@ nav a:hover {
 
 #myLinksPc{
     display: none;
+    padding-left: 76.438px;
+}
+
+#myLinksPhone{
+    padding-left: 76.438px;
+}
+
+.info {
+    float: right;
+    padding-right: 10px;
 }
 
 @media only screen and (min-width: 760px) {

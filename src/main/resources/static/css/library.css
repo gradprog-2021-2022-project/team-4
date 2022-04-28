@@ -103,6 +103,14 @@ nav a:hover {
     padding-right: 10px;
 }
 
+.imgNavbar {
+    width: 57px;
+    left: 0;
+    position: absolute;
+    margin-left: 2%;
+    border-radius: 0px 0px 0px 0px;
+}
+
 @media only screen and (min-width: 760px) {
 
     header{

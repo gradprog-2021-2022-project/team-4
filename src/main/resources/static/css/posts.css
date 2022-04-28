@@ -2,27 +2,79 @@
     text-decoration: none;
 }
 
+.postCardDiv{
+    width: fit-content;
+    margin: auto;
+}
+
+.postCardDiv:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 12px 12px 12px 12px;
+}
+
 img {
     border-radius: 50px 50px 50px 50px;
 }
 
-#myBtn {
-    display: none; /* Hidden by default */
-    position: fixed; /* Fixed/sticky position */
-    bottom: 20px; /* Place the button at the bottom of the page */
-    right: 30px; /* Place the button 30px from the right */
-    z-index: 99; /* Make sure it does not overlap */
+section {
+    width: fit-content;
+    margin: auto;
+}
+button {
     border: none; /* Remove borders */
     outline: none; /* Remove outline */
     background-color: #E8D7FF; /* Set a background color */
     color: #89B6A5; /* Text color */
     cursor: pointer; /* Add a mouse pointer on hover */
-    padding: 15px; /* Some padding */
     border-radius: 10px; /* Rounded corners */
     font-size: 18px; /* Increase font size */
     font-family: 'Fira Sans', sans-serif;
 }
 
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: left;
+    width: 419px;
+    margin-top: 50px;
+}
+
+.sectionBttn {
+    position: absolute;
+    margin-left: 321px;
+    margin-top: 16px;
+    width: 100px;
+    height: 30px;
+}
+
+.sectionrows {
+    padding-left: 70px;
+    flex: 1 0 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 #myBtn:hover {
-    background-color: #555; /* Add a dark-grey background on hover */
+    background-color: rgb(211, 187, 250);
+    color: #FAFF7F;
+}
+
+@media only screen and (min-width: 760px) {
+    #myBtn {
+        display: none; /* Hidden by default */
+        position: fixed; /* Fixed/sticky position */
+        bottom: 20px; /* Place the button at the bottom of the page */
+        right: 30px; /* Place the button 30px from the right */
+        z-index: 99; /* Make sure it does not overlap */
+        border: none; /* Remove borders */
+        outline: none; /* Remove outline */
+        background-color: #E8D7FF; /* Set a background color */
+        color: #89B6A5; /* Text color */
+        cursor: pointer; /* Add a mouse pointer on hover */
+        padding: 15px; /* Some padding */
+        border-radius: 10px; /* Rounded corners */
+        font-size: 18px; /* Increase font size */
+        font-family: 'Fira Sans', sans-serif;
+    }
 }

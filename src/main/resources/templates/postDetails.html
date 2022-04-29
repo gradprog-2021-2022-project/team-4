@@ -16,15 +16,20 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <article>
-        <section th:if="${post}">
+    <article class="postDetails" th:if="${post}">
+        <section class="sidePic">
             <h2 th:text="|${post.getPoster().getUsername()} is momenteel in: ${post.getPoster().getLocation()}|">Found</h2>
+            <img th:src="@{/img/placeholderpic.jpg}">
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
-            <imgth:src="@{../static/img/placeholderpic.jpg}">
         </section>
-        <section th:unless="${post}">
-            <p>No post was chosen</p>
+        <section class="postInfo">
+            <a th:each="item : ${post.getClothes()}">
+                <h4 th:text="${item.getNaam()}"></h4>
+            </a>
         </section>
+    </article>
+    <article th:unless="${post}">
+        <p>No post was chosen</p>
     </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

@@ -18,7 +18,7 @@
 <main>
     <a class="postCard" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}" th:each="fashUser : ${fashUsers}">
         <section>
-            <h2 th:text="${fashUser.getLocation()}"></h2>
+            <h2 class="clickableButton" th:text="${fashUser.getLocation()}"></h2>
             <article>
                 <img th:src="@{/img/placeholderpic.jpg}">
             </article>

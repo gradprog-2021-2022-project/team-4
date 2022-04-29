@@ -4,6 +4,8 @@
 .postDetails{
     display: grid;
     grid-template-areas: 'gpic gdetails';
+    justify-content: center;
+    align-content: center;
 }
 .sidePic{
     grid-area: gpic;

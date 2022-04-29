@@ -3,6 +3,8 @@ package com.irongroup.teamproject.model;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -48,6 +50,15 @@ public class FashUser {
         this.comments = comments;
         this.clothing_posted = clothing_posted;
         this.clothing_saved = clothing_saved;
+    }
+
+    public FashPost getLastPost(){
+        ArrayList<FashPost> posts=new ArrayList<FashPost>();
+        for (FashPost p:postsMade
+             ) {
+            posts.add(p);
+        }
+        return posts.get(posts.size()-1);
     }
 
     public Integer getId() {

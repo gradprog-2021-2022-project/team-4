@@ -22,8 +22,8 @@ public class PostController {
 
     @GetMapping({"/explorepage","/"})
     public String explorepage(Model model){
-        Collection<FashUser> postsmade=users.findAll();
-        model.addAttribute("fashposts",postsmade);
+        Collection<FashUser> fashUsers=users.findAll();
+        model.addAttribute("fashUsers",fashUsers);
         return "explorepage";
     }
     @GetMapping({"/foryoupage"})

@@ -9,19 +9,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/library.css}" href="/css/library.css"/>
-    <title>Info</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/library.css"/>
+    <title th:text="${post.getPoster()}">Info</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <div>
-        <div th:if="${post}">
-            <h2 th:text="${post.getPoster().getUsername()}">Found</h2>
-        </div>
-        <div th:unless="${post}">
+    <article>
+        <section th:if="${post}">
+            <h2 th:text="|${post.getPoster().getUsername()} posted in: ${post.getLocation()}|">Found</h2>
+
+        </section>
+        <section th:unless="${post}">
             <p>No post was chosen</p>
-        </div>
-    </div>
+        </section>
+    </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

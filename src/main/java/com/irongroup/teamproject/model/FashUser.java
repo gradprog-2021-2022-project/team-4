@@ -14,6 +14,7 @@ public class FashUser {
     @Id
     public Integer id;
     public String username;
+    private String location;
 
     //These are private unless user wants to share
     private String first_name;
@@ -36,9 +37,10 @@ public class FashUser {
     public FashUser() {
     }
 
-    public FashUser(Integer id, String username, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved) {
+    public FashUser(Integer id, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved) {
         this.id = id;
         this.username = username;
+        this.location = location;
         this.first_name = first_name;
         this.last_name = last_name;
         this.post_allowance = post_allowance;
@@ -82,5 +84,13 @@ public class FashUser {
 
     public List<Clothing_Item> getClothing_saved() {
         return clothing_saved;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

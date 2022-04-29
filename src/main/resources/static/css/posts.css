@@ -11,5 +11,6 @@
     grid-area: gpic;
 }
 .postDetails{
+    margin-top:25px;
     grid-area: gdetails;
 }

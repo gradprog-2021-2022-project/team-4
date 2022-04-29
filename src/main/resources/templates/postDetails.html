@@ -23,9 +23,10 @@
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
         </section>
         <section class="postInfo">
-            <a th:each="item : ${post.getClothes()}">
-                <h4 th:text="${item.getNaam()}"></h4>
-            </a>
+            <p th:text="${post.getText()}"></p>
+            <lu>
+                <li class="clickableButton" th:each="item : ${post.getClothes()}" th:text="${item.getNaam()}"></li>
+            </lu>
         </section>
     </article>
     <article th:unless="${post}">

@@ -15,7 +15,8 @@ public class FashPost {
     @SequenceGenerator(name = "post_generator", sequenceName = "post_seq",allocationSize = 1)
     @Id
     public Integer id;
-
+    @Column(length = 1000)
+    private String text;
 
     //Clothes in the post
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
@@ -39,7 +40,7 @@ public class FashPost {
     public FashPost() {
     }
 
-    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location) {
+    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text) {
         this.id = id;
         this.clothes = clothes;
         this.poster = poster;
@@ -47,6 +48,7 @@ public class FashPost {
         this.date = date;
         this.time = time;
         this.location = location;
+        this.text=text;
     }
 
     public Integer getId() {
@@ -102,5 +104,9 @@ public class FashPost {
 
     public String getFoto(){
         return null;
+    }
+
+    public String getText() {
+        return text;
     }
 }

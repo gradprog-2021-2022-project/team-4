@@ -23,7 +23,8 @@
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
         </section>
         <section class="postInfo">
-            <p th:text="${post.getText()}"></p>
+            <p th:if="${post.getText()!=null}" th:text="${post.getText()}"></p>
+            <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
             <lu>
                 <li class="clickableButton" th:each="item : ${post.getClothes()}" th:text="${item.getNaam()}"></li>
             </lu>

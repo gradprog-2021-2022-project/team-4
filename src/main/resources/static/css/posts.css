@@ -1,4 +1,13 @@
 .postCard{
     text-decoration: none;
-
+}
+.postDetails{
+    display: grid;
+    grid-template-areas: 'gpic gdetails';
+}
+.sidePic{
+    grid-area: gpic;
+}
+.postDetails{
+    grid-area: gdetails;
 }

@@ -1,6 +1,7 @@
 package com.irongroup.teamproject.model;
 
 import javax.persistence.*;
+import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -97,5 +98,9 @@ public class FashPost {
 
     public void setComments(Collection<FashComment> comments) {
         this.comments = comments;
+    }
+
+    public String getFoto(){
+        return null;
     }
 }

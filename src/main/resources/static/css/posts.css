@@ -41,18 +41,26 @@ section {
 }
 
 .sectionBttn {
-    position: absolute;
-    margin-left: 321px;
-    margin-top: 16px;
-    width: 100px;
+    /*position: absolute;*/
+    /*margin-left: 321px;*/
+    /*margin-top: 16px;*/
+    /*width: 100px;*/
+    /*height: 30px;*/
     height: 30px;
+    flex: 1 0 2%;
+    font-style: italic;
+    border: 1px solid black;
 }
 
 .sectionrows {
-    padding-left: 70px;
-    flex: 1 0 100%;
+    padding-left: 41px;
+    flex: 1 0 45%;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+h3.sectionrows {
+    padding-bottom: 10px;
 }
 
 #myBtn:hover {

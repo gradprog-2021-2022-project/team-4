@@ -21,8 +21,8 @@
         <a class="postCard" th:href="@{|/postDetails/${fashpost.id}}">
             <section>
                 <h1 class="sectionrows" th:text="${fashpost.getPoster().getUsername()}"></h1>
-                <h2 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashpost.getLocation()}"></i></h2>
                 <button class="sectionBttn">Follow</button>
+                <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashpost.getLocation()}"></i></h3>
                 <article>
                     <img th:src="@{/img/placeholderpic.jpg}">
                 </article>

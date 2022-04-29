@@ -1,0 +1,9 @@
+Brent en ik kunnen de psotgres database bekijken en eventueel al enkele klasses uitwerken.
+	We zullen de functionaliteit is bekijken en bespreken
+
+Ibrahim mag pauzeren, hij heeft de database gefixt. (Is het met de app verbonden?)
+	Nog niet verbonden: dat regelen aub.
+
+Matthew mag de header etc volledig afwerken want we hebben de pagina's al.
+Hij kan ook de filters etc al toevoegen in de layout, gewoon zonder functionaliteit. (eerst beslissen welke pagina's we op de navbar zullen zetten)
+	Mijn voorstel: Explore, for you, account op navbar en een link naar contact en infopagina in de footer. (Op mobile kan Matthew zien wat het beste is)

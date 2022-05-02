@@ -1,0 +1,21 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/register.css}" href="/css/register.css"/>
+    <title>Login Error</title>
+    <div th:insert="fragments/head_foot :: headfrag"></div>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main class="error">
+    <i class="fa fa-exclamation-triangle fa-5x" aria-hidden="true"></i>
+    <h1>Zijn u gegevens correct?</h1>
+    <p>Er is iets misgegaan waardoor wij u niet hebben kunnen laten inloggen.</p>
+    <p><a href="/login">Klik hier!</a> voor nogmaals te proberen.</p>
+</main>
+
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+</body>
+</html>

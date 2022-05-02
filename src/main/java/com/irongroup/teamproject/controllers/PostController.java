@@ -1,25 +1,35 @@
 package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashPost;
+import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.PostRepository;
+import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @Controller
 public class PostController {
     @Autowired
     PostRepository posts;
+    @Autowired
+    UserRepository users;
 
     @GetMapping({"/explorepage","/"})
-    public String explorepage(Model model){
+    public String explorepage(Model model, Principal principal){
+        final String loginName = principal==null ? "NOBODY" : principal.getName();
+        System.out.println(loginName);
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);
+        Collection<FashUser> fashUsers=users.findAll();
+        model.addAttribute("fashUsers",fashUsers);
         return "explorepage";
     }
     @GetMapping({"/foryoupage"})

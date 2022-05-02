@@ -3,24 +3,55 @@
 }
 .postDetails{
     display: grid;
-    grid-template-areas: 'gpic' 'gdetails' 'gcomments';
+    grid-template-areas: 'gpic' 'gdetails' 'gitems';
     justify-content: center;
     align-content: center;
 }
 .sidePic{
     grid-area: gpic;
 }
+.postInfo{
+    grid-area: ginfo;
+}
 .postDetails{
+    display: inline-block;
     grid-area: gdetails;
 }
-.postComments{
-    grid-area: gcomment;
+.border{
+    border: black 1px solid;
+    border-radius: 20px;
+    padding: 5px;
+    margin:5px;
+    background: #E8D7FF;
+}
+.btn{
+    display: inline-block;
+    color: black;
+    margin-top: 20px;
+    background: #B685FF;
+    height: 40px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: 120px;
+}
+.btn:hover {
+    background: #781FFF;
+}
+.postitems lu {
+    display: inline-block;
+}
+.postitems{
+    grid-area: gitems;
 }
 @media only screen and (min-width: 760px) {
     .postDetails{
         display: grid;
-        grid-template-areas: 'gpic gdetails' 'gcomments gcomments';
+        grid-template-areas: 'gpic ginfo' 'gpic gitems';
         justify-content: center;
         align-content: center;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
     }
 }

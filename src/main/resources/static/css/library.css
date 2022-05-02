@@ -9,16 +9,6 @@ header{
     position: fixed;
     bottom: 0;
 }
-.clickableButton{
-    width: 100%;
-    border-radius: 5px;
-    font-family: 'Fira Sans', sans-serif;
-    color: white;
-    background-color: #E8D7FF;
-    width: auto;
-    padding:5px;
-    margin: 25px;
-}
 body{
     height: 70%;
     justify-content: center;
@@ -153,6 +143,8 @@ nav a:hover {
 
     main{
         margin-top: 100px;
+        margin-left: 25%;
+        margin-right: 25%;
     }
     #myLinksPhone{
         display: none;

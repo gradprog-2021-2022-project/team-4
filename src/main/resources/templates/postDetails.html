@@ -33,6 +33,11 @@
     <article th:unless="${post}">
         <p>No post was chosen</p>
     </article>
+    <article>
+        <section th:each="comment : ${comments}">
+            <h2 th:text="${comment.getUser().getUsername()}"></h2>
+        </section>
+    </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

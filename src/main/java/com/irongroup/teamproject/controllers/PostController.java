@@ -2,6 +2,7 @@ package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
+import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.security.Principal;
 import java.util.Collection;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 @Controller
 public class PostController {
@@ -21,6 +21,8 @@ public class PostController {
     PostRepository posts;
     @Autowired
     UserRepository users;
+    @Autowired
+    CommentRepository comments;
 
     @GetMapping({"/explorepage","/"})
     public String explorepage(Model model, Principal principal){
@@ -42,6 +44,7 @@ public class PostController {
         Optional<FashPost> optionalFashPost = posts.findById(id);
         if(optionalFashPost.isPresent()){
             model.addAttribute("post", optionalFashPost.get());
+            model.addAttribute("comments",comments.findCommentsForPost(optionalFashPost.get()));
         }
         return "postDetails";
     }

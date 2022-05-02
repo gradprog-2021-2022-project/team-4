@@ -17,21 +17,30 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <article class="postDetails" th:if="${post}">
-        <section class="sidePic">
-            <h2 th:text="|${post.getPoster().getUsername()} is momenteel in: ${post.getPoster().getLocation()}|">Found</h2>
+        <section class="sidePic border">
+            <h2 th:text="|${post.getPoster().getUsername()} is in ${post.getPoster().getLocation()}|"></h2>
             <img th:src="@{/img/placeholderpic.jpg}">
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
         </section>
-        <section class="postInfo">
+        <section class="postInfo border">
             <p th:if="${post.getText()!=null}" th:text="${post.getText()}"></p>
             <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
+        </section>
+        <section class="postitems border">
             <lu>
-                <li class="clickableButton" th:each="item : ${post.getClothes()}" th:text="${item.getNaam()}"></li>
+                <li th:each="item : ${post.getClothes()}">
+                    <a class="btn" th:text="${item.getNaam()}"></a></li>
             </lu>
         </section>
     </article>
-    <article th:unless="${post}">
+    <article class="postDetails" th:unless="${post}">
         <p>No post was chosen</p>
+    </article>
+    <article>
+        <section class="border" th:each="comment : ${comments}">
+            <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
+            <p th:text="${comment.getText()}"></p>
+        </section>
     </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

@@ -27,12 +27,7 @@ body{
     margin-right: auto;
     margin-top: auto;
 }
-
 main{
-    padding-left: 25%;
-    align-content: center;
-    width: 100%;
-    justify-content: center;
     text-align: center;
     margin-bottom: 100px;
 }
@@ -57,7 +52,7 @@ h1{
     color: black;
 }
 
-h2 {
+h2{
     font-family: 'Fira Sans', sans-serif;
     color: black;
 }
@@ -148,6 +143,10 @@ nav a:hover {
 
 @media only screen and (min-width: 760px) {
 
+    main{
+        width: 50%;
+    }
+
     header{
         border-top: none;
         border-bottom: 2px solid black;
@@ -170,6 +169,5 @@ nav a:hover {
     footer{
         display: block;
     }
-
 }
 

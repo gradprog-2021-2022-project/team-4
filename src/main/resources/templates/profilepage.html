@@ -14,32 +14,19 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <h1>Welkom!</h1>
-    <article>
-        <section>
-            <h2>Wat is Fash?</h2>
-            <p>
-                Fash zal een website worden waar je je outfit op kan delen en andere outfits kan bekijken. Bovendien zal elke outfit links bevatten zodat je snel en gemakkelijk de kleren kan kopen die je mooi vindt!
-            </p>
-            <p>Dit idee is gemaakt door:</p>
-            <lu>
-                <li>Brittney De Maeyer</li>
-                <li>Thomas De Smet</li>
-                <li>Lauranne Vandeputte</li>
-                <li>Myrthe Cleas</li>
-            </lu>
-        </section>
-        <section>
-            <h2>Wie zijn wij?</h2>
-            <p>Wij zijn enkele studenten uit Thomas More die samen dit project aanpakken. Samen zullen we er iets mooi van maken!</p>
-            <lu>
-                <li>Brent Budts</li>
-                <li>Matthew De Schepper</li>
-                <li>Ibrahim El Moudden</li>
-                <li>Elias Neel</li>
-            </lu>
-        </section>
-    </article>
+    <div>
+        <div th:if="${user}">
+            <img th:src="@{/img/placeholderpic.jpg}">
+            <h2 th:text="${user.getUsername()}">Found</h2>
+            <dl class="row-text">
+                <dt class="col-sm-5"><span class="p question">clothing posted : </span></dt>
+                <dd class="col-sm-7"><span class="p"th:text="${user.getPostsMade().size()}"></span></dd>
+            </dl>
+        </div>
+        <div th:unless="${user}">
+            <p>No user was chosen</p>
+        </div>
+    </div>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

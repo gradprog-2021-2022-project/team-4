@@ -1,16 +1,88 @@
 .postCard{
     text-decoration: none;
 }
-.postDetails{
-    display: grid;
-    grid-template-areas: 'gpic gdetails';
-    justify-content: center;
-    align-content: center;
+
+.postCardDiv{
+    width: fit-content;
+    margin: auto;
 }
-.sidePic{
-    grid-area: gpic;
+
+.postCardDiv:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    border-radius: 12px 12px 12px 12px;
 }
-.postDetails{
-    margin-top:25px;
-    grid-area: gdetails;
+
+img {
+    border-radius: 50px 50px 50px 50px;
+}
+
+section {
+    width: fit-content;
+    margin: auto;
+}
+button {
+    border: none; /* Remove borders */
+    outline: none; /* Remove outline */
+    background-color: #E8D7FF; /* Set a background color */
+    color: #89B6A5; /* Text color */
+    cursor: pointer; /* Add a mouse pointer on hover */
+    border-radius: 10px; /* Rounded corners */
+    font-size: 18px; /* Increase font size */
+    font-family: 'Fira Sans', sans-serif;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    text-align: left;
+    width: 419px;
+    margin-top: 50px;
+}
+
+.sectionBttn {
+    /*position: absolute;*/
+    /*margin-left: 321px;*/
+    /*margin-top: 16px;*/
+    /*width: 100px;*/
+    /*height: 30px;*/
+    height: 30px;
+    flex: 1 0 2%;
+    font-style: italic;
+    border: 1px solid black;
+}
+
+.sectionrows {
+    padding-left: 41px;
+    flex: 1 0 45%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+h3.sectionrows {
+    padding-bottom: 10px;
+}
+
+#myBtn:hover {
+    background-color: rgb(211, 187, 250);
+    color: #FAFF7F;
+}
+
+@media only screen and (min-width: 760px) {
+    #myBtn {
+        display: none; /* Hidden by default */
+        position: fixed; /* Fixed/sticky position */
+        bottom: 20px; /* Place the button at the bottom of the page */
+        right: 30px; /* Place the button 30px from the right */
+        z-index: 99; /* Make sure it does not overlap */
+        border: none; /* Remove borders */
+        outline: none; /* Remove outline */
+        background-color: #E8D7FF; /* Set a background color */
+        color: #89B6A5; /* Text color */
+        cursor: pointer; /* Add a mouse pointer on hover */
+        padding: 15px; /* Some padding */
+        border-radius: 10px; /* Rounded corners */
+        font-size: 18px; /* Increase font size */
+        font-family: 'Fira Sans', sans-serif;
+    }
 }

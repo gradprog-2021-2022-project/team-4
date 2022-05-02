@@ -28,6 +28,11 @@ public class UserController {
         return "loginerror";
     }
 
+    @GetMapping({"/register"})
+    public String register(){
+        return "user/register";
+    }
+
     @GetMapping("/logout")
     public String logout(Principal principal, Model model) {
         if (principal == null) return "redirect:/";

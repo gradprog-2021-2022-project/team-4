@@ -1,10 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/register.css}" href="/css/register.css"/>
+    <title>Login</title>
+    <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
-
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main class="mainForm">
+    <div class="container">
+        <form th:action="@{/user/logout}" method="post">
+            <div>
+                <img th:src="@{/img/LogoFashTransparantBlack.png}" class="flexitem">
+            </div>
+            <h3>Logout?</h3>
+            <div>
+                <input type="submit" value="LOGOUT" class="btn">
+            </div>
+            <div>
+                <a href="/" class="cancel">cancel</a>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

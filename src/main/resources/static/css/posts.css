@@ -104,9 +104,15 @@ h3.sectionrows {
 .btn:hover {
     background: #781FFF;
 }
+.sidePic{
+    grid-area: gpic;
+}
 
 .postitems lu {
-    display: inline-block;
+    display: inline;
+}
+.postitems lu li {
+    display: inline;
 }
 
 .postitems {

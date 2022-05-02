@@ -1,7 +1,9 @@
 package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashPost;
+import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.PostRepository;
+import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +19,8 @@ import java.util.logging.Logger;
 public class PostController {
     @Autowired
     PostRepository posts;
-
+    @Autowired
+    UserRepository users;
 
     @GetMapping({"/explorepage","/"})
     public String explorepage(Model model, Principal principal){
@@ -25,6 +28,8 @@ public class PostController {
         System.out.println(loginName);
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);
+        Collection<FashUser> fashUsers=users.findAll();
+        model.addAttribute("fashUsers",fashUsers);
         return "explorepage";
     }
     @GetMapping({"/foryoupage"})

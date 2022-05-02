@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -16,6 +18,7 @@ public class FashUser {
     public Integer id;
     @NotBlank
     public String username;
+    private String location;
     @NotBlank
     private String password;
 
@@ -41,16 +44,28 @@ public class FashUser {
     public FashUser() {
     }
 
-    public FashUser(Integer id, String username, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved) {
+    public FashUser(Integer id, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
         this.id = id;
         this.username = username;
+        this.location = location;
         this.first_name = first_name;
         this.last_name = last_name;
+        this.role = role;
+        this.password = password;
         this.post_allowance = post_allowance;
         this.postsMade = postsMade;
         this.comments = comments;
         this.clothing_posted = clothing_posted;
         this.clothing_saved = clothing_saved;
+    }
+
+    public FashPost getLastPost(){
+        ArrayList<FashPost> posts=new ArrayList<FashPost>();
+        for (FashPost p:postsMade
+             ) {
+            posts.add(p);
+        }
+        return posts.get(posts.size()-1);
     }
 
     public Integer getId() {
@@ -87,5 +102,13 @@ public class FashUser {
 
     public List<Clothing_Item> getClothing_saved() {
         return clothing_saved;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

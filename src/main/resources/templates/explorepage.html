@@ -11,20 +11,47 @@
           th:href="@{/css/library.css}" href="/css/library.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hide_navbar.css}" href="/css/hide_navbar.css"/>
     <title>Explore</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <a class="postCard" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}" th:each="fashUser : ${fashUsers}">
-        <section>
-            <h2 class="clickableButton" th:text="${fashUser.getLocation()}"></h2>
-            <article>
-                <img th:src="@{/img/placeholderpic.jpg}">
-            </article>
-        </section>
-    </a>
+    <div class="postCardDiv" th:each="fashpost : ${fashposts}">
+        <a class="postCard" th:href="@{|/postDetails/${fashpost.id}}">
+            <section>
+                <h1 class="sectionrows" th:text="${fashpost.getPoster().getUsername()}"></h1>
+                <button class="sectionBttn">Follow</button>
+                <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashpost.getLocation()}"></i></h3>
+                <article>
+                    <img th:src="@{/img/placeholderpic.jpg}">
+                </article>
+            </section>
+        </a>
+    </div>
+    <button onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
+<script>
+    //Get the button
+    var mybutton = document.getElementById("myBtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
 </body>
 </html>

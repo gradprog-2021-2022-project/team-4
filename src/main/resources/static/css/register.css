@@ -7,6 +7,7 @@
     box-sizing: border-box;
     background: #E8D7FF;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    margin-top: 0;
 }
 
 .mainForm {
@@ -41,4 +42,34 @@ input {
 .error{
     margin: 15px;
     text-align: center;
+}
+
+@media only screen and (min-width: 760px) {
+
+    header{
+        border-top: none;
+        border-bottom: 2px solid black;
+        position: fixed;
+        top: 0;
+        bottom: unset;
+    }
+
+    main{
+        margin-top: 100px;
+    }
+    #myLinksPhone{
+        display: none;
+    }
+
+    #myLinksPc{
+        display: block;
+    }
+
+    footer{
+        display: block;
+    }
+
+    .container{
+        margin-top: 150px;
+    }
 }

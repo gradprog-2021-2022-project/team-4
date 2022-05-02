@@ -143,10 +143,6 @@ nav a:hover {
 
 @media only screen and (min-width: 760px) {
 
-    main{
-        width: 50%;
-    }
-
     header{
         border-top: none;
         border-bottom: 2px solid black;

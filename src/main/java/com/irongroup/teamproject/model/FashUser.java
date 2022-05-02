@@ -3,6 +3,7 @@ package com.irongroup.teamproject.model;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,8 +14,12 @@ public class FashUser {
     @SequenceGenerator(name = "user_generator", sequenceName = "user_seq",allocationSize = 1)
     @Id
     public Integer id;
+    @NotBlank
     public String username;
+    @NotBlank
+    private String password;
 
+    private String role;
     //These are private unless user wants to share
     private String first_name;
     private String last_name;

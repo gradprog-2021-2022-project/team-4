@@ -4,7 +4,7 @@ header{
     padding-bottom: 10px;
     color: #89B6A5;
     text-align: center;
-    background-color: #E8D7FF;
+    background-color: #FAFF7F;
     padding-top: 8px;
     position: fixed;
     bottom: 0;
@@ -21,6 +21,7 @@ body{
 
 main{
     text-align: center;
+    margin-bottom: 100px;
 }
 
 footer{
@@ -69,7 +70,7 @@ ul{
 }
 
 nav a{
-    color: #89B6A5;
+    color: black;
     display: inline-block;
     height: 50px;
     line-height: 50px;
@@ -121,10 +122,14 @@ nav a:hover {
     header{
         border-top: none;
         border-bottom: 2px solid black;
-        position: unset;
+        position: fixed;
+        top: 0;
         bottom: unset;
     }
 
+    main{
+        margin-top: 100px;
+    }
     #myLinksPhone{
         display: none;
     }

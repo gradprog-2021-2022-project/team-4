@@ -21,6 +21,7 @@ body{
 
 main{
     text-align: center;
+    margin-bottom: 100px;
 }
 
 footer{
@@ -44,6 +45,11 @@ h1{
 }
 
 h2{
+    font-family: 'Fira Sans', sans-serif;
+    color: black;
+}
+
+h3 {
     font-family: 'Fira Sans', sans-serif;
     color: black;
 }
@@ -91,6 +97,24 @@ nav a:hover {
 
 #myLinksPc{
     display: none;
+    padding-left: 76.438px;
+}
+
+#myLinksPhone{
+    padding-left: 76.438px;
+}
+
+.info {
+    float: right;
+    padding-right: 10px;
+}
+
+.imgNavbar {
+    width: 57px;
+    left: 0;
+    position: absolute;
+    margin-left: 2%;
+    border-radius: 0px 0px 0px 0px;
 }
 
 @media only screen and (min-width: 760px) {
@@ -98,10 +122,14 @@ nav a:hover {
     header{
         border-top: none;
         border-bottom: 2px solid black;
-        position: unset;
+        position: fixed;
+        top: 0;
         bottom: unset;
     }
 
+    main{
+        margin-top: 100px;
+    }
     #myLinksPhone{
         display: none;
     }

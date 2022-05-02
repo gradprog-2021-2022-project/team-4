@@ -3,7 +3,7 @@
 }
 .postDetails{
     display: grid;
-    grid-template-areas: 'gpic gdetails';
+    grid-template-areas: 'gpic' 'gdetails' 'gcomments';
     justify-content: center;
     align-content: center;
 }
@@ -12,4 +12,15 @@
 }
 .postDetails{
     grid-area: gdetails;
+}
+.postComments{
+    grid-area: gcomment;
+}
+@media only screen and (min-width: 760px) {
+    .postDetails{
+        display: grid;
+        grid-template-areas: 'gpic gdetails' 'gcomments gcomments';
+        justify-content: center;
+        align-content: center;
+    }
 }

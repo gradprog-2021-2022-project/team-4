@@ -30,12 +30,13 @@
             </lu>
         </section>
     </article>
-    <article th:unless="${post}">
+    <article class="postDetails" th:unless="${post}">
         <p>No post was chosen</p>
     </article>
-    <article>
+    <article class="postComments">
         <section th:each="comment : ${comments}">
             <h2 th:text="${comment.getUser().getUsername()}"></h2>
+            <p th:text="${comment.getText()}"></p>
         </section>
     </article>
 </main>

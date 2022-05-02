@@ -28,7 +28,6 @@ body{
     margin-top: auto;
 }
 main{
-    padding-left: 25%;
     align-content: center;
     width: 100%;
     justify-content: center;
@@ -132,6 +131,7 @@ nav a:hover {
 
     main{
         width: 50%;
+        padding-left: 25%;
     }
 
     header{

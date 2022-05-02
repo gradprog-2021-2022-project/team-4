@@ -86,16 +86,3 @@ h3.sectionrows {
         font-family: 'Fira Sans', sans-serif;
     }
 }
-.postDetails{
-    display: grid;
-    grid-template-areas: 'gpic gdetails';
-    justify-content: center;
-    align-content: center;
-}
-.sidePic{
-    grid-area: gpic;
-}
-.postDetails{
-    margin-top:25px;
-    grid-area: gdetails;
-}

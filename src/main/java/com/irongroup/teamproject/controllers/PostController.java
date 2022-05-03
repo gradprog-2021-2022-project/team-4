@@ -55,7 +55,7 @@ public class PostController {
             if(commentText!=null){
                 FashPost post=posts.findById(id).get();
                 comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
-                //return "redirect:/postDetails/"+id;
+                return "redirect:/postDetails/"+id;
             }
         }
         if(id==null) return "postDetails";

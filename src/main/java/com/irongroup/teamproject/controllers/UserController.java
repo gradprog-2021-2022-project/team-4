@@ -74,7 +74,7 @@ public class UserController {
         if(bindingResult.hasErrors()){
             return "user/register";
         }
-        if(userRepository.findByUsername(valid.getUsername())!=null){
+        if(userRepository.findFashUserByUsername(valid.getUsername())!=null){
             ObjectError error = new ObjectError("nameDup","Name is already in use");
             model.addAttribute("error", error);
             return "user/register";
@@ -96,7 +96,7 @@ public class UserController {
     @GetMapping({"/photodisplay" })
     public String photodisplay(Model model, @PathVariable(required = false)Integer id){
         //if(id==null) return "profilepage";
-        Optional<FashUser> optionalFashUser = users.findById(8);
+        Optional<FashUser> optionalFashUser = users.findById(9);
         if(optionalFashUser.isPresent()){
             model.addAttribute("user", optionalFashUser.get());
         }

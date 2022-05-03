@@ -17,6 +17,7 @@ public class FashPost {
     public Integer id;
     @Column(length = 1000)
     private String text;
+    private Integer likes;
 
     //Clothes in the post
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
@@ -40,7 +41,7 @@ public class FashPost {
     public FashPost() {
     }
 
-    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text) {
+    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text,Integer likes) {
         this.id = id;
         this.clothes = clothes;
         this.poster = poster;
@@ -49,6 +50,7 @@ public class FashPost {
         this.time = time;
         this.location = location;
         this.text=text;
+        this.likes=likes;
     }
 
     public Integer getId() {
@@ -108,5 +110,13 @@ public class FashPost {
 
     public String getText() {
         return text;
+    }
+
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
     }
 }

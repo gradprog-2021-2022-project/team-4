@@ -48,22 +48,28 @@ public class PostController {
         //Kijken of je aangemeld bent;
         //boolean aangemeld= principal != null;
 
+        //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
         if(principal!= null){
             FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
             model.addAttribute("loggedIn",true);
             if(commentText!=null){
                 FashPost post=posts.findById(id).get();
                 comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
+                return "redirect:/postDetails/"+id;
             }
         }
         if(id==null) return "postDetails";
+
+        //Kijken of de post bestaat en toevoegen aan model
         Optional<FashPost> optionalFashPost = posts.findById(id);
         if(optionalFashPost.isPresent()){
             model.addAttribute("post", optionalFashPost.get());
+            //De comments worden pas gezocht als de post bestaat
             model.addAttribute("comments",comments.findCommentsForPost(optionalFashPost.get()));
         }
         return "postDetails";
     }
+    //Liken stuurt gewoon terug naar dezelfde pagina met toegevoegde like
     @GetMapping({"/likePost/{id}"})
     public String likePost(Model model,@PathVariable Integer id){
         FashPost post=posts.findById(id).get();

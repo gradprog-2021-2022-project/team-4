@@ -44,7 +44,7 @@ public class PostController {
         return "foryoupage";
     }
     @GetMapping({"/postDetails/{id}","/postDetails"})
-    public String postDetails(Model model, @PathVariable(required = false)Integer id, Principal principal, @RequestParam(required = false) String commentText){
+    public String postDetails(Model model, @PathVariable(required = false)Integer id, Principal principal, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         //Kijken of je aangemeld bent;
         //boolean aangemeld= principal != null;
 
@@ -53,7 +53,7 @@ public class PostController {
             model.addAttribute("loggedIn",true);
             if(commentText!=null){
                 FashPost post=posts.findById(id).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,"title",commentText, LocalDate.now(), LocalTime.now()));
+                comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
             }
         }
         if(id==null) return "postDetails";

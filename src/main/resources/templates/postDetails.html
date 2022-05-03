@@ -39,7 +39,8 @@
     <article class="border">
         <section class="border" th:if="${loggedIn!=null}">
             <form>
-                <input class="border" type="text" name="commentText">
+                <input required="required" class="border" name="commentTitle" placeholder="Titel">
+                <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn">Plaats comment!</button>
             </form>
         </section>

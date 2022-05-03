@@ -44,7 +44,7 @@
                 <button type="submit" class="btn">Plaats comment!</button>
             </form>
             <div class="border" style="float: right">
-                <p th:text="${post.getLikes()}"></p>
+                <div th:text="${post.getLikes()}"></div>
                 <a th:href="@{|/likePost/${post.getId()}|}" class="btn">Mooi!</a>
             </div>
         </section>

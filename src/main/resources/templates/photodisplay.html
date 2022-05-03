@@ -1,0 +1,34 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <title>Info</title>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main>
+    <div>
+        <div th:if="${user}">
+            <img th:src="@{/img/placeholderpic.jpg}">
+            <h2 th:text="${user.getUsername()}">Found</h2>
+            <dl class="row-text">
+                <dt class="col-sm-5"><span class="p question">clothing posted : </span></dt>
+                <dd class="col-sm-7"><span class="p"th:text="${user.getPostsMade().size()}"></span></dd>
+            </dl>
+            <img th:src="${user.photosImagePath}" />
+        </div>
+        <div th:unless="${user}">
+            <p>No user was chosen</p>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+</body>
+</html>

@@ -30,7 +30,7 @@ public class PostController {
         System.out.println(loginName);
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);
-        Collection<FashUser> fashUsers=users.findAll();
+        Collection<FashUser> fashUsers=users.findUsersWithPosts();
         model.addAttribute("fashUsers",fashUsers);
         return "explorepage";
     }

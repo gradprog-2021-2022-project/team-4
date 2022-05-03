@@ -2,27 +2,29 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/register.css}" href="/css/register.css"/>
-    <title>Login</title>
-    <div th:insert="fragments/head_foot :: headfrag"></div>
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <title>Test</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main class="mainForm">
-    <div class="container">
-        <form th:action="@{/user/logout}" method="post">
-            <div>
-                <img th:src="@{/img/LogoFashTransparantBlack.png}" class="flexitem">
+    <main class="gmain">
+        <h3>Register here:</h3>
+        <form th:action="@{|/register|}" th:object="${valid}" method="POST" enctype="multipart/form-data">
+            <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
+            <div th:if="${error!=null}">
+                <span th:text="${error.getDefaultMessage()}"></span>
             </div>
-            <h3>Register?</h3>
-            <div >
-                <label for="name" >USERNAME: </label><br>
-                <input type="text" id="name" name="username" required placeholder="ex:brentjehetventje">
-            </div>
+
+            <label for="Username">Username:</label>
+            <input type="text" id="Username" th:field="*{username}" th:errorclass="fieldError">
+            <label for="Password">Password: </label>
+            <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError">
+            <label for="image">Profile picture</label>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg">
+            <input type="submit" value="Register">
         </form>
-    </div>
-</main>
-<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+    </main>
+
 </body>
-</html>

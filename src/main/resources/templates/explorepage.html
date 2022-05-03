@@ -18,7 +18,7 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
-        <a class="postCard" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
+        <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">
                 <h1 class="sectionrows" th:text="${fashUser.getUsername()}"></h1>
                 <button class="sectionBttn">Follow</button>

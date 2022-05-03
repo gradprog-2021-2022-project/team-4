@@ -22,6 +22,8 @@ public class FashUser {
     @NotBlank
     private String password;
 
+    private String photos;
+
     private String role;
     //These are private unless user wants to share
     private String first_name;
@@ -76,6 +78,42 @@ public class FashUser {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public String getPhotos() {
+        return photos;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhotos(String photos) {
+        this.photos = photos;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public void setFirst_name(String first_name) {
+        this.first_name = first_name;
+    }
+
+    public void setLast_name(String last_name) {
+        this.last_name = last_name;
+    }
+
     public String getFirst_name() {
         return first_name;
     }
@@ -110,5 +148,12 @@ public class FashUser {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (photos == null || id == null) return null;
+
+        return "/user-photos/" + id + "/" + photos;
     }
 }

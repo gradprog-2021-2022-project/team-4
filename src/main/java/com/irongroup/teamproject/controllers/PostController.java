@@ -64,4 +64,11 @@ public class PostController {
         }
         return "postDetails";
     }
+    @GetMapping({"/likePost/{id}"})
+    public String likePost(Model model,@PathVariable Integer id){
+        FashPost post=posts.findById(id).get();
+        post.addLike();
+        posts.save(post);
+        return "redirect:/postDetails/"+id;
+    }
 }

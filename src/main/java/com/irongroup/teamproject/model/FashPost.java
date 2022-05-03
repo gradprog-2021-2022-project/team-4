@@ -119,4 +119,5 @@ public class FashPost {
     public void setLikes(Integer likes) {
         this.likes = likes;
     }
+    public void addLike(){likes++;};
 }

@@ -37,14 +37,18 @@
         <p>No post was chosen</p>
     </article>
     <article class="border">
-        <section class="border" th:if="${loggedIn!=null}">
-            <form>
+        <section th:if="${loggedIn!=null}" class="border comment">
+            <form class="border" style="float: left;">
                 <input required="required" class="border" name="commentTitle" placeholder="Titel">
                 <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn">Plaats comment!</button>
             </form>
+            <div class="border" style="float: right">
+                <p th:text="${post.getLikes()}"></p>
+                <a th:href="@{|/likePost/${post.getId()}|}" class="btn">Mooi!</a>
+            </div>
         </section>
-        <section class="border" th:each="comment : ${comments}">
+        <section class="border comment" th:each="comment : ${comments}">
             <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
             <p th:text="${comment.getText()}"></p>
         </section>

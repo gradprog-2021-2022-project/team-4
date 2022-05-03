@@ -47,7 +47,6 @@ public class PostController {
     public String postDetails(Model model, @PathVariable(required = false)Integer id, Principal principal, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         //Kijken of je aangemeld bent;
         //boolean aangemeld= principal != null;
-
         //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
         if(principal!= null){
             FashUser loggedInUser=users.findFashUserByUsername(principal.getName());

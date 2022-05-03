@@ -36,7 +36,13 @@
     <article class="postDetails" th:unless="${post}">
         <p>No post was chosen</p>
     </article>
-    <article>
+    <article class="border">
+        <section class="border" th:if="${loggedIn!=null}">
+            <form method="post">
+                <input class="border" type="text" name="commentText">
+                <button type="submit" class="btn">Plaats comment!</button>
+            </form>
+        </section>
         <section class="border" th:each="comment : ${comments}">
             <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
             <p th:text="${comment.getText()}"></p>

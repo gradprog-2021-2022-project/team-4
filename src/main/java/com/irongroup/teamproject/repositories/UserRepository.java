@@ -7,4 +7,5 @@ import java.util.Collection;
 
 public interface UserRepository extends CrudRepository<FashUser,Integer> {
     Collection<FashUser> findAll();
+    FashUser findFashUserByUsername(String username);
 }

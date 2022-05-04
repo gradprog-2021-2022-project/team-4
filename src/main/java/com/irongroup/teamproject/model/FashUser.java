@@ -190,6 +190,6 @@ public class FashUser {
     public String getPhotosImagePath() {
         if (photos == null || id == null) return null;
 
-        return "/src/main/resources/static/user-photos/" + id + "/" + photos;
+        return "/src/main/resources/static/img/user-photos/" + id + "/" + photos;
     }
 }

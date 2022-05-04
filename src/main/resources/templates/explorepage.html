@@ -26,8 +26,9 @@
                 <article>
                     <img class="postpic" th:src="@{/img/placeholderpic.jpg}">
                 </article>
-                <strong><p th:text="${fashUser.getUsername()}"></p></strong>
-                <p th:text="${fashUser.getLastPost().getText()}"></p>
+                <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
+                <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
+                <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
             </section>
         </a>
     </div>

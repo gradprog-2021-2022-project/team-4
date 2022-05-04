@@ -21,7 +21,7 @@
                 <li><a th:href="@{/infopage}"><i class="fa fa-fw fa-home"></i> INFO</a></li>
                 <li><a th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
                 <li><a th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i> FOR YOU</a></li>
-                <li sec:authorize="hasAuthority('user')"><a th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
+                <li sec:authorize="hasAuthority('user')"><a th:href="@{/photodisplay}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
                 <li sec:authorize="isAuthenticated()"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
                 <li sec:authorize="!isAuthenticated()">
                     <a href="/login"><i class="fa fa-fw fa-user"></i> LOGIN</a>
@@ -36,7 +36,7 @@
                 <li><a th:href="@{/infopage}"><i class="fa fa-fw fa-home"></i></a></li>
                 <li><a th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
                 <li><a th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
-                <li sec:authorize="hasAuthority('user')"><a th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i></a></li>
+                <li sec:authorize="hasAuthority('user')"><a th:href="@{/photodisplay}"><i class="fa fa-fw fa-user"></i></a></li>
                 <li sec:authorize="isAuthenticated()"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                 <li sec:authorize="!isAuthenticated()">
                     <a href="/login"><i class="fa fa-fw fa-user"></i></a>

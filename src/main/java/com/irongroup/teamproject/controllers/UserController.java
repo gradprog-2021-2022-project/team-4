@@ -96,7 +96,7 @@ public class UserController {
     @GetMapping({"/photodisplay" })
     public String photodisplay(Model model, @PathVariable(required = false)Integer id){
         //if(id==null) return "profilepage";
-        Optional<FashUser> optionalFashUser = users.findById(9);
+        Optional<FashUser> optionalFashUser = users.findById(10);
         if(optionalFashUser.isPresent()){
             model.addAttribute("user", optionalFashUser.get());
         }

@@ -105,6 +105,7 @@ nav a:hover {
 .info {
     float: right;
     padding-right: 10px;
+    display: none;
 }
 
 .imgNavbar {
@@ -131,6 +132,10 @@ nav a:hover {
     background: #781FFF;
 }
 
+.footerCopyright {
+    display: none;
+}
+
 @media only screen and (min-width: 760px) {
 
     header{
@@ -155,6 +160,18 @@ nav a:hover {
     }
 
     footer{
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 910px) {
+    .info {
+        display: block;
+    }
+}
+
+@media only screen and (min-width: 1250px) {
+    .footerCopyright {
         display: block;
     }
 }

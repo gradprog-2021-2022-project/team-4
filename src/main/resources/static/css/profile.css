@@ -1,0 +1,54 @@
+.noprofilepic {
+    background-color: #FAFF7F;
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 10px 0px;
+}
+
+.followerbtn {
+    background-color: #89B6A5;
+    border-radius: 8px;
+    font-size: 18px;
+    font-style: italic;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 5px 7px;
+    font-size: 20px;
+}
+
+.followingbtn {
+    background-color: #89B6A5;
+    border-radius: 8px;
+    font-size: 18px;
+    font-style: italic;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 5px 7px;
+    font-size: 20px;
+
+    margin-right: 45px;
+}
+
+.hr-lines:after{
+    content: " ";
+    height: 2px;
+    width: 100%;
+    position: absolute;
+    /* top: 43%; */
+    left: 0;
+    background: #89B6A5;
+}
+
+.profileposts {
+    padding-top: 10px;
+}
+
+.profileinfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.profilepic {
+    width: 30%;
+}

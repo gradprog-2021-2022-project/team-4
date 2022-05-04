@@ -19,7 +19,7 @@
 .sectionclass {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     text-align: left;
     width: 419px;
     margin-top: 50px;
@@ -31,19 +31,26 @@
     font-size: 18px;
 }
 
+.exploreprofilepic {
+    width: 60px;
+    position: absolute;
+    border-radius: 50px;
+    z-index: -1; /*go under the navbar*/
+}
+
 .section {
     /*position: absolute;*/
     /*margin-left: 321px;*/
     /*margin-top: 16px;*/
     /*width: 100px;*/
     height: 30px;
-    flex: 1 0 2%;
+    flex: 1 0 15%;
     font-style: italic;
     border: 1px solid black;
 }
 
 .sectionrows {
-    padding-left: 41px;
+    padding-left: 70px;
     flex: 1 0 45%;
     margin-top: auto;
     margin-bottom: auto;

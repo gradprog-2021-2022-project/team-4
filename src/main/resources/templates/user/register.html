@@ -2,29 +2,40 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/library.css}" href="/css/library.css"/>
-    <title>Test</title>
+          th:href="@{/css/register.css}" href="/css/register.css"/>
+    <title>Register</title>
+    <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-    <main class="gmain">
-        <h3>Register here:</h3>
-        <form th:action="@{|/register|}" th:object="${valid}" method="POST" enctype="multipart/form-data">
+<main class="mainForm">
+    <div class="container containerReg">
+        <div>
+            <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
+        </div>
+        <h2>REGISTER:</h2>
+        <form th:action="@{|/register|}" th:object="${valid}" method="POST" enctype="multipart/form-data" >
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
             <div th:if="${error!=null}">
                 <span th:text="${error.getDefaultMessage()}"></span>
             </div>
-
+            <label for="firstName">Firstname:</label>
+            <input type="text" id="firstName" th:field="*{first_name}" th:errorclass="fieldError"><br>
+            <label for="lastName">Lastname:</label>
+            <input type="text" id="lastName" th:field="*{last_name}" th:errorclass="fieldError"><br>
             <label for="Username">Username:</label>
-            <input type="text" id="Username" th:field="*{username}" th:errorclass="fieldError">
+            <input type="text" id="Username" th:field="*{username}" th:errorclass="fieldError"><br>
             <label for="Password">Password: </label>
-            <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError">
+            <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
             <label for="image">Profile picture</label>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg">
-            <input type="submit" value="Register">
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="submit" value="Register" class="btn">
+            <div>
+                <a href="/" class="cancel">cancel</a>
+            </div>
         </form>
-    </main>
+    </div>
+</main>
 
 </body>

@@ -1,13 +1,22 @@
 
 .container {
-    width: 350px;
-    height: 500px;
+
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
     background: #E8D7FF;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
     margin-top: 0;
+}
+
+.containerLog{
+    width: 350px;
+    height: 500px;
+}
+
+.containerReg{
+    width: 350px;
+    height: 700px;
 }
 
 .mainForm {
@@ -19,10 +28,11 @@
     place-items: center;
     font-family: "Arial Black";
     font-size: 14px;
+    margin-bottom: 150px;
 }
 
-.flexitem{
-    max-width:100%;
+.fashLogo{
+    max-width:80%;
     height:auto;
 }
 
@@ -67,6 +77,10 @@ input {
 
     footer{
         display: block;
+    }
+
+    .mainForm{
+        margin-bottom: 50px;
     }
 
     .container{

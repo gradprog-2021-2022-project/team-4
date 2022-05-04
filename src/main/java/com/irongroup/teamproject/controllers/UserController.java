@@ -118,12 +118,7 @@ public class UserController {
         //if(id==null) return "profilepage";
         FashUser user = users.findFashUserByUsername(principal.getName());
         model.addAttribute("user", user);
-        InputStream inputStream = new ByteArrayInputStream(user.getProfilePic());
 
-        //String replacedStr = file.getPath().replace('\\', '/');
-        Image image = ImageIO.read(inputStream);
-        model.addAttribute("file", inputStream);
-        //model.addAttribute("profilepic",bImageFromConvert.createGraphics());
         return "photodisplay";
     }
 }

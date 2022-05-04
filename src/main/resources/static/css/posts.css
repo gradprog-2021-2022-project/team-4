@@ -109,6 +109,10 @@ h3.sectionrows {
     width: auto;
     border-radius: 45px;
 }
+.profilelink{
+    margin-right: 25px;
+    width: 25%;
+}
 /*Voor input velden bij comment form*/
 .comment input{
     background: white;

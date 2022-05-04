@@ -94,7 +94,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(valid.getPassword()));
         user.setRole("user");
         userRepository.save(user);
-        String uploadDir = "user-photos/" + user.getId();
+        String uploadDir = "src/user-photos/" + user.getId();
         if(!multipartFile.getOriginalFilename().equals("")){
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
@@ -102,12 +102,11 @@ public class UserController {
     }
 
     @GetMapping({"/photodisplay" })
-    public String photodisplay(Model model, @PathVariable(required = false)Integer id){
+    public String photodisplay(Model model, @PathVariable(required = false)Integer id, Principal principal){
+        if(principal==null) return "redirect:/";
         //if(id==null) return "profilepage";
-        Optional<FashUser> optionalFashUser = users.findById(9);
-        if(optionalFashUser.isPresent()){
-            model.addAttribute("user", optionalFashUser.get());
-        }
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "photodisplay";
     }
 }

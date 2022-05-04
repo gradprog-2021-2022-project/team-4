@@ -38,7 +38,7 @@
     </article>
     <article class="border">
         <section th:if="${loggedIn!=null}" class="border comment">
-            <form class="border placecomment" style="float: left;">
+            <form class="border" style="float: left;">
                 <input required="required" class="border" name="commentTitle" placeholder="Titel">
                 <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn">Plaats comment!</button>
@@ -49,6 +49,7 @@
             </div>
         </section>
         <section class="border comment" th:each="comment : ${comments}">
+            <img th:src="">
             <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
             <p th:text="${comment.getText()}"></p>
         </section>

@@ -80,9 +80,12 @@ public class UserController {
             return "user/register";
         }
         FashUser user = new FashUser();
-
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        user.setPhotos(fileName);
+        String fileName = "";
+        if(!multipartFile.getOriginalFilename().equals("")){
+            fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+            fileName = fileName.replace(" ","");
+            user.setPhotos(fileName);
+        }
 
         user.setFirst_name(valid.getFirst_name());
         user.setLast_name(valid.getLast_name());
@@ -92,14 +95,16 @@ public class UserController {
         user.setRole("user");
         userRepository.save(user);
         String uploadDir = "user-photos/" + user.getId();
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        if(!multipartFile.getOriginalFilename().equals("")){
+            FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
+        }
         return "redirect:/login";
     }
 
     @GetMapping({"/photodisplay" })
     public String photodisplay(Model model, @PathVariable(required = false)Integer id){
         //if(id==null) return "profilepage";
-        Optional<FashUser> optionalFashUser = users.findById(9);
+        Optional<FashUser> optionalFashUser = users.findById(23);
         if(optionalFashUser.isPresent()){
             model.addAttribute("user", optionalFashUser.get());
         }

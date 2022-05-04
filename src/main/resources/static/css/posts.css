@@ -91,12 +91,31 @@ h3.sectionrows {
 .postitems {
     grid-area: gitems;
 }
+/*De lijst van comments*/
+.commentlist{
+    display: inline-block;
+    width: 100%;
+}
+/*Voor elke comment en de commentform*/
 .comment{
     height: 100px;
     background: #FAFF7F;
+    width: available;
+    display: flex;
 }
+/*Voor de foto binnen een comment*/
+.comment img{
+    height: 100%;
+    width: auto;
+    border-radius: 45px;
+}
+/*Voor input velden bij comment form*/
 .comment input{
     background: white;
+}
+/*Voor de username in een comment*/
+.username{
+    text-align: left;
 }
 @media only screen and (min-width: 760px) {
     #myBtn {

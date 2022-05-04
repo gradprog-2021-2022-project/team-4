@@ -36,7 +36,7 @@
     <article class="postDetails" th:unless="${post}">
         <p>No post was chosen</p>
     </article>
-    <article class="border">
+    <article class="border commentlist">
         <section th:if="${loggedIn!=null}" class="border comment">
             <form class="border" style="float: left;">
                 <input required="required" class="border" name="commentTitle" placeholder="Titel">
@@ -49,9 +49,13 @@
             </div>
         </section>
         <section class="border comment" th:each="comment : ${comments}">
-            <img th:src="">
-            <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
-            <p th:text="${comment.getText()}"></p>
+            <a class="profilelink">
+                <img th:src="${comment.getUser().photosImagePath}">
+            </a>
+            <a>
+                <h3 class="username" th:text="${comment.getUser().getUsername()}"></h3>
+                <p th:text="${comment.getText()}"></p>
+            </a>
         </section>
     </article>
 </main>

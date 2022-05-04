@@ -15,7 +15,7 @@
             <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
         </div>
         <h2>REGISTER:</h2>
-        <form th:action="@{|/register|}" th:object="${valid}" method="POST" enctype="multipart/form-data" >
+        <form th:action="@{|/register|}" th:object="${valid}" method="POST">
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
             <div th:if="${error!=null}">
                 <span th:text="${error.getDefaultMessage()}"></span>
@@ -29,7 +29,7 @@
             <label for="Password">Password: </label>
             <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
             <label for="image">Profile picture</label>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg" th:field="*{file}"><br>
             <input type="submit" value="Register" class="btn">
             <div>
                 <a href="/" class="cancel">cancel</a>

@@ -91,7 +91,7 @@ public class UserController {
         }
         FashUser user = new FashUser();
         String fileName = "";
-        if(!multipartFile.getOriginalFilename().equals("")){
+        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             fileName = fileName.replace(" ","");
             user.setPhotos(fileName);
@@ -119,12 +119,11 @@ public class UserController {
         FashUser user = users.findFashUserByUsername(principal.getName());
         model.addAttribute("user", user);
         InputStream inputStream = new ByteArrayInputStream(user.getProfilePic());
-        BufferedImage bImageFromConvert = ImageIO.read(inputStream);
-        File file = new File("/src/main/resources/upload/target.png");
-        String replacedStr = file.getPath().replace('\\', '/');
-        Image image;
-        model.addAttribute("file", replacedStr);
-        model.addAttribute("profilepic",bImageFromConvert.createGraphics());
+
+        //String replacedStr = file.getPath().replace('\\', '/');
+        Image image = ImageIO.read(inputStream);
+        model.addAttribute("file", inputStream);
+        //model.addAttribute("profilepic",bImageFromConvert.createGraphics());
         return "photodisplay";
     }
 }

@@ -25,13 +25,9 @@ public class FashUser {
     @NotBlank
     private String password;
 
-    private File file;
-
-    private String type = "png";
     private byte[] profilePic;
 
     private String photos;
-
     private String role;
     //These are private unless user wants to share
     private String first_name;
@@ -67,22 +63,6 @@ public class FashUser {
         this.comments = comments;
         this.clothing_posted = clothing_posted;
         this.clothing_saved = clothing_saved;
-    }
-
-    public File getFile() {
-        return file;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setFile(File file) {
-        this.file = file;
     }
 
     public byte[] getProfilePic() {

@@ -94,7 +94,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(valid.getPassword()));
         user.setRole("user");
         userRepository.save(user);
-        String uploadDir = "src/user-photos/" + user.getId();
+        String uploadDir = "src/main/resources/user-photos/" + user.getId();
         if(!multipartFile.getOriginalFilename().equals("")){
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }

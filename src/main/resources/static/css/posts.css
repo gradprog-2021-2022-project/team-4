@@ -30,11 +30,6 @@
 }
 
 .sectionBttn {
-    /*position: absolute;*/
-    /*margin-left: 321px;*/
-    /*margin-top: 16px;*/
-    /*width: 100px;*/
-    /*height: 30px;*/
     height: 30px;
     flex: 1 0 2%;
     font-style: italic;
@@ -117,6 +112,14 @@ h3.sectionrows {
 .comment input{
     background: white;
 }
+.comment form {
+    width: 85%
+}
+.comment .btn{
+    width: available;
+    height: available;
+    text-align: center;
+}
 /*Voor de username in een comment*/
 .username{
     text-align: left;
@@ -140,10 +143,9 @@ h3.sectionrows {
     }
 
     .postDetails {
+        width: 100%;
         display: grid;
         grid-template-areas: 'gpic ginfo' 'gpic gitems';
-        justify-content: center;
-        align-content: center;
         grid-template-rows: 500px 250px;
         grid-template-columns: 50% 50%;
     }

@@ -43,10 +43,8 @@
                 <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn">Plaats comment!</button>
             </form>
-            <div class="border" style="float: right">
-                <div th:text="${post.getLikes()}"></div>
-                <a th:href="@{|/likePost/${post.getId()}|}" class="btn">Mooi!</a>
-            </div>
+            <a th:href="@{|/likePost/${post.getId()}|}" th:text="${post.getLikes()}" class="border btn" style="float: right">
+            </a>
         </section>
         <section class="border comment" th:each="comment : ${comments}">
             <a class="profilelink">

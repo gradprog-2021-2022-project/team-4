@@ -29,6 +29,7 @@
                 <li sec:authorize="!isAuthenticated()">
                     <a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
                 </li>
+                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
             </div>
             <div id="myLinksPhone">
                 <!-- icons:  https://fontawesome.com/v4/icons/ -->
@@ -43,6 +44,7 @@
                 <li sec:authorize="!isAuthenticated()">
                     <a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
                 </li>
+                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
             </div>
         </ul>
     </nav>

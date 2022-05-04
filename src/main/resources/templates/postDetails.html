@@ -49,6 +49,7 @@
             </div>
         </section>
         <section class="border comment" th:each="comment : ${comments}">
+            <img th:src="">
             <a class="btn" th:text="${comment.getUser().getUsername()}"></a>
             <p th:text="${comment.getText()}"></p>
         </section>

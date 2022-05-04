@@ -121,6 +121,9 @@ h3.sectionrows {
 .comment{
     height: 100px;
 }
+.placecomment input{
+    background: white;
+}
 @media only screen and (min-width: 760px) {
     #myBtn {
         display: none; /* Hidden by default */

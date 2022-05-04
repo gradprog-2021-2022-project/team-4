@@ -12,4 +12,6 @@ public interface UserRepository extends CrudRepository<FashUser,Integer> {
 
     @Query("select u from FashUser u where (u.postsMade.size>=1)")
     Collection<FashUser> findUsersWithPosts();
+
+    FashUser findById(int id);
 }

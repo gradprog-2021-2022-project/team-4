@@ -2,8 +2,7 @@ package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.irongroup.teamproject.repositories.UserRepository;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,14 +13,21 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.validation.Valid;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Optional;
 
 import java.security.Principal;
 
 @Controller
 public class UserController {
+
     @Autowired
     UserRepository users;
 
@@ -68,9 +74,13 @@ public class UserController {
         if (principal != null) return "redirect:/";
         return "user/register";
     }
+
+
     @PostMapping({"/register"})
     public String register(Model model, @ModelAttribute("valid") @Valid FashUser valid, BindingResult bindingResult,
                            @RequestParam("image")MultipartFile multipartFile) throws IOException {
+
+
         if(bindingResult.hasErrors()){
             return "user/register";
         }
@@ -85,6 +95,7 @@ public class UserController {
             fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
             fileName = fileName.replace(" ","");
             user.setPhotos(fileName);
+            user.setProfilePic(multipartFile.getInputStream().readAllBytes());
         }
 
         user.setFirst_name(valid.getFirst_name());
@@ -94,7 +105,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(valid.getPassword()));
         user.setRole("user");
         userRepository.save(user);
-        String uploadDir = "src/main/resources/user-photos/" + user.getId();
+        String uploadDir = "src/main/resources/static/user-photos/" + user.getId();
         if(!multipartFile.getOriginalFilename().equals("")){
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
@@ -102,11 +113,18 @@ public class UserController {
     }
 
     @GetMapping({"/photodisplay" })
-    public String photodisplay(Model model, @PathVariable(required = false)Integer id, Principal principal){
+    public String photodisplay(Model model, @PathVariable(required = false)Integer id, Principal principal) throws IOException {
         if(principal==null) return "redirect:/";
         //if(id==null) return "profilepage";
         FashUser user = users.findFashUserByUsername(principal.getName());
         model.addAttribute("user", user);
+        InputStream inputStream = new ByteArrayInputStream(user.getProfilePic());
+        BufferedImage bImageFromConvert = ImageIO.read(inputStream);
+        File file = new File("/src/main/resources/upload/target.png");
+        String replacedStr = file.getPath().replace('\\', '/');
+        Image image;
+        model.addAttribute("file", replacedStr);
+        model.addAttribute("profilepic",bImageFromConvert.createGraphics());
         return "photodisplay";
     }
 }

@@ -24,10 +24,12 @@
             </dl>
             <div th:if="${user.photosImagePath}">
                 <img th:src="${user.photosImagePath}" />
+                <img th:src="${file}">
             </div>
-            <div th:unless="${user.photosImagePath}">
+            <div th:unless="*{user.photosImagePath}">
                 <p>No profile picture</p>
             </div>
+
         </div>
         <div th:unless="${user}">
             <p>No user was chosen</p>

@@ -61,6 +61,30 @@ public class FashUser {
         this.clothing_saved = clothing_saved;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setPost_allowance(Integer post_allowance) {
+        this.post_allowance = post_allowance;
+    }
+
+    public void setPostsMade(Collection<FashPost> postsMade) {
+        this.postsMade = postsMade;
+    }
+
+    public void setComments(List<FashComment> comments) {
+        this.comments = comments;
+    }
+
+    public void setClothing_posted(List<Clothing_Item> clothing_posted) {
+        this.clothing_posted = clothing_posted;
+    }
+
+    public void setClothing_saved(List<Clothing_Item> clothing_saved) {
+        this.clothing_saved = clothing_saved;
+    }
+
     public FashPost getLastPost(){
         ArrayList<FashPost> posts=new ArrayList<FashPost>();
         for (FashPost p:postsMade

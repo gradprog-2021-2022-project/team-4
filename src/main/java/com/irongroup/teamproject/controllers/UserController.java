@@ -84,6 +84,9 @@ public class UserController {
         String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
         user.setPhotos(fileName);
 
+        user.setFirst_name(valid.getFirst_name());
+        user.setLast_name(valid.getLast_name());
+        user.setPost_allowance(3);
         user.setUsername(valid.getUsername());
         user.setPassword(passwordEncoder.encode(valid.getPassword()));
         user.setRole("user");

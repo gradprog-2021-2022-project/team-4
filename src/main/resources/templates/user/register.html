@@ -16,7 +16,10 @@
             <div th:if="${error!=null}">
                 <span th:text="${error.getDefaultMessage()}"></span>
             </div>
-
+            <label for="firstName">Firstname:</label>
+            <input type="text" id="firstName" th:field="*{first_name}" th:errorclass="fieldError">
+            <label for="lastName">Lastname:</label>
+            <input type="text" id="lastName" th:field="*{last_name}" th:errorclass="fieldError">
             <label for="Username">Username:</label>
             <input type="text" id="Username" th:field="*{username}" th:errorclass="fieldError">
             <label for="Password">Password: </label>

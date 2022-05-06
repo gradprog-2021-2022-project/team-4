@@ -27,6 +27,7 @@ public class ClothingController {
                 model.addAttribute("item", item);
             }
         } catch (Exception e) {
+            //Op deze manier worden errors naar de home pagina gestuurd zodat de gebruiker geen error pagina krijgt
             System.out.println("geen clothing item");
             return "redirect:/";
         }
@@ -42,19 +43,24 @@ public class ClothingController {
         if (principal != null) {
             FashUser user = userRepository.findFashUserByUsername(principal.getName());
             if (clothingRepository.existsById(id)) {
+                //Oproepen van een eigen methode voor makkelijk gebruik
                 user.addItem(clothingRepository.findById(id).get());
+                //Opslaan omdat anders de database zelf niet veranderd!!
                 userRepository.save(user);
             }
         }
         return "redirect:/clothingdetail/" + id;
     }
 
+    //Verwijderen van een item uit een gebruiker zijn lijst
     @GetMapping("/removeItem/{id}")
     public String removeItem(@PathVariable Integer id, Principal principal) {
         if(principal!=null){
             FashUser user=userRepository.findFashUserByUsername(principal.getName());
             if(clothingRepository.existsById(id)){
+                //Oproepen van een eigen methode voor makkelijk gebruik
                 user.removeItem(clothingRepository.findById(id).get());
+                //Opslaan omdat anders de database zelf niet veranderd!!
                 userRepository.save(user);
             }
         }

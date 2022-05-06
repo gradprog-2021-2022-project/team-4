@@ -68,13 +68,16 @@ public class ClothingController {
         return "redirect:/clothingdetail/" + id;
     }
 
+    //Kopen van een item, dit is een voorlopige oplossing
     @GetMapping("/buyItem/{id}")
     public String buyItem(@PathVariable Integer id) {
         if (clothingRepository.existsById(id)) {
             Clothing_Item item = clothingRepository.findById(id).get();
             FashUser user = userRepository.findFashUserByUsername(item.getUserOwner().getUsername());
+            //Aanpassen en altijd opslaan zodat de database aangepast kan worden.
             user.setPost_allowance(user.getPost_allowance() + 1);
             userRepository.save(user);
+            //Redirect zonder een / kan gebruikt worden voor een externe website
             return "redirect:" + item.getLinkShop();
         }
         return "redirect:/clothingdetail/" + id;

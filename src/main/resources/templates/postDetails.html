@@ -29,7 +29,7 @@
         <section class="postitems border">
             <lu>
                 <li th:each="item : ${post.getClothes()}">
-                    <a class="btn" th:text="${item.getNaam()}"></a></li>
+                    <a class="btn" th:text="${item.getNaam()}" th:href="@{|/clothingdetail/${item.getId()}|}"></a></li>
             </lu>
         </section>
     </article>

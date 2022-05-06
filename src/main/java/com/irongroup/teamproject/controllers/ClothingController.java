@@ -56,14 +56,26 @@ public class ClothingController {
     //Verwijderen van een item uit een gebruiker zijn lijst
     @GetMapping("/removeItem/{id}")
     public String removeItem(@PathVariable Integer id, Principal principal) {
-        if(principal!=null){
-            FashUser user=userRepository.findFashUserByUsername(principal.getName());
-            if(clothingRepository.existsById(id)){
+        if (principal != null) {
+            FashUser user = userRepository.findFashUserByUsername(principal.getName());
+            if (clothingRepository.existsById(id)) {
                 //Oproepen van een eigen methode voor makkelijk gebruik
                 user.removeItem(clothingRepository.findById(id).get());
                 //Opslaan omdat anders de database zelf niet veranderd!!
                 userRepository.save(user);
             }
+        }
+        return "redirect:/clothingdetail/" + id;
+    }
+
+    @GetMapping("/buyItem/{id}")
+    public String buyItem(@PathVariable Integer id) {
+        if (clothingRepository.existsById(id)) {
+            Clothing_Item item = clothingRepository.findById(id).get();
+            FashUser user = userRepository.findFashUserByUsername(item.getUserOwner().getUsername());
+            user.setPost_allowance(user.getPost_allowance() + 1);
+            userRepository.save(user);
+            return "redirect:" + item.getLinkShop();
         }
         return "redirect:/clothingdetail/" + id;
     }

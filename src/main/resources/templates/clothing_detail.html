@@ -9,8 +9,10 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <article>
-        <section>
+        <section class="sectionclothing">
             <h2 th:text="${item.getNaam()}"></h2>
+            <a class="btn" th:text="|Gedeeld door: ${item.getPost().getPoster().getUsername()}|" th:href="@{|/postDetails/${item.getPost().getId()}|}"></a>
+            <a class="btn" th:href="${item.getLinkShop()}">Koop!</a>
             <a th:if="${fashuser!=null && !fashuser.getClothing_saved().contains(item)}" class="btn" th:href="@{|/saveItem/${item.getId()}|}">Opslaan!</a>
             <a th:if="${fashuser!=null && fashuser.getClothing_saved().contains(item)}" class="btn" th:href="@{|/removeItem/${item.getId()}|}">Verwijderen uit lijst</a>
             <a th:if="${fashuser==null}" class="btn" th:href="@{/login}">Login to save</a>

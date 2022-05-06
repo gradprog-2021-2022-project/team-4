@@ -30,18 +30,34 @@ public class ClothingController {
             System.out.println("geen clothing item");
             return "redirect:/";
         }
-        if(principal!=null){
-            FashUser user=userRepository.findFashUserByUsername(principal.getName());
-            model.addAttribute("fashuser",user);
+        if (principal != null) {
+            FashUser user = userRepository.findFashUserByUsername(principal.getName());
+            model.addAttribute("fashuser", user);
         }
         return "clothing_detail";
     }
+
     @GetMapping("/saveItem/{id}")
-    public String saveItem(@PathVariable Integer id){
-        return "redirect:/clothingdetail/"+id;
+    public String saveItem(@PathVariable Integer id, Principal principal) {
+        if (principal != null) {
+            FashUser user = userRepository.findFashUserByUsername(principal.getName());
+            if (clothingRepository.existsById(id)) {
+                user.addItem(clothingRepository.findById(id).get());
+                userRepository.save(user);
+            }
+        }
+        return "redirect:/clothingdetail/" + id;
     }
+
     @GetMapping("/removeItem/{id}")
-    public String removeItem(@PathVariable Integer id){
-        return "redirect:/clothingdetail/"+id;
+    public String removeItem(@PathVariable Integer id, Principal principal) {
+        if(principal!=null){
+            FashUser user=userRepository.findFashUserByUsername(principal.getName());
+            if(clothingRepository.existsById(id)){
+                user.removeItem(clothingRepository.findById(id).get());
+                userRepository.save(user);
+            }
+        }
+        return "redirect:/clothingdetail/" + id;
     }
 }

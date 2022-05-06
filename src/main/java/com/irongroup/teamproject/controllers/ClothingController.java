@@ -38,6 +38,7 @@ public class ClothingController {
         return "clothing_detail";
     }
 
+    //Opslaan van een item in een gebruiker zijn lijst
     @GetMapping("/saveItem/{id}")
     public String saveItem(@PathVariable Integer id, Principal principal) {
         if (principal != null) {

@@ -19,11 +19,9 @@
     <div>
         <div th:if="${user}">
             <section class="hr-lines">
+                <img class="profilepic" src="/u/image" alt="image not found">
                 <div th:if="${user.photosImagePath}">
                     <img class="profilepic" th:src="${user.photosImagePath}" />
-                </div>
-                <div th:unless="${user.photosImagePath}">
-                    <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
                 </div>
                 <h2 th:text="${user.getUsername()}">username</h2>
                 <h2 th:text="${user.getId()}">id</h2>

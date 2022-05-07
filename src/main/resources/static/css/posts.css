@@ -75,6 +75,41 @@ h3.sectionrows {
     text-align: right;
 }
 
+/*comment section in explorepage under picture*/
+.sectioncommentexplore {
+    width: 419px;
+}
+
+.commenttitle {
+    width: 70px;
+}
+
+.commenttext {
+    width: 197px;
+}
+
+.commentbutton {
+    width: 100px;
+}
+
+.commentsothers {
+    width: 100%;
+    display: flex;
+    font-size: 13px;
+    margin-left: 30px;
+}
+
+.commentpic {
+    width: 35px;
+}
+
+.noprofilepic {
+    background-color: #FAFF7F;
+    border-radius: 25px;
+    border: 2px solid black;
+    padding: 10px 9px;
+}
+
 .bttnExplore:hover {
     background-color: rgb(211, 187, 250);
     color: #FAFF7F;

@@ -11,13 +11,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.xml.stream.events.Comment;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -30,13 +32,22 @@ public class PostController {
     CommentRepository comments;
 
     @GetMapping({"/explorepage","/"})
-    public String explorepage(Model model, Principal principal){
+    public String explorepage(Model model, Principal principal, @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
         System.out.println(loginName);
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);
         Collection<FashUser> fashUsers=users.findUsersWithPosts();
         model.addAttribute("fashUsers",fashUsers);
+        if(principal!= null){
+            FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
+            model.addAttribute("loggedIn",true);
+            if(commentText!=null){
+                FashPost post=posts.findById(id).get();
+                comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
+                return "redirect:/explorepage";
+            }
+        }
         return "explorepage";
     }
     @GetMapping({"/foryoupage"})

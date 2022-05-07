@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -102,6 +103,18 @@ public class FashPost {
 
     public void setComments(Collection<FashComment> comments) {
         this.comments = comments;
+    }
+
+    public Collection<FashComment> getComments() {
+        return comments;
+    }
+
+    public FashComment getOneComment() {
+        ArrayList<FashComment> comments=new ArrayList<FashComment>();
+        for (FashComment c:this.comments) {
+            comments.add(c);
+        }
+        return comments.get(comments.size()-1);
     }
 
     public String getFoto(){

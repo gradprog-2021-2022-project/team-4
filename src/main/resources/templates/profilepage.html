@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/library.css}" href="/css/library.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/profile.css}" href="/css/profile.css"/>
     <title>Info</title>
 </head>
 <body>
@@ -16,12 +18,24 @@
 <main>
     <div>
         <div th:if="${user}">
-            <img th:src="@{/img/placeholderpic.jpg}">
-            <h2 th:text="${user.getUsername()}">Found</h2>
-            <dl class="row-text">
-                <dt class="col-sm-5"><span class="p question">clothing posted : </span></dt>
-                <dd class="col-sm-7"><span class="p"th:text="${user.getPostsMade().size()}"></span></dd>
-            </dl>
+            <section class="hr-lines">
+                <div th:if="${user.photosImagePath}">
+                    <img class="profilepic" th:src="${user.photosImagePath}" />
+                </div>
+                <div th:unless="${user.photosImagePath}">
+                    <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
+                </div>
+                <h2 th:text="${user..getUsername()}">username</h2>
+                <input type="submit" value="Following" class="followingbtn">
+                <input type="submit" value="Followers" class="followerbtn">
+                <p>bio</p>
+            </section>
+            <section class="profileposts">
+                <dl class="profileinfo">
+                    <dt><span>clothing posted : </span></dt>
+                    <dd><span th:text="${user.getPostsMade().size()}"></span></dd>
+                </dl>
+            </section>
         </div>
         <div th:unless="${user}">
             <p>No user was chosen</p>

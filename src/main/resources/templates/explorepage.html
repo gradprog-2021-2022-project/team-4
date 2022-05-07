@@ -30,8 +30,26 @@
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
                 <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
+                <div th:each="comment : ${fashUser.getLastPost().getOneComment()}" class="commentsothers">
+                    <div th:if="${comment.getUser().photosImagePath}">
+                        <img class="exploreprofilepic commentpic" th:src="${comment.getUser().photosImagePath}">
+                    </div>
+                    <div th:unless="${comment.getUser().photosImagePath}">
+                        <i class="noprofilepic fa fa-fw fa-user"></i>
+                    </div>
+                    <strong><p class="sectionbioname" th:text="${comment.getUser().getUsername()}"></p></strong>
+                    <p class="sectionbiotext"th:text="${comment.getText()}"></p>
+                </div>
             </section>
         </a>
+        <section class="sectioncommentexplore" th:if="${loggedIn!=null}">
+            <form>
+                <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
+                <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
+                <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
+                <button type="submit" class="btn commentbutton">Plaats comment!</button>
+            </form>
+        </section>
     </div>
     <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>

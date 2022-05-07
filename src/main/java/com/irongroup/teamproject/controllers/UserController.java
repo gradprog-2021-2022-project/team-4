@@ -30,13 +30,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping({"/profilepage/{id}", "profilepage"})
-    public String profilepage(Model model, @PathVariable(required = false)Integer id){
-        if(id==null) return "profilepage";
-        Optional<FashUser> optionalFashUser = users.findById(id);
-        if(optionalFashUser.isPresent()){
-            model.addAttribute("user", optionalFashUser.get());
-        }
+    @GetMapping({"/profilepage" })
+    public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
+        if(principal==null) return "redirect:/";
+        //if(id==null) return "profilepage";
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "profilepage";
     }
 
@@ -99,14 +98,5 @@ public class UserController {
             FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         }
         return "redirect:/login";
-    }
-
-    @GetMapping({"/photodisplay" })
-    public String photodisplay(Model model, @PathVariable(required = false)Integer id, Principal principal){
-        if(principal==null) return "redirect:/";
-        //if(id==null) return "profilepage";
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "photodisplay";
     }
 }

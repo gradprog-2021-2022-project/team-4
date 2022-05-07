@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -21,6 +24,8 @@ public class FashUser {
     private String location;
     @NotBlank
     private String password;
+
+    private byte[] profilePic;
 
     private String photos;
 
@@ -69,6 +74,14 @@ public class FashUser {
     }
     public void removeItem(Clothing_Item item){
         clothing_saved.remove(item);
+    }
+
+    public byte[] getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(byte[] profilePic) {
+        this.profilePic = profilePic;
     }
 
     public void setId(Integer id) {
@@ -188,7 +201,7 @@ public class FashUser {
     public String getPhotosImagePath() {
         if (photos == null || id == null) return null;
 
-        return "/src/main/resources/user-photos/" + id + "/" + photos;
+        return "/src/main/resources/static/img/user-photos/" + id + "/" + photos;
     }
 
     public void follow(FashUser gebruiker){

@@ -139,7 +139,9 @@ h3.sectionrows {
 .sidePic{
     grid-area: gpic;
 }
-
+.sidePic img{
+    width: available;
+}
 .postitems lu {
     display: inline;
 }

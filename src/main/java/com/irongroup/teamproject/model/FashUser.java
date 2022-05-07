@@ -64,6 +64,13 @@ public class FashUser {
         this.clothing_saved = clothing_saved;
     }
 
+    public void addItem(Clothing_Item item){
+        clothing_saved.add(item);
+    }
+    public void removeItem(Clothing_Item item){
+        clothing_saved.remove(item);
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }

@@ -1,0 +1,29 @@
+.sectionclothing{
+    display:block;
+}
+.btnClothes{
+    color: white;
+    margin-top: 25px;
+    margin-bottom: 50px;
+    padding: 5px;
+    background: #B685FF;
+    height: auto;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: available;
+}
+.btnClothes:hover {
+    background: #781FFF;
+}
+.container {
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #E8D7FF;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    margin-top: 0;
+    width: 350px;
+    height: 700px;
+}

@@ -184,15 +184,11 @@ public class FashUser {
         return "/src/main/resources/user-photos/" + id + "/" + photos;
     }
 
-    public Collection<FashUser> getFollowers() {
-        return followers;
-    }
-
-    public void setFollowers(Collection<FashUser> followers) {
-        this.followers = followers;
-    }
-
     public void follow(FashUser gebruiker){
-        setFollowers((Collection<FashUser>) gebruiker);
+        this.followers.add(gebruiker);
+    }
+
+    public int aantalFollowers() {
+        return this.followers.size();
     }
 }

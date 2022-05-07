@@ -27,6 +27,7 @@
                 </div>
                 <h2 th:text="${user.getUsername()}">username</h2>
                 <h2 th:text="${user.getId()}">id</h2>
+                <h2 th:text="${user.aantalFollowers()}">aantalFollowers</h2>
                 <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Following" class="followingbtn"></a></strong>
                 <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
                 <p>bio</p>

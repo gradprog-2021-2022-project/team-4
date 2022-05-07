@@ -41,9 +41,9 @@ public class UserController {
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
-                model.addAttribute("user", optionalFashUser);
+                model.addAttribute("user", optionalFashUser.get());
             }
-            return "profilepage/"+id;
+            return "profilepage";
         }
     }
 
@@ -52,7 +52,7 @@ public class UserController {
         FashUser user = users.findFashUserByUsername(principal.getName());
         user.follow(users.findById(id).get());
         users.save(user);
-        return "redirect:/explorepage/";
+        return "redirect:/profilepage/" + id;
     }
 
     @GetMapping({"/loginerror"})

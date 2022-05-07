@@ -25,9 +25,10 @@
                 <div th:unless="${user.photosImagePath}">
                     <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
                 </div>
-                <h2 th:text="${user..getUsername()}">username</h2>
-                <input type="submit" value="Following" class="followingbtn">
-                <input type="submit" value="Followers" class="followerbtn">
+                <h2 th:text="${user.getUsername()}">username</h2>
+                <h2 th:text="${user.getId()}">id</h2>
+                <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Following" class="followingbtn"></a></strong>
+                <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
                 <p>bio</p>
             </section>
             <section class="profileposts">

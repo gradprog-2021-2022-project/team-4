@@ -8,23 +8,25 @@
 .followerbtn {
     background-color: #89B6A5;
     border-radius: 8px;
-    font-size: 18px;
     font-style: italic;
     cursor: pointer;
     border: 1px solid black;
     padding: 5px 7px;
     font-size: 20px;
+    text-decoration: none;
+    color: black;
 }
 
 .followingbtn {
     background-color: #89B6A5;
     border-radius: 8px;
-    font-size: 18px;
     font-style: italic;
     cursor: pointer;
     border: 1px solid black;
     padding: 5px 7px;
     font-size: 20px;
+    text-decoration: none;
+    color: black;
 
     margin-right: 45px;
 }

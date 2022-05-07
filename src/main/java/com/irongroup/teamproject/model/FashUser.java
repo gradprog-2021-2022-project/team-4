@@ -24,6 +24,9 @@ public class FashUser {
 
     private String photos;
 
+    @OneToMany
+    public Collection<FashUser> followers;
+
     private String role;
     //These are private unless user wants to share
     private String first_name;
@@ -179,5 +182,17 @@ public class FashUser {
         if (photos == null || id == null) return null;
 
         return "/src/main/resources/user-photos/" + id + "/" + photos;
+    }
+
+    public Collection<FashUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Collection<FashUser> followers) {
+        this.followers = followers;
+    }
+
+    public void follow(FashUser gebruiker){
+        setFollowers((Collection<FashUser>) gebruiker);
     }
 }

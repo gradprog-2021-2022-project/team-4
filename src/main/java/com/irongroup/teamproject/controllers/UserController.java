@@ -1,5 +1,6 @@
 package com.irongroup.teamproject.controllers;
 
+import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,13 +31,28 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping({"/profilepage" })
+    @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
-        if(principal==null) return "redirect:/";
-        //if(id==null) return "profilepage";
+        if(id==null) {
+            FashUser user = users.findFashUserByUsername(principal.getName());
+            model.addAttribute("user", user);
+            return "profilepage";
+        }
+        else {
+            Optional<FashUser> optionalFashUser = users.findById(id);
+            if(optionalFashUser.isPresent()){
+                model.addAttribute("user", optionalFashUser);
+            }
+            return "profilepage/"+id;
+        }
+    }
+
+    @GetMapping({"/follow/{id}" })
+    public String follow(Model model, Principal principal, @PathVariable(required = false)Integer id){
         FashUser user = users.findFashUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-        return "profilepage";
+        user.follow(users.findById(id).get());
+        users.save(user);
+        return "redirect:/explorepage/";
     }
 
     @GetMapping({"/loginerror"})

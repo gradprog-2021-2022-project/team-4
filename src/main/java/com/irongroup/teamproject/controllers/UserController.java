@@ -36,22 +36,35 @@ public class UserController {
         if(id==null) {
             FashUser user = users.findFashUserByUsername(principal.getName());
             model.addAttribute("user", user);
+            model.addAttribute("following",user.getFollowers());
+            /*//Tijdelijke code voor testing
+            for (FashUser u : user.getFollowers()
+                 ) {
+                System.out.println(u.username);
+            }*/
             return "profilepage";
         }
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
                 model.addAttribute("user", optionalFashUser.get());
+                model.addAttribute("following",optionalFashUser.get().getFollowers());
             }
             return "profilepage";
         }
     }
 
     @GetMapping({"/follow/{id}" })
-    public String follow(Model model, Principal principal, @PathVariable(required = false)Integer id){
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        user.follow(users.findById(id).get());
-        users.save(user);
+    public String follow(Model model, Principal principal, @PathVariable Integer id){
+        if(principal!=null){
+            if(users.findById(id).get()!=null){
+                FashUser user = users.findFashUserByUsername(principal.getName());
+                if(!user.followers.contains(users.findById(id).get())){
+                    user.follow(users.findById(id).get());
+                }else {user.unFollow(users.findById(id).get());}
+                users.save(user);
+            }
+        }
         return "redirect:/profilepage/" + id;
     }
 

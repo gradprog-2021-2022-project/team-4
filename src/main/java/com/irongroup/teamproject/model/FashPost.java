@@ -1,12 +1,10 @@
 package com.irongroup.teamproject.model;
 
 import javax.persistence.*;
-import java.awt.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 public class FashPost {
@@ -32,6 +30,8 @@ public class FashPost {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 
+    private byte[] postPic;
+
     //Date and time of the post
     private LocalDate date;
     private LocalTime time;
@@ -42,7 +42,7 @@ public class FashPost {
     public FashPost() {
     }
 
-    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text,Integer likes) {
+    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text,Integer likes,byte[] postPic) {
         this.id = id;
         this.clothes = clothes;
         this.poster = poster;
@@ -52,6 +52,7 @@ public class FashPost {
         this.location = location;
         this.text=text;
         this.likes=likes;
+        this.postPic=postPic;
     }
 
     public Integer getId() {
@@ -117,10 +118,6 @@ public class FashPost {
         return comments.get(comments.size()-1);
     }
 
-    public String getFoto(){
-        return null;
-    }
-
     public String getText() {
         return text;
     }
@@ -132,5 +129,11 @@ public class FashPost {
     public void setLikes(Integer likes) {
         this.likes = likes;
     }
+
+    public byte[] getPostPic() {
+        return postPic;
+    }
+
+    //Geschreven door eliasje voor een easy like counter
     public void addLike(){likes++;};
 }

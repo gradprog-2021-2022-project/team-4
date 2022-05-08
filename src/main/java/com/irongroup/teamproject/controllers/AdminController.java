@@ -9,10 +9,14 @@ import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -57,4 +61,19 @@ public class AdminController {
 
         return "adminpage";
     }
+
+    @GetMapping("/location")
+    public String location(Model model, Principal principal,@RequestParam(required = false) Double latitude){
+        model.addAttribute("user", users.findFashUserByUsername(principal.getName()));
+        model.addAttribute("latitude", latitude);
+        return "location";
+    }
+
+    @PostMapping("/location")
+    public String postlocation(Model model, Principal principal,@RequestParam(required = false) Double latitude){
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        user.setLatitude(latitude);
+        return "location";
+    }
+
 }

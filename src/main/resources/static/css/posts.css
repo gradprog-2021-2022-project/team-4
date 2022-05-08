@@ -138,9 +138,12 @@ h3.sectionrows {
 }
 .sidePic{
     grid-area: gpic;
+    align-content: center;
+    justify-content: center;
 }
 .sidePic img{
-    width: available;
+    height: auto;
+    width: auto;
 }
 .postitems lu {
     display: inline;

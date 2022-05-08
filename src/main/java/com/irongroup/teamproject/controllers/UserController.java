@@ -2,9 +2,12 @@ package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
+import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,11 +35,12 @@ import java.security.Principal;
 public class UserController {
     @Autowired
     UserRepository users;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    PostRepository postRepository;
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
@@ -160,5 +164,37 @@ public class UserController {
             InputStream is = new ByteArrayInputStream(fashUserOptional.get().getProfilePic());
             IOUtils.copy(is, response.getOutputStream());
         }
+    }
+
+    @GetMapping("/postnew")
+    public String postNew(Model model) {
+        return "user/createpost";
+    }
+
+    @ModelAttribute("post")
+    public FashPost findPost(@PathVariable(required = false) Integer id) {
+        if (id!=null) {
+            Optional<FashPost> optionalFashPost = postRepository.findById(id);
+            if (optionalFashPost.isPresent()) return optionalFashPost.get();
+        }
+        return new FashPost();
+    }
+
+    @PostMapping("/postnew")
+    public String postNewPost(Model model, Principal principal,
+            @Valid @ModelAttribute("post") FashPost fashPost, BindingResult bindingResult){
+
+        if(principal!= null) {
+            model.addAttribute("loggedIn", true);
+        }
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("posts", postRepository.findAll());
+            return "user/createpost";
+        }
+        fashPost.setDate(java.time.LocalDate.now());
+        fashPost.setTime(java.time.LocalTime.now());
+        fashPost.setPoster(users.findFashUserByUsername(principal.getName()));
+        postRepository.save(fashPost);
+        return "redirect:/postDetails/"+fashPost.getId();
     }
 }

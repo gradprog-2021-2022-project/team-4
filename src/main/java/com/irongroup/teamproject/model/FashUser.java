@@ -1,13 +1,7 @@
 package com.irongroup.teamproject.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.File;
-import java.io.InputStream;
-import java.net.URI;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

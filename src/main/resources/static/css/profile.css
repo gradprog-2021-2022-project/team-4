@@ -39,6 +39,7 @@
     /* top: 43%; */
     left: 0;
     background: #89B6A5;
+    z-index: -1;
 }
 
 .profileposts {

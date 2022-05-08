@@ -11,6 +11,8 @@
           th:href="@{/css/library.css}" href="/css/library.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/profile.css}" href="/css/profile.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
     <title>Info</title>
 </head>
 <body>
@@ -33,6 +35,39 @@
                     <dd><span th:text="${user.getPostsMade().size()}"></span></dd>
                 </dl>
             </section>
+            <div class="postCardDiv" th:each="post : ${user.getPostsMade()}">
+                <a class="postCard" th:if="${post!=null}" th:href="@{|/postDetails/${post.getId()}}">
+                    <section class="sectionclass">
+                        <img class="exploreprofilepic" th:src="|/u/image/${user.getId()}|">
+                        <h1 class="sectionrows" th:text="${user.getUsername()}"></h1>
+                        <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${post.getLocation()}"></i></h3>
+                        <article>
+                            <img class="postpic" th:src="|/p/image/${post.getId()}|">
+                        </article>
+                        <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                        <p class="sectionbiotext"th:text="${post.getText()}"></p>
+                        <strong><p class="sectionbiolikes"th:text="|${post.getLikes()} likes|"></p></strong>
+                        <div class="commentsothers" th:if="${post.getOneComment()}">
+                            <div th:if="${user.getProfilePic()}">
+                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${user.getId()}|">
+                            </div>
+                            <div th:unless="${user.getProfilePic()}">
+                                <i class="noprofilepic fa fa-fw fa-user"></i>
+                            </div>
+                            <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                            <p class="sectionbiotext"th:text="${post.getOneComment().getText()}"></p>
+                        </div>
+                    </section>
+                </a>
+                <section class="sectioncommentexplore" th:if="${loggedIn!=null}">
+                    <form>
+                        <input type="hidden" name="id" th:value="${fashUser.getPostsMade().getId()}">
+                        <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
+                        <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
+                        <button type="submit" class="btn commentbutton">Plaats comment!</button>
+                    </form>
+                </section>
+            </div>
         </div>
         <div th:unless="${user}">
             <p>No user was chosen</p>

@@ -22,7 +22,9 @@
             <section class="sectionclass">
                 <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
                 <h1 class="sectionrows" th:text="${fashUser.getUsername()}"></h1>
-                <button class="bttnExplore section">Follow</button>
+                <form class="formbtn" method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                    <button type="submit" class="bttnExplore section">Follow</button>
+                </form>
                 <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashUser.getLocation()}"></i></h3>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">

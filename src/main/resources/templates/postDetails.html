@@ -11,7 +11,7 @@
 <main>
     <article class="postDetails" th:if="${post}">
         <section class="sidePic border">
-            <img th:src="@{/img/placeholderpic.jpg}">
+            <img th:src="|/p/image/${post.getId()}|">
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
         </section>
         <section class="postInfo border">

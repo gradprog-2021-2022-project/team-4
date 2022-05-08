@@ -6,6 +6,7 @@ import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.xml.stream.events.Comment;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -86,5 +91,18 @@ public class PostController {
         post.addLike();
         posts.save(post);
         return "redirect:/postDetails/"+id;
+    }
+    //Laden van een foto van post, gebaseerd op Brent zijn profielfotof
+    @GetMapping("/p/image/{id}")
+    public void image(
+            HttpServletResponse response,
+            @PathVariable Integer id) throws IOException {
+        response.setContentType("image/jpg");
+
+        Optional<FashPost> postopt=posts.findById(id);
+        if (postopt.isPresent()&&postopt.get().getPostPic()!=null){
+            InputStream is = new ByteArrayInputStream(postopt.get().getPostPic());
+            IOUtils.copy(is, response.getOutputStream());
+        }
     }
 }

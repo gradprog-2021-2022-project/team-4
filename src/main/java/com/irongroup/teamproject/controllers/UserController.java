@@ -40,25 +40,48 @@ public class UserController {
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
+        //Dit is als een gebruiker wordt gezocht
         if(id==null) {
             FashUser user = users.findFashUserByUsername(principal.getName());
             model.addAttribute("user", user);
+            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+            model.addAttribute("following",user.getFollowers());
+            /*//Tijdelijke code voor testing
+            for (FashUser u : user.getFollowers()
+                 ) {
+                System.out.println(u.username);
+            }*/
             return "profilepage";
         }
+        //Dit is als je naar je eigen profiel gaat
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
                 model.addAttribute("user", optionalFashUser.get());
+                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+                model.addAttribute("following",optionalFashUser.get().getFollowers());
             }
             return "profilepage";
         }
     }
 
     @GetMapping({"/follow/{id}" })
-    public String follow(Model model, Principal principal, @PathVariable(required = false)Integer id){
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        user.follow(users.findById(id).get());
-        users.save(user);
+    public String follow(Model model, Principal principal, @PathVariable Integer id){
+        //Kijken of ge wel bent ingelogd
+        if(principal!=null){
+            //Kijken of de id die meegegeven is bestaat
+            if(users.findById(id).get()!=null){
+                FashUser user = users.findFashUserByUsername(principal.getName());
+                //Kijken of ge al volgt en zoniet, volgen
+                if(!user.followers.contains(users.findById(id).get())){
+                    user.follow(users.findById(id).get());
+                }
+                //Als ge wel volgt, unfollow doen
+                else {user.unFollow(users.findById(id).get());}
+                //Natuurlijk opslaan zoals altijd
+                users.save(user);
+            }
+        }
         return "redirect:/profilepage/" + id;
     }
 

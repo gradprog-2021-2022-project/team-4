@@ -205,7 +205,14 @@ public class FashUser {
     }
 
     public void follow(FashUser gebruiker){
-        this.followers.add(gebruiker);
+        if(!this.followers.contains(gebruiker)) {this.followers.add(gebruiker);}
+    }
+    public void unFollow(FashUser gebruiker){
+        if(this.followers.contains(gebruiker)) {this.followers.remove(gebruiker);}
+    }
+
+    public Collection<FashUser> getFollowers() {
+        return followers;
     }
 
     public int aantalFollowers() {

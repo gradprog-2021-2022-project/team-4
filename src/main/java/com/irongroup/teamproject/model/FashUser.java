@@ -222,7 +222,7 @@ public class FashUser {
         this.followers = followers;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
@@ -230,7 +230,7 @@ public class FashUser {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 

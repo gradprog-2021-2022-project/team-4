@@ -34,7 +34,8 @@
             document.getElementById("latitude").value = position.coords.latitude;
         });
     } else {
-        latitude.textContent = "Geolocation is not supported by this browser.";
+        document.getElementById("longitude").value = null;
+        document.getElementById("latitude").value = null;
     }
 </script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

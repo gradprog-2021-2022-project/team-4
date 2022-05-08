@@ -16,7 +16,19 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
+<aside>
+    <h2>Filters: </h2>
+    <form>
+        <h3>Filter by location?</h3>
+        <label for="noClose" >No</label>
+        <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
+        <label for="yesClose">Yes</label>
+        <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
+        <input type="submit" value="search">
+    </form>
+</aside>
 <main>
+
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">

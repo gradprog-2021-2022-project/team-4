@@ -24,6 +24,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Optional;
 
 import java.security.Principal;
@@ -90,6 +92,7 @@ public class UserController {
         if (principal != null) return "redirect:/";
         return "user/register";
     }
+
     @PostMapping({"/register"})
     public String register(Model model, @ModelAttribute("valid") @Valid FashUser valid, BindingResult bindingResult,
                            @RequestParam("image")MultipartFile multipartFile) throws IOException {

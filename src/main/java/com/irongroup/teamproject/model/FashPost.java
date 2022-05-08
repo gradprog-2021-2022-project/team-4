@@ -112,10 +112,15 @@ public class FashPost {
 
     public FashComment getOneComment() {
         ArrayList<FashComment> comments=new ArrayList<FashComment>();
-        for (FashComment c:this.comments) {
-            comments.add(c);
+        if (this.comments.isEmpty()) {
+            return null;
         }
-        return comments.get(comments.size()-1);
+        else {
+            for (FashComment c:this.comments) {
+                comments.add(c);
+            }
+            return comments.get(comments.size()-1);
+        }
     }
 
     public String getText() {

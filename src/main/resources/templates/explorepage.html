@@ -30,7 +30,7 @@
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
                 <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
-                <div class="commentsothers">
+                <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
                     <div th:if="${fashUser.getProfilePic()}">
                         <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getId()}|">
                     </div>

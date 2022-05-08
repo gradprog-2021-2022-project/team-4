@@ -63,17 +63,19 @@ public class AdminController {
     }
 
     @GetMapping("/location")
-    public String location(Model model, Principal principal,@RequestParam(required = false) Double latitude){
+    public String location(Model model, Principal principal,@RequestParam(required = false) Double latitude,
+                           @RequestParam(required = false) Double longitude){
         model.addAttribute("user", users.findFashUserByUsername(principal.getName()));
         model.addAttribute("latitude", latitude);
+        model.addAttribute("longitude", longitude);
+        System.out.println(latitude);
+        System.out.println(longitude);
+        if(latitude != null&&longitude !=null){
+            FashUser user = users.findFashUserByUsername(principal.getName());
+            user.setLatitude(latitude);
+            user.setLongitude(longitude);
+            users.save(user);
+        }
         return "location";
     }
-
-    @PostMapping("/location")
-    public String postlocation(Model model, Principal principal,@RequestParam(required = false) Double latitude){
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        user.setLatitude(latitude);
-        return "location";
-    }
-
 }

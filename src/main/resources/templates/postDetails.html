@@ -1,18 +1,11 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/library.css}" href="/css/library.css"/>
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/posts.css}" href="/css/library.css"/>
-    <title th:text="${post.getPoster()}">Info</title>
+<head th:replace="fragments/head_foot :: headfrag">
 </head>
+<link rel="stylesheet" type="text/css" media="all"
+      th:href="@{/css/posts.css}" href="/css/library.css"/>
+<title th:text="${post.getPoster()}">Info</title>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
@@ -48,7 +41,7 @@
         </section>
         <section class="border comment" th:each="comment : ${comments}">
             <a class="profilelink">
-                <img th:src="${comment.getUser().photosImagePath}">
+                <img src="/u/image">
             </a>
             <a>
                 <h3 class="username" th:text="${comment.getUser().getUsername()}"></h3>

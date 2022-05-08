@@ -20,25 +20,25 @@
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">
-                <img class="exploreprofilepic" th:src="${fashUser.photosImagePath}">
+                <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
                 <h1 class="sectionrows" th:text="${fashUser.getUsername()}"></h1>
                 <button class="bttnExplore section">Follow</button>
                 <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashUser.getLocation()}"></i></h3>
                 <article>
-                    <img class="postpic" th:src="@{/img/placeholderpic.jpg}">
+                    <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
                 <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
-                <div th:each="comment : ${fashUser.getLastPost().getOneComment()}" class="commentsothers">
-                    <div th:if="${comment.getUser().photosImagePath}">
-                        <img class="exploreprofilepic commentpic" th:src="${comment.getUser().photosImagePath}">
+                <div class="commentsothers">
+                    <div th:if="${fashUser.getProfilePic()}">
+                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getId()}|">
                     </div>
-                    <div th:unless="${comment.getUser().photosImagePath}">
+                    <div th:unless="${fashUser.getProfilePic()}">
                         <i class="noprofilepic fa fa-fw fa-user"></i>
                     </div>
-                    <strong><p class="sectionbioname" th:text="${comment.getUser().getUsername()}"></p></strong>
-                    <p class="sectionbiotext"th:text="${comment.getText()}"></p>
+                    <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
+                    <p class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
                 </div>
             </section>
         </a>

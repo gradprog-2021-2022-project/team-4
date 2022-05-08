@@ -149,16 +149,25 @@ public class UserController {
         return "photodisplay";
     }
 
-    @GetMapping("/u/image")
+    @GetMapping({"/u/image","/u/image/{id}"})
     public void image(
                       HttpServletResponse response,
-                      Principal principal) throws IOException {
+                      Principal principal,@PathVariable(required = false)Integer id) throws IOException {
         response.setContentType("image/jpg");
 
-        Optional<FashUser> fashUserOptional = userRepository.findUserOptional(principal.getName());
-        if (fashUserOptional.isPresent()&&fashUserOptional.get().getProfilePic()!=null){
-            InputStream is = new ByteArrayInputStream(fashUserOptional.get().getProfilePic());
-            IOUtils.copy(is, response.getOutputStream());
+        if(id==null){
+            Optional<FashUser> fashUserOptional = userRepository.findUserOptional(principal.getName());
+            if (fashUserOptional.isPresent()&&fashUserOptional.get().getProfilePic()!=null){
+                InputStream is = new ByteArrayInputStream(fashUserOptional.get().getProfilePic());
+                IOUtils.copy(is, response.getOutputStream());
+            }
+        }
+        else{
+            Optional<FashUser> fashUserOptional = userRepository.findById(id);
+            if (fashUserOptional.isPresent()&&fashUserOptional.get().getProfilePic()!=null){
+                InputStream is = new ByteArrayInputStream(fashUserOptional.get().getProfilePic());
+                IOUtils.copy(is, response.getOutputStream());
+            }
         }
     }
 }

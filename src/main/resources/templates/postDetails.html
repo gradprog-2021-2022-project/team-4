@@ -41,7 +41,7 @@
         </section>
         <section class="border comment" th:each="comment : ${comments}">
             <a class="profilelink">
-                <img src="/u/image">
+                <img th:src="|/u/image/${comment.getUser().getId()}|">
             </a>
             <a>
                 <h3 class="username" th:text="${comment.getUser().getUsername()}"></h3>

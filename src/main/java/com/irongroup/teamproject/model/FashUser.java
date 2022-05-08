@@ -27,8 +27,6 @@ public class FashUser {
 
     private byte[] profilePic;
 
-    private String photos;
-
     @OneToMany
     public Collection<FashUser> followers;
 
@@ -129,10 +127,6 @@ public class FashUser {
         return password;
     }
 
-    public String getPhotos() {
-        return photos;
-    }
-
     public String getRole() {
         return role;
     }
@@ -143,10 +137,6 @@ public class FashUser {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setPhotos(String photos) {
-        this.photos = photos;
     }
 
     public void setRole(String role) {
@@ -195,13 +185,6 @@ public class FashUser {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    @Transient
-    public String getPhotosImagePath() {
-        if (photos == null || id == null) return null;
-
-        return "/src/main/resources/static/img/user-photos/" + id + "/" + photos;
     }
 
     public void follow(FashUser gebruiker){

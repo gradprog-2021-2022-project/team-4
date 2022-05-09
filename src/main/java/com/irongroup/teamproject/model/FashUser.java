@@ -204,10 +204,6 @@ public class FashUser {
         return this.followers.size();
     }
 
-    public Collection<FashUser> getFollowers() {
-        return followers;
-    }
-
     public void setFollowers(Collection<FashUser> followers) {
         this.followers = followers;
     }

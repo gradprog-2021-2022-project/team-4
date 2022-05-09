@@ -39,8 +39,6 @@ public class UserController {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    PostRepository postRepository;
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
@@ -164,45 +162,5 @@ public class UserController {
             InputStream is = new ByteArrayInputStream(fashUserOptional.get().getProfilePic());
             IOUtils.copy(is, response.getOutputStream());
         }
-    }
-
-    @GetMapping("/postnew")
-    public String postNew(Model model) {
-        return "user/createpost";
-    }
-
-    @ModelAttribute("post")
-    public FashPost findPost(@PathVariable(required = false) Integer id) {
-        if (id!=null) {
-            Optional<FashPost> optionalFashPost = postRepository.findById(id);
-            if (optionalFashPost.isPresent()) return optionalFashPost.get();
-        }
-        return new FashPost();
-    }
-
-    @PostMapping("/postnew")
-    public String postNewPost(Model model, Principal principal,
-                              @ModelAttribute("post") @Valid FashPost valid, BindingResult bindingResult,
-                              @RequestParam("image")MultipartFile multipartFile) throws IOException{
-
-        if(principal!= null) {
-            model.addAttribute("loggedIn", true);
-        }
-        if (bindingResult.hasErrors()) {
-            return "user/createpost";
-        }
-        FashPost post = new FashPost();
-
-        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
-            post.setInputstream(multipartFile.getInputStream().readAllBytes());
-        }
-
-        post.setDate(java.time.LocalDate.now());
-        post.setTime(java.time.LocalTime.now());
-        post.setPoster(users.findFashUserByUsername(principal.getName()));
-        post.setText(valid.getText());
-        post.setLocation(valid.getLocation());
-        postRepository.save(post);
-        return "redirect:/postDetails/"+post.getId();
     }
 }

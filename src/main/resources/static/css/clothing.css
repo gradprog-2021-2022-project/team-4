@@ -13,7 +13,7 @@
     transition: 0.5s;
     width: 250px;
 }
-.btnClothes:hover {
+.btnClothes,btntPost:hover {
     background: #781FFF;
 }
 .clothepage{
@@ -23,9 +23,8 @@
 }
 .btntoPost{
     text-decoration: none;
-    color: white;
     padding: 5px;
-    background: #B685FF;
+    background: #FAFF7F;
     height: auto;
     border-radius: 20px;
     cursor: pointer;

@@ -21,6 +21,11 @@ public class ClothingController {
 
     @GetMapping("/clothing/{id}")
     public String clothing(Model model,@PathVariable Integer id){
+        try{
+            model.addAttribute("clothes",clothingRepository.findClothingOfUser(id));
+        }catch (Exception e){
+            //NOG NIKS
+        }
         return "clothing_overview";
     }
 

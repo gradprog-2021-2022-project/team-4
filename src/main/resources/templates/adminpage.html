@@ -2,87 +2,92 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/library.css}" href="/css/library.css"/>
+          th:href="@{/css/admin.css}" href="/css/admincss"/>
     <title>Admin only</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="hasAuthority('admin')">
-    <h1>USERS</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>delete?</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="fashposter : ${fashposters}" >
-            <td th:text="${fashposter.getId()}"></td>
-            <td th:text="${fashposter.getUsername()}"></td>
-            <td><a class="btn" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <h1>CLOTHES</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>delete?</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="item : ${fashclothes}" >
-            <td th:text="${item.getId()}"></td>
-            <td th:text="${item.getNaam()}"></td>
-            <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
-        </tr>
-        </tbody>
-    </table>
-    <h1>POSTS</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>delete?</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="fashpost : ${fashposts}" >
-            <td th:text="${fashpost.getId()}"></td>
-            <td th:text="${fashpost.getPoster().getUsername()}"></td>
-            <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
-        </tr>
-        </tbody>
-    </table>
-    <h1>COMMENTS</h1>
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>delete?</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="fashComment : ${comments}" >
-            <td th:text="${fashComment.getId()}"></td>
-            <td th:text="${fashComment.getUser().getId()}"></td>
-            <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
-        </tr>
-        </tbody>
-    </table>
+    <article class="adminPage">
+        <section class="adminUsers">
+            <h1>USERS</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fashposter : ${fashposters}" >
+                    <td th:text="${fashposter.getId()}"></td>
+                    <td th:text="${fashposter.getUsername()}"></td>
+                    <td><a class="btn" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="adminClothes">
+            <h1>CLOTHES</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${fashclothes}" >
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getNaam()}"></td>
+                    <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="adminPosts">
+            <h1>POSTS</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fashpost : ${fashposts}" >
+                    <td th:text="${fashpost.getId()}"></td>
+                    <td th:text="${fashpost.getPoster().getUsername()}"></td>
+                    <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="adminComments">
+            <h1>COMMENTS</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fashComment : ${comments}" >
+                    <td th:text="${fashComment.getId()}"></td>
+                    <td th:text="${fashComment.getUser().getId()}"></td>
+                    <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

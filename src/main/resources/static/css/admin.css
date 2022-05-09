@@ -1,0 +1,17 @@
+.adminPage{
+    display: grid;
+    grid-template-areas: 'gposts gclothes gusers gcomments';
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.adminPosts{
+    grid-area: gposts;
+}
+.adminClothes{
+    grid-area: gclothes;
+}
+.adminUsers{
+    grid-area: gusers;
+}
+.adminComments{
+    grid-area: gcomments;
+}

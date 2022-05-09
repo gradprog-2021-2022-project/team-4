@@ -9,4 +9,7 @@ import java.util.Collection;
 
 public interface PostRepository extends CrudRepository<FashPost,Integer> {
     Collection<FashPost> findAll();
+
+    @Query("select p from FashPost p where p.poster.id = :user")
+    Collection<FashPost> findbyUserId(@Param("user") Integer user);
 }

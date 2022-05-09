@@ -10,7 +10,12 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-
+    <article th:each="post:  ${fashposts}">
+        Dit is een post
+        <section th:each="clothing : ${post.getClothes()}">
+            Dit is een kledingstuk
+        </section>
+    </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

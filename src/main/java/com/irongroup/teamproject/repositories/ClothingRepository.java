@@ -10,6 +10,6 @@ import java.util.Collection;
 public interface ClothingRepository extends CrudRepository<Clothing_Item,Integer> {
     Collection<Clothing_Item> findAll();
 
-    @Query("select c from Clothing_Item c where c.userOwner.id = :user")
+    @Query("select c from Clothing_Item c where c.userOwner.id = :user group by c.post")
     Collection<Clothing_Item> findClothingOfUser(@Param("user")Integer userID);
 }

@@ -3,6 +3,7 @@ package com.irongroup.teamproject.controllers;
 import com.irongroup.teamproject.model.Clothing_Item;
 import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.ClothingRepository;
+import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,8 @@ import java.security.Principal;
 @Controller
 public class ClothingController {
     @Autowired
+    PostRepository posts;
+    @Autowired
     ClothingRepository clothingRepository;
     @Autowired
     UserRepository userRepository;
@@ -22,6 +25,7 @@ public class ClothingController {
     @GetMapping("/clothing/{id}")
     public String clothing(Model model,@PathVariable Integer id){
         try{
+            model.addAttribute("fashposts",posts.findbyUserId(id));
             model.addAttribute("clothes",clothingRepository.findClothingOfUser(id));
         }catch (Exception e){
             //NOG NIKS

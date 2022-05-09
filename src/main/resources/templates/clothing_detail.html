@@ -7,16 +7,17 @@
 <link rel="stylesheet" th:href="@{/css/clothing.css}">
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main>
-    <article class="container">
+<main class="clothepage">
+    <article class="containerCloth">
         <section class="sectionclothing">
             <h2 th:text="${item.getNaam()}"></h2>
             <a class="btnClothes" th:text="|Gedeeld door: ${item.getPost().getPoster().getUsername()}|" th:href="@{|/postDetails/${item.getPost().getId()}|}"></a><br>
             <a class="btnClothes" th:href="@{|/buyItem/${item.getId()}|}">Koop!</a><br>
             <a th:if="${fashuser!=null && !fashuser.getClothing_saved().contains(item)}" class="btnClothes" th:href="@{|/saveItem/${item.getId()}|}">Opslaan!</a><br>
             <a th:if="${fashuser!=null && fashuser.getClothing_saved().contains(item)}" class="btnClothes" th:href="@{|/removeItem/${item.getId()}|}">Verwijderen uit lijst</a><br>
-
-            <a th:if="${fashuser==null}" class="btnClothes" th:href="@{/login}">Login</a> or <a th:if="${fashuser==null}" class="btnClothes" th:href="@{/register}">Register</a> to save!<br>
+            <p th:if="${fashuser==null}">
+                <a class="btnClothes" th:href="@{/login}">Login</a> or <a th:if="${fashuser==null}" class="btnClothes" th:href="@{/register}">Register</a> to save!<br>
+            </p>
         </section>
     </article>
 </main>

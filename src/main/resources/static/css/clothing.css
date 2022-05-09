@@ -17,7 +17,12 @@
 .btnClothes:hover {
     background: #781FFF;
 }
-.container {
+.clothepage{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.containerCloth {
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;

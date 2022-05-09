@@ -38,7 +38,7 @@
                         <i class="noprofilepic fa fa-fw fa-user"></i>
                     </div>
                     <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
-                    <p class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
+                    <p th:if="${fashUser.getLastPost().getOneComment()!=null}" class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
                 </div>
             </section>
         </a>

@@ -111,6 +111,10 @@ public class FashPost {
     }
 
     public FashComment getOneComment() {
+        if(comments.isEmpty()){
+            return null;
+        }
+
         ArrayList<FashComment> comments=new ArrayList<FashComment>();
         for (FashComment c:this.comments) {
             comments.add(c);

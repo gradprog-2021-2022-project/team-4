@@ -25,7 +25,16 @@
     <div>
         <h2>New post :</h2>
     </div>
-        <form class="border" th:action="@{/postnew}" th:object="${post}" method="post">
+        <!--
+        <div th:if="${loggedIn==null}" >
+            <div>
+                <a th:href="@{/login}" class="btn">Login</a>
+            </div>
+        </div>
+        <div th:if="${loggedIn!=null}" > </div>
+        -->
+
+        <form th:action="@{/postnew}" th:object="${post}" method="post" enctype="multipart/form-data">
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 
             <label for="text">Tekst:</label><br>

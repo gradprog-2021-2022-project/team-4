@@ -39,6 +39,8 @@ public class FashPost {
     //Location of post (to be investigated)
     private String location;
 
+    private byte[] inputstream;
+
     public FashPost() {
     }
 
@@ -133,4 +135,17 @@ public class FashPost {
         this.likes = likes;
     }
     public void addLike(){likes++;};
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public byte[] getInputstream() {
+        return inputstream;
+    }
+
+    public void setInputstream(byte[] inputstream) {
+        this.inputstream = inputstream;
+    }
+
 }

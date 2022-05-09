@@ -9,11 +9,15 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main>
-    <article th:each="post:  ${fashposts}">
-        Dit is een post
+<main class="clothepage">
+    <article class="containerCloth" th:each="post:  ${fashposts}">
+        <a th:href="@{|/postDetails/${post.getId()}|}">
+            <h2 class="btntoPost" th:text="${post.getLocation()}"></h2>
+        </a>
         <section th:each="clothing : ${post.getClothes()}">
-            Dit is een kledingstuk
+            <a th:href="@{|/clothingdetail/${clothing.getId()}|}">
+                <h2 class="btnClothes" th:text="${clothing.getNaam()}"></h2>
+            </a>
         </section>
     </article>
 </main>

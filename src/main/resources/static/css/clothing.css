@@ -11,7 +11,7 @@
     cursor: pointer;
     font-weight: 900;
     transition: 0.5s;
-    width: available;
+    width: 250px;
 }
 .btnClothes:hover {
     background: #781FFF;
@@ -20,6 +20,18 @@
     display: flex;
     justify-content: center;
     align-content: center;
+}
+.btntoPost{
+    text-decoration: none;
+    color: white;
+    padding: 5px;
+    background: #B685FF;
+    height: auto;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: available;
 }
 .containerCloth {
     border-radius: 20px;

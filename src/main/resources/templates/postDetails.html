@@ -11,7 +11,7 @@
 <main>
     <article class="postDetails" th:if="${post}">
         <section class="sidePic border">
-            <img th:src="|/p/image/${post.getId()}|">
+            <img class="picDetail" th:src="|/p/image/${post.getId()}|">
             <h3 th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
         </section>
         <section class="postInfo border">
@@ -36,7 +36,7 @@
                 <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn">Plaats comment!</button>
             </form>
-            <a th:href="@{|/likePost/${post.getId()}|}" th:text="${post.getLikes()}" class="border btn" style="float: right">
+            <a th:href="@{|/likePost/${post.getId()}|}" th:text="${post.getLikes()}" class="btn" style="float: right">
             </a>
         </section>
         <section class="border comment" th:each="comment : ${comments}">

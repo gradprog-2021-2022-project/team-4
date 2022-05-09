@@ -130,6 +130,11 @@ h3.sectionrows {
     margin: 5px;
     background: #E8D7FF;
 }
+.picDetail{
+    justify-self: center;
+    width: available;
+    height: auto;
+}
 .postDetails {
     display: grid;
     grid-template-areas: 'gpic' 'ginfo' 'gitems';

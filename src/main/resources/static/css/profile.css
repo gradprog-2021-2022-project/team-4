@@ -54,4 +54,6 @@
 
 .profilepic {
     width: 250px;
+    border-radius: 40px;
+    border: 2px solid black;
 }

@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,7 +44,7 @@
                 </div>
             </section>
         </a>
-        <section class="sectioncommentexplore" th:if="${loggedIn!=null}">
+        <section class="sectioncommentexplore" sec:authorize="!isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
                 <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">

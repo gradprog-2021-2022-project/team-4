@@ -13,7 +13,7 @@
           th:href="@{/css/profile.css}" href="/css/profile.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/posts.css}" href="/css/posts.css"/>
-    <title>Info</title>
+    <title>profilepage</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
@@ -21,10 +21,18 @@
     <div>
         <div th:if="${user}">
             <section class="hr-lines">
-                <img class="profilepic" src="/u/image" alt="image not found">
+                <div th:if="${user.getProfilePic()}">
+                    <img class="profilepic" src="/u/image" alt="image not found">
+                </div>
+                <div th:unless="${user.getProfilePic()}">
+                    <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
+                </div>
                 <h2 th:text="${user.getUsername()}">username</h2>
                 <h2 th:text="${user.getId()}">id</h2>
                 <h2 th:text="${user.aantalFollowers()}">aantalFollowers</h2>
+                <div th:if="${user.getProfilePic()}">
+                    <img class="profilepic" src="/u/image" alt="image not found">
+                </div>
                 <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Following" class="followingbtn"></a></strong>
                 <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
                 <p>bio</p>
@@ -71,6 +79,10 @@
         </div>
         <div th:unless="${user}">
             <p>No user was chosen</p>
+            <p>Please login first</p>
+            <form class="formbtn" method="get" th:action="@{|../../login}">
+                <button type="submit" class="bttnExplore section">login</button>
+            </form>
         </div>
     </div>
 </main>

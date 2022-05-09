@@ -40,20 +40,25 @@ public class UserController {
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
-        //Dit is als een gebruiker wordt gezocht
+        //Dit is als je naar je eigen profiel gaat
         if(id==null) {
-            FashUser user = users.findFashUserByUsername(principal.getName());
-            model.addAttribute("user", user);
-            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-            model.addAttribute("following",user.getFollowers());
+            if (principal==null) {
+                return "profilepage";
+            }
+            else {
+                FashUser user = users.findFashUserByUsername(principal.getName());
+                model.addAttribute("user", user);
+                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+                model.addAttribute("following",user.getFollowers());
             /*//Tijdelijke code voor testing
             for (FashUser u : user.getFollowers()
                  ) {
                 System.out.println(u.username);
             }*/
-            return "profilepage";
+                return "profilepage";
+            }
         }
-        //Dit is als je naar je eigen profiel gaat
+        //Dit is als een gebruiker wordt gezocht
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){

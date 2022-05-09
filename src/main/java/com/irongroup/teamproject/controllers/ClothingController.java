@@ -19,6 +19,11 @@ public class ClothingController {
     @Autowired
     UserRepository userRepository;
 
+    @GetMapping("/clothing/{id}")
+    public String clothing(Model model,@PathVariable Integer id){
+        return "clothing_overview";
+    }
+
     @GetMapping({"/clothingdetail", "/clothingdetail/{id}"})
     public String clothingdetails(Model model, @PathVariable(required = false) Integer id, Principal principal) {
         try {

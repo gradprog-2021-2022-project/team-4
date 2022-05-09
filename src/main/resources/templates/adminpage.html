@@ -15,46 +15,71 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="hasAuthority('admin')">
-    <h1>Welkom!</h1>
+    <h1>USERS</h1>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Username</th>
+            <th>delete?</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="fashposter : ${fashposters}" >
             <td th:text="${fashposter.getId()}"></td>
             <td th:text="${fashposter.getUsername()}"></td>
+            <td><a class="btn" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</a></td>
         </tr>
         </tbody>
     </table>
+    <h1>CLOTHES</h1>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>delete?</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${fashclothes}" >
             <td th:text="${item.getId()}"></td>
             <td th:text="${item.getNaam()}"></td>
+            <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
         </tr>
         </tbody>
     </table>
+    <h1>POSTS</h1>
     <table>
         <thead>
         <tr>
             <th>ID</th>
             <th>Username</th>
+            <th>delete?</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="fashpost : ${fashposts}" >
             <td th:text="${fashpost.getId()}"></td>
-            <a th:onclick="@{|/deletePost/${fashpost.getId()}|}">DELETE</a>
+            <td th:text="${fashpost.getPoster().getUsername()}"></td>
+            <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <h1>COMMENTS</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>delete?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="fashComment : ${comments}" >
+            <td th:text="${fashComment.getId()}"></td>
+            <td th:text="${fashComment.getUser().getId()}"></td>
+            <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
         </tr>
         </tbody>
     </table>

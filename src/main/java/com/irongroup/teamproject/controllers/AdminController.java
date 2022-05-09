@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -56,5 +57,41 @@ public class AdminController {
         model.addAttribute("comments",comments.findAll());
 
         return "adminpage";
+    }
+    @GetMapping("/deleteUser/{userId}")
+    public String deleteUser(@PathVariable Integer userId){
+        try{
+            users.delete(users.findById(userId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deletePost/{postId}")
+    public String deletePost(@PathVariable Integer postId){
+        try{
+            posts.delete(posts.findById(postId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deleteItem/{itemId}")
+    public String deleteItem(@PathVariable Integer itemId){
+        try{
+            clothing.delete(clothing.findById(itemId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable Integer commentId){
+        try{
+            comments.delete(comments.findById(commentId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
     }
 }

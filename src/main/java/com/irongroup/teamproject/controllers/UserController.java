@@ -182,19 +182,27 @@ public class UserController {
 
     @PostMapping("/postnew")
     public String postNewPost(Model model, Principal principal,
-            @Valid @ModelAttribute("post") FashPost fashPost, BindingResult bindingResult){
+                              @ModelAttribute("post") @Valid FashPost valid, BindingResult bindingResult,
+                              @RequestParam("image")MultipartFile multipartFile) throws IOException{
 
         if(principal!= null) {
             model.addAttribute("loggedIn", true);
         }
         if (bindingResult.hasErrors()) {
-            model.addAttribute("posts", postRepository.findAll());
             return "user/createpost";
         }
-        fashPost.setDate(java.time.LocalDate.now());
-        fashPost.setTime(java.time.LocalTime.now());
-        fashPost.setPoster(users.findFashUserByUsername(principal.getName()));
-        postRepository.save(fashPost);
-        return "redirect:/postDetails/"+fashPost.getId();
+        FashPost post = new FashPost();
+
+        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
+            post.setInputstream(multipartFile.getInputStream().readAllBytes());
+        }
+
+        post.setDate(java.time.LocalDate.now());
+        post.setTime(java.time.LocalTime.now());
+        post.setPoster(users.findFashUserByUsername(principal.getName()));
+        post.setText(valid.getText());
+        post.setLocation(valid.getLocation());
+        postRepository.save(post);
+        return "redirect:/postDetails/"+post.getId();
     }
 }

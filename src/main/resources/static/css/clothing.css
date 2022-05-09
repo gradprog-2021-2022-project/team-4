@@ -2,9 +2,8 @@
     display:block;
 }
 .btnClothes{
+    text-decoration: none;
     color: white;
-    margin-top: 25px;
-    margin-bottom: 50px;
     padding: 5px;
     background: #B685FF;
     height: auto;
@@ -30,5 +29,5 @@
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
     margin-top: 0;
     width: 350px;
-    height: 700px;
+    height: auto;
 }

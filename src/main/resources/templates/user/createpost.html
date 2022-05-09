@@ -9,41 +9,38 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/library.css}" href="/css/library.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/register.css}" href="/css/register.css"/>
     <title>New post</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 
-<main>
-    <div>
-        <h2>New post</h2>
-    </div>
-
-    <div th:if="${post}" th:object="${post}">
-        <div th:if="${post}">
-            <a class="btn" th:href="@{/explorepage}">back</a>
-        </div>
-        <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
+<main class="mainForm">
+    <div class="container containerReg">
         <div>
-            <form class="border" th:action="@{/postnew}" method="post">
-                <div class="oneinput saveButtonDiv">
-                    <input type="submit" value="create" class="btn">
-                </div>
-
-                <div class="oneinput">
-                    <label for="text" class="info">Text: </label>
-                    <input type="text" id="text" class="border" placeholder="Text" th:field="*{text}" th:errorclass="fieldError">
-                </div>
-
-                <div class="oneinput">
-                    <label for="location" class="info">Location: </label>
-                    <input type="text" id="location" class="border" placeholder="Stad" th:field="*{location}" th:errorclass="fieldError">
-                </div>
-            </form>
+            <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
         </div>
+
+    <div>
+        <h2>New post :</h2>
+    </div>
+        <form class="border" th:action="@{/postnew}" th:object="${post}" method="post">
+            <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
+
+            <label for="text">Tekst:</label><br>
+            <input type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError"><br><br>
+            <label for="location">Locatie:</label><br>
+            <input type="text" id="location" placeholder="stad bvb" th:field="*{location}" th:errorclass="fieldError"><br><br>
+            <label for="image">Outfit photo :</label><br>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="submit" value="create" class="btn"><br>
+            <div>
+                <a th:href="@{/explorepage}" class="cancel">cancel</a>
+            </div>
+        </form>
     </div>
 </main>
-
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

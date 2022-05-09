@@ -109,7 +109,8 @@ public class UserController {
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             user.setProfilePic(multipartFile.getInputStream().readAllBytes());
         }
-
+        user.setLongitude(valid.getLongitude());
+        user.setLatitude(valid.getLatitude());
         user.setFirst_name(valid.getFirst_name());
         user.setLast_name(valid.getLast_name());
         user.setPost_allowance(3);

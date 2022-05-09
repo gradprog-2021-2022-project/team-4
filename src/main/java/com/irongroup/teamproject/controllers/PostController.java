@@ -32,7 +32,8 @@ public class PostController {
     CommentRepository comments;
 
     @GetMapping({"/explorepage","/"})
-    public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby, @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
+    public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
+            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
 
         System.out.println(loginName);
@@ -56,9 +57,11 @@ public class PostController {
             model.addAttribute("fashUsers",fashUsers);
         }
         model.addAttribute("closeby", closeby);
+        model.addAttribute("showFilter", showFilter);
         return "explorepage";
     }
 
+    //Lijst die gebasseerd is op locatie filteren op 5km afstand
     public ArrayList<FashUser> orderByLocation(Principal principal){
 
         FashUser user = users.findFashUserByUsername(principal.getName());
@@ -79,6 +82,7 @@ public class PostController {
         return closest;
     }
 
+    //Haversine formule om afstand tussen 2 coordinaten te berekennen
     public Double haversine(Double lat1, Double lon1, Double lat2, Double lon2){
         //Afstand tussen de lengtegraad en breedtegraad berekenen
         double dLat = (lat2 - lat1) * Math.PI / 180.0;

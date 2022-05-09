@@ -136,7 +136,47 @@ nav a:hover {
     display: none;
 }
 
+/* Filter menu tonen of niet*/
+.filters{
+    background-color: #cbced1;
+    padding: 10px;
+    border-radius: 15%;
+    display: block;
+}
+
+
+.filterContainer{
+    float: left;
+    position: fixed;
+}
+
+.txt::before{
+   content: "+" ;
+}
+
+.btnFilter{
+    top: 0;
+    color: white;
+    margin-top: 20px;
+    background: #B685FF;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: 30px;
+}
+
 @media only screen and (min-width: 760px) {
+
+    .txt::before{
+        content: "FILTERS";
+    }
+    .btnFilter{
+        top: unset;
+        height: 40px;
+        width: 120px;
+    }
 
     header{
         border-top: none;

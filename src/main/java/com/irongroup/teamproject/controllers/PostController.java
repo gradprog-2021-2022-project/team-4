@@ -37,13 +37,14 @@ public class PostController {
     CommentRepository comments;
 
     @GetMapping({"/explorepage","/"})
-    public String explorepage(Model model, Principal principal, @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
+    public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
+            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
+
         System.out.println(loginName);
         Collection<FashPost> postsmade=posts.findAll();
         model.addAttribute("fashposts",postsmade);
         Collection<FashUser> fashUsers=users.findUsersWithPosts();
-        model.addAttribute("fashUsers",fashUsers);
         if(principal!= null){
             FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
             model.addAttribute("loggedIn",true);
@@ -53,8 +54,55 @@ public class PostController {
                 return "redirect:/explorepage";
             }
         }
+        System.out.println("closeby = "+closeby);
+        if (closeby!=null && closeby &&principal!=null){
+            model.addAttribute("fashUsers", orderByLocation(principal));
+        }
+        else{
+            model.addAttribute("fashUsers",fashUsers);
+        }
+        model.addAttribute("closeby", closeby);
+        model.addAttribute("showFilter", showFilter);
         return "explorepage";
     }
+
+    //Lijst die gebasseerd is op locatie filteren op 5km afstand
+    public ArrayList<FashUser> orderByLocation(Principal principal){
+
+        FashUser user = users.findFashUserByUsername(principal.getName());
+
+        ArrayList<FashUser> closest = new ArrayList<>();
+
+        for (FashUser u: users.findUsersWithPosts()) {
+            if(u.getLongitude()!=null&&u.getLatitude()!=null&&user.getLongitude()!=null&&user.getLatitude()!=null){
+                System.out.println(haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude()));
+                Double distanceInKm = haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude());
+
+                if (distanceInKm<5){
+                    closest.add(u);
+                }
+            }
+        }
+
+        return closest;
+    }
+
+    //Haversine formule om afstand tussen 2 coordinaten te berekennen
+    public Double haversine(Double lat1, Double lon1, Double lat2, Double lon2){
+        //Afstand tussen de lengtegraad en breedtegraad berekenen
+        double dLat = (lat2 - lat1) * Math.PI / 180.0;
+        double dLon = (lon2 -lon1)* Math.PI / 180.0;
+
+        //omvormen naar radialen
+        lat1 = (lat1) * Math.PI /180.0;
+        lat2 = (lat2)* Math.PI /180.0;
+
+        Double a = Math.pow(Math.sin(dLat /2),2) + Math.pow(Math.sin(dLon/2),2) * Math.cos(lat1) * Math.cos(lat2);
+        Double rad = 6371.0;
+        Double c = 2 * Math.asin(Math.sqrt(a));
+        return rad * c;
+    }
+
     @GetMapping({"/foryoupage"})
     public String foryoupage(){
         return "foryoupage";

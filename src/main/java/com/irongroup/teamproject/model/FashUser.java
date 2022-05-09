@@ -2,6 +2,7 @@ package com.irongroup.teamproject.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -19,6 +20,10 @@ public class FashUser {
     @NotBlank
     private String password;
 
+    private Double longitude;
+    private Double latitude;
+
+    @Column(length = 100000)
     private byte[] profilePic;
 
     @OneToMany
@@ -46,7 +51,7 @@ public class FashUser {
     public FashUser() {
     }
 
-    public FashUser(Integer id, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
+    public FashUser(Integer id,Double latitude,Double longitude, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
         this.id = id;
         this.username = username;
         this.location = location;
@@ -59,6 +64,9 @@ public class FashUser {
         this.comments = comments;
         this.clothing_posted = clothing_posted;
         this.clothing_saved = clothing_saved;
+
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public void addItem(Clothing_Item item){
@@ -194,5 +202,29 @@ public class FashUser {
 
     public int aantalFollowers() {
         return this.followers.size();
+    }
+
+    public Collection<FashUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Collection<FashUser> followers) {
+        this.followers = followers;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 }

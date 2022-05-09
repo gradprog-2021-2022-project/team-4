@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,7 +14,7 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main>
+<main sec:authorize="hasAuthority('admin')">
     <h1>Welkom!</h1>
     <table>
         <thead>
@@ -54,6 +54,7 @@
         <tbody>
         <tr th:each="fashpost : ${fashposts}" >
             <td th:text="${fashpost.getId()}"></td>
+            <a th:onclick="@{|/deletePost/${fashpost.getId()}|}">DELETE</a>
         </tr>
         </tbody>
     </table>

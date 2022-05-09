@@ -104,4 +104,13 @@ public class PostController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }
+
+    @GetMapping("/deletePost/{postId}")
+    public void deletePost(@PathVariable Integer postId){
+        try{
+            posts.delete(posts.findById(postId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+    }
 }

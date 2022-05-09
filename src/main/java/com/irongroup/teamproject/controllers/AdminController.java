@@ -28,8 +28,8 @@ public class AdminController {
     @Autowired
     ClothingRepository clothing;
 
-    @GetMapping("/admin")
-    public String adminpage(Model model) {
+    @GetMapping("/adminpagina")
+    public String adminpagina(Model model) {
 
         /*
         //alles leegmaken (enkel voor testjes)

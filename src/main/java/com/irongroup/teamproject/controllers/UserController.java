@@ -62,6 +62,17 @@ public class UserController {
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
+                FashUser user = users.findFashUserByUsername(principal.getName());
+                //Kijken of ge al volgt en zoniet, volgen
+                if(!user.followers.contains(users.findById(id).get())){
+                    //follow button veranderen naar follow
+                    model.addAttribute("follow", "follow");
+                }
+                //Als ge wel volgt, unfollow doen
+                else {
+                    //follow button veranderen naar unfollow
+                    model.addAttribute("follow", "unfollow");
+                }
                 model.addAttribute("user", optionalFashUser.get());
                 //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
                 model.addAttribute("following",optionalFashUser.get().getFollowers());

@@ -66,7 +66,6 @@ public class PostController {
         //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
         if(principal!= null){
             FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
-            model.addAttribute("loggedIn",true);
             if(commentText!=null){
                 FashPost post=posts.findById(id).get();
                 comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));

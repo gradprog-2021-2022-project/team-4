@@ -1,0 +1,23 @@
+Code deftig nakijken!!!!!!
+Bugs direct fixen aub :)
+Genoeg pushen zodat wij zien wa er gebeurt
+COMMENTAAR
+Iets doen aub
+
+Ibrahim:
+	Niks van validatie?
+	Bijna geen enkel veld ingevuld + geen foto code van Brent??
+	Bugs zoeken en oplossen
+Matthew:
+	Input hidden met postid -> ge kan toch de postid rechtstreeks ophalen en meegeven?
+	Clothing posted =/= aantal posts
+	Follow button en following doen hetzelfde
+	Doe aub iets van debugging
+	Geen onnodige loops etc doen (eg. loop door 1 comment?)
+Brentje:
+	Meer debuggen
+ALGEMEEN:
+	Lees u code na en fix bugs
+	Geen onnodige extra stappen doen, das onoverzichtelijk voor de rest
+	Brent heeft een head fragment voorzien, gebruik da aub
+	Elke pagina gemaakt door Matthew, Ibrahim heeft als titel gewoon info -> gelieve namen aan te passen ipv ctrl c ctrl v

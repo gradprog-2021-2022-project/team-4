@@ -2,9 +2,8 @@
     display:block;
 }
 .btnClothes{
+    text-decoration: none;
     color: white;
-    margin-top: 25px;
-    margin-bottom: 50px;
     padding: 5px;
     background: #B685FF;
     height: auto;
@@ -17,7 +16,12 @@
 .btnClothes:hover {
     background: #781FFF;
 }
-.container {
+.clothepage{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.containerCloth {
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
@@ -25,5 +29,5 @@
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
     margin-top: 0;
     width: 350px;
-    height: 700px;
+    height: auto;
 }

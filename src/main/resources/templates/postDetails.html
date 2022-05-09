@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
 <head th:replace="fragments/head_foot :: headfrag">
 </head>
 <link rel="stylesheet" type="text/css" media="all"
@@ -30,7 +30,7 @@
         <p>No post was chosen</p>
     </article>
     <article class="border commentlist">
-        <section th:if="${loggedIn!=null}" class="border comment">
+        <section sec:authorize="isAuthenticated()" class="border comment">
             <form class="border" style="float: left;">
                 <input required="required" class="border" name="commentTitle" placeholder="Titel">
                 <input required="required" class="border" type="text" name="commentText" placeholder="Jouw comment">

@@ -9,14 +9,11 @@ import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
-import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -32,8 +29,8 @@ public class AdminController {
     @Autowired
     ClothingRepository clothing;
 
-    @GetMapping("/admin")
-    public String adminpage(Model model) {
+    @GetMapping("/adminpagina")
+    public String adminpagina(Model model) {
 
         /*
         //alles leegmaken (enkel voor testjes)
@@ -60,5 +57,41 @@ public class AdminController {
         model.addAttribute("comments",comments.findAll());
 
         return "adminpage";
+    }
+    @GetMapping("/deleteUser/{userId}")
+    public String deleteUser(@PathVariable Integer userId){
+        try{
+            users.delete(users.findById(userId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deletePost/{postId}")
+    public String deletePost(@PathVariable Integer postId){
+        try{
+            posts.delete(posts.findById(postId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deleteItem/{itemId}")
+    public String deleteItem(@PathVariable Integer itemId){
+        try{
+            clothing.delete(clothing.findById(itemId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
+    }
+    @GetMapping("/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable Integer commentId){
+        try{
+            comments.delete(comments.findById(commentId).get());
+        }catch (Exception e){
+            //NOG NIKS
+        }
+        return "redirect:/adminpagina";
     }
 }

@@ -166,6 +166,7 @@ public class UserController {
         }
     }
 
+    //Alle functionaliteit voor posts in de post controller plaatsen
     @GetMapping("/postnew")
     public String postNew(Model model) {
         return "user/createpost";
@@ -184,6 +185,7 @@ public class UserController {
     public String postNewPost(Model model, Principal principal,
             @Valid @ModelAttribute("post") FashPost fashPost, BindingResult bindingResult){
 
+        //Dit is ook geen goede manier, Brent heeft de login gedaan. Je kan nu in de html zelf nakijken of je bent ingelogd
         if(principal!= null) {
             model.addAttribute("loggedIn", true);
         }
@@ -193,6 +195,7 @@ public class UserController {
         }
         fashPost.setDate(java.time.LocalDate.now());
         fashPost.setTime(java.time.LocalTime.now());
+        //Hier ook error checking doen
         fashPost.setPoster(users.findFashUserByUsername(principal.getName()));
         postRepository.save(fashPost);
         return "redirect:/postDetails/"+fashPost.getId();

@@ -131,25 +131,23 @@ h3.sectionrows {
     background: #E8D7FF;
 }
 .picDetail{
-    justify-self: center;
     width: available;
     height: auto;
 }
 .postDetails {
     display: grid;
-    grid-template-areas: 'gpic' 'ginfo' 'gitems';
+    grid-template-areas: 'gpic' 'ginfo' 'gitems' 'gcomment';
     justify-content: center;
     align-content: center;
 }
 .sidePic{
-    display: block;
     grid-area: gpic;
     align-content: center;
     justify-content: center;
 }
 .sidePic img{
+    max-width: 250px;
     height: auto;
-    width: available;
 }
 .postitems lu {
     display: inline;
@@ -163,25 +161,25 @@ h3.sectionrows {
 }
 /*De lijst van comments*/
 .commentlist{
+    grid-area: gcomment;
     display: inline-block;
-    width: 100%;
+    width: available;
 }
 /*Voor elke comment en de commentform*/
 .comment{
-    height: 100px;
+    height: auto;
     background: #FAFF7F;
     width: available;
     display: flex;
 }
 /*Voor de foto binnen een comment*/
 .comment img{
-    height: 100%;
+    height: 100px;
     width: auto;
     border-radius: 45px;
 }
 .profilelink{
-    margin-right: 25px;
-    width: 25%;
+    width: 150px;
 }
 /*Voor input velden bij comment form*/
 .comment input{
@@ -215,8 +213,8 @@ h3.sectionrows {
     .postDetails {
         width: 100%;
         display: grid;
-        grid-template-areas: 'gpic ginfo' 'gpic gitems';
-        grid-template-rows: 500px 250px;
+        grid-template-areas: 'gpic ginfo' 'gpic gitems' 'gcomments gcomments';
+        grid-template-rows: 250px 150px;
         grid-template-columns: 50% 50%;
     }
 }

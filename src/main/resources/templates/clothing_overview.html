@@ -11,6 +11,9 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main class="clothepage">
     <article class="containerCloth" th:each="post:  ${fashposts}">
+        <a th:href="@{|/profilepage/${user.getId()}|}">
+            <h1 class="btntoPost" th:text="${user.getUsername()}"></h1>
+        </a>
         <a th:href="@{|/postDetails/${post.getId()}|}">
             <h2 class="btntoPost" th:text="${post.getLocation()}"></h2>
         </a>

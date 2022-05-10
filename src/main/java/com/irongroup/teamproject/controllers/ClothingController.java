@@ -25,6 +25,7 @@ public class ClothingController {
     @GetMapping("/clothing/{id}")
     public String clothing(Model model,@PathVariable Integer id){
         try{
+            model.addAttribute("user",userRepository.findById(id).get());
             model.addAttribute("fashposts",posts.findbyUserId(id));
             model.addAttribute("clothes",clothingRepository.findClothingOfUser(id));
         }catch (Exception e){

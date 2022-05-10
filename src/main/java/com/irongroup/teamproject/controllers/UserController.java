@@ -144,15 +144,6 @@ public class UserController {
         return "redirect:/login";
     }
 
-    @GetMapping({"/photodisplay" })
-    public String photodisplay(Model model, Principal principal){
-        if(principal==null) return "redirect:/";
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        model.addAttribute("user", user);
-
-        return "photodisplay";
-    }
-
     @GetMapping({"/u/image","/u/image/{id}"})
     public void image(
                       HttpServletResponse response,

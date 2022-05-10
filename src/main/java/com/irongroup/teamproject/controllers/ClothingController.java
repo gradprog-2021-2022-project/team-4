@@ -24,11 +24,14 @@ public class ClothingController {
     UserRepository userRepository;
 
     @GetMapping("/clothing/{id}")
-    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String naamkleding){
+    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname){
         try{
             model.addAttribute("user",userRepository.findById(id).get());
-            model.addAttribute("fashposts",posts.findbyUserId(id));
-            model.addAttribute("clothes",clothingRepository.findClothingByFilter(id,naamkleding));
+            if(kledingname!=null&&kledingname.length()>0){
+                model.addAttribute("clothes",clothingRepository.findClothingByFilter(id,kledingname));
+            }else{
+                model.addAttribute("fashposts",posts.findbyUserId(id));
+            }
         }catch (Exception e){
             //NOG NIKS
         }

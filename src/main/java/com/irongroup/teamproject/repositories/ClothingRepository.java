@@ -14,6 +14,6 @@ public interface ClothingRepository extends CrudRepository<Clothing_Item,Integer
     Collection<Clothing_Item> findClothingOfUser(@Param("user")Integer userID);
 
 
-    @Query("select c from Clothing_Item c where (c.id=:user) and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%')))")
+    @Query("select c from Clothing_Item c where c.userOwner.id= :user and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%')))")
     Collection<Clothing_Item> findClothingByFilter(@Param("user") Integer userID,@Param("kledingname") String kledingname);
 }

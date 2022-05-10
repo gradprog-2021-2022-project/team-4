@@ -34,7 +34,7 @@
     }
 </script>
 <main class="clothepage">
-    <article class="containerCloth" th:each="post:  ${fashposts}">
+    <article th:if="${fashposts.size()!=null}" class="containerCloth" th:each="post:  ${fashposts}">
         <a th:href="@{|/profilepage/${user.getId()}|}">
             <h1 class="btntoPost" th:text="${user.getUsername()}"></h1>
         </a>
@@ -44,6 +44,13 @@
         <section th:each="clothing : ${post.getClothes()}">
             <a th:href="@{|/clothingdetail/${clothing.getId()}|}">
                 <h2 class="btnClothes" th:text="${clothing.getNaam()}"></h2>
+            </a>
+        </section>
+    </article>
+    <article class="containerCloth" th:unless="${fashposts!=null}">
+        <section th:each="cloth : ${clothes}">
+            <a th:href="@{|/clothingdetail/${cloth.getId()}|}">
+                <h2 class="btnClothes" th:text="${cloth.getNaam()}"></h2>
             </a>
         </section>
     </article>

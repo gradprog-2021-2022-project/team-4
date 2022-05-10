@@ -20,10 +20,8 @@
             <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
         </section>
         <section class="postitems border">
-            <lu>
-                <li th:each="item : ${post.getClothes()}">
-                    <a class="btn" th:text="${item.getNaam()}" th:href="@{|/clothingdetail/${item.getId()}|}"></a></li>
-            </lu>
+            <a th:each="item : ${post.getClothes()}" th:class="btn" th:text="${item.getNaam()}"
+               th:href="@{|/clothingdetail/${item.getId()}|}"></a>
         </section>
     </article>
     <article class="postDetails" th:unless="${post}">

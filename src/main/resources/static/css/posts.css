@@ -179,6 +179,7 @@ h3.sectionrows {
     border-radius: 45px;
 }
 .profilelink{
+    height: 100px;
     width: 150px;
 }
 /*Voor input velden bij comment form*/

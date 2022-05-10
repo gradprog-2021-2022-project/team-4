@@ -39,7 +39,7 @@ public class FashPost {
     //Location of post (to be investigated)
     private String location;
 
-    private byte[] inputstream;
+    private byte[] postPic;
 
     public FashPost() {
     }
@@ -140,12 +140,11 @@ public class FashPost {
         this.text = text;
     }
 
-    public byte[] getInputstream() {
-        return inputstream;
+    public byte[] getPostPic() {
+        return postPic;
     }
 
-    public void setInputstream(byte[] inputstream) {
-        this.inputstream = inputstream;
+    public void setPostPic(byte[] postPic) {
+        this.postPic = postPic;
     }
-
 }

@@ -52,9 +52,10 @@ public class CreateController {
         FashPost post = new FashPost();
         //photo
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
-            post.setInputstream(multipartFile.getInputStream().readAllBytes());
+            post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 
+        post.setLikes(0);
         post.setDate(java.time.LocalDate.now());
         post.setTime(java.time.LocalTime.now());
         post.setPoster(users.findFashUserByUsername(principal.getName()));

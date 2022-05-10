@@ -27,7 +27,8 @@ public class CreateController {
         return "createpost";
     }
 
-    @ModelAttribute("post")
+    //post create
+    @ModelAttribute("valid")
     public FashPost findPost(@PathVariable(required = false) Integer id) {
         if (id!=null) {
             Optional<FashPost> optionalFashPost = postRepository.findById(id);
@@ -38,9 +39,10 @@ public class CreateController {
 
     @PostMapping("/postnew")
     public String postNewPost(Model model, Principal principal,
-                              @ModelAttribute("post") @Valid FashPost valid, BindingResult bindingResult,
+                              @ModelAttribute("valid") @Valid FashPost valid, BindingResult bindingResult,
                               @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
+        //Kijken of de user aangemeld is;
         if(principal!= null) {
             model.addAttribute("loggedIn", true);
         }
@@ -48,7 +50,7 @@ public class CreateController {
             return "createpost";
         }
         FashPost post = new FashPost();
-
+        //photo
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             post.setInputstream(multipartFile.getInputStream().readAllBytes());
         }
@@ -61,5 +63,4 @@ public class CreateController {
         postRepository.save(post);
         return "redirect:/postDetails/"+post.getId();
     }
-
 }

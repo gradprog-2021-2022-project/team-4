@@ -33,8 +33,7 @@
         </div>
         <div th:if="${loggedIn!=null}" > </div>
         -->
-
-        <form th:action="@{/postnew}" th:object="${post}" method="post" enctype="multipart/form-data">
+        <form th:action="@{|/postnew|}" th:object="${valid}" method="post" enctype="multipart/form-data">
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 
             <label for="text">Tekst:</label><br>

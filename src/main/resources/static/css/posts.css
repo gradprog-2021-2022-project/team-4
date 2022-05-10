@@ -142,13 +142,14 @@ h3.sectionrows {
     align-content: center;
 }
 .sidePic{
+    display: block;
     grid-area: gpic;
     align-content: center;
     justify-content: center;
 }
 .sidePic img{
     height: auto;
-    width: auto;
+    width: available;
 }
 .postitems lu {
     display: inline;

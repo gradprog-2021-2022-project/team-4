@@ -24,15 +24,22 @@ public class ClothingController {
     UserRepository userRepository;
 
     @GetMapping("/clothing/{id}")
-    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname){
-        try{
-            model.addAttribute("user",userRepository.findById(id).get());
-            if(kledingname!=null&&kledingname.length()>0){
-                model.addAttribute("clothes",clothingRepository.findClothingByFilter(id,kledingname));
-            }else{
-                model.addAttribute("fashposts",posts.findbyUserId(id));
+    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname, @RequestParam(required = false) Boolean date) {
+        try {
+            if (date != null && !date) {
+                date = null;
             }
-        }catch (Exception e){
+            model.addAttribute("user", userRepository.findById(id).get());
+            if ((kledingname != null && kledingname.length() > 0) || (date != null && date)) {
+                if (kledingname.length() > 0) {
+                    model.addAttribute("clothes", clothingRepository.findClothingByFilter(id, kledingname));
+                } else {
+                    model.addAttribute("clothes", clothingRepository.findClothingByFilter(id, null));
+                }
+            } else {
+                model.addAttribute("fashposts", posts.findbyUserId(id));
+            }
+        } catch (Exception e) {
             //NOG NIKS
         }
         return "clothing_overview";

@@ -42,10 +42,6 @@ public class CreateController {
                               @ModelAttribute("valid") @Valid FashPost valid, BindingResult bindingResult,
                               @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
-        //Kijken of de user aangemeld is;
-        if(principal!= null) {
-            model.addAttribute("loggedIn", true);
-        }
         if (bindingResult.hasErrors()) {
             return "createpost";
         }

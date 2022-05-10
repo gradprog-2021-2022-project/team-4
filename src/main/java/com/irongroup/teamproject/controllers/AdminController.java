@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,7 +31,16 @@ public class AdminController {
     ClothingRepository clothing;
 
     @GetMapping("/adminpagina")
-    public String adminpagina(Model model) {
+    public String adminpagina(Model model,@RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow) {
+
+        try{
+            FashUser user =users.findById(id).get();
+            user.setPost_allowance(postallow);
+            users.save(user);
+            return "redirect:/adminpagina";
+        }catch (Exception e){
+            //NOG NIKS
+        }
 
         /*
         //alles leegmaken (enkel voor testjes)

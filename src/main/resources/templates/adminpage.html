@@ -18,13 +18,24 @@
                 <tr>
                     <th>ID</th>
                     <th>Username</th>
+                    <th>credit</th>
+                    <th>save?</th>
                     <th>delete?</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="fashposter : ${fashposters}" >
+                <tr th:each="fashposter : ${fashposters}">
                     <td th:text="${fashposter.getId()}"></td>
                     <td th:text="${fashposter.getUsername()}"></td>
+                    <td>
+                        <form style="width:50px">
+                            <input style="display: none" type="number" th:value="${fashposter.getId()}" name="id">
+                            <input style="width: 50px;" type="number"
+                                   th:value="${fashposter.getPost_allowance()}"
+                                   name="postallow">
+                            <button class="btn" style="width: 50px;" type="submit">save</button>
+                        </form>
+                    </td>
                     <td><a class="btn" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</a></td>
                 </tr>
                 </tbody>
@@ -41,7 +52,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="item : ${fashclothes}" >
+                <tr th:each="item : ${fashclothes}">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getNaam()}"></td>
                     <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
@@ -60,7 +71,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="fashpost : ${fashposts}" >
+                <tr th:each="fashpost : ${fashposts}">
                     <td th:text="${fashpost.getId()}"></td>
                     <td th:text="${fashpost.getPoster().getUsername()}"></td>
                     <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
@@ -79,7 +90,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="fashComment : ${comments}" >
+                <tr th:each="fashComment : ${comments}">
                     <td th:text="${fashComment.getId()}"></td>
                     <td th:text="${fashComment.getUser().getId()}"></td>
                     <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>

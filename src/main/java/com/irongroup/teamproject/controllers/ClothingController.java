@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 
@@ -23,11 +24,11 @@ public class ClothingController {
     UserRepository userRepository;
 
     @GetMapping("/clothing/{id}")
-    public String clothing(Model model,@PathVariable Integer id){
+    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String naamkleding){
         try{
             model.addAttribute("user",userRepository.findById(id).get());
             model.addAttribute("fashposts",posts.findbyUserId(id));
-            model.addAttribute("clothes",clothingRepository.findClothingOfUser(id));
+            model.addAttribute("clothes",clothingRepository.findClothingByFilter(id,naamkleding));
         }catch (Exception e){
             //NOG NIKS
         }

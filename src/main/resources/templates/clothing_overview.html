@@ -9,6 +9,30 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
+<aside class="filterContainer">
+    <div class="filters" name="showFilter">
+        <h2>Filters: </h2>
+        <form>
+            <input type="text" placeholder="Zoek op naam!" name="naamkleding">
+            <button type="submit">Zoek!</button>
+        </form>
+    </div>
+    <div>
+        <button class="btnFilter txt" onclick="showFilters()"></button>
+    </div>
+</aside>
+<script>
+    function showFilters() {
+        var btn = document.getElementsByClassName("btnFilter")[0];
+        var x = document.getElementsByClassName("filters")[0];
+        console.log("function");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 <main class="clothepage">
     <article class="containerCloth" th:each="post:  ${fashposts}">
         <a th:href="@{|/profilepage/${user.getId()}|}">

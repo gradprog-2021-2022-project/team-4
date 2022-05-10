@@ -1,11 +1,12 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
-<head th:replace="fragments/head_foot :: headfrag">
+<head>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <title th:text="${post.getPoster().getUsername()}">Info</title>
+    <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
-<link rel="stylesheet" type="text/css" media="all"
-      th:href="@{/css/posts.css}" href="/css/library.css"/>
-<title th:text="${post.getPoster()}">Info</title>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>

@@ -149,13 +149,6 @@ h3.sectionrows {
     max-width: 250px;
     height: auto;
 }
-.postitems lu {
-    display: inline;
-}
-.postitems lu li {
-    display: inline;
-}
-
 .postitems {
     grid-area: gitems;
 }

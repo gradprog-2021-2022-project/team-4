@@ -57,10 +57,10 @@
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
-    //Get the button
+    //Om de button te krijgen
     var mybutton = document.getElementById("myBtn");
 
-    // When the user scrolls down 20px from the top of the document, show the button
+    // als de gebruiker 20px scrollt naar beneden, dan is de button zichtbaar
     window.onscroll = function () {
         scrollFunction()
     };
@@ -73,11 +73,14 @@
         }
     }
 
-    // When the user clicks on the button, scroll to the top of the document
+    // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
+    document.getElementById("titlebalk").innerHTML = document.title;
 </script>
 </body>
 </html>

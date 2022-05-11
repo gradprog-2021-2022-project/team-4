@@ -1,0 +1,13 @@
+.followerpage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.followingperson {
+    display: flex;
+}
+
+.followerperson {
+    display: flex;
+}

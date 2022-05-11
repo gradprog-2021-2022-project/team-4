@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,14 +28,15 @@
                     <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
                 </div>
                 <h2 th:text="${user.getUsername()}">username</h2>
-                <h2 th:text="${user.getId()}">id</h2>
-                <h2 th:text="${user.aantalFollowers()}">aantalFollowers</h2>
+                <!--om erachter te komen welke id deze gebruiker heeft-->
+                <!--<h2 th:text="${user.getId()}">id</h2>-->
+                <h2 th:text="${user.aantalFollowing() + ' volgend'}">aantalFollowers</h2>
                 <div th:if="${follow}">
                     <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}" class="followingbtn"></a></strong>
-                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
+                    <strong><a th:href="@{/followerspage}" th:text="${user.aantalFollowers() + ' volgers'}" class="followerbtn"></a></strong>
                 </div>
                 <div th:unless="${follow}">
-                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
+                    <strong><a th:href="@{/followerspage}" th:text="${user.aantalFollowers() + ' volgers'}" class="followerbtn"></a></strong>
                 </div>
                 <p>bio</p>
             </section>
@@ -69,9 +70,9 @@
                         </div>
                     </section>
                 </a>
-                <section class="sectioncommentexplore" th:if="${loggedIn!=null}">
+                <section class="sectioncommentexplore" sec:authorize="!isAuthenticated()">
                     <form>
-                        <input type="hidden" name="id" th:value="${fashUser.getPostsMade().getId()}">
+                        <input type="hidden" name="id" th:value="${user.getPostsMade().getId()}">
                         <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
                         <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
                         <button type="submit" class="btn commentbutton">Plaats comment!</button>

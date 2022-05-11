@@ -42,6 +42,7 @@ public class UserController {
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
         //Dit is als je naar je eigen profiel gaat
         if(id==null) {
+            //als er niemand is ingelogd en je zoekt zelf de profilepage
             if (principal==null) {
                 return "profilepage";
             }
@@ -49,7 +50,7 @@ public class UserController {
                 FashUser user = users.findFashUserByUsername(principal.getName());
                 model.addAttribute("user", user);
                 //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-                model.addAttribute("following",user.getFollowers());
+                model.addAttribute("following",user.getFollowing());
             /*//Tijdelijke code voor testing
             for (FashUser u : user.getFollowers()
                  ) {
@@ -62,9 +63,10 @@ public class UserController {
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
-                FashUser user = users.findFashUserByUsername(principal.getName());
+                FashUser userpage = users.findFashUserByUsername(optionalFashUser.get().getUsername());
+                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
                 //Kijken of ge al volgt en zoniet, volgen
-                if(!user.followers.contains(users.findById(id).get())){
+                if (!userpage.followers.contains(userloggedin)){
                     //follow button veranderen naar follow
                     model.addAttribute("follow", "follow");
                 }
@@ -75,7 +77,7 @@ public class UserController {
                 }
                 model.addAttribute("user", optionalFashUser.get());
                 //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-                model.addAttribute("following",optionalFashUser.get().getFollowers());
+                model.addAttribute("following",optionalFashUser.get().getFollowing());
             }
             return "profilepage";
         }
@@ -87,18 +89,29 @@ public class UserController {
         if(principal!=null){
             //Kijken of de id die meegegeven is bestaat
             if(users.findById(id).get()!=null){
-                FashUser user = users.findFashUserByUsername(principal.getName());
+                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
+                FashUser userpage = users.findById(id).get();
                 //Kijken of ge al volgt en zoniet, volgen
-                if(!user.followers.contains(users.findById(id).get())){
-                    user.follow(users.findById(id).get());
+                if(!userloggedin.following.contains(userpage)){
+                    userloggedin.follow(users.findById(id).get());
+                    userpage.addFollower(userloggedin);
                 }
                 //Als ge wel volgt, unfollow doen
-                else {user.unFollow(users.findById(id).get());}
+                else {
+                    userloggedin.unFollow(users.findById(id).get());
+                    users.findById(id).get().removeFollower(userloggedin);
+                }
                 //Natuurlijk opslaan zoals altijd
-                users.save(user);
+                users.save(userloggedin);
+                users.save(userpage);
             }
         }
         return "redirect:/profilepage/" + id;
+    }
+
+    @GetMapping({"/followerspage"})
+    public String followerspage(){
+        return "followerspage";
     }
 
     @GetMapping({"/loginerror"})

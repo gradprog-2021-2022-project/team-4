@@ -30,10 +30,6 @@
             <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
             <label for="image">Profile picture</label>
             <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
-            <div>
-                <input type="hidden" name="latitude" id="latitude" th:field="*{latitude}">
-                <input type="hidden" name="longitude" id="longitude" th:field="*{longitude}">
-            </div>
             <input type="submit" value="Register" class="btn">
             <div>
                 <a href="/" class="cancel">cancel</a>

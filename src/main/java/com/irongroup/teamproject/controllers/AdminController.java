@@ -95,15 +95,4 @@ public class AdminController {
         }
         return "redirect:/adminpagina";
     }
-
-
-
-    @PutMapping("/location")
-    public void setlocation(Principal principal, @PathVariable("latitude")Double latitude, @PathVariable("longitude")Double longitude){
-        System.out.println("test");
-        FashUser user = users.findFashUserByUsername(principal.getName());
-        user.setLongitude(longitude);
-        user.setLatitude(latitude);
-        users.save(user);
-    }
 }

@@ -82,6 +82,22 @@ nav a{
     border-radius: 25px;
     transition: all .3s ease-in-out;
 }
+.aselected{
+    display: inline-block;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 25px;
+    margin: 0 5px;
+    text-align: left;
+    text-decoration: none;
+    list-style: none;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 25px;
+    transition: all .3s ease-in-out;
+    background-color: rgb(211, 187, 250);
+    color: #FAFF7F;
+}
 
 nav a:hover {
     background-color: rgb(211, 187, 250);

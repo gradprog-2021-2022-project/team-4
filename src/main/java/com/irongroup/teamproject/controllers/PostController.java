@@ -36,7 +36,12 @@ public class PostController {
     @Autowired
     CommentRepository comments;
 
-    @GetMapping({"/explorepage","/"})
+    @GetMapping("/")
+    public String redirectje(){
+        return "redirect:/explorepage";
+    }
+
+    @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
         final String loginName = principal==null ? "NOBODY" : principal.getName();

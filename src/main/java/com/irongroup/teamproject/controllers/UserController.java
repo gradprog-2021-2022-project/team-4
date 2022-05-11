@@ -76,15 +76,13 @@ public class UserController {
                     model.addAttribute("follow", "unfollow");
                 }
                 model.addAttribute("user", optionalFashUser.get());
-                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-                model.addAttribute("following",optionalFashUser.get().getFollowing());
             }
             return "profilepage";
         }
     }
 
     @GetMapping({"/follow/{id}" })
-    public String follow(Model model, Principal principal, @PathVariable Integer id){
+    public String follow(Principal principal, @PathVariable Integer id){
         //Kijken of ge wel bent ingelogd
         if(principal!=null){
             //Kijken of de id die meegegeven is bestaat
@@ -109,8 +107,15 @@ public class UserController {
         return "redirect:/profilepage/" + id;
     }
 
-    @GetMapping({"/followerspage"})
-    public String followerspage(){
+    @GetMapping({"/followerspage/{id}"})
+    public String followerspage(Model model, @PathVariable Integer id){
+        Optional<FashUser> optionalFashUser = users.findById(id);
+        if(optionalFashUser.isPresent()){
+            model.addAttribute("user", optionalFashUser.get());
+            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+            model.addAttribute("following",optionalFashUser.get().getFollowing());
+            model.addAttribute("followers",optionalFashUser.get().getFollowers());
+        }
         return "followerspage";
     }
 

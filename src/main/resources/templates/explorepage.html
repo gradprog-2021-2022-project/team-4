@@ -44,7 +44,7 @@
                 </div>
             </section>
         </a>
-        <section class="sectioncommentexplore" sec:authorize="!isAuthenticated()">
+        <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
                 <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">

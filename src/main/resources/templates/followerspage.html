@@ -18,8 +18,19 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <div>
-        <p>Dit wordt de pagina om te zien wie je volgt en door wie je gevolgd wordt.</p>
+    <div th:if="${user}">
+        <h1 th:text="${user.getUsername()}"></h1>
+        <h2 th:text="${user.aantalFollowing() + ' volgend'}">aantalFollowers</h2>
+        <div th:each="followingPerson : ${following}">
+            <p th:text="${followingPerson.getUsername()}"></p>
+        </div>
+    </div>
+    <div th:unless="${user}">
+        <p>No user was chosen</p>
+        <p>Please login first</p>
+        <form class="formbtn" method="get" th:action="@{|../../login}">
+            <button type="submit" class="bttnExplore section">login</button>
+        </form>
     </div>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

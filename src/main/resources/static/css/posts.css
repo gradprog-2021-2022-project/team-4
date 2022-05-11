@@ -152,7 +152,7 @@ h3.sectionrows {
 }
 .sidePic img{
     height: auto;
-    width: auto;
+    width: 100%;
 }
 .postitems lu {
     display: inline;

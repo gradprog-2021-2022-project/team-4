@@ -27,9 +27,16 @@ public class ClothingController {
     public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname, @RequestParam(required = false) Boolean date) {
         try {
             model.addAttribute("user", userRepository.findById(id).get());
-            if (kledingname != null && kledingname.length() > 0) {
+            //Als de date op yes staat, sorteren op datum en kledingnaam (omdat die null mag zijn)
+            if ((date != null && date)) {
+                model.addAttribute("clothes", clothingRepository.findClothingByFilterandDate(id, kledingname));
+            }
+            //Als de datum null is maar kleding ni, dan alleen filteren op kleding!!
+            else if (kledingname != null && kledingname.length() > 0) {
                 model.addAttribute("clothes", clothingRepository.findClothingByFilter(id, kledingname));
-            } else {
+            }
+            //Als geen filters aangeduid zijn, enkel sorteren per post!
+            else {
                 model.addAttribute("fashposts", posts.findbyUserId(id));
             }
         } catch (Exception e) {

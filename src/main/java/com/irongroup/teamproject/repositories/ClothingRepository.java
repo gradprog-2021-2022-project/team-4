@@ -19,4 +19,7 @@ public interface ClothingRepository extends CrudRepository<Clothing_Item,Integer
     //,@Param("date")String date
     @Query("select c from Clothing_Item c where c.userOwner.id= :user and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%')))")
     Collection<Clothing_Item> findClothingByFilter(@Param("user") Integer userID,@Param("kledingname") String kledingname);
+
+    @Query("select c from Clothing_Item c where c.userOwner.id= :user and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%'))) order by c.post.date")
+    Collection<Clothing_Item> findClothingByFilterandDate(@Param("user") Integer userID,@Param("kledingname") String kledingname);
 }

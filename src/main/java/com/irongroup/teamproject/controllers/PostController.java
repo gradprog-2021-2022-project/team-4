@@ -38,7 +38,8 @@ public class PostController {
 
     @GetMapping({"/explorepage","/"})
     public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
-            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
+            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle,
+                              @RequestParam(required = false)Double latitude,@RequestParam(required = false)Double longitude){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
 
         System.out.println(loginName);
@@ -54,6 +55,11 @@ public class PostController {
                 comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
                 return "redirect:/explorepage";
             }
+            if(longitude!=null&&latitude!=null){
+                loggedInUser.setLatitude(latitude);
+                loggedInUser.setLongitude(longitude);
+                users.save(loggedInUser);
+            }
         }
         System.out.println("closeby = "+closeby);
         if (closeby!=null && closeby &&principal!=null){
@@ -62,6 +68,8 @@ public class PostController {
         else{
             model.addAttribute("fashUsers",fashUsers);
         }
+        model.addAttribute("longitude", longitude);
+        model.addAttribute("latitude", latitude);
         model.addAttribute("closeby", closeby);
         model.addAttribute("showFilter", showFilter);
         return "explorepage";

@@ -26,6 +26,8 @@
             <label for="yesClose">Yes</label>
             <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
             <input type="submit" value="search">
+            <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
+            <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
         </form>
     </div>
     <div>
@@ -45,11 +47,6 @@
     }
 </script>
 <main>
-    <form th:object="${curUser}" th:onsubmit="|/location|" name="location">
-        <input type="hidden" name="latitude" id="latitude" th:field="*{latitude}">
-        <input type="hidden" name="longitude" id="longitude" th:field="*{longitude}">
-        <input type="submit">
-    </form>
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">
@@ -87,19 +84,16 @@
     <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
 <script type="text/javascript">
-
-    window.onload = function (){
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (position) {
-                document.getElementById("longitude").value = position.coords.longitude;
-                document.getElementById("latitude").value = position.coords.latitude;
-            });
-        } else {
-            document.getElementById("longitude").value = null;
-            document.getElementById("latitude").value = null;
-        }
-        document.forms['location'].submit();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("latitude").value = position.coords.latitude;
+        });
+    } else {
+        document.getElementById("longitude").value = null;
+        document.getElementById("latitude").value = null;
     }
+
 </script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>

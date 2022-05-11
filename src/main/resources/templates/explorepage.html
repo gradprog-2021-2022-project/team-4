@@ -26,6 +26,8 @@
             <label for="yesClose">Yes</label>
             <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
             <input type="submit" value="search">
+            <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
+            <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
         </form>
     </div>
     <div>
@@ -81,6 +83,18 @@
     </div>
     <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
+<script type="text/javascript">
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("latitude").value = position.coords.latitude;
+        });
+    } else {
+        document.getElementById("longitude").value = null;
+        document.getElementById("latitude").value = null;
+    }
+
+</script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
     //Get the button
@@ -105,5 +119,6 @@
         document.documentElement.scrollTop = 0;
     }
 </script>
+
 </body>
 </html>

@@ -8,13 +8,13 @@ import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import javax.xml.stream.events.Comment;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -43,7 +43,8 @@ public class PostController {
 
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
-            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
+            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle,
+                              @RequestParam(required = false)Double latitude,@RequestParam(required = false)Double longitude){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
 
         System.out.println(loginName);
@@ -52,11 +53,17 @@ public class PostController {
         Collection<FashUser> fashUsers=users.findUsersWithPosts();
         if(principal!= null){
             FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
+            model.addAttribute("curUser",loggedInUser);
             model.addAttribute("loggedIn",true);
             if(commentText!=null){
                 FashPost post=posts.findById(id).get();
                 comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
                 return "redirect:/explorepage";
+            }
+            if(longitude!=null&&latitude!=null){
+                loggedInUser.setLatitude(latitude);
+                loggedInUser.setLongitude(longitude);
+                users.save(loggedInUser);
             }
         }
         System.out.println("closeby = "+closeby);
@@ -66,9 +73,20 @@ public class PostController {
         else{
             model.addAttribute("fashUsers",fashUsers);
         }
+        model.addAttribute("longitude", longitude);
+        model.addAttribute("latitude", latitude);
         model.addAttribute("closeby", closeby);
         model.addAttribute("showFilter", showFilter);
         return "explorepage";
+    }
+
+
+    @PutMapping("/explorepage")
+    public ResponseEntity<FashUser>  updateUser(Principal principal){
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        users.save(user);
+
+        return ResponseEntity.ok(user);
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand

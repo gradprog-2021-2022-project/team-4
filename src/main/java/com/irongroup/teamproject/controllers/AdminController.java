@@ -11,9 +11,10 @@ import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.DataOutputStream;
+import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Collection;
@@ -93,5 +94,16 @@ public class AdminController {
             //NOG NIKS
         }
         return "redirect:/adminpagina";
+    }
+
+
+
+    @PutMapping("/location")
+    public void setlocation(Principal principal, @PathVariable("latitude")Double latitude, @PathVariable("longitude")Double longitude){
+        System.out.println("test");
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        user.setLongitude(longitude);
+        user.setLatitude(latitude);
+        users.save(user);
     }
 }

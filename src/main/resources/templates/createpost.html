@@ -1,0 +1,57 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/register.css}" href="/css/register.css"/>
+    <title>New post</title>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+
+<main class="mainForm">
+    <div class="container containerReg">
+        <div>
+            <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
+        </div>
+
+    <div>
+        <h2>New post :</h2>
+    </div>
+
+        <div
+        sec:authorize="!isAuthenticated()">
+            <p>Gelieve eerst in te loggen om een post aan te maken</p>
+        <a href="/login"><i class=btn></i> LOGIN</a><br>
+            <p>Nog geen account</p>
+            <a href="/register"><i class=btn></i> REGISTER</a>
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+        <form th:action="@{|/postnew|}" th:object="${valid}" method="post" enctype="multipart/form-data">
+            <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
+
+            <label for="text">Tekst:</label><br>
+            <input type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError"><br><br>
+            <label for="location">Locatie:</label><br>
+            <input type="text" id="location" placeholder="stad bvb" th:field="*{location}" th:errorclass="fieldError"><br><br>
+            <label for="image">Outfit photo :</label><br>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="submit" value="create" class="btn"><br>
+            <div>
+                <a th:href="@{/explorepage}" class="cancel">cancel</a>
+            </div>
+        </form>
+        </div>
+    </div>
+</main>
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+</body>
+</html>

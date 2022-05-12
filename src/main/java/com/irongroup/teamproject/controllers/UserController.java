@@ -2,9 +2,12 @@ package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
+import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -34,7 +37,6 @@ import java.security.Principal;
 public class UserController {
     @Autowired
     UserRepository users;
-
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

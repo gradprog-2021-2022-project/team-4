@@ -39,6 +39,8 @@ public class FashPost {
     //Location of post (to be investigated)
     private String location;
 
+    private byte[] postPic;
+
     public FashPost() {
     }
 
@@ -145,4 +147,16 @@ public class FashPost {
 
     //Geschreven door eliasje voor een easy like counter
     public void addLike(){likes++;};
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public byte[] getPostPic() {
+        return postPic;
+    }
+
+    public void setPostPic(byte[] postPic) {
+        this.postPic = postPic;
+    }
 }

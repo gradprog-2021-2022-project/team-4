@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +52,9 @@
             <section class="sectionclass">
                 <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
                 <h1 class="sectionrows" th:text="${fashUser.getUsername()}"></h1>
-                <button class="bttnExplore section">Follow</button>
+                <form class="formbtn" method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                    <button type="submit" class="bttnExplore section">Follow</button>
+                </form>
                 <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashUser.getLocation()}"></i></h3>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">
@@ -60,7 +62,7 @@
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
                 <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
-                <div class="commentsothers">
+                <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
                     <div th:if="${fashUser.getProfilePic()}">
                         <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getId()}|">
                     </div>
@@ -72,7 +74,7 @@
                 </div>
             </section>
         </a>
-        <section class="sectioncommentexplore" th:if="${loggedIn!=null}">
+        <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
                 <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
@@ -97,10 +99,10 @@
 </script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
-    //Get the button
+    //Om de button te krijgen
     var mybutton = document.getElementById("myBtn");
 
-    // When the user scrolls down 20px from the top of the document, show the button
+    // als de gebruiker 20px scrollt naar beneden, dan is de button zichtbaar
     window.onscroll = function () {
         scrollFunction()
     };
@@ -113,11 +115,14 @@
         }
     }
 
-    // When the user clicks on the button, scroll to the top of the document
+    // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
     function topFunction() {
         document.body.scrollTop = 0;
         document.documentElement.scrollTop = 0;
     }
+
+    // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
+    document.getElementById("titlebalk").innerHTML = document.title;
 </script>
 
 </body>

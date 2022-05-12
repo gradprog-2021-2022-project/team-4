@@ -27,6 +27,9 @@ public class FashUser {
     private byte[] profilePic;
 
     @OneToMany
+    public Collection<FashUser> following;
+
+    @OneToMany
     public Collection<FashUser> followers;
 
     private String role;
@@ -190,14 +193,31 @@ public class FashUser {
     }
 
     public void follow(FashUser gebruiker){
+        if(!this.following.contains(gebruiker)) {this.following.add(gebruiker);}
+    }
+
+    public void unFollow(FashUser gebruiker){
+        if(this.following.contains(gebruiker)) {this.following.remove(gebruiker);}
+    }
+
+    public void addFollower(FashUser gebruiker){
         if(!this.followers.contains(gebruiker)) {this.followers.add(gebruiker);}
     }
-    public void unFollow(FashUser gebruiker){
+
+    public void removeFollower(FashUser gebruiker){
         if(this.followers.contains(gebruiker)) {this.followers.remove(gebruiker);}
+    }
+
+    public Collection<FashUser> getFollowing() {
+        return following;
     }
 
     public Collection<FashUser> getFollowers() {
         return followers;
+    }
+
+    public int aantalFollowing() {
+        return this.following.size();
     }
 
     public int aantalFollowers() {

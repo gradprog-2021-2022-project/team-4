@@ -42,49 +42,83 @@ public class UserController {
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
-        //Dit is als een gebruiker wordt gezocht
+        //Dit is als je naar je eigen profiel gaat
         if(id==null) {
-            FashUser user = users.findFashUserByUsername(principal.getName());
-            model.addAttribute("user", user);
-            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-            model.addAttribute("following",user.getFollowers());
+            //als er niemand is ingelogd en je zoekt zelf de profilepage
+            if (principal==null) {
+                return "profilepage";
+            }
+            else {
+                FashUser user = users.findFashUserByUsername(principal.getName());
+                model.addAttribute("user", user);
+                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+                model.addAttribute("following",user.getFollowing());
             /*//Tijdelijke code voor testing
             for (FashUser u : user.getFollowers()
                  ) {
                 System.out.println(u.username);
             }*/
-            return "profilepage";
+                return "profilepage";
+            }
         }
-        //Dit is als je naar je eigen profiel gaat
+        //Dit is als een gebruiker wordt gezocht
         else {
             Optional<FashUser> optionalFashUser = users.findById(id);
             if(optionalFashUser.isPresent()){
+                FashUser userpage = users.findFashUserByUsername(optionalFashUser.get().getUsername());
+                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
+                //Kijken of ge al volgt en zoniet, volgen
+                if (!userpage.followers.contains(userloggedin)){
+                    //follow button veranderen naar follow
+                    model.addAttribute("follow", "follow");
+                }
+                //Als ge wel volgt, unfollow doen
+                else {
+                    //follow button veranderen naar unfollow
+                    model.addAttribute("follow", "unfollow");
+                }
                 model.addAttribute("user", optionalFashUser.get());
-                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-                model.addAttribute("following",optionalFashUser.get().getFollowers());
             }
             return "profilepage";
         }
     }
 
     @GetMapping({"/follow/{id}" })
-    public String follow(Model model, Principal principal, @PathVariable Integer id){
+    public String follow(Principal principal, @PathVariable Integer id){
         //Kijken of ge wel bent ingelogd
         if(principal!=null){
             //Kijken of de id die meegegeven is bestaat
             if(users.findById(id).get()!=null){
-                FashUser user = users.findFashUserByUsername(principal.getName());
+                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
+                FashUser userpage = users.findById(id).get();
                 //Kijken of ge al volgt en zoniet, volgen
-                if(!user.followers.contains(users.findById(id).get())){
-                    user.follow(users.findById(id).get());
+                if(!userloggedin.following.contains(userpage)){
+                    userloggedin.follow(users.findById(id).get());
+                    userpage.addFollower(userloggedin);
                 }
                 //Als ge wel volgt, unfollow doen
-                else {user.unFollow(users.findById(id).get());}
+                else {
+                    userloggedin.unFollow(users.findById(id).get());
+                    users.findById(id).get().removeFollower(userloggedin);
+                }
                 //Natuurlijk opslaan zoals altijd
-                users.save(user);
+                users.save(userloggedin);
+                users.save(userpage);
             }
         }
         return "redirect:/profilepage/" + id;
+    }
+
+    @GetMapping({"/followerspage/{id}"})
+    public String followerspage(Model model, @PathVariable Integer id){
+        Optional<FashUser> optionalFashUser = users.findById(id);
+        if(optionalFashUser.isPresent()){
+            model.addAttribute("user", optionalFashUser.get());
+            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+            model.addAttribute("following",optionalFashUser.get().getFollowing());
+            model.addAttribute("followers",optionalFashUser.get().getFollowers());
+        }
+        return "followerspage";
     }
 
     @GetMapping({"/loginerror"})

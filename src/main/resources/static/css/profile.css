@@ -5,7 +5,9 @@
     padding: 10px 0px;
 }
 
-.followerbtn {
+
+/*algemene button voor volgen en volgers, etc*/
+.followetcbtn {
     background-color: #89B6A5;
     border-radius: 8px;
     font-style: italic;
@@ -17,17 +19,18 @@
     color: black;
 }
 
-.followingbtn {
-    background-color: #89B6A5;
-    border-radius: 8px;
-    font-style: italic;
-    cursor: pointer;
-    border: 1px solid black;
-    padding: 5px 7px;
-    font-size: 20px;
-    text-decoration: none;
-    color: black;
+.followetcbtncolour {
+    background-color: #E8D7FF;
+}
 
+/*button voor aantal volgend op persoonlijke pagina*/
+.followerPersoonlijk {
+    margin-right: 20px;
+}
+
+/*follow button op iemand anders pagina*/
+.followbtn {
+    background-color: #E8D7FF;
     margin-right: 45px;
 }
 
@@ -39,6 +42,7 @@
     /* top: 43%; */
     left: 0;
     background: #89B6A5;
+    z-index: -1;
 }
 
 .profileposts {
@@ -53,4 +57,6 @@
 
 .profilepic {
     width: 250px;
+    border-radius: 40px;
+    border: 2px solid black;
 }

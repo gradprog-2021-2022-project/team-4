@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,9 @@
           th:href="@{/css/library.css}" href="/css/library.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/profile.css}" href="/css/profile.css"/>
-    <title>Info</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <title>profilepage</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
@@ -19,12 +21,23 @@
     <div>
         <div th:if="${user}">
             <section class="hr-lines">
-                <img class="profilepic" src="/u/image" alt="image not found">
+                <div th:if="${user.getProfilePic()}">
+                    <img class="profilepic" src="/u/image" alt="image not found">
+                </div>
+                <div th:unless="${user.getProfilePic()}">
+                    <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
+                </div>
                 <h2 th:text="${user.getUsername()}">username</h2>
-                <h2 th:text="${user.getId()}">id</h2>
-                <h2 th:text="${user.aantalFollowers()}">aantalFollowers</h2>
-                <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Following" class="followingbtn"></a></strong>
-                <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="Followers" class="followerbtn"></a></strong>
+                <!--om erachter te komen welke id deze gebruiker heeft-->
+                <!--<h2 th:text="${user.getId()}">id</h2>-->
+                <div th:if="${follow}">
+                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}" class="followetcbtn followbtn"></a></strong>
+                    <strong><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowers() + ' volgers'}" class="followetcbtn followetcbtncolour"></a></strong>
+                </div>
+                <div th:unless="${follow}">
+                    <strong><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowing() + ' volgend'}" class="followetcbtn followerPersoonlijk"></a></strong>
+                    <strong><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowers() + ' volgers'}" class="followetcbtn"></a></strong>
+                </div>
                 <p>bio</p>
             </section>
             <section class="profileposts">
@@ -33,12 +46,42 @@
                     <dd><span th:text="${user.getPostsMade().size()}"></span></dd>
                 </dl>
             </section>
+            <div class="postCardDiv" th:each="post : ${user.getPostsMade()}">
+                <a class="postCard" th:if="${post!=null}" th:href="@{|/postDetails/${post.getId()}}">
+                    <section class="sectionclass">
+                        <img class="exploreprofilepic" th:src="|/u/image/${user.getId()}|">
+                        <h1 class="sectionrows" th:text="${user.getUsername()}"></h1>
+                        <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${post.getLocation()}"></i></h3>
+                        <article>
+                            <img class="postpic" th:src="|/p/image/${post.getId()}|">
+                        </article>
+                        <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                        <p class="sectionbiotext"th:text="${post.getText()}"></p>
+                        <strong><p class="sectionbiolikes"th:text="|${post.getLikes()} likes|"></p></strong>
+                        <div class="commentsothers" th:if="${post.getOneComment()}">
+                            <div th:if="${user.getProfilePic()}">
+                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${user.getId()}|">
+                            </div>
+                            <div th:unless="${user.getProfilePic()}">
+                                <i class="noprofilepic fa fa-fw fa-user"></i>
+                            </div>
+                            <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                            <p class="sectionbiotext"th:text="${post.getOneComment().getText()}"></p>
+                        </div>
+                    </section>
+                </a>
+            </div>
         </div>
         <div th:unless="${user}">
             <p>No user was chosen</p>
+            <p>Please login first</p>
+            <form class="formbtn" method="get" th:action="@{|../../login}">
+                <button type="submit" class="bttnExplore section">login</button>
+            </form>
         </div>
     </div>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
+<script th:replace="fragments/head_foot :: script"></script>
 </body>
 </html>

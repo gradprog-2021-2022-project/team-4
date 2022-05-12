@@ -1,0 +1,65 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/profile.css}" href="/css/profile.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/followerspage.css}" href="/css/followerspage.css"/>
+    <title>follow</title>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main>
+    <div th:if="${user}">
+        <h1 th:text="${user.getUsername()}"></h1>
+        <div class="followerpage">
+            <div class="followingdiv">
+                <h2 th:text="${user.aantalFollowing() + ' Following'}">aantal volgend</h2>
+                <div class="followingperson" th:each="followingPerson : ${following}">
+                    <div th:if="${followingPerson.getProfilePic()}">
+                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${followingPerson.getId()}|">
+                    </div>
+                    <div th:unless="${followingPerson.getProfilePic()}">
+                        <i class="noprofilepic fa fa-fw fa-user"></i>
+                    </div>
+                    <strong><p class="sectionbioname" th:text="${followingPerson.getUsername()}"></p></strong>
+                    <p th:text="${followingPerson.getFirst_name()} + ${followingPerson.getLast_name()}"></p>
+                </div>
+            </div>
+            <div class="followerdiv">
+                <h2 th:text="${user.aantalFollowers() + ' Followers'}">aantal followers</h2>
+                <div class="followerperson" th:each="followersPerson : ${followers}">
+                    <div th:if="${followersPerson.getProfilePic()}">
+                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${followersPerson.getId()}|">
+                    </div>
+                    <div th:unless="${followersPerson.getProfilePic()}">
+                        <i class="noprofilepic fa fa-fw fa-user"></i>
+                    </div>
+                    <strong><p class="sectionbioname" th:text="${followersPerson.getUsername()}"></p></strong>
+                    <p th:text="${followersPerson.getFirst_name()} + ${followersPerson.getLast_name()}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:unless="${user}">
+        <p>No user was chosen</p>
+        <p>Please login first</p>
+        <form class="formbtn" method="get" th:action="@{|../../login}">
+            <button type="submit" class="bttnExplore section">login</button>
+        </form>
+    </div>
+</main>
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+<script th:replace="fragments/head_foot :: script"></script>
+</body>
+</html>

@@ -9,8 +9,36 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
+<aside class="filterContainer">
+    <div class="filters" name="showFilter">
+        <h2>Filters: </h2>
+        <form>
+            <h3>Filter by user?</h3>
+            <label for="noFilter" >No</label>
+            <input type="radio" id="noFilter" name="filter" value="false" th:checked="${filtered == false || filtered == null}">
+            <label for="yesFilter">Yes</label>
+            <input type="radio" id="yesFilter" name="filter" value="true" th:checked="${filtered == true}">
+            <input type="submit" value="search">
+        </form>
+    </div>
+    <div>
+        <button class="btnFilter txt" onclick="showFilters()"></button>
+    </div>
+</aside>
+<script>
+    function showFilters() {
+        var btn = document.getElementsByClassName("btnFilter")[0];
+        var x = document.getElementsByClassName("filters")[0];
+        console.log("function");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
 <main sec:authorize="hasAuthority('admin')">
-    <article class="adminPage">
+    <article th:if="${filtered==null || !filtered}" class="adminPage">
         <section class="adminUsers">
             <h1>USERS</h1>
             <table>
@@ -41,6 +69,71 @@
                 </tbody>
             </table>
         </section>
+        <section class="adminClothes">
+            <h1>CLOTHES</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${fashclothes}">
+                    <td th:text="${item.getId()}"></td>
+                    <td th:text="${item.getNaam()}"></td>
+                    <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="adminPosts">
+            <h1>POSTS</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fashpost : ${fashposts}">
+                    <td th:text="${fashpost.getId()}"></td>
+                    <td th:text="${fashpost.getPoster().getUsername()}"></td>
+                    <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+        <section class="adminComments">
+            <h1>COMMENTS</h1>
+            <table>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>delete?</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="fashComment : ${comments}">
+                    <td th:text="${fashComment.getId()}"></td>
+                    <td th:text="${fashComment.getUser().getId()}"></td>
+                    <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </article>
+    <article th:if="${filtered!=null && filtered}" class="adminPage">
+        <form th:action="@{/adminByUser}">
+            <label for="username">Search by user:</label>
+            <input type="text" placeholder="eg. Elias" name="username" id="username">
+            <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
+            <button type="submit">Zoek!</button>
+        </form>
         <section class="adminClothes">
             <h1>CLOTHES</h1>
             <table>

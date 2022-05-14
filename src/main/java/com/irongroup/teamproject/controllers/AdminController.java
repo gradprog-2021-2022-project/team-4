@@ -33,9 +33,14 @@ public class AdminController {
     @Autowired
     ClothingRepository clothing;
 
-    @GetMapping("/adminpagina")
-    public String adminpagina(Model model,@RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow) {
+    @GetMapping({"/adminpagina"})
+    public String adminpagina(Model model,@RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow,@RequestParam(required = false) Boolean filter) {
 
+        if(filter!=null && filter){
+            model.addAttribute("filtered",true);
+        }else{
+            model.addAttribute("filtered",false);
+        }
         try{
             FashUser user =users.findById(id).get();
             user.setPost_allowance(postallow);
@@ -69,6 +74,29 @@ public class AdminController {
         model.addAttribute("fashposts", posts.findAll());
         model.addAttribute("comments",comments.findAll());
 
+        return "adminpage";
+    }
+
+    //Integreren met normale admin mapping voor volgende push om errors te voorkomen
+    @GetMapping("/adminByUser")
+    public String adminByUser(Model model,@RequestParam String username,@RequestParam Boolean filter){
+        try{
+            if(filter){
+                //Voeg enkel items toe van de bepaalde gebruiker
+                FashUser user=users.findFashUserByUsername(username);
+                model.addAttribute("fashposters",user);
+                model.addAttribute("fashclothes", clothing.findClothingOfUser(user.getId()));
+                model.addAttribute("fashposts", posts.findbyUserId(user.getId()));
+                model.addAttribute("comments",comments.findFashCommentByUserID(user.getId()));
+                return "redirect:/adminpagina";
+            }
+            else {
+                return "redirect:/adminpagina";
+            }
+        }
+        catch (Exception e){
+            //NOG NIKS
+        }
         return "adminpage";
     }
     @GetMapping("/deleteUser/{userId}")

@@ -10,7 +10,9 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
-  Dit is een test
+  <article th:each="convo : ${convos}">
+    <h2>Dit is een convo</h2>
+  </article>
 </main>
 <main sec:authorize="!isAuthenticated()">
   Niet aangemeld

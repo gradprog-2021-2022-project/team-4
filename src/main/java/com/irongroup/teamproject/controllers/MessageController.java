@@ -20,6 +20,7 @@ public class MessageController {
     @Autowired
     ConversationRepository convos;
 
+    // TODO : checks toevoegen aub eliasje
     @GetMapping("/messages")
     public String messagelist(Principal p, Model model) {
         //In een try catch= geen ifke

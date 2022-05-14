@@ -47,8 +47,18 @@ public class FashUser {
     //Clothing that the user has posted and saved
     @OneToMany(mappedBy = "userOwner")
     private List<Clothing_Item> clothing_posted;
+    //Welke kleren zijn opgeslagen?
     @ManyToMany
     private List<Clothing_Item> clothing_saved;
+    //Tot welke conversaties behoort deze persoon?
+    @ManyToMany(mappedBy = "users")
+    private Collection<Conversation> conversations;
+    //Berichtjes verstuurd door deze persoon
+    @OneToMany(mappedBy = "sender")
+    private Collection<Message> messagesSend;
+    //Berichtjes ontvangen door deze persoon
+    @ManyToMany(mappedBy = "receivers")
+    private Collection<Message> messagesReceived;
 
 
     public FashUser() {
@@ -242,5 +252,29 @@ public class FashUser {
 
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public Collection<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(Collection<Conversation> conversations) {
+        this.conversations = conversations;
+    }
+
+    public Collection<Message> getMessagesSend() {
+        return messagesSend;
+    }
+
+    public void setMessagesSend(Collection<Message> messagesSend) {
+        this.messagesSend = messagesSend;
+    }
+
+    public Collection<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(Collection<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
     }
 }

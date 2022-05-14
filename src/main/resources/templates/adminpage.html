@@ -18,7 +18,13 @@
             <input type="radio" id="noFilter" name="filter" value="false" th:checked="${filtered == false || filtered == null}">
             <label for="yesFilter">Yes</label>
             <input type="radio" id="yesFilter" name="filter" value="true" th:checked="${filtered == true}">
-            <input type="submit" value="search">
+            <input type="submit" value="search" th:if="${filtered == null || !filtered}">
+        </form>
+        <form th:if="${filtered!=null && filtered}">
+            <label for="username">Search by user:</label>
+            <input type="text" placeholder="eg. Elias" name="username" id="username">
+            <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
+            <button type="submit">Zoek!</button>
         </form>
     </div>
     <div>
@@ -128,12 +134,6 @@
         </section>
     </article>
     <article th:if="${filtered!=null && filtered}" class="adminPage">
-        <form>
-            <label for="username">Search by user:</label>
-            <input type="text" placeholder="eg. Elias" name="username" id="username">
-            <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
-            <button type="submit">Zoek!</button>
-        </form>
         <section class="adminClothes">
             <h1>CLOTHES</h1>
             <table>

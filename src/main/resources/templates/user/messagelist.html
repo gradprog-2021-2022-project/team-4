@@ -11,7 +11,9 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
   <article th:each="convo : ${convos}">
-    <h2>Dit is een convo</h2>
+    <a th:href="@{|/messages/${convo.getId()}|}">
+      <h2 th:text="${convo.getConvoNaam()}"></h2>
+    </a>
   </article>
 </main>
 <main sec:authorize="!isAuthenticated()">

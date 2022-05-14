@@ -9,6 +9,9 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface ConversationRepository extends CrudRepository<Conversation,Integer> {
+    @Query("select c from Conversation c where c.id= :id")
+    Conversation findbyID(@Param("id")Integer id);
+
     /*werkt niet
     @Query("select c from Conversation c where :user in c.users")
     Collection<Conversation> findConvosByUser(@Param("user")FashUser user);*/

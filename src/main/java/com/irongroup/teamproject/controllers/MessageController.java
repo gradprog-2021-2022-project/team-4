@@ -8,6 +8,7 @@ import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.security.Principal;
 
@@ -31,10 +32,12 @@ public class MessageController {
     }
 
     @GetMapping("/messages/{id}")
-    public String conversation(Principal p) {
+    public String conversation(Principal p, Model model, @PathVariable Integer id) {
         //In een try catch= geen ifke
         try {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
+            model.addAttribute("convo",convos.findbyID(id));
+            model.addAttribute("loggedUser",loggedIn);
             return "user/conversation";
         } catch (Exception e) {
             return "redirect:/explorepage";

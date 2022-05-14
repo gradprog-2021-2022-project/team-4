@@ -14,11 +14,14 @@ public class Message {
 
     //De persoon die het bericht verstuurde
     @ManyToOne
-    FashUser sender;
+    private FashUser sender;
 
     //Mensen die het bericht zullen ontvangen
     @ManyToMany
-    Collection<FashUser> receivers;
+    private Collection<FashUser> receivers;
+
+    //De tekst van het bericht!!
+    private String text;
 
     public Message() {
     }
@@ -29,5 +32,21 @@ public class Message {
 
     public void setConversation(Conversation conversation) {
         this.conversation = conversation;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public FashUser getSender() {
+        return sender;
+    }
+
+    public Collection<FashUser> getReceivers() {
+        return receivers;
+    }
+
+    public String getText() {
+        return text;
     }
 }

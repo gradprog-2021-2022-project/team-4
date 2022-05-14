@@ -10,7 +10,11 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
-    Dit is een test
+    <section th:each="message : ${convo.getMessages()}">
+        <p th:if="${message.getSender()==loggedUser}" style="float: right" th:text="${message.getText()}"></p>
+        <p th:unless="${message.getSender()==loggedUser}" style="float: left" th:text="${message.getText()}"></p>
+        <br>
+    </section>
 </main>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld

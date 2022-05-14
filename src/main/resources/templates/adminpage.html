@@ -128,7 +128,7 @@
         </section>
     </article>
     <article th:if="${filtered!=null && filtered}" class="adminPage">
-        <form th:action="@{/adminByUser}">
+        <form>
             <label for="username">Search by user:</label>
             <input type="text" placeholder="eg. Elias" name="username" id="username">
             <input type="radio" value="true" name="filter" th:checked="${filtered == true}">

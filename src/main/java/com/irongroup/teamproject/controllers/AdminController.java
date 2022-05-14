@@ -34,19 +34,41 @@ public class AdminController {
     ClothingRepository clothing;
 
     @GetMapping({"/adminpagina"})
-    public String adminpagina(Model model,@RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow,@RequestParam(required = false) Boolean filter) {
+    public String adminpagina(Model model, @RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow, @RequestParam(required = false) Boolean filter, @RequestParam(required = false) String username) {
 
-        if(filter!=null && filter){
-            model.addAttribute("filtered",true);
-        }else{
-            model.addAttribute("filtered",false);
-        }
-        try{
-            FashUser user =users.findById(id).get();
-            user.setPost_allowance(postallow);
-            users.save(user);
-            return "redirect:/adminpagina";
-        }catch (Exception e){
+        try {
+            //Als de filters aan staan
+            if (filter != null && filter) {
+                model.addAttribute("filtered", true);
+                if (filter) {
+                    //Voeg enkel items toe van de bepaalde gebruiker
+                    FashUser user = users.findFashUserByUsername(username);
+                    model.addAttribute("fashposters", user);
+                    model.addAttribute("fashclothes", clothing.findClothingOfUser(user.getId()));
+                    model.addAttribute("fashposts", posts.findbyUserId(user.getId()));
+                    model.addAttribute("comments", comments.findFashCommentByUserID(user.getId()));
+                    return "adminpage";
+                } else {
+                    return "redirect:/adminpagina";
+                }
+            } else {
+                //Geen filter aan
+                model.addAttribute("fashposters", users.findAll());
+                model.addAttribute("fashclothes", clothing.findAll());
+                model.addAttribute("fashposts", posts.findAll());
+                model.addAttribute("comments", comments.findAll());
+                model.addAttribute("filtered", false);
+            }
+            //Code voor het aanpassen van user allowance
+            try {
+                FashUser user = users.findById(id).get();
+                user.setPost_allowance(postallow);
+                users.save(user);
+                return "redirect:/adminpagina";
+            } catch (Exception e) {
+                //NOG NIKS
+            }
+        } catch (Exception e) {
             //NOG NIKS
         }
 
@@ -69,68 +91,44 @@ public class AdminController {
         FashComment comment= new FashComment(1,Allee,post,"Neen","dit is een tekstje",LocalDate.now(),LocalTime.now());
         comments.save(comment);*/
 
-        model.addAttribute("fashposters", users.findAll());
-        model.addAttribute("fashclothes", clothing.findAll());
-        model.addAttribute("fashposts", posts.findAll());
-        model.addAttribute("comments",comments.findAll());
-
         return "adminpage";
     }
 
-    //Integreren met normale admin mapping voor volgende push om errors te voorkomen
-    @GetMapping("/adminByUser")
-    public String adminByUser(Model model,@RequestParam String username,@RequestParam Boolean filter){
-        try{
-            if(filter){
-                //Voeg enkel items toe van de bepaalde gebruiker
-                FashUser user=users.findFashUserByUsername(username);
-                model.addAttribute("fashposters",user);
-                model.addAttribute("fashclothes", clothing.findClothingOfUser(user.getId()));
-                model.addAttribute("fashposts", posts.findbyUserId(user.getId()));
-                model.addAttribute("comments",comments.findFashCommentByUserID(user.getId()));
-                return "redirect:/adminpagina";
-            }
-            else {
-                return "redirect:/adminpagina";
-            }
-        }
-        catch (Exception e){
-            //NOG NIKS
-        }
-        return "adminpage";
-    }
     @GetMapping("/deleteUser/{userId}")
-    public String deleteUser(@PathVariable Integer userId){
-        try{
+    public String deleteUser(@PathVariable Integer userId) {
+        try {
             users.delete(users.findById(userId).get());
-        }catch (Exception e){
+        } catch (Exception e) {
             //NOG NIKS
         }
         return "redirect:/adminpagina";
     }
+
     @GetMapping("/deletePost/{postId}")
-    public String deletePost(@PathVariable Integer postId){
-        try{
+    public String deletePost(@PathVariable Integer postId) {
+        try {
             posts.delete(posts.findById(postId).get());
-        }catch (Exception e){
+        } catch (Exception e) {
             //NOG NIKS
         }
         return "redirect:/adminpagina";
     }
+
     @GetMapping("/deleteItem/{itemId}")
-    public String deleteItem(@PathVariable Integer itemId){
-        try{
+    public String deleteItem(@PathVariable Integer itemId) {
+        try {
             clothing.delete(clothing.findById(itemId).get());
-        }catch (Exception e){
+        } catch (Exception e) {
             //NOG NIKS
         }
         return "redirect:/adminpagina";
     }
+
     @GetMapping("/deleteComment/{commentId}")
-    public String deleteComment(@PathVariable Integer commentId){
-        try{
+    public String deleteComment(@PathVariable Integer commentId) {
+        try {
             comments.delete(comments.findById(commentId).get());
-        }catch (Exception e){
+        } catch (Exception e) {
             //NOG NIKS
         }
         return "redirect:/adminpagina";

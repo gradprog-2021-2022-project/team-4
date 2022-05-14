@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.Collection;
 
 public interface ConversationRepository extends CrudRepository<Conversation,Integer> {
+    //Convo kunnen vinden om weer te geven
     @Query("select c from Conversation c where c.id= :id")
     Conversation findbyID(@Param("id")Integer id);
 

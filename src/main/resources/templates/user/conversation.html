@@ -11,13 +11,19 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main class="grid" sec:authorize="isAuthenticated()">
     <article class="grid" th:each="message : ${convo.getMessages()}">
-        <section th:if="${message.getSender()==loggedUser}" class="receivedMessage">
+        <section th:if="${message.getSender()==loggedUser}" class="sentMessage">
             <p th:text="${message.getText()}"></p>
         </section>
-        <section th:unless="${message.getSender()==loggedUser}" class="sentMessage">
+        <section th:unless="${message.getSender()==loggedUser}" class="receivedMessage">
             <p th:text="${message.getText()}"></p>
         </section>
         <br>
+    </article>
+    <article>
+        <form>
+            <input type="text" sec:placeholder="Begin met typen..." required="required">
+            <button type="submit">Stuur!</button>
+        </form>
     </article>
 </main>
 <main sec:authorize="!isAuthenticated()">

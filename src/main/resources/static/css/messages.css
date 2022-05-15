@@ -4,3 +4,7 @@
 .sentMessage{
     float: right;
 }
+.messageForm{
+    width: available;
+    height: 100px;
+}

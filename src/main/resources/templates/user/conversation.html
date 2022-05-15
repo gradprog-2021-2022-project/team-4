@@ -20,12 +20,17 @@
         <br>
     </article>
     <article>
-        <form>
-            <input type="text" sec:placeholder="Begin met typen..." required="required">
+        <form class="messageForm" th:action="@{|/sendmessage/${convo.getId()}|}" method="post">
+            <input type="text" placeholder="Begin met typen..." required="required">
             <button type="submit">Stuur!</button>
         </form>
     </article>
 </main>
+<script type="text/javascript">
+    function sendMessage(){
+        //NOG NIKS
+    }
+</script>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld
 </main>

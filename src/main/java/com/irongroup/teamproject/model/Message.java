@@ -26,6 +26,14 @@ public class Message {
     public Message() {
     }
 
+    public Message(Integer id, Conversation conversation, FashUser sender, Collection<FashUser> receivers, String text) {
+        this.id = id;
+        this.conversation = conversation;
+        this.sender = sender;
+        this.receivers = receivers;
+        this.text = text;
+    }
+
     public Conversation getConversation() {
         return conversation;
     }

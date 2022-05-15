@@ -36,6 +36,7 @@ public class PostController {
     @Autowired
     CommentRepository comments;
 
+    //De gewone / redirecten naar explorepage zodat de gebruiker nooit een lege URL kan zien
     @GetMapping("/")
     public String redirectje(){
         return "redirect:/explorepage";

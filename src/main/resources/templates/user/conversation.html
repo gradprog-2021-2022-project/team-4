@@ -9,13 +9,17 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main class="grid" sec:authorize="isAuthenticated()">
-    <article class="grid" th:each="message : ${convo.getMessages()}">
-        <section th:if="${message.getSender()==loggedUser}" class="sentMessage">
-            <p th:text="${message.getText()}"></p>
+<main sec:authorize="isAuthenticated()">
+    <article class="messages" th:each="message : ${convo.getMessages()}">
+        <section th:if="${message.getSender()==loggedUser}" class="message">
+            <div class="sentMessage">
+                <p th:text="${message.getText()}"></p>
+            </div>
         </section>
-        <section th:unless="${message.getSender()==loggedUser}" class="receivedMessage">
-            <p th:text="${message.getText()}"></p>
+        <section th:unless="${message.getSender()==loggedUser}" class="message">
+            <div class="receivedMessage">
+                <p th:text="${message.getText()}"></p>
+            </div>
         </section>
         <br>
     </article>
@@ -27,7 +31,7 @@
     </article>
 </main>
 <script type="text/javascript">
-    function sendMessage(){
+    function sendMessage() {
         //NOG NIKS
     }
 </script>

@@ -15,5 +15,8 @@
 }
 .messages{
     width: 100%;
-    display: block;
+}
+.messagePic{
+    width: auto;
+    height: 25px;
 }

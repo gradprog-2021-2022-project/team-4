@@ -3,18 +3,22 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
 <head>
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/posts.css}" href="/css/posts.css"/>
-    <title>Placeholder</title>
+          th:href="@{/css/messages.css}" href="/css/posts.css"/>
+    <title th:text="${convo.getConvoNaam()}">Placeholder</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()">
-    <section th:each="message : ${convo.getMessages()}">
-        <p th:if="${message.getSender()==loggedUser}" style="float: right" th:text="${message.getText()}"></p>
-        <p th:unless="${message.getSender()==loggedUser}" style="float: left" th:text="${message.getText()}"></p>
+<main class="grid" sec:authorize="isAuthenticated()">
+    <article class="g-col-4" th:each="message : ${convo.getMessages()}">
+        <section th:if="${message.getSender()==loggedUser}" class="receivedMessage">
+            <p th:text="${message.getText()}"></p>
+        </section>
+        <section th:unless="${message.getSender()==loggedUser}" class="sentMessage">
+            <p th:text="${message.getText()}"></p>
+        </section>
         <br>
-    </section>
+    </article>
 </main>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld

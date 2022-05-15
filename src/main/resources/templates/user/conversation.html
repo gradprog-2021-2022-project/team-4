@@ -10,7 +10,7 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main class="grid" sec:authorize="isAuthenticated()">
-    <article class="g-col-4" th:each="message : ${convo.getMessages()}">
+    <article class="grid" th:each="message : ${convo.getMessages()}">
         <section th:if="${message.getSender()==loggedUser}" class="receivedMessage">
             <p th:text="${message.getText()}"></p>
         </section>

@@ -1,6 +1,6 @@
 .receivedMessage{
-    float: right;
+    float: left;
 }
 .sentMessage{
-    float: left;
+    float: right;
 }

@@ -19,4 +19,8 @@ public interface UserRepository extends CrudRepository<FashUser,Integer> {
     Collection<FashUser> findUsersWithPosts();
 
     FashUser findById(int id);
+
+    @Query("SELECT u FROM FashUser u WHERE :word IS NULL OR LOWER(u.username) LIKE LOWER(CONCAT('%',:word,'%')) OR LOWER(u.first_name) LIKE LOWER(CONCAT('%',:word,'%')) " +
+            "OR LOWER(u.last_name) LIKE LOWER(CONCAT('%',:word,'%'))")
+    Collection<FashUser> findByKeyword(@Param("word") String word);
 }

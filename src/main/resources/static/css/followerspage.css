@@ -1,13 +1,59 @@
 .followerpage {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+.followingdiv {
+    margin-right: 30px;
 }
 
 .followingperson {
     display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 .followerperson {
     display: flex;
+    flex-wrap: wrap;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.sectionbioname {
+    padding-left: 50px;
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 20px;
+}
+
+.sectionbiofullname {
+    flex: 1 0 80%;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 50px;
+    font-size: 13px;
+}
+
+.commentpic {
+    width: 37px;
+    height: 35px;
+    border: 1px solid black;
+}
+
+.searchbar {
+    width: 90%;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    border: 0.5px solid #00000030;
+}
+
+@media only screen and (min-width: 760px) {
+    .searchbar {
+        width: 300px;
+        height: 30px;
+    }
 }

@@ -20,8 +20,8 @@
         <br>
     </article>
     <article>
-        <form class="messageForm" th:action="@{|/sendmessage/${convo.getId()}|}" method="post">
-            <input type="text" placeholder="Begin met typen..." required="required">
+        <form class="messageForm">
+            <input name="text" type="text" placeholder="Begin met typen..." required="required">
             <button type="submit">Stuur!</button>
         </form>
     </article>

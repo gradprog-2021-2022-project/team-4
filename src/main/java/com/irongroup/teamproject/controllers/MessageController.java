@@ -34,6 +34,7 @@ public class MessageController {
         //In een try catch= geen ifke
         try {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
+            model.addAttribute("followers", loggedIn.following);
             model.addAttribute("convos", loggedIn.getConversations());
             return "user/messagelist";
         } catch (Exception e) {
@@ -42,14 +43,15 @@ public class MessageController {
     }
 
     // done : voeg een check toe om te zien of de gebruiker toegang heeft tot de convo!!
-    @GetMapping("/messages/{id}")
+    @GetMapping({"/messages/{id}"})
     public String conversation(Principal p, Model model, @PathVariable Integer id, @RequestParam(required = false) String text) {
         //Als er geen bericht gestuurd word
-        if(text==null || text.length()<1){
+        if (text == null || text.length() < 1) {
             //In een try catch= geen ifke
             try {
                 //Gebruiker vinden die ingelogd is
                 FashUser loggedIn = users.findFashUserByUsername(p.getName());
+                //Eerst kijken of de conversatie al bestaat
                 //Convo vinden die gevraagd word
                 Conversation conversation = convos.findbyID(id);
                 if (conversation.getUsers().contains(loggedIn)) {
@@ -60,23 +62,23 @@ public class MessageController {
                 } else {
                     return "redirect:/explorepage";
                 }
+
             } catch (Exception e) {
                 return "redirect:/explorepage";
             }
-        }
-        else{
+        } else {
             try {
                 //Zoek de convo die een bericht moet ontvangen
-                Conversation convo=convos.findbyID(id);
+                Conversation convo = convos.findbyID(id);
                 //De verzender is altijd de persoon die aangemeld is aangezien hij degene is die deze actie aanroept
-                FashUser sender=users.findFashUserByUsername(p.getName());
+                FashUser sender = users.findFashUserByUsername(p.getName());
                 //De ontvangers zoeken en de verstuurder eruit halen, anders ziet hij het bericht twee keer
-                Collection<FashUser> receivers=convo.getUsers();
+                Collection<FashUser> receivers = convo.getUsers();
                 receivers.remove(sender);
                 //Alle berichten opvragen van de convo
-                Collection<Message> messages=convo.getMessages();
+                Collection<Message> messages = convo.getMessages();
                 //Het bericht aanmaken en opslaan in de message tabel
-                Message message=new Message(Math.toIntExact(allMessages.count())+1,convo,sender,receivers,text);
+                Message message = new Message(Math.toIntExact(allMessages.count()) + 1, convo, sender, receivers, text);
                 allMessages.save(message);
                 messages.add(message);
                 //Belangrijk, de messages setten en ook opslaan in de database;

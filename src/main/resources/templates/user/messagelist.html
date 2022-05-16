@@ -9,6 +9,13 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
+<aside>
+  <article>
+    <section th:each="follower : ${followers}">
+      <a th:text="${follower.getUsername()}" th:href="@{|/newconversation/${follower.getId()}|}"></a>
+    </section>
+  </article>
+</aside>
 <main sec:authorize="isAuthenticated()">
   <article th:each="convo : ${convos}">
     <a th:href="@{|/messages/${convo.getId()}|}">

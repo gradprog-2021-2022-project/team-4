@@ -9,8 +9,8 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()" id="messages">
-    <article class="messages" th:each="message : ${convo.getMessages()}">
+<main sec:authorize="isAuthenticated()" >
+    <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
         <section th:if="${message.getSender()==loggedUser}" class="message">
             <div class="sentMessage">
                 <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic" class="messagePic" th:src="@{|/u/image/${loggedUser.getId()}|}">
@@ -36,7 +36,7 @@
     //Reload het deel maar data wordt niet geupdate?
     $(document).ready(function(){
         setInterval(function(){
-            $("#messages").load(window.location.href + " messages" );
+            $("#messages").load(window.location.href + " #messages" );
         }, 1000);
     });
 </script>

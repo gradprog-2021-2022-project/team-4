@@ -29,12 +29,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import java.security.Principal;
+import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
+    private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserRepository users;
     @Autowired
@@ -112,13 +115,46 @@ public class UserController {
     }
 
     @GetMapping({"/followerspage/{id}"})
-    public String followerspage(Model model, @PathVariable Integer id){
+    public String followerspage(Model model, @PathVariable Integer id, @RequestParam(required = false) String keyword){
+        logger.info("followerspage -- keyword=" + keyword);
         Optional<FashUser> optionalFashUser = users.findById(id);
         if(optionalFashUser.isPresent()){
+            //keyword is het woord dat gezocht wordt via search bar
+            model.addAttribute("keyword", keyword);
             model.addAttribute("user", optionalFashUser.get());
-            //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-            model.addAttribute("following",optionalFashUser.get().getFollowing());
-            model.addAttribute("followers",optionalFashUser.get().getFollowers());
+            //kijken of er een naam gezocht wordt
+            if (keyword != null) {
+                //zoekt alle users met het keyword in
+                Collection<FashUser> FashUsers = users.findByKeyword(keyword);
+                //maakt 2 lijsten aan die worden meegegeven
+                Collection<FashUser> followingsearch = new ArrayList<>();
+                Collection<FashUser> followerssearch = new ArrayList<>();
+
+                // stream gebruiken om te filteren in een lijst
+                /*List<FashUser> followerssearch = FashUsers.stream().filter(fu -> fu.getFollowing().contains(optionalFashUser.get())).collect(Collectors.toList());
+                List<FashUser> followingsearch = FashUsers.stream().filter(fu -> fu.getFollowers().contains(optionalFashUser.get())).collect(Collectors.toList());*/
+
+                //kijkt bij elke persoon die gevonden is of die in de following of followers lijst zit van de persoon van deze pagina
+                for (FashUser user:FashUsers) {
+                    if (optionalFashUser.get().getFollowing().contains(user)) {
+                        followingsearch.add(user);
+                    }
+                    if (optionalFashUser.get().getFollowers().contains(user)) {
+                        followerssearch.add(user);
+                    }
+                }
+                model.addAttribute("following",followingsearch);
+                model.addAttribute("followers",followerssearch);
+                model.addAttribute("nrfollowing", ((Collection<?>) followingsearch).size());
+                model.addAttribute("nrfollowers", ((Collection<?>) followerssearch).size());
+            }
+            else {
+                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+                model.addAttribute("following",optionalFashUser.get().getFollowing());
+                model.addAttribute("followers",optionalFashUser.get().getFollowers());
+                model.addAttribute("nrfollowing", optionalFashUser.get().aantalFollowing());
+                model.addAttribute("nrfollowers", optionalFashUser.get().aantalFollowers());
+            }
         }
         return "followerspage";
     }

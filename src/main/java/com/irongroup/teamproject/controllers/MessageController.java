@@ -95,31 +95,35 @@ public class MessageController {
 
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
-        String dingetje="/explorepage";
+        String dingetje = "/explorepage";
         try {
             //De twee gebruikers zoeken
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
             FashUser newUser = users.findById(id).get();
 
+            /*//Tijdelijke code voor testing
+            if(newUser==null) System.out.println("Gene user!");*/
+
             //Als de gebruiker nog geen convo heeft met de gebruiker
             if (!loggedIn.hasConvoWithUser(newUser)) {
                 Conversation c = new Conversation();
-                c.setId(Math.toIntExact(convos.count()) + 1);
+                int idke = Math.toIntExact(convos.count())+1;
+                c.setId(idke);
                 c.setConvoNaam(newUser.getUsername());
                 c.addUser(loggedIn);
                 c.addUser(newUser);
                 loggedIn.addConvo(c);
-                newUser.addConvo(c);
-                int idke=c.getId();
-                //Dingen opslaan !!!
+                newUser.addConvo(c);//Dingen opslaan !!!
                 convos.save(c);
                 users.save(loggedIn);
                 users.save(newUser);
-                dingetje= "redirect:/messages/" + idke;
+                dingetje = "redirect:/messages/" + idke;
             } else {
-                dingetje= "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
+                dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             }
-        } catch (Exception e) {//Nogniks
+        } catch (Exception e) {
+            //Nogniks
+            return "/profilepage";
         }
         return dingetje;
     }

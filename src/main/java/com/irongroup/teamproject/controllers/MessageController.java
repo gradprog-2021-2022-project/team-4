@@ -101,14 +101,16 @@ public class MessageController {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
             FashUser newUser = users.findById(id).get();
 
-            if (loggedIn.hasConversationWith(newUser) != null) {
-                dingetje= "redirect:/messages/" + loggedIn.hasConversationWith(newUser).getId();
+            if (loggedIn.hasConvoWithUser(newUser)) {
+                dingetje= "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             } else {
                 Conversation c = new Conversation();
                 c.setId(Math.toIntExact(convos.count()) + 1);
                 c.setConvoNaam(newUser.getUsername());
                 c.addUser(loggedIn);
                 c.addUser(newUser);
+                loggedIn.addConvo(c);
+                newUser.addConvo(c);
                 convos.save(c);
                 dingetje= "redirect:/messages/" + c.getId();
             }

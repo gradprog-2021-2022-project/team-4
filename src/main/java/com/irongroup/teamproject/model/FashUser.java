@@ -288,8 +288,27 @@ public class FashUser {
         this.messagesReceived = messagesReceived;
     }
 
-    //Kijken of de user een convo heeft met 1 user
-    public Conversation hasConversationWith(FashUser user) {
+    //nakijken of een convo bestaat met een user
+    public Boolean hasConvoWithUser(FashUser user){
+        Boolean ja=false;
+        try{
+            for (Conversation c:conversations
+                 ) {
+                if(c.getUsers().size()==2){
+                    if(c.getUsers().contains(this) && c.getUsers().contains(user))
+                    {
+                        ja=true;
+                    }
+                }
+            }
+        }catch (Exception e){
+            //Gene zak
+        }
+        return ja;
+    }
+
+    //Oproepen van convo met 1 user
+    public Conversation conversationWith(FashUser user) {
         //Maak een lege convo
         Conversation convo = null;
         try {
@@ -301,13 +320,17 @@ public class FashUser {
                     //De twee gebruikers zijn de huidige gebruiker en de persoon waar hij mee wil praten
                     if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
                         convo = c;
-                        return convo;
-                    }
+                    }else{convo=null;}
                 }
+                else{convo=null;}
             }
         } catch (Exception e) {
             //NOG NIKS
         }
         return convo;
+    }
+    //Een nieuwe convo toevoegen
+    public void addConvo(Conversation c){
+        this.conversations.add(c);
     }
 }

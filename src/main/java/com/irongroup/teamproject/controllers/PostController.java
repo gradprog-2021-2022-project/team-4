@@ -44,14 +44,13 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String stijl) {
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
-        Collection<FashUser> fashUsers = new ArrayList<>();
+        Collection<FashUser> fashUsers = users.findUsersWithPosts();
         //Kijken voor de stijl
-        if (stijl != null && stijl.length() > 1) {
-            fashUsers = posts.findByStyle(stijl);
-        } else {
-            fashUsers = users.findUsersWithPosts();
+        if (style != null && style.length() > 1) {
+            System.out.println("met stijl");
+            fashUsers=filterPosts(fashUsers,style);
         }
 
         System.out.println(loginName);
@@ -90,12 +89,22 @@ public class PostController {
     public ResponseEntity<FashUser> updateUser(Principal principal) {
         FashUser user = users.findFashUserByUsername(principal.getName());
         users.save(user);
-
         return ResponseEntity.ok(user);
     }
 
+    //Filteren op stijl
+    private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl){
+        ArrayList<FashUser> users=new ArrayList<>();
+        for (FashUser f:fashUsers
+             ) {
+            if(f.getLastPost().getStijl().equalsIgnoreCase(stijl)){
+                users.add(f);
+            }
+        }return users;
+    }
+
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
-    public ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers) {
+    private ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers) {
 
         FashUser user = users.findFashUserByUsername(principal.getName());
 

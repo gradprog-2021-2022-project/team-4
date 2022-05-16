@@ -47,70 +47,85 @@ public class UserController {
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
     public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
-        //Dit is als je naar je eigen profiel gaat
-        if(id==null) {
-            //als er niemand is ingelogd en je zoekt zelf de profilepage
-            if (principal==null) {
-                return "profilepage";
-            }
-            else {
-                FashUser user = users.findFashUserByUsername(principal.getName());
-                model.addAttribute("user", user);
-                //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
-                model.addAttribute("following",user.getFollowing());
+        try{
+            //Dit is als je naar je eigen profiel gaat
+            if(id==null) {
+                //als er niemand is ingelogd en je zoekt zelf de profilepage
+                if (principal==null) {
+                    return "profilepage";
+                }
+                else {
+                    FashUser user = users.findFashUserByUsername(principal.getName());
+                    model.addAttribute("user", user);
+                    //Voor matthew, dit is de naam voor mensen die ge al volgt voor in html te gebruiken
+                    model.addAttribute("following",user.getFollowing());
             /*//Tijdelijke code voor testing
             for (FashUser u : user.getFollowers()
                  ) {
                 System.out.println(u.username);
             }*/
+                    return "profilepage";
+                }
+            }
+            //Dit is als een gebruiker wordt gezocht
+            else {
+                Optional<FashUser> optionalFashUser = users.findById(id);
+                if(optionalFashUser.isPresent()){
+                    FashUser userpage = users.findFashUserByUsername(optionalFashUser.get().getUsername());
+                    FashUser userloggedin = users.findFashUserByUsername(principal.getName());
+
+                    //inlog check
+                    if(principal !=null)
+                    {
+                        //Kijken of ge al volgt en zoniet, volgen
+                        if (!userpage.followers.contains(userloggedin)){
+                            //follow button veranderen naar follow
+                            model.addAttribute("follow", "follow");
+                        }
+                        //Als ge wel volgt, unfollow doen
+                        else {
+                            //follow button veranderen naar unfollow
+                            model.addAttribute("follow", "unfollow");
+                        }
+                    }
+                    model.addAttribute("user", optionalFashUser.get());
+                }
                 return "profilepage";
             }
+        }catch(Exception e){
+            //NIKS
         }
-        //Dit is als een gebruiker wordt gezocht
-        else {
-            Optional<FashUser> optionalFashUser = users.findById(id);
-            if(optionalFashUser.isPresent()){
-                FashUser userpage = users.findFashUserByUsername(optionalFashUser.get().getUsername());
-                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
-                //Kijken of ge al volgt en zoniet, volgen
-                if (!userpage.followers.contains(userloggedin)){
-                    //follow button veranderen naar follow
-                    model.addAttribute("follow", "follow");
-                }
-                //Als ge wel volgt, unfollow doen
-                else {
-                    //follow button veranderen naar unfollow
-                    model.addAttribute("follow", "unfollow");
-                }
-                model.addAttribute("user", optionalFashUser.get());
-            }
-            return "profilepage";
-        }
+        return "redirect:/profilepage";
     }
 
     @GetMapping({"/follow/{id}" })
     public String follow(Principal principal, @PathVariable Integer id){
-        //Kijken of ge wel bent ingelogd
-        if(principal!=null){
-            //Kijken of de id die meegegeven is bestaat
-            if(users.findById(id).get()!=null){
-                FashUser userloggedin = users.findFashUserByUsername(principal.getName());
-                FashUser userpage = users.findById(id).get();
-                //Kijken of ge al volgt en zoniet, volgen
-                if(!userloggedin.following.contains(userpage)){
-                    userloggedin.follow(users.findById(id).get());
-                    userpage.addFollower(userloggedin);
+        try{
+            //Kijken of ge wel bent ingelogd
+            if(principal!=null){
+                //Kijken of de id die meegegeven is bestaat
+                if(users.findById(id).get()!=null){
+                    FashUser userloggedin = users.findFashUserByUsername(principal.getName());
+                    FashUser userpage = users.findById(id).get();
+                    //Kijken of ge al volgt en zoniet, volgen
+                    if(!userloggedin.following.contains(userpage)){
+                        userloggedin.follow(users.findById(id).get());
+                        userpage.addFollower(userloggedin);
+                    }
+                    //Als ge wel volgt, unfollow doen
+                    else {
+                        userloggedin.unFollow(users.findById(id).get());
+                        users.findById(id).get().removeFollower(userloggedin);
+                    }
+                    //Natuurlijk opslaan zoals altijd
+                    users.save(userloggedin);
+                    users.save(userpage);
                 }
-                //Als ge wel volgt, unfollow doen
-                else {
-                    userloggedin.unFollow(users.findById(id).get());
-                    users.findById(id).get().removeFollower(userloggedin);
-                }
-                //Natuurlijk opslaan zoals altijd
-                users.save(userloggedin);
-                users.save(userpage);
             }
+        }catch(Exception E){
+            //NIKS
         }
+
         return "redirect:/profilepage/" + id;
     }
 

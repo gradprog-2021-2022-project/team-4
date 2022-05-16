@@ -35,56 +35,48 @@ public class PostController {
 
     //De gewone / redirecten naar explorepage zodat de gebruiker nooit een lege URL kan zien
     @GetMapping("/")
-    public String redirectje(){
+    public String redirectje() {
         return "redirect:/explorepage";
     }
 
+
+    // TODO : FIX filters I messed up
     @GetMapping("/explorepage")
-    public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
-            , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false)Double latitude,@RequestParam(required = false)Double longitude,@RequestParam(required = false) String stijl){
-        final String loginName = principal==null ? "NOBODY" : principal.getName();
+    public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
+            , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String stijl) {
+        final String loginName = principal == null ? "NOBODY" : principal.getName();
+        Collection<FashUser> fashUsers = new ArrayList<>();
+        //Kijken voor de stijl
+        if (stijl != null && stijl.length() > 1) {
+            fashUsers = posts.findByStyle(stijl);
+        } else {
+            fashUsers = users.findUsersWithPosts();
+        }
 
         System.out.println(loginName);
-        Collection<FashPost> postsmade=posts.findAll();
-        model.addAttribute("fashposts",postsmade);
-        Collection<FashUser> fashUsers=users.findUsersWithPosts();
-        if(principal!= null){
-            FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
-            model.addAttribute("curUser",loggedInUser);
-            model.addAttribute("loggedIn",true);
-            if(commentText!=null){
-                FashPost post=posts.findById(id).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
+        Collection<FashPost> postsmade = posts.findAll();
+        model.addAttribute("fashposts", postsmade);
+        if (principal != null) {
+            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+            model.addAttribute("curUser", loggedInUser);
+            model.addAttribute("loggedIn", true);
+            if (commentText != null) {
+                FashPost post = posts.findById(id).get();
+                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
                 return "redirect:/explorepage";
             }
-            if(longitude!=null&&latitude!=null){
+            if (longitude != null && latitude != null) {
                 loggedInUser.setLatitude(latitude);
                 loggedInUser.setLongitude(longitude);
                 users.save(loggedInUser);
             }
         }
-        System.out.println("closeby = "+closeby);
-        if (closeby!=null && closeby &&principal!=null){
-            //Kijken of gefilterd kan woren op stijl
-            if(stijl==null || (stijl != null &&stijl.length()>0)){
-                model.addAttribute("fashUsers", orderByLocation(principal,null,true));
-            }
-            else{
-                model.addAttribute("fashUsers", orderByLocation(principal,stijl,true));
-            }
-        }
-        else if(((closeby!=null && !closeby) || (closeby==null)) &&principal!=null){
-            //Kijken of gefilterd kan woren op stijl
-            if(stijl==null || (stijl != null &&stijl.length()>0)){
-                model.addAttribute("fashUsers", orderByLocation(principal,null,false));
-            }
-            else{
-                model.addAttribute("fashUsers", orderByLocation(principal,stijl,false));
-            }
-        }
-        else{
-            model.addAttribute("fashUsers",fashUsers);
+        System.out.println("closeby = " + closeby);
+        if (closeby != null && closeby && principal != null) {
+            model.addAttribute("fashUsers", orderByLocation(principal, fashUsers));
+        } else {
+            model.addAttribute("fashUsers", fashUsers);
         }
         model.addAttribute("longitude", longitude);
         model.addAttribute("latitude", latitude);
@@ -95,7 +87,7 @@ public class PostController {
 
 
     @PutMapping("/explorepage")
-    public ResponseEntity<FashUser>  updateUser(Principal principal){
+    public ResponseEntity<FashUser> updateUser(Principal principal) {
         FashUser user = users.findFashUserByUsername(principal.getName());
         users.save(user);
 
@@ -103,79 +95,83 @@ public class PostController {
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
-    public ArrayList<FashUser> orderByLocation(Principal principal,String stijl,boolean distance){
+    public ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers) {
 
         FashUser user = users.findFashUserByUsername(principal.getName());
 
         ArrayList<FashUser> closest = new ArrayList<>();
 
-        for (FashUser u: users.findUsersWithPosts()) {
-            if(u.getLongitude()!=null&&u.getLatitude()!=null&&user.getLongitude()!=null&&user.getLatitude()!=null){
-                System.out.println(haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude()));
-                Double distanceInKm = haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude());
+        for (FashUser u : fashUsers) {
+            if (u.getLongitude() != null && u.getLatitude() != null && user.getLongitude() != null && user.getLatitude() != null) {
+                System.out.println(haversine(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude()));
+                Double distanceInKm = haversine(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
 
                 //Nu kan je ook filteren op stijl !
-                if ((!distance || (distance && distanceInKm<5)) && (stijl ==null || u.getLastPost().getStijl().equalsIgnoreCase(stijl))){
+                if (distanceInKm < 5) {
                     closest.add(u);
                 }
             }
         }
-
         return closest;
     }
 
     //Haversine formule om afstand tussen 2 coordinaten te berekennen
-    public Double haversine(Double lat1, Double lon1, Double lat2, Double lon2){
+    public Double haversine(Double lat1, Double lon1, Double lat2, Double lon2) {
         //Afstand tussen de lengtegraad en breedtegraad berekenen
         double dLat = (lat2 - lat1) * Math.PI / 180.0;
-        double dLon = (lon2 -lon1)* Math.PI / 180.0;
+        double dLon = (lon2 - lon1) * Math.PI / 180.0;
 
         //omvormen naar radialen
-        lat1 = (lat1) * Math.PI /180.0;
-        lat2 = (lat2)* Math.PI /180.0;
+        lat1 = (lat1) * Math.PI / 180.0;
+        lat2 = (lat2) * Math.PI / 180.0;
 
-        Double a = Math.pow(Math.sin(dLat /2),2) + Math.pow(Math.sin(dLon/2),2) * Math.cos(lat1) * Math.cos(lat2);
+        Double a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
         Double rad = 6371.0;
         Double c = 2 * Math.asin(Math.sqrt(a));
         return rad * c;
     }
 
     @GetMapping({"/foryoupage"})
-    public String foryoupage(){
+    public String foryoupage() {
         return "foryoupage";
     }
-    @GetMapping({"/postDetails/{id}","/postDetails"})
-    public String postDetails(Model model, @PathVariable(required = false)Integer id, Principal principal, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle){
+
+    @GetMapping({"/postDetails/{id}", "/postDetails"})
+    public String postDetails(Model model, @PathVariable(required = false) Integer id, Principal
+            principal, @RequestParam(required = false) String commentText, @RequestParam(required = false) String
+                                      commentTitle) {
         //Kijken of je aangemeld bent;
         //boolean aangemeld= principal != null;
         //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
-        if(principal!= null){
-            FashUser loggedInUser=users.findFashUserByUsername(principal.getName());
-            if(commentText!=null){
-                FashPost post=posts.findById(id).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count())+1,loggedInUser,post,commentTitle,commentText, LocalDate.now(), LocalTime.now()));
-                return "redirect:/postDetails/"+id;
+        if (principal != null) {
+            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+            if (commentText != null) {
+                FashPost post = posts.findById(id).get();
+                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                return "redirect:/postDetails/" + id;
             }
         }
-        if(id==null) return "postDetails";
+        if (id == null) return "postDetails";
 
         //Kijken of de post bestaat en toevoegen aan model
         Optional<FashPost> optionalFashPost = posts.findById(id);
-        if(optionalFashPost.isPresent()){
+        if (optionalFashPost.isPresent()) {
             model.addAttribute("post", optionalFashPost.get());
             //De comments worden pas gezocht als de post bestaat
-            model.addAttribute("comments",comments.findCommentsForPost(optionalFashPost.get()));
+            model.addAttribute("comments", comments.findCommentsForPost(optionalFashPost.get()));
         }
         return "postDetails";
     }
+
     //Liken stuurt gewoon terug naar dezelfde pagina met toegevoegde like
     @GetMapping({"/likePost/{id}"})
-    public String likePost(Model model,@PathVariable Integer id){
-        FashPost post=posts.findById(id).get();
+    public String likePost(Model model, @PathVariable Integer id) {
+        FashPost post = posts.findById(id).get();
         post.addLike();
         posts.save(post);
-        return "redirect:/postDetails/"+id;
+        return "redirect:/postDetails/" + id;
     }
+
     //Laden van een foto van post, gebaseerd op Brent zijn profielfotof
     @GetMapping("/p/image/{id}")
     public void image(
@@ -183,8 +179,8 @@ public class PostController {
             @PathVariable Integer id) throws IOException {
         response.setContentType("image/jpg");
 
-        Optional<FashPost> postopt=posts.findById(id);
-        if (postopt.isPresent()&&postopt.get().getPostPic()!=null){
+        Optional<FashPost> postopt = posts.findById(id);
+        if (postopt.isPresent() && postopt.get().getPostPic() != null) {
             InputStream is = new ByteArrayInputStream(postopt.get().getPostPic());
             IOUtils.copy(is, response.getOutputStream());
         }

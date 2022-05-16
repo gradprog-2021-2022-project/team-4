@@ -9,7 +9,7 @@
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()">
+<main sec:authorize="isAuthenticated()" id="messages">
     <article class="messages" th:each="message : ${convo.getMessages()}">
         <section th:if="${message.getSender()==loggedUser}" class="message">
             <div class="sentMessage">
@@ -33,9 +33,12 @@
     </article>
 </main>
 <script type="text/javascript">
-    function sendMessage() {
-        //NOG NIKS
-    }
+    //Reload het deel maar data wordt niet geupdate?
+    $(document).ready(function(){
+        setInterval(function(){
+            $("#messages").load(window.location.href + " messages" );
+        }, 1000);
+    });
 </script>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld

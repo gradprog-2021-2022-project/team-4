@@ -23,11 +23,6 @@
     background-color: #E8D7FF;
 }
 
-/*button voor aantal volgend op persoonlijke pagina*/
-.followerPersoonlijk {
-    margin-right: 20px;
-}
-
 /*follow button op iemand anders pagina*/
 .followbtn {
     background-color: #E8D7FF;
@@ -61,13 +56,36 @@
     border: 2px solid black;
 }
 
+/*div waar alle buttons in zitten*/
 .buttonsdiv {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
+/*buttons op 2de lijn*/
 .clothesbtn {
     margin-top: 20px;
+    flex: 1 0 50%;
+}
+
+/*om clothes button op hele breedte te zetten op iemand anders profilepage*/
+.breed {
     flex: 1 0 100%;
+}
+
+/*buttons op 1ste lijn*/
+.flex {
+    flex: 1 0 50%;
+}
+
+/*de linkse buttons dichter naar center*/
+.left {
+    float: right;
+    margin-right: 20px;
+}
+
+/*de rechtse buttons dichter naar center*/
+.right {
+    float: left;
 }

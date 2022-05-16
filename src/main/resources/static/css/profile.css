@@ -60,3 +60,14 @@
     border-radius: 40px;
     border: 2px solid black;
 }
+
+.buttonsdiv {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.clothesbtn {
+    margin-top: 20px;
+    flex: 1 0 100%;
+}

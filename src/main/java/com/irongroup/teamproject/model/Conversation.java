@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
@@ -65,6 +66,14 @@ public class Conversation {
     }
 
     public void addUser(FashUser user){
-        this.users.add(user);
+        //Eerst kijken of de user collection al besta
+        if(this.users!=null){
+            this.users.add(user);
+        }
+        //Zo nee, een nieuwe maken en opnieuw proberen
+        else{
+            this.users=new ArrayList<FashUser>();
+            this.addUser(user);
+        }
     }
 }

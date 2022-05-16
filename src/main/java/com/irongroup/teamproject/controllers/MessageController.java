@@ -118,11 +118,13 @@ public class MessageController {
                 users.save(loggedIn);
                 users.save(newUser);
                 dingetje = "redirect:/messages/" + idke;
+                //dingetje= "redirect:/nergens";
             } else {
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             }
         } catch (Exception e) {
             //Nogniks
+            e.printStackTrace();
             return "/profilepage";
         }
         return dingetje;

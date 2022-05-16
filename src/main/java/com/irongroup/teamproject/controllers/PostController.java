@@ -22,10 +22,7 @@ import java.io.InputStream;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class PostController {
@@ -45,7 +42,7 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal,@RequestParam(required = false) Boolean closeby,@RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false)Integer id, @RequestParam(required = false) String commentText,@RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false)Double latitude,@RequestParam(required = false)Double longitude){
+                              @RequestParam(required = false)Double latitude,@RequestParam(required = false)Double longitude,@RequestParam(required = false) String stijl){
         final String loginName = principal==null ? "NOBODY" : principal.getName();
 
         System.out.println(loginName);
@@ -69,7 +66,22 @@ public class PostController {
         }
         System.out.println("closeby = "+closeby);
         if (closeby!=null && closeby &&principal!=null){
-            model.addAttribute("fashUsers", orderByLocation(principal));
+            //Kijken of gefilterd kan woren op stijl
+            if(stijl==null || (stijl != null &&stijl.length()>0)){
+                model.addAttribute("fashUsers", orderByLocation(principal,null,true));
+            }
+            else{
+                model.addAttribute("fashUsers", orderByLocation(principal,stijl,true));
+            }
+        }
+        else if(((closeby!=null && !closeby) || (closeby==null)) &&principal!=null){
+            //Kijken of gefilterd kan woren op stijl
+            if(stijl==null || (stijl != null &&stijl.length()>0)){
+                model.addAttribute("fashUsers", orderByLocation(principal,null,false));
+            }
+            else{
+                model.addAttribute("fashUsers", orderByLocation(principal,stijl,false));
+            }
         }
         else{
             model.addAttribute("fashUsers",fashUsers);
@@ -91,7 +103,7 @@ public class PostController {
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
-    public ArrayList<FashUser> orderByLocation(Principal principal){
+    public ArrayList<FashUser> orderByLocation(Principal principal,String stijl,boolean distance){
 
         FashUser user = users.findFashUserByUsername(principal.getName());
 
@@ -102,7 +114,8 @@ public class PostController {
                 System.out.println(haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude()));
                 Double distanceInKm = haversine(user.getLatitude(),user.getLongitude(),u.getLatitude(),u.getLongitude());
 
-                if (distanceInKm<5){
+                //Nu kan je ook filteren op stijl !
+                if ((!distance || (distance && distanceInKm<5)) && (stijl ==null || u.getLastPost().getStijl().equalsIgnoreCase(stijl))){
                     closest.add(u);
                 }
             }

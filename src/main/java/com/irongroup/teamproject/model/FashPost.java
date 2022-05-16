@@ -17,6 +17,7 @@ public class FashPost {
     @Column(length = 1000)
     private String text;
     private Integer likes;
+    private String stijl;
 
     //Clothes in the post
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
@@ -152,5 +153,9 @@ public class FashPost {
 
     public void setPostPic(byte[] postPic) {
         this.postPic = postPic;
+    }
+
+    public String getStijl() {
+        return stijl;
     }
 }

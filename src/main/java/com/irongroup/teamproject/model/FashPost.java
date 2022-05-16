@@ -158,4 +158,12 @@ public class FashPost {
     public String getStijl() {
         return stijl;
     }
+    public Double getTotalPrice(){
+        Double totaal=0.0;
+        for (Clothing_Item c:clothes
+             ) {
+            totaal+=c.getPrijs();
+        }
+        return totaal;
+    }
 }

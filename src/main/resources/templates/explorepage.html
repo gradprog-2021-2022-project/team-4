@@ -32,6 +32,10 @@
             <label for="noClose" >No</label>
             <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
             <label for="yesClose">Yes</label>
+            <label for="minprijs">Minimum:</label>
+            <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+            <label for="maxprijs">Maximum:</label>
+            <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
             <input type="submit" value="search">
             <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
             <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">

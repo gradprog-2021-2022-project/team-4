@@ -44,7 +44,7 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style) {
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style,@RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         /*
         Op de explore page roep je eerst alle posts aan en dan worden de filters in volgorde aangezet, zo moet niks gecombineerd worden!
@@ -55,6 +55,9 @@ public class PostController {
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
             fashUsers=filterPosts(fashUsers,style);
+        }
+        if(minPrijs!=null || maxPrijs!=null){
+            fashUsers=filterPrice(fashUsers,minPrijs,maxPrijs);
         }
 
         System.out.println(loginName);
@@ -96,6 +99,18 @@ public class PostController {
         return ResponseEntity.ok(user);
     }
 
+    //Filteren op prijs
+    private ArrayList<FashUser> filterPrice(Collection<FashUser> fashUsers,Double minPrijs, Double maxPrijs){
+        if(minPrijs==null) {minPrijs=Double.POSITIVE_INFINITY;}
+        ArrayList<FashUser> users=new ArrayList<>();
+        for (FashUser f:fashUsers
+        ) {
+            if(f.getLastPost().getTotalPrice()>minPrijs && f.getLastPost().getTotalPrice()<maxPrijs){
+                users.add(f);
+            }
+        }return users;
+    }
+
     //Filteren op stijl
     private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl){
         ArrayList<FashUser> users=new ArrayList<>();
@@ -109,7 +124,6 @@ public class PostController {
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
     private ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers) {
-
         FashUser user = users.findFashUserByUsername(principal.getName());
 
         ArrayList<FashUser> closest = new ArrayList<>();

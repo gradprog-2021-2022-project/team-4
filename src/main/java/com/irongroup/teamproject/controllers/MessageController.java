@@ -62,7 +62,6 @@ public class MessageController {
                 } else {
                     return "redirect:/explorepage";
                 }
-
             } catch (Exception e) {
                 return "redirect:/explorepage";
             }
@@ -92,6 +91,29 @@ public class MessageController {
             }
             return "redirect:/messages/" + id;
         }
+    }
+
+    @GetMapping("/checkconvo/{id}")
+    public String checkConvo(@PathVariable Integer id, Principal p) {
+        try {
+            //De twee gebruikers zoeken
+            FashUser loggedIn = users.findFashUserByUsername(p.getName());
+            FashUser newUser = users.findById(id).get();
+
+            if (loggedIn.hasConversationWith(newUser) != null) {
+                return "redirect:/messages/" + loggedIn.hasConversationWith(newUser).getId();
+            } else {
+                Conversation c = new Conversation();
+                c.setId(Math.toIntExact(convos.count()) + 1);
+                c.setConvoNaam(newUser.getUsername());
+                c.addUser(loggedIn);
+                c.addUser(newUser);
+                convos.save(c);
+                return "redirect:/messages/" + c.getId();
+            }
+        } catch (Exception e) {//Nogniks
+        }
+        return null;
     }
 
     /*

@@ -12,7 +12,7 @@
 <aside>
   <article>
     <section th:each="follower : ${followers}">
-      <a th:text="${follower.getUsername()}" th:href="@{|/newconversation/${follower.getId()}|}"></a>
+      <a th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
     </section>
   </article>
 </aside>

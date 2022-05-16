@@ -6,12 +6,13 @@ import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class FashUser {
     //ID and username are public for all users.
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
-    @SequenceGenerator(name = "user_generator", sequenceName = "user_seq",allocationSize = 1)
+    @SequenceGenerator(name = "user_generator", sequenceName = "user_seq", allocationSize = 1)
     @Id
     public Integer id;
     @NotBlank
@@ -26,10 +27,10 @@ public class FashUser {
     @Column(length = 100000)
     private byte[] profilePic;
 
-    @OneToMany
+    @ManyToMany
     public Collection<FashUser> following;
 
-    @OneToMany
+    @ManyToMany
     public Collection<FashUser> followers;
 
     private String role;
@@ -64,7 +65,7 @@ public class FashUser {
     public FashUser() {
     }
 
-    public FashUser(Integer id,Double latitude,Double longitude, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
+    public FashUser(Integer id, Double latitude, Double longitude, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
         this.id = id;
         this.username = username;
         this.location = location;
@@ -82,10 +83,11 @@ public class FashUser {
         this.longitude = longitude;
     }
 
-    public void addItem(Clothing_Item item){
+    public void addItem(Clothing_Item item) {
         clothing_saved.add(item);
     }
-    public void removeItem(Clothing_Item item){
+
+    public void removeItem(Clothing_Item item) {
         clothing_saved.remove(item);
     }
 
@@ -121,13 +123,13 @@ public class FashUser {
         this.clothing_saved = clothing_saved;
     }
 
-    public FashPost getLastPost(){
-        ArrayList<FashPost> posts=new ArrayList<FashPost>();
-        for (FashPost p:postsMade
-             ) {
+    public FashPost getLastPost() {
+        ArrayList<FashPost> posts = new ArrayList<FashPost>();
+        for (FashPost p : postsMade
+        ) {
             posts.add(p);
         }
-        return posts.get(posts.size()-1);
+        return posts.get(posts.size() - 1);
     }
 
     public Integer getId() {
@@ -202,20 +204,28 @@ public class FashUser {
         this.location = location;
     }
 
-    public void follow(FashUser gebruiker){
-        if(!this.following.contains(gebruiker)) {this.following.add(gebruiker);}
+    public void follow(FashUser gebruiker) {
+        if (!this.following.contains(gebruiker)) {
+            this.following.add(gebruiker);
+        }
     }
 
-    public void unFollow(FashUser gebruiker){
-        if(this.following.contains(gebruiker)) {this.following.remove(gebruiker);}
+    public void unFollow(FashUser gebruiker) {
+        if (this.following.contains(gebruiker)) {
+            this.following.remove(gebruiker);
+        }
     }
 
-    public void addFollower(FashUser gebruiker){
-        if(!this.followers.contains(gebruiker)) {this.followers.add(gebruiker);}
+    public void addFollower(FashUser gebruiker) {
+        if (!this.followers.contains(gebruiker)) {
+            this.followers.add(gebruiker);
+        }
     }
 
-    public void removeFollower(FashUser gebruiker){
-        if(this.followers.contains(gebruiker)) {this.followers.remove(gebruiker);}
+    public void removeFollower(FashUser gebruiker) {
+        if (this.followers.contains(gebruiker)) {
+            this.followers.remove(gebruiker);
+        }
     }
 
     public Collection<FashUser> getFollowing() {
@@ -276,5 +286,28 @@ public class FashUser {
 
     public void setMessagesReceived(Collection<Message> messagesReceived) {
         this.messagesReceived = messagesReceived;
+    }
+
+    //Kijken of de user een convo heeft met 1 user
+    public Conversation hasConversationWith(FashUser user) {
+        //Maak een lege convo
+        Conversation convo = null;
+        try {
+            //Loopen door alle convos van een user
+            for (Conversation c : conversations
+            ) {
+                //Een privegesprek heeft maar 2 gebruikers
+                if (c.getUsers().size() == 2) {
+                    //De twee gebruikers zijn de huidige gebruiker en de persoon waar hij mee wil praten
+                    if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
+                        convo = c;
+                        return convo;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            //NOG NIKS
+        }
+        return convo;
     }
 }

@@ -63,4 +63,8 @@ public class Conversation {
     public void setUsers(Collection<FashUser> users) {
         this.users = users;
     }
+
+    public void addUser(FashUser user){
+        this.users.add(user);
+    }
 }

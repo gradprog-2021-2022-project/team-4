@@ -171,16 +171,13 @@ nav a:hover {
     padding: 10px;
     border-radius: 15%;
     display: block;
+    position: absolute;
 }
 
 
 .filterContainer{
     float: left;
     position: fixed;
-}
-
-.txt::before{
-   content: "+" ;
 }
 
 .btnFilter{
@@ -194,13 +191,11 @@ nav a:hover {
     font-weight: 900;
     transition: 0.5s;
     width: 30px;
+    text-align: center;
 }
 
 @media only screen and (min-width: 760px) {
 
-    .txt::before{
-        content: "FILTERS";
-    }
     .btnFilter{
         top: unset;
         height: 40px;

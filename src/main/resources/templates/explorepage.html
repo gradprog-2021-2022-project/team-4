@@ -17,8 +17,11 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside class="filterContainer">
+    <div>
+        <button class="btnFilter btn" onclick="showFilters()"><i class="fa fa-caret-down" aria-hidden="true"></i></button>
+    </div>
     <div class="filters" name="showFilter">
-        <h2>Filters: </h2>
+        <i class="fa fa-search" aria-hidden="true"></i>
         <form>
             <h3>Filter by location?</h3>
             <label for="noClose" >No</label>
@@ -29,9 +32,6 @@
             <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
             <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
         </form>
-    </div>
-    <div>
-        <button class="btnFilter txt" onclick="showFilters()"></button>
     </div>
 </aside>
 <script>

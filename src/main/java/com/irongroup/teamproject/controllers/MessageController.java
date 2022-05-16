@@ -34,7 +34,7 @@ public class MessageController {
         //In een try catch= geen ifke
         try {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
-            model.addAttribute("followers", loggedIn.following);
+            model.addAttribute("followers", loggedIn.followers);
             model.addAttribute("convos", loggedIn.getConversations());
             return "user/messagelist";
         } catch (Exception e) {
@@ -95,13 +95,14 @@ public class MessageController {
 
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
+        String dingetje="/explorepage";
         try {
             //De twee gebruikers zoeken
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
             FashUser newUser = users.findById(id).get();
 
             if (loggedIn.hasConversationWith(newUser) != null) {
-                return "redirect:/messages/" + loggedIn.hasConversationWith(newUser).getId();
+                dingetje= "redirect:/messages/" + loggedIn.hasConversationWith(newUser).getId();
             } else {
                 Conversation c = new Conversation();
                 c.setId(Math.toIntExact(convos.count()) + 1);
@@ -109,11 +110,11 @@ public class MessageController {
                 c.addUser(loggedIn);
                 c.addUser(newUser);
                 convos.save(c);
-                return "redirect:/messages/" + c.getId();
+                dingetje= "redirect:/messages/" + c.getId();
             }
         } catch (Exception e) {//Nogniks
         }
-        return null;
+        return dingetje;
     }
 
     /*

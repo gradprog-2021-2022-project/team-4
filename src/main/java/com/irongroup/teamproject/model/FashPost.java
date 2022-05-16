@@ -20,7 +20,7 @@ public class FashPost {
 
     //Clothes in the post
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private Collection<Clothing_Item> clothes;
+    private Collection<Clothing_Item> clothes = new ArrayList<>();
 
     //Poster
     @ManyToOne

@@ -40,9 +40,26 @@
 
             <label for="text">Tekst:</label><br>
             <input type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError"><br><br>
-            <label for="location">Locatie:</label><br>
-            <input type="text" id="location" placeholder="stad bvb" th:field="*{location}" th:errorclass="fieldError"><br><br>
-            <label for="image">Outfit photo :</label><br>
+            <div id="newClothing" th:field="*{clothes}">
+                <label for="type">Type:</label>
+                <input id="type" type="text" th:field="*{clothes[0].type}">
+                <label for="name">Name:</label>
+                <input id="name" type="text" th:field="*{clothes[0].naam}">
+                <label for="price">Price:</label>
+                <input id="price" type="number" step="0.01" th:field="*{clothes[0].prijs}">
+                <label for="link">Link to shop:</label>
+                <input id="link" type="text" th:field="*{clothes[0].linkShop}">
+                    <label for="type1">Type:</label>
+                    <input id="type1" type="text" th:field="*{clothes[1].type}">
+                    <label for="name1">Name:</label>
+                    <input id="name1" type="text" th:field="*{clothes[1].naam}">
+                    <label for="price1">Price:</label>
+                    <input id="price1" type="number" step="0.01" th:field="*{clothes[1].prijs}">
+                    <label for="link1">Link to shop:</label>
+                    <input id="link1" type="text" th:field="*{clothes[1].linkShop}">
+            </div>
+            <button type="button"  onclick="createNewElement()">New clothing Item</button>
+            <label for="image">Upload outfit :</label><br>
             <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
             <input type="submit" value="create" class="btn"><br>
             <div>
@@ -52,6 +69,27 @@
         </div>
     </div>
 </main>
+<script th:inline="javascript">
+    function createNewElement() {
+        // First create a DIV element.
+        let counter = 2;
+        let newClothing = document.createElement('div');
+
+        // Then add the content (a new input box) of the element.
+        newClothing.innerHTML = `                <label for="type">Type:</label>
+                <input id="type" type="text" name="clothes[${counter}].type">
+                <label for="name">Name:</label>
+                <input id="name" type="text" name="clothes[${counter}].naam">
+                <label for="price">Price:</label>
+                <input id="price" type="number" step="0.01" name="clothes[${counter}].prijs">
+                <label for="link">Link to shop:</label>
+                <input id="link" type="text" name="clothes[${counter}].linkShop">`;
+
+        // Finally put it where it is supposed to appear.
+        document.getElementById("newClothing").appendChild(newClothing);
+        counter++;
+    }
+</script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

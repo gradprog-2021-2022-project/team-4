@@ -10,7 +10,7 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main class="mainForm">
-    <div class="container containerLog">
+    <div class="containerCss">
         <form th:action="@{/user/login}" method="post">
             <div>
                 <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
@@ -24,7 +24,7 @@
                 <input type="password" id="password" name="password" required placeholder="">
             </div>
             <div >
-                <input type="submit" value="LOGIN" class="btn">
+                <input type="submit" value="LOGIN" class="btnCss">
             </div>
             <div>
                 <a href="/" class="cancel">cancel</a>

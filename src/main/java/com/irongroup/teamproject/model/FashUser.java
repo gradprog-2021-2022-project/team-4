@@ -289,19 +289,18 @@ public class FashUser {
     }
 
     //nakijken of een convo bestaat met een user
-    public Boolean hasConvoWithUser(FashUser user){
-        Boolean ja=false;
-        try{
-            for (Conversation c:conversations
-                 ) {
-                if(c.getUsers().size()==2){
-                    if(c.getUsers().contains(this) && c.getUsers().contains(user))
-                    {
-                        ja=true;
+    public Boolean hasConvoWithUser(FashUser user) {
+        Boolean ja = false;
+        try {
+            for (Conversation c : conversations
+            ) {
+                if (c.getUsers().size() == 2) {
+                    if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
+                        ja = true;
                     }
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             //Gene zak
         }
         return ja;
@@ -320,17 +319,36 @@ public class FashUser {
                     //De twee gebruikers zijn de huidige gebruiker en de persoon waar hij mee wil praten
                     if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
                         convo = c;
-                    }else{convo=null;}
+                    } else {
+                        convo = null;
+                    }
+                } else {
+                    convo = null;
                 }
-                else{convo=null;}
             }
         } catch (Exception e) {
             //NOG NIKS
         }
         return convo;
     }
+
     //Een nieuwe convo toevoegen
-    public void addConvo(Conversation c){
+    public void addConvo(Conversation c) {
         this.conversations.add(c);
+    }
+
+    //Zowel followers als following vinden
+    public Collection<FashUser> findBoth() {
+        ArrayList<FashUser> users = new ArrayList<>();
+        for (FashUser u : this.followers
+        ) {
+            users.add(u);
+        }
+        for (FashUser u : this.following) {
+            if(!users.contains(u)){
+                users.add(u);
+            }
+        }
+        return users;
     }
 }

@@ -73,21 +73,14 @@ public class MessageController {
                 FashUser sender = users.findFashUserByUsername(p.getName());
                 //De ontvangers zoeken en de verstuurder eruit halen, anders ziet hij het bericht twee keer
                 Collection<FashUser> receivers = convo.getUsers();
-                receivers.remove(sender);
-                //Alle berichten opvragen van de convo
-                Collection<Message> messages = convo.getMessages();
                 //Het bericht aanmaken en opslaan in de message tabel
-                Message message = new Message(Math.toIntExact(allMessages.count()) + 1, convo, sender, receivers, text);
-                allMessages.save(message);
-                messages.add(message);
-                //Belangrijk, de messages setten en ook opslaan in de database;
-                convo.setMessages(messages);
-                //Voor opslaan, de gebruiker er terug inzetten, anders kan hij de conversatie ni meer in!
-                receivers.add(sender);
-                convo.setUsers(receivers);
-                convos.save(convo);
+                //Message message = ;
+                //Opslaan
+                allMessages.save(new Message(convo,sender,receivers,text));
+                //convo.addMessage(message);
+                //convos.save(convo);
             } catch (Exception e) {
-                //NOG NIKS
+                e.printStackTrace();
             }
             return "redirect:/messages/" + id;
         }
@@ -107,8 +100,8 @@ public class MessageController {
             //Als de gebruiker nog geen convo heeft met de gebruiker
             if (!loggedIn.hasConvoWithUser(newUser)) {
                 Conversation c = new Conversation();
-                int idke = Math.toIntExact(convos.count())+1;
-                c.setId(idke);
+                //int idke=c.getId();
+                //c.setId(idke);
                 c.setConvoNaam(newUser.getUsername());
                 c.addUser(loggedIn);
                 c.addUser(newUser);
@@ -117,7 +110,7 @@ public class MessageController {
                 convos.save(c);
                 users.save(loggedIn);
                 users.save(newUser);
-                dingetje = "redirect:/messages/" + idke;
+                dingetje = "redirect:/messages/" + c.getId();
                 //dingetje= "redirect:/nergens";
             } else {
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();

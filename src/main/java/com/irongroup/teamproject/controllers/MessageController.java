@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
@@ -73,12 +74,20 @@ public class MessageController {
                 FashUser sender = users.findFashUserByUsername(p.getName());
                 //De ontvangers zoeken en de verstuurder eruit halen, anders ziet hij het bericht twee keer
                 Collection<FashUser> receivers = convo.getUsers();
+                receivers.remove(sender);
+                //Alle berichten opvragen van de convo
+                Collection<Message> messages = convo.getMessages();
                 //Het bericht aanmaken en opslaan in de message tabel
-                //Message message = ;
-                //Opslaan
-                allMessages.save(new Message(convo,sender,receivers,text));
-                //convo.addMessage(message);
-                //convos.save(convo);
+                ArrayList<Integer> ids=allMessages.findHighestID();
+                Message message = new Message(ids.get(0), convo, sender, receivers, text);
+                allMessages.save(message);
+                messages.add(message);
+                //Belangrijk, de messages setten en ook opslaan in de database;
+                convo.setMessages(messages);
+                //Voor opslaan, de gebruiker er terug inzetten, anders kan hij de conversatie ni meer in!
+                receivers.add(sender);
+                convo.setUsers(receivers);
+                convos.save(convo);
             } catch (Exception e) {
                 e.printStackTrace();
             }

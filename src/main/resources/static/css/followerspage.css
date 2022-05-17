@@ -8,18 +8,25 @@
     margin-right: 30px;
 }
 
-.followingperson {
+.person {
     display: flex;
     flex-wrap: wrap;
     text-align: left;
     margin-bottom: 20px;
+    background: none;
+    padding: 0;
+    border: 0.5px solid #00000030;
+    border-radius: 50px;
+    width: 400px;
 }
 
-.followerperson {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: left;
-    margin-bottom: 20px;
+/*making pictures or logos absolute on certain places*/
+.absolute {
+    position: absolute;
+}
+
+.person:hover {
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 
 .sectionbioname {

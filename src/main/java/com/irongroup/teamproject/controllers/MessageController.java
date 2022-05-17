@@ -93,6 +93,7 @@ public class MessageController {
         }
     }
 
+    // DONE : BUG FIXEN
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
         String dingetje = "/explorepage";
@@ -104,8 +105,8 @@ public class MessageController {
             /*//Tijdelijke code voor testing
             if(newUser==null) System.out.println("Gene user!");*/
 
-            //Als de gebruiker nog geen convo heeft met de gebruiker
-            if (!loggedIn.hasConvoWithUser(newUser)) {
+            //Als de gebruiker nog geen convo heeft met de gebruiker en de gebruiker volgt
+            if (!loggedIn.hasConvoWithUser(newUser) && loggedIn.getFollowing().contains(newUser)) {
                 Conversation c = new Conversation();
                 int idke = Math.toIntExact(convos.count())+1;
                 c.setId(idke);

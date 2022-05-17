@@ -308,6 +308,7 @@ public class FashUser {
     }
 
     //Oproepen van convo met 1 user
+    // DONE : BUG FIXEN
     public Conversation conversationWith(FashUser user) {
         //Maak een lege convo
         Conversation convo = null;
@@ -320,9 +321,8 @@ public class FashUser {
                     //De twee gebruikers zijn de huidige gebruiker en de persoon waar hij mee wil praten
                     if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
                         convo = c;
-                    }else{convo=null;}
+                    }
                 }
-                else{convo=null;}
             }
         } catch (Exception e) {
             //NOG NIKS

@@ -50,8 +50,12 @@
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">
-                <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
-                <h1 class="sectionrows" th:text="${fashUser.getUsername()}"></h1>
+                <form class="linktoprofilepage" method="get" th:action="@{|/profilepage/${fashUser.getId()}|}">
+                    <button class="linktoprofilepagebtn" type="submit">
+                        <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
+                        <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
+                    </button>
+                </form>
                 <form class="formbtn" method="get" th:action="@{|/follow/${fashUser.getId()}|}">
                     <button type="submit" class="bttnExplore section">Follow</button>
                 </form>
@@ -61,7 +65,6 @@
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
-                <strong><p class="sectionbiolikes"th:text="|${fashUser.getLastPost().getLikes()} likes|"></p></strong>
                 <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
                     <div th:if="${fashUser.getProfilePic()}">
                         <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getId()}|">
@@ -122,6 +125,11 @@
 
     // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
     document.getElementById("titlebalk").innerHTML = document.title;
+
+    //als de pagina terug herladen wordt via teruggaan functie in internet, dan herstelt die de scroll positie
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
 </script>
 </body>
 </html>

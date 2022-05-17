@@ -40,7 +40,6 @@
     width: 60px;
     position: absolute;
     border-radius: 50px;
-    z-index: -1; /*go under the navbar*/
 }
 
 .section {
@@ -122,6 +121,29 @@ h3.sectionrows {
 .bttnExplore:hover {
     background-color: rgb(211, 187, 250);
     color: #FAFF7F;
+}
+
+/*form button to profile page (press on name)*/
+.linktoprofilepage {
+    flex: 1 0 60%;
+}
+
+/*button to profile page (press on name)*/
+.linktoprofilepagebtn {
+    display: flex;
+    border: none;
+    background: none;
+    padding: 0;
+    height: 100%;
+}
+
+.linktoprofilepagebtn:hover {
+    text-decoration: underline;
+}
+
+/*the name to press on*/
+.name {
+    font-size: 1.8em;
 }
 
 .postInfo {

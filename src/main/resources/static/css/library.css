@@ -12,6 +12,7 @@ header{
     padding-top: 8px;
     position: fixed;
     bottom: 0;
+    z-index: 1;
 }
 
 #headerBalk{
@@ -177,6 +178,7 @@ nav a:hover {
 .filterContainer{
     float: left;
     position: fixed;
+    z-index: 1; /*zodat die boven alle fotos en tekst komt*/
 }
 
 .txt::before{

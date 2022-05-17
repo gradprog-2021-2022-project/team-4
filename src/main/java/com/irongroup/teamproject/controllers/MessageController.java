@@ -132,6 +132,32 @@ public class MessageController {
         return dingetje;
     }
 
+    @GetMapping("/adduser/{convoID}")
+    public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
+        try {
+            Conversation currentc=convos.findbyID(convoID);
+
+            Conversation c = new Conversation();
+            String naam= "";
+
+            for (FashUser u: currentc.getUsers()
+            ) {
+                c.addUser(u);
+                u.addConvo(c);
+                naam.concat(u.username+",");
+            }
+            c.addUser(users.findById(id).get());
+            users.findById(id).get().addConvo(c);
+            c.setConvoNaam(naam);
+            //Dingen opslaan !!!
+            convos.save(c);
+            return "redirect:/messages/"+c.getId();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/messages";
+        }
+    }
+
     /*
     @GetMapping("/sendmessage/{id}")
     public String sendMessage(@PathVariable Integer id, @RequestParam String text, Principal p) {

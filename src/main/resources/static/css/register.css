@@ -32,7 +32,7 @@
     text-decoration: none;
 }
 
-input {
+.inputCss {
     background: #ecf0f3;
     padding: 10px;
     height: 20px;

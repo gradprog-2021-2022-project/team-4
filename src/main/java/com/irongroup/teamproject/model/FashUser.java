@@ -332,7 +332,7 @@ public class FashUser {
     }
 
     //Alle posts van volgers vinden
-    public Collection<FashPost> getPostsFromFollowing(){
+    public List<FashPost> getPostsFromFollowing(){
         List<FashPost> allPosts=new ArrayList<>();
         for (FashUser u:this.following
              ) {

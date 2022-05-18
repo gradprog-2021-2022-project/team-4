@@ -42,7 +42,7 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style,@RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         /*
         Op de explore page roep je eerst alle posts aan en dan worden de filters in volgorde aangezet, zo moet niks gecombineerd worden!
@@ -52,10 +52,10 @@ public class PostController {
         //Kijken voor de stijl en zoja filteren
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
-            fashUsers=filterPosts(fashUsers,style);
+            fashUsers = filterPosts(fashUsers, style);
         }
-        if(minPrijs!=null || maxPrijs!=null){
-            fashUsers=filterPrice(fashUsers,minPrijs,maxPrijs);
+        if (minPrijs != null || maxPrijs != null) {
+            fashUsers = filterPrice(fashUsers, minPrijs, maxPrijs);
         }
 
         System.out.println(loginName);
@@ -98,26 +98,30 @@ public class PostController {
     }
 
     //Filteren op prijs
-    private ArrayList<FashUser> filterPrice(Collection<FashUser> fashUsers,Double minPrijs, Double maxPrijs){
-        if(minPrijs==null) {minPrijs=Double.POSITIVE_INFINITY;}
-        ArrayList<FashUser> users=new ArrayList<>();
-        for (FashUser f:fashUsers
+    private ArrayList<FashUser> filterPrice(Collection<FashUser> fashUsers, Double minPrijs, Double maxPrijs) {
+        if (minPrijs == null) {
+            minPrijs = Double.POSITIVE_INFINITY;
+        }
+        ArrayList<FashUser> users = new ArrayList<>();
+        for (FashUser f : fashUsers
         ) {
-            if(f.getLastPost().getTotalPrice()>minPrijs && f.getLastPost().getTotalPrice()<maxPrijs){
+            if (f.getLastPost().getTotalPrice() > minPrijs && f.getLastPost().getTotalPrice() < maxPrijs) {
                 users.add(f);
             }
-        }return users;
+        }
+        return users;
     }
 
     //Filteren op stijl
-    private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl){
-        ArrayList<FashUser> users=new ArrayList<>();
-        for (FashUser f:fashUsers
-             ) {
-            if(f.getLastPost().getStijl().equalsIgnoreCase(stijl)){
+    private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl) {
+        ArrayList<FashUser> users = new ArrayList<>();
+        for (FashUser f : fashUsers
+        ) {
+            if (f.getLastPost().getStijl().equalsIgnoreCase(stijl)) {
                 users.add(f);
             }
-        }return users;
+        }
+        return users;
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
@@ -157,7 +161,7 @@ public class PostController {
     }
 
 
-    @GetMapping({"/foryoupage" , "/foryoupage/{id}"})
+    @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
             , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
@@ -182,9 +186,19 @@ public class PostController {
                 users.save(loggedInUser);
             }
         }
-        if (id == null)  return "foryoupage";
+        if (id == null) return "foryoupage";
 
-
+        FashUser optionalFashUser = users.findById(id).get();
+        List<FashPost> postsFromFollowers = optionalFashUser.getPostsFromFollowing();
+        Collections.sort(postsFromFollowers);
+        model.addAttribute("allposts",postsFromFollowers);
+        /*andere manier om te sorteren
+        Collections.sort(postsFromFollowers, new Comparator<FashPost>() {
+            @Override
+            public int compare(FashPost o1, FashPost o2) {
+                return o1.id.compareTo(o2.id);
+            }
+        });*/
 
         /*oude code van Ibrahim die niet correct is
         //Posts van de users die je volgt ophalen
@@ -196,6 +210,7 @@ public class PostController {
         }*/
         return "foryoupage";
     }
+
     @PutMapping("/foryoupage")
     public ResponseEntity<FashUser> updateUsers(Principal principal) {
         FashUser user = users.findFashUserByUsername(principal.getName());

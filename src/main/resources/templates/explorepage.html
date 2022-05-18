@@ -31,11 +31,11 @@
             <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
             <label for="noClose" >No</label>
             <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
-            <label for="yesClose">Yes</label>
-            <label for="minprijs">Minimum:</label>
-            <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
-            <label for="maxprijs">Maximum:</label>
-            <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
+            <label for="yesClose">Yes</label><br>
+            <label for="minprijs">Minimum:</label><br>
+            <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs"><br>
+            <label for="maxprijs">Maximum:</label><br>
+            <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs"><br>
             <input type="submit" value="search">
             <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
             <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">

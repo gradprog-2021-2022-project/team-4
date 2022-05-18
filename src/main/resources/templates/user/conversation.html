@@ -9,8 +9,13 @@
 </head>
 <script th:inline="javascript" type="text/javascript">
 
+    function startScript() {
+        setInterval(loadData, 1000);
+    };
+
     //Dit word aangeroepen na het laden van de pagina
     function loadData() {
+        let aantalMessages = document.getElementById("hiddenSize");
         //haal de id op
         let id = document.getElementById("hiddenID").innerText;
         console.log(id);
@@ -26,10 +31,16 @@
         xhr.onreadystatechange = function () {
             var DONE = 4; // readyState 4 means the request is done.
             var OK = 200; // status 200 is a successful return.
+
             if (xhr.readyState === DONE) {
                 console.log("DONE");
                 if (xhr.status === OK) {
                     arrayConvo = xhr.responseText;
+                    //We zetten de string om naar JSON om te kunnen gebruiken
+                    arrayConvo = JSON.parse(arrayConvo);
+                    arrayConvo.sort(function (a, b) {
+                        return a.id - b.id;
+                    });
                     displayData(arrayConvo);
                     console.log(xhr.responseText); // 'This is the returned text.'
                     console.log("status ok");
@@ -44,46 +55,45 @@
     //Toont de data binnen html
     function displayData(arrayConvo) {
         //zoek de huidige user
-        let curUser=document.getElementById("hiddenUSERID");
+        let curUser = document.getElementById("hiddenUSERID");
         //Zoek het element waar de messages in zullen komen
         let newMessages = document.getElementById('messages');
         //We maken het element leeg om de messages te laden
         newMessages.innerHTML = "";
-        //We zetten de string om naar JSON om te kunnen gebruiken
-        arrayConvo = JSON.parse(arrayConvo);
         //Printen voor debugging
         console.log(arrayConvo);
         //Een loop om door de convo te gaan en elke message te zien
         for (var i = 0; i < arrayConvo.length; i++) {
             //Elementen maken die in elke message zullen staan
-            let curSegment=document.createElement("section");
-            let curDiv=document.createElement("div");
-            let curPic=document.createElement("img");
-            let textnode=document.createTextNode(arrayConvo[i].text);
+            let curSegment = document.createElement("section");
+            let curDiv = document.createElement("div");
+            let curPic = document.createElement("img");
+            let textnode = document.createTextNode(arrayConvo[i].text);
 
-            if(arrayConvo[i].sender.username===curUser.innerText)
-            {
+            if (arrayConvo[i].sender.username === curUser.innerText) {
                 //Een verstuurd bericht krijgt een andere klasse
-                curDiv.setAttribute("class","sentMessage");
-                curPic.setAttribute("th:src","@{/u/image/"+arrayConvo[i].sender.id+"}");
+                curDiv.setAttribute("class", "sentMessage");
+                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
                 curDiv.appendChild(curPic);
-            }else{
+            } else {
                 //Een ontvangen bericht krijgt een andere klasse
-                curDiv.setAttribute("class","receivedMessage");
-                curPic.setAttribute("th:src","@{/u/image/"+arrayConvo[i].sender.id+"}");
+                curDiv.setAttribute("class", "receivedMessage");
+                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
                 curDiv.appendChild(curPic);
             }
             //Toekennen van attributen aan de elementen (vooral klasses!)
-            curSegment.setAttribute("class","message");
+            curSegment.setAttribute("class", "message");
             curDiv.appendChild(textnode);
             curSegment.append(curDiv);
             newMessages.appendChild(curSegment);
-        };
+        }
+        ;
     };
 </script>
-<body onload="loadData()">
+<body onload="startScript()">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
 <p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
     <form th:action="@{|/adduser/${convo.getId()}|}">
@@ -94,12 +104,12 @@
         <button type="submit">Voeg toe!</button>
     </form>
     <div id="messages">
-        <article class="messages" th:each="message : ${convo.getMessages()}">
+        <!--<article class="messages" th:each="message : ${convo.getMessages()}">
             <section th:if="${message.getSender()==loggedUser}" class="message">
-                    <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
-                                                                                                      class="messagePic"
-                                                                                                      th:src="@{|/u/image/${loggedUser.getId()}|}">
-                    <p th:text="${message.getText()}"></p>
+                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
+                                                                                                  class="messagePic"
+                                                                                                  th:src="@{|/u/image/${loggedUser.getId()}|}">
+                <p th:text="${message.getText()}"></p>
             </section>
             <section th:unless="${message.getSender()==loggedUser}" class="message">
                 <div class="receivedMessage">
@@ -109,7 +119,7 @@
                 </div>
             </section>
             <br>
-        </article>
+        </article>-->
     </div>
     <article>
         <form class="messageForm">

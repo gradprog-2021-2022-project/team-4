@@ -43,6 +43,7 @@ public class MessageController {
         }
     }
 
+    // DONE : users worden verwijderd na sturen message (gefixt)
     // done : voeg een check toe om te zien of de gebruiker toegang heeft tot de convo!!
     @GetMapping({"/messages/{id}"})
     public String conversation(Principal p, Model model, @PathVariable Integer id, @RequestParam(required = false) String text) {
@@ -61,9 +62,11 @@ public class MessageController {
                     model.addAttribute("loggedUser", loggedIn);
                     return "user/conversation";
                 } else {
+                    System.out.println("we zitten hier!");
                     return "redirect:/explorepage";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 return "redirect:/explorepage";
             }
         } else {
@@ -78,8 +81,7 @@ public class MessageController {
                 //Alle berichten opvragen van de convo
                 Collection<Message> messages = convo.getMessages();
                 //Het bericht aanmaken en opslaan in de message tabel
-                ArrayList<Integer> ids=allMessages.findHighestID();
-                Message message = new Message(ids.get(0), convo, sender, receivers, text);
+                Message message = new Message(Math.toIntExact(allMessages.count()) + 1, convo, sender, receivers, text);
                 allMessages.save(message);
                 messages.add(message);
                 //Belangrijk, de messages setten en ook opslaan in de database;
@@ -95,6 +97,7 @@ public class MessageController {
         }
     }
 
+    // DONE : users worden niet goed toegevoegd aan gesprek (hier zit niet de fout)
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
         String dingetje = "/explorepage";
@@ -111,9 +114,16 @@ public class MessageController {
                 Conversation c = new Conversation();
                 //int idke=c.getId();
                 //c.setId(idke);
+                ArrayList<FashUser> usersconvo=new ArrayList<>();
                 c.setConvoNaam(newUser.getUsername());
+
+                usersconvo.add(loggedIn);
+                usersconvo.add(newUser);
+                c.setUsers(usersconvo);
+                /*
                 c.addUser(loggedIn);
                 c.addUser(newUser);
+                */
                 loggedIn.addConvo(c);
                 newUser.addConvo(c);//Dingen opslaan !!!
                 convos.save(c);
@@ -132,6 +142,7 @@ public class MessageController {
         return dingetje;
     }
 
+    // TODO : ZORGEN VOOR EEN NAAM
     @GetMapping("/adduser/{convoID}")
     public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
         try {

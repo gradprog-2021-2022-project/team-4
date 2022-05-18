@@ -5,8 +5,8 @@ import java.util.Collection;
 
 @Entity
 public class Message {
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mes_generator")
-    @SequenceGenerator(name = "mes_generator", sequenceName = "mes_seq", allocationSize = 1)
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mes_generator")
+    //@SequenceGenerator(name = "mes_generator", sequenceName = "mes_seq", allocationSize = 1)
     @Id
     Integer id;
 

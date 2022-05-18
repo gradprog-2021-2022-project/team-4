@@ -7,44 +7,32 @@
     <title th:text="${convo.getConvoNaam()}">Placeholder</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
-<body>
-<header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()">
-    <form th:action="@{|/adduser/${convo.getId()}|}">
-        <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
-        <select name="id">
-            <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
-                    th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
-        </select>
-        <button type="submit">Voeg toe!</button>
-    </form>
-    <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
-        <section th:if="${message.getSender()==loggedUser}" class="message">
-            <div class="sentMessage">
-                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
-                                                                                                  class="messagePic"
-                                                                                                  th:src="@{|/u/image/${loggedUser.getId()}|}">
-                <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <section th:unless="${message.getSender()==loggedUser}" class="message">
-            <div class="receivedMessage">
-                <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label
-                    for="imagepic" th:text="${message.getSender().getUsername()}"></label>
-                <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <br>
-    </article>
-    <article>
-        <form class="messageForm">
-            <input name="text" type="text" placeholder="Begin met typen..." required="required">
-            <button type="submit">Stuur!</button>
-        </form>
-    </article>
-</main>
-<p id="shownID"></p>
-<script type="text/javascript">
+<script th:inline="javascript" type="text/javascript">
+
+    window.addEventListener("load", function(){
+        //console.log("fok");
+        let id = document.getElementById("hiddenID").innerText;
+        console.log(id);
+        //document.getElementById("shownID").innerHTML(id);
+        console.log("werk aub");
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/getconvo/'+id);
+        xhr.send();
+        xhr.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+            if (xhr.readyState === DONE) {
+                if (xhr.status === OK) {
+                    console.log(xhr.responseText); // 'This is the returned text.'
+                    console.log("status ok");
+                } else {
+                    console.log('Error: ' + xhr.status); // An error occurred during the request.
+                }
+            }
+        };
+        //xhr.send();
+    });
+    /*
     let id = document.getElementById("hiddenID").innerText;
     document.getElementById("shownID").innerHTML(id);
     console.log("werk aub");
@@ -58,7 +46,7 @@
         .fail(function (err) {
             console.log('Error: ' + err.status);
         });
-
+     */
 
     /*
     let id= document.getElementById("hiddenID").innerText;
@@ -97,6 +85,43 @@
         }, 1000);
     });*/
 </script>
+<body>
+<p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
+<p id="shownID"></p>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main sec:authorize="isAuthenticated()">
+    <form th:action="@{|/adduser/${convo.getId()}|}">
+        <select name="id">
+            <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
+                    th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
+        </select>
+        <button type="submit">Voeg toe!</button>
+    </form>
+    <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
+        <section th:if="${message.getSender()==loggedUser}" class="message">
+            <div class="sentMessage">
+                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
+                                                                                                  class="messagePic"
+                                                                                                  th:src="@{|/u/image/${loggedUser.getId()}|}">
+                <p th:text="${message.getText()}"></p>
+            </div>
+        </section>
+        <section th:unless="${message.getSender()==loggedUser}" class="message">
+            <div class="receivedMessage">
+                <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label
+                    for="imagepic" th:text="${message.getSender().getUsername()}"></label>
+                <p th:text="${message.getText()}"></p>
+            </div>
+        </section>
+        <br>
+    </article>
+    <article>
+        <form class="messageForm">
+            <input name="text" type="text" placeholder="Begin met typen..." required="required">
+            <button type="submit">Stuur!</button>
+        </form>
+    </article>
+</main>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld
 </main>

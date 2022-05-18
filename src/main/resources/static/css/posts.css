@@ -90,7 +90,7 @@ h3.sectionrows {
 }
 
 .commenttitle {
-    width: 70px;
+    width: auto;
 }
 
 .commenttext {
@@ -110,6 +110,23 @@ h3.sectionrows {
 
 .commentpic {
     width: 35px;
+    height: auto;
+}
+
+.comment-wrapper .panel-body {
+    max-height:650px;
+    overflow:auto;
+}
+
+.comment-wrapper .media-list .media img {
+    width:64px;
+    height:64px;
+    border:2px solid #e5e7e8;
+}
+
+.comment-wrapper .media-list .media {
+    border-bottom:1px dashed #efefef;
+    margin-bottom:25px;
 }
 
 .noprofilepic {
@@ -136,35 +153,33 @@ h3.sectionrows {
     border: black 1px solid;
     border-radius: 20px;
     padding: 5px;
-    margin: 5px;
     background: #E8D7FF;
 }
 
-.borderGrid{
-    border-radius: 20px;
-    padding: 40px;
-    box-sizing: border-box;
-    background: #E8D7FF;
-    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
-}
 .picDetail{
     width: available;
     height: auto;
     transition: all .4s ease;
     box-shadow: 20px 20px rgba(0,0,0,.15);
     border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
+
 }
 .picDetail:hover{
     border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
     box-shadow: 10px 10px rgba(0,0,0,.25);
 }
 .postDetails {
+    width: 100%;
     display: grid;
-    grid-template-areas: 'gpic' 'ginfo' 'gitems' 'gcomment';
-    justify-content: center;
-    align-content: center;
+    grid-template-areas: 'gpic gitems';
+    grid-template-columns: 50% 50%;
     grid-column-gap: 25px;
     grid-row-gap: 25px;
+    border-radius: 20px;
+    padding: 40px;
+    box-sizing: border-box;
+    background: #E8D7FF;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 .sidePic{
     grid-area: gpic;
@@ -184,24 +199,16 @@ h3.sectionrows {
     grid-area: gitems;
 }
 /*De lijst van comments*/
-.commentlist{
-    grid-area: gcomment;
-    display: inline-block;
-    width: auto;
-}
+
 /*Voor elke comment en de commentform*/
 .comment{
-    height: auto;
-    background: #FAFF7F;
-    width: available;
-    display: flex;
+    border-bottom: dashed black;
+}
+
+.pad{
+    padding-top: 30px;
 }
 /*Voor de foto binnen een comment*/
-.comment img{
-    height: 100px;
-    width: auto;
-    border-radius: 45px;
-}
 .profilelink{
     height: 100px;
     width: 150px;
@@ -210,13 +217,15 @@ h3.sectionrows {
 .comment input{
     background: white;
 }
-.comment form {
-    width: 85%
-}
 .comment .btn{
     width: available;
     height: available;
     text-align: center;
+}
+main{
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 /*Voor de username in een comment*/
 .username{
@@ -233,15 +242,5 @@ h3.sectionrows {
         cursor: pointer; /* Add a mouse pointer on hover */
         padding: 15px; /* Some padding */
         font-family: 'Fira Sans', sans-serif;
-    }
-
-    .postDetails {
-        width: 100%;
-        display: grid;
-        grid-template-areas: 'gpic ginfo' 'gpic gitems' 'gcomments gcomments';
-
-        grid-template-columns: 50% 50%;
-        grid-column-gap: 25px;
-        grid-row-gap: 25px;
     }
 }

@@ -12,6 +12,7 @@ header{
     padding-top: 8px;
     position: fixed;
     bottom: 0;
+    z-index: 10;
 }
 
 #headerBalk{
@@ -214,6 +215,7 @@ nav a:hover {
         position: fixed;
         top: 0;
         bottom: unset;
+        z-index: 10;
     }
 
     main{

@@ -19,13 +19,18 @@ public class FashUser {
     public Integer id;
     @NotBlank
     public String username;
+    @JsonIgnore
     private String location;
+    @JsonIgnore
     @NotBlank
     private String password;
 
+    @JsonIgnore
     private Double longitude;
+    @JsonIgnore
     private Double latitude;
 
+    @JsonIgnore
     @Column(length = 100000)
     private byte[] profilePic;
 
@@ -37,10 +42,14 @@ public class FashUser {
     @ManyToMany
     public Collection<FashUser> followers;
 
+    @JsonIgnore
     private String role;
     //These are private unless user wants to share
+    @JsonIgnore
     private String first_name;
+    @JsonIgnore
     private String last_name;
+    @JsonIgnore
     private Integer post_allowance;
 
     //Posts and comments user has made

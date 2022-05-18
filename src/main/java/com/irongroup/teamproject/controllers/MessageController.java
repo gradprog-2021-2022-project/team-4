@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 
 @Controller
@@ -42,6 +43,7 @@ public class MessageController {
         }
     }
 
+    // DONE : users worden verwijderd na sturen message (gefixt)
     // done : voeg een check toe om te zien of de gebruiker toegang heeft tot de convo!!
     @GetMapping({"/messages/{id}"})
     public String conversation(Principal p, Model model, @PathVariable Integer id, @RequestParam(required = false) String text) {
@@ -60,9 +62,11 @@ public class MessageController {
                     model.addAttribute("loggedUser", loggedIn);
                     return "user/conversation";
                 } else {
+                    System.out.println("we zitten hier!");
                     return "redirect:/explorepage";
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 return "redirect:/explorepage";
             }
         } else {
@@ -87,12 +91,13 @@ public class MessageController {
                 convo.setUsers(receivers);
                 convos.save(convo);
             } catch (Exception e) {
-                //NOG NIKS
+                e.printStackTrace();
             }
             return "redirect:/messages/" + id;
         }
     }
 
+    // DONE : users worden niet goed toegevoegd aan gesprek (hier zit niet de fout)
     // DONE : BUG FIXEN
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
@@ -105,20 +110,27 @@ public class MessageController {
             /*//Tijdelijke code voor testing
             if(newUser==null) System.out.println("Gene user!");*/
 
-            //Als de gebruiker nog geen convo heeft met de gebruiker en de gebruiker volgt
-            if (!loggedIn.hasConvoWithUser(newUser) && loggedIn.getFollowing().contains(newUser)) {
+            //Als de gebruiker nog geen convo heeft met de gebruiker
+            if (!loggedIn.hasConvoWithUser(newUser)) {
                 Conversation c = new Conversation();
-                int idke = Math.toIntExact(convos.count())+1;
-                c.setId(idke);
+                //int idke=c.getId();
+                //c.setId(idke);
+                ArrayList<FashUser> usersconvo=new ArrayList<>();
                 c.setConvoNaam(newUser.getUsername());
+
+                usersconvo.add(loggedIn);
+                usersconvo.add(newUser);
+                c.setUsers(usersconvo);
+                /*
                 c.addUser(loggedIn);
                 c.addUser(newUser);
+                */
                 loggedIn.addConvo(c);
                 newUser.addConvo(c);//Dingen opslaan !!!
                 convos.save(c);
                 users.save(loggedIn);
                 users.save(newUser);
-                dingetje = "redirect:/messages/" + idke;
+                dingetje = "redirect:/messages/" + c.getId();
                 //dingetje= "redirect:/nergens";
             } else {
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
@@ -129,6 +141,47 @@ public class MessageController {
             return "/profilepage";
         }
         return dingetje;
+    }
+
+    // DONE : ZORGEN VOOR EEN NAAM (werkt)
+    @GetMapping("/adduser/{convoID}")
+    public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
+        try {
+            Conversation currentc=convos.findbyID(convoID);
+
+            //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar gebruiker toevoegen aan huidige
+            if(currentc.getUsers().size()>2){
+                currentc.addUser(users.findById(id).get());
+                currentc.setConvoNaam(currentc.getConvoNaam()+users.findById(id).get().getUsername()+",");
+                users.findById(id).get().addConvo(currentc);
+                convos.save(currentc);
+
+                return "redirect:/messages/"+currentc.getId();
+            }else{
+                //Anders wel een nieuwe convo maken
+                Conversation c = new Conversation();
+                String naam= "";
+
+                //De gebruikers van de huidige convo toevoegen aan de nieuwe convo
+                for (FashUser u: currentc.getUsers()
+                ) {
+                    c.addUser(u);
+                    u.addConvo(c);
+                    naam = naam + u.username+",";
+                }
+                //De nieuwe user toevoegen
+                c.addUser(users.findById(id).get());
+                //Aan de nieuwe user de convo toevoegen
+                users.findById(id).get().addConvo(c);
+                c.setConvoNaam(naam);
+                //Dingen opslaan !!!
+                convos.save(c);
+                return "redirect:/messages/"+c.getId();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "redirect:/messages";
+        }
     }
 
     /*

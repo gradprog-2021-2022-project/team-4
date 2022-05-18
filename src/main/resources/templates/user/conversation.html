@@ -10,6 +10,12 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()" >
+        <form th:action="@{|/adduser/${convo.getId()}|}">
+            <select name="id">
+                <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}" th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
+            </select>
+            <button type="submit">Voeg toe!</button>
+        </form>
     <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
         <section th:if="${message.getSender()==loggedUser}" class="message">
             <div class="sentMessage">

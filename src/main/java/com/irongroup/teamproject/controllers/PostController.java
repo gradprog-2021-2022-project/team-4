@@ -162,18 +162,13 @@ public class PostController {
             , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
 
-        //Posts van de users die je volgt ophalen
-        if (id == null)  return "foryoupage";
-        Optional<FashUser> optionalFashUser = users.findById(id);
-        if(optionalFashUser.isPresent()) {
-            model.addAttribute("fashUsers", optionalFashUser.get().getFollowing());
-        }
-
         System.out.println(loginName);
         Collection<FashPost> postsmade = posts.findAll();
         model.addAttribute("fashposts", postsmade);
+
         if (principal != null) {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+            id = loggedInUser.getId();
             model.addAttribute("curUser", loggedInUser);
             model.addAttribute("loggedIn", true);
             if (commentText != null) {
@@ -186,6 +181,14 @@ public class PostController {
                 loggedInUser.setLongitude(longitude);
                 users.save(loggedInUser);
             }
+        }
+        if (id == null)  return "foryoupage";
+
+        //Posts van de users die je volgt ophalen
+        Optional<FashUser> optionalFashUser = users.findById(id);
+        Collection<FashUser> fashUsers = optionalFashUser.get().getFollowing();
+        if(optionalFashUser.isPresent()) {
+            model.addAttribute("fashUsers", fashUsers);
         }
         return "foryoupage";
     }

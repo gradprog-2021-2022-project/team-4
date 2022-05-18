@@ -1,5 +1,7 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Collection;
 
@@ -11,14 +13,17 @@ public class Message {
     Integer id;
 
     //Bij welke conversatie hoort dit bericht?
+    @JsonIgnore
     @ManyToOne(optional = false)
     private Conversation conversation;
 
     //De persoon die het bericht verstuurde
+    @JsonIgnore
     @ManyToOne
     private FashUser sender;
 
     //Mensen die het bericht zullen ontvangen
+    @JsonIgnore
     @ManyToMany
     private Collection<FashUser> receivers;
 

@@ -41,24 +41,43 @@
         xhr.send(null);
     };
 
-    //Werkt nog niet
+    //Toont de data binnen html
     function displayData(arrayConvo) {
+        //zoek de huidige user
         let curUser=document.getElementById("hiddenUSERID");
+        //Zoek het element waar de messages in zullen komen
         let newMessages = document.getElementById('messages');
+        //We maken het element leeg om de messages te laden
         newMessages.innerHTML = "";
-        //var messageArray=new Array;
+        //We zetten de string om naar JSON om te kunnen gebruiken
         arrayConvo = JSON.parse(arrayConvo);
+        //Printen voor debugging
         console.log(arrayConvo);
+        //Een loop om door de convo te gaan en elke message te zien
         for (var i = 0; i < arrayConvo.length; i++) {
-            let curSegment=``;
+            //Elementen maken die in elke message zullen staan
+            let curSegment=document.createElement("section");
+            let curDiv=document.createElement("div");
+            let curPic=document.createElement("img");
+            let textnode=document.createTextNode(arrayConvo[i].text);
+
             if(arrayConvo[i].sender.username===curUser.innerText)
             {
-                curSegment=` <section>Verstuurd!</section>`;
-                newMessages.append(curSegment);
+                //Een verstuurd bericht krijgt een andere klasse
+                curDiv.setAttribute("class","sentMessage");
+                curPic.setAttribute("th:src","@{/u/image/"+arrayConvo[i].sender.id+"}");
+                curDiv.appendChild(curPic);
             }else{
-                curSegment=`<section>Ontvangen!</section>`;
-                newMessages.append(curSegment);
+                //Een ontvangen bericht krijgt een andere klasse
+                curDiv.setAttribute("class","receivedMessage");
+                curPic.setAttribute("th:src","@{/u/image/"+arrayConvo[i].sender.id+"}");
+                curDiv.appendChild(curPic);
             }
+            //Toekennen van attributen aan de elementen (vooral klasses!)
+            curSegment.setAttribute("class","message");
+            curDiv.appendChild(textnode);
+            curSegment.append(curDiv);
+            newMessages.appendChild(curSegment);
         };
     };
 </script>
@@ -77,12 +96,10 @@
     <div id="messages">
         <article class="messages" th:each="message : ${convo.getMessages()}">
             <section th:if="${message.getSender()==loggedUser}" class="message">
-                <div class="sentMessage">
                     <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
                                                                                                       class="messagePic"
                                                                                                       th:src="@{|/u/image/${loggedUser.getId()}|}">
                     <p th:text="${message.getText()}"></p>
-                </div>
             </section>
             <section th:unless="${message.getSender()==loggedUser}" class="message">
                 <div class="receivedMessage">

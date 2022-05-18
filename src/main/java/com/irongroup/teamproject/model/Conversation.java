@@ -1,14 +1,13 @@
 package com.irongroup.teamproject.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 
 @Entity
 public class Conversation {
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "convo_generator")
+    @SequenceGenerator(name = "convo_generator", sequenceName = "convo_seq", allocationSize = 1)
     @Id
     private Integer id;
 
@@ -75,5 +74,14 @@ public class Conversation {
             this.users=new ArrayList<FashUser>();
             this.addUser(user);
         }
+    }
+    public void addMessage(Message message){
+        if(this.messages==null || (this.messages!=null && this.messages.size()<1)){
+            this.messages=new ArrayList<Message>();
+            this.messages.add(message);
+        }else{
+            this.messages.add(message);
+        }
+
     }
 }

@@ -5,6 +5,8 @@ import java.util.Collection;
 
 @Entity
 public class Message {
+    //@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mes_generator")
+    //@SequenceGenerator(name = "mes_generator", sequenceName = "mes_seq", allocationSize = 1)
     @Id
     Integer id;
 
@@ -34,6 +36,13 @@ public class Message {
         this.text = text;
     }
 
+    public Message(Conversation conversation, FashUser sender, Collection<FashUser> receivers, String text) {
+        this.conversation = conversation;
+        this.sender = sender;
+        this.receivers = receivers;
+        this.text = text;
+    }
+
     public Conversation getConversation() {
         return conversation;
     }
@@ -56,5 +65,21 @@ public class Message {
 
     public String getText() {
         return text;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setSender(FashUser sender) {
+        this.sender = sender;
+    }
+
+    public void setReceivers(Collection<FashUser> receivers) {
+        this.receivers = receivers;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

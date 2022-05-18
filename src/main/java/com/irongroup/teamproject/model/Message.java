@@ -13,6 +13,7 @@ public class Message {
     Integer id;
 
     //Bij welke conversatie hoort dit bericht?
+    //JSON ignore betekent dat dit niet word meegelezen in de json compiler
     @JsonIgnore
     @ManyToOne(optional = false)
     private Conversation conversation;

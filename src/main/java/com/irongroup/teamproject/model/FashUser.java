@@ -142,7 +142,7 @@ public class FashUser {
     public void setClothing_saved(List<Clothing_Item> clothing_saved) {
         this.clothing_saved = clothing_saved;
     }
-
+    @JsonIgnore
     public FashPost getLastPost() {
         ArrayList<FashPost> posts = new ArrayList<FashPost>();
         for (FashPost p : postsMade
@@ -307,7 +307,7 @@ public class FashUser {
     public void setMessagesReceived(Collection<Message> messagesReceived) {
         this.messagesReceived = messagesReceived;
     }
-
+    @JsonIgnore
     //nakijken of een convo bestaat met een user
     public Boolean hasConvoWithUser(FashUser user) {
         Boolean ja = false;
@@ -325,7 +325,7 @@ public class FashUser {
         }
         return ja;
     }
-
+    @JsonIgnore
     //Oproepen van convo met 1 user
     public Conversation conversationWith(FashUser user) {
         //Maak een lege convo
@@ -359,7 +359,7 @@ public class FashUser {
             this.conversations.add(c);
         }
     }
-
+    @JsonIgnore
     //Zowel followers als following vinden
     public Collection<FashUser> findBoth() {
         ArrayList<FashUser> users = new ArrayList<>();

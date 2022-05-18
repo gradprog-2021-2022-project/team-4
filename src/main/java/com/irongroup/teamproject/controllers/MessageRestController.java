@@ -1,8 +1,6 @@
 package com.irongroup.teamproject.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.irongroup.teamproject.model.Conversation;
 import com.irongroup.teamproject.repositories.ConversationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,14 +15,11 @@ public class MessageRestController {
     @GetMapping("/getconvo/{id}")
     public String convo(@PathVariable Integer id){
         try {
-            return new ObjectMapper().writeValueAsString(convos.findbyID(id));
-            //ObjectMapper mapper = new ObjectMapper();
-            //return mapper.writeValueAsString(convos.findbyID(id).getMessages());
-            //ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-            //String json = ow.writeValueAsString(convos.findbyID(id));
-            //return json;
+            //Dit zet een object om naar een json formaat
+            return new ObjectMapper().writeValueAsString(convos.findbyID(id).getMessages());
         }catch (Exception e){
-            e.printStackTrace();
+            //Enkel printen bij debuggen
+            //e.printStackTrace();
             return "da werkte ni";
         }
     }

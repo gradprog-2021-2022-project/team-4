@@ -1,5 +1,7 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,14 +21,17 @@ public class FashPost {
     private Integer likes;
 
     //Clothes in the post
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<Clothing_Item> clothes;
 
     //Poster
+    @JsonIgnore
     @ManyToOne
     private FashUser poster;
 
     //All comments on the post
+    @JsonIgnore
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 

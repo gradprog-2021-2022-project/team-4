@@ -1,5 +1,9 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -15,10 +19,12 @@ public class Conversation {
     private String convoNaam;
 
     //Berichten die tot deze conversatie horen
+    @JsonIgnore
     @OneToMany(mappedBy = "conversation")
     private Collection<Message> messages;
 
     //Users die tot deze conversatie toegang hebben
+    @JsonIgnore
     @ManyToMany
     private Collection<FashUser> users;
 

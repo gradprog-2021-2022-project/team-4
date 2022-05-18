@@ -1,5 +1,7 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -27,9 +29,11 @@ public class FashUser {
     @Column(length = 100000)
     private byte[] profilePic;
 
+    @JsonIgnore
     @ManyToMany
     public Collection<FashUser> following;
 
+    @JsonIgnore
     @ManyToMany
     public Collection<FashUser> followers;
 
@@ -40,24 +44,31 @@ public class FashUser {
     private Integer post_allowance;
 
     //Posts and comments user has made
+    @JsonIgnore
     @OneToMany(mappedBy = "poster", cascade = CascadeType.REMOVE)
     private Collection<FashPost> postsMade;
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<FashComment> comments;
 
     //Clothing that the user has posted and saved
+    @JsonIgnore
     @OneToMany(mappedBy = "userOwner")
     private List<Clothing_Item> clothing_posted;
     //Welke kleren zijn opgeslagen?
+    @JsonIgnore
     @ManyToMany
     private List<Clothing_Item> clothing_saved;
     //Tot welke conversaties behoort deze persoon?
+    @JsonIgnore
     @ManyToMany(mappedBy = "users")
     private Collection<Conversation> conversations;
     //Berichtjes verstuurd door deze persoon
+    @JsonIgnore
     @OneToMany(mappedBy = "sender")
     private Collection<Message> messagesSend;
     //Berichtjes ontvangen door deze persoon
+    @JsonIgnore
     @ManyToMany(mappedBy = "receivers")
     private Collection<Message> messagesReceived;
 

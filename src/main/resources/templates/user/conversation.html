@@ -9,19 +9,24 @@
 </head>
 <script th:inline="javascript" type="text/javascript">
 
-    function loadData(){
+    function loadData() {
         let id = document.getElementById("hiddenID").innerText;
         console.log(id);
         //document.getElementById("shownID").innerHTML(id);
         console.log("werk aub");
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/getconvo/'+id);
+        xhr.open('GET', '/getconvo/' + id);
+        let arrayConvo;
+        //xhr.open('GET', '/testje');
         //xhr.send();
         xhr.onreadystatechange = function () {
             var DONE = 4; // readyState 4 means the request is done.
             var OK = 200; // status 200 is a successful return.
             if (xhr.readyState === DONE) {
+                console.log("DONE");
                 if (xhr.status === OK) {
+                    arrayConvo = xhr.responseText;
+                    console.log(arrayConvo);
                     console.log(xhr.responseText); // 'This is the returned text.'
                     console.log("status ok");
                 } else {
@@ -29,31 +34,32 @@
                 }
             }
         };
-        xhr.send();
+        xhr.send(null);
+
     };
 
     //window.addEventListener("load", function(){
-        //console.log("fok");
-        let id = document.getElementById("hiddenID").innerText;
-        console.log(id);
-        //document.getElementById("shownID").innerHTML(id);
-        console.log("werk aub");
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '/getconvo/'+id);
-        xhr.send();
-        xhr.onreadystatechange = function () {
-            var DONE = 4; // readyState 4 means the request is done.
-            var OK = 200; // status 200 is a successful return.
-            if (xhr.readyState === DONE) {
-                if (xhr.status === OK) {
-                    console.log(xhr.responseText); // 'This is the returned text.'
-                    console.log("status ok");
-                } else {
-                    console.log('Error: ' + xhr.status); // An error occurred during the request.
-                }
+    //console.log("fok");
+    let id = document.getElementById("hiddenID").innerText;
+    console.log(id);
+    //document.getElementById("shownID").innerHTML(id);
+    console.log("werk aub");
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '/getconvo/' + id);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+        var DONE = 4; // readyState 4 means the request is done.
+        var OK = 200; // status 200 is a successful return.
+        if (xhr.readyState === DONE) {
+            if (xhr.status === OK) {
+                console.log(xhr.responseText); // 'This is the returned text.'
+                console.log("status ok");
+            } else {
+                console.log('Error: ' + xhr.status); // An error occurred during the request.
             }
-        };
-        //xhr.send();
+        }
+    };
+    //xhr.send();
     //});
 </script>
 <body onload="loadData()">

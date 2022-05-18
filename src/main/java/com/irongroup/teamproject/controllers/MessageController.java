@@ -142,7 +142,7 @@ public class MessageController {
         return dingetje;
     }
 
-    // TODO : ZORGEN VOOR EEN NAAM
+    // DONE : ZORGEN VOOR EEN NAAM (werkt)
     @GetMapping("/adduser/{convoID}")
     public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
         try {
@@ -155,7 +155,7 @@ public class MessageController {
             ) {
                 c.addUser(u);
                 u.addConvo(c);
-                naam.concat(u.username+",");
+                naam = naam + u.username+",";
             }
             c.addUser(users.findById(id).get());
             users.findById(id).get().addConvo(c);

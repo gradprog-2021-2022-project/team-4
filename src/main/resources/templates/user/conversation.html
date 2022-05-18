@@ -9,12 +9,16 @@
 </head>
 <script th:inline="javascript" type="text/javascript">
 
+    //Dit word aangeroepen na het laden van de pagina
     function loadData() {
+        //haal de id op
         let id = document.getElementById("hiddenID").innerText;
         console.log(id);
         //document.getElementById("shownID").innerHTML(id);
         console.log("werk aub");
+        //Een nieuwe http request maken (deze stuurt mappings door)
         var xhr = new XMLHttpRequest();
+        //Stuur een mapping door
         xhr.open('GET', '/getconvo/' + id);
         let arrayConvo;
         //xhr.open('GET', '/testje');
@@ -26,7 +30,7 @@
                 console.log("DONE");
                 if (xhr.status === OK) {
                     arrayConvo = xhr.responseText;
-                    console.log(arrayConvo);
+                    displayData(arrayConvo);
                     console.log(xhr.responseText); // 'This is the returned text.'
                     console.log("status ok");
                 } else {
@@ -35,32 +39,12 @@
             }
         };
         xhr.send(null);
-
     };
 
-    //window.addEventListener("load", function(){
-    //console.log("fok");
-    let id = document.getElementById("hiddenID").innerText;
-    console.log(id);
-    //document.getElementById("shownID").innerHTML(id);
-    console.log("werk aub");
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/getconvo/' + id);
-    xhr.send();
-    xhr.onreadystatechange = function () {
-        var DONE = 4; // readyState 4 means the request is done.
-        var OK = 200; // status 200 is a successful return.
-        if (xhr.readyState === DONE) {
-            if (xhr.status === OK) {
-                console.log(xhr.responseText); // 'This is the returned text.'
-                console.log("status ok");
-            } else {
-                console.log('Error: ' + xhr.status); // An error occurred during the request.
-            }
-        }
+    function displayData(arrayConvo) {
+        let newMessages = document.getElementById('messages');
+        newMessages.innerHTML = `neen`
     };
-    //xhr.send();
-    //});
 </script>
 <body onload="loadData()">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
@@ -74,24 +58,26 @@
         </select>
         <button type="submit">Voeg toe!</button>
     </form>
-    <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
-        <section th:if="${message.getSender()==loggedUser}" class="message">
-            <div class="sentMessage">
-                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
-                                                                                                  class="messagePic"
-                                                                                                  th:src="@{|/u/image/${loggedUser.getId()}|}">
-                <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <section th:unless="${message.getSender()==loggedUser}" class="message">
-            <div class="receivedMessage">
-                <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label
-                    for="imagepic" th:text="${message.getSender().getUsername()}"></label>
-                <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <br>
-    </article>
+    <div id="messages">
+        <article class="messages" th:each="message : ${convo.getMessages()}">
+            <section th:if="${message.getSender()==loggedUser}" class="message">
+                <div class="sentMessage">
+                    <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
+                                                                                                      class="messagePic"
+                                                                                                      th:src="@{|/u/image/${loggedUser.getId()}|}">
+                    <p th:text="${message.getText()}"></p>
+                </div>
+            </section>
+            <section th:unless="${message.getSender()==loggedUser}" class="message">
+                <div class="receivedMessage">
+                    <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label
+                        for="imagepic" th:text="${message.getSender().getUsername()}"></label>
+                    <p th:text="${message.getText()}"></p>
+                </div>
+            </section>
+            <br>
+        </article>
+    </div>
     <article>
         <form class="messageForm">
             <input name="text" type="text" placeholder="Begin met typen..." required="required">

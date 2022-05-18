@@ -35,10 +35,13 @@ public class FashPost {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 
+    @JsonIgnore
     private byte[] postPic;
 
     //Date and time of the post
+    @JsonIgnore
     private LocalDate date;
+    @JsonIgnore
     private LocalTime time;
 
     //Location of post (to be investigated)

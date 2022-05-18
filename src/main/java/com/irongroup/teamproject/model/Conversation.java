@@ -19,7 +19,7 @@ public class Conversation {
     private String convoNaam;
 
     //Berichten die tot deze conversatie horen
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "conversation")
     private Collection<Message> messages;
 

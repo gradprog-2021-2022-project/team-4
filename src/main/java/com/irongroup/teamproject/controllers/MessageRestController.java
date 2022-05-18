@@ -17,7 +17,7 @@ public class MessageRestController {
     @GetMapping("/getconvo/{id}")
     public String convo(@PathVariable Integer id){
         try {
-            return new ObjectMapper().writeValueAsString(convos.findbyID(id).getMessages());
+            return new ObjectMapper().writeValueAsString(convos.findbyID(id));
             //ObjectMapper mapper = new ObjectMapper();
             //return mapper.writeValueAsString(convos.findbyID(id).getMessages());
             //ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();

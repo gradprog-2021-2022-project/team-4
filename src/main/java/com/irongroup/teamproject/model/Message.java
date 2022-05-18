@@ -18,7 +18,7 @@ public class Message {
     private Conversation conversation;
 
     //De persoon die het bericht verstuurde
-    @JsonIgnore
+    //@JsonIgnore
     @ManyToOne
     private FashUser sender;
 

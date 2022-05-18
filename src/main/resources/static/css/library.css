@@ -12,6 +12,7 @@ header{
     padding-top: 8px;
     position: fixed;
     bottom: 0;
+    z-index: 10;
 }
 
 #headerBalk{
@@ -145,7 +146,7 @@ nav a:hover {
     border-radius: 0px 0px 0px 0px;
 }
 
-.btn{
+.btnCss{
     color: white;
     margin-top: 20px;
     background: #B685FF;
@@ -154,10 +155,22 @@ nav a:hover {
     cursor: pointer;
     font-weight: 900;
     transition: 0.5s;
-    width: 120px;
+    max-width: 140px;
+    min-width: 120px;
 }
-
-.btn:hover {
+.btnFilter{
+    top: 0;
+    color: white;
+    margin-top: 20px;
+    background: #B685FF;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: 30px;
+}
+.btnCss:hover {
     background: #781FFF;
 }
 
@@ -183,18 +196,7 @@ nav a:hover {
    content: "+" ;
 }
 
-.btnFilter{
-    top: 0;
-    color: white;
-    margin-top: 20px;
-    background: #B685FF;
-    height: 30px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 900;
-    transition: 0.5s;
-    width: 30px;
-}
+
 
 @media only screen and (min-width: 760px) {
 
@@ -213,6 +215,7 @@ nav a:hover {
         position: fixed;
         top: 0;
         bottom: unset;
+        z-index: 10;
     }
 
     main{

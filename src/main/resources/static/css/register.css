@@ -1,21 +1,14 @@
-.container {
+.containerCss {
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
     background: #E8D7FF;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
     margin-top: 100px;
+    width: 350px;
+    height: auto;
 }
 
-.containerLog{
-    width: 350px;
-    height: 500px;
-}
-
-.containerReg{
-    width: 350px;
-    height: 700px;
-}
 
 .mainForm {
     margin: 20px;
@@ -39,7 +32,7 @@
     text-decoration: none;
 }
 
-input {
+.inputCss {
     background: #ecf0f3;
     padding: 10px;
     height: 20px;

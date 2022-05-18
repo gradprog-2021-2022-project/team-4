@@ -21,7 +21,7 @@ public class FashPost {
 
     //Clothes in the post
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private Collection<Clothing_Item> clothes;
+    private Collection<Clothing_Item> clothes = new ArrayList<>();
 
     //Poster
     @ManyToOne
@@ -31,6 +31,7 @@ public class FashPost {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 
+    @Column(length = 10000000)
     private byte[] postPic;
 
     //Date and time of the post

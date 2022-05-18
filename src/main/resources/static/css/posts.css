@@ -38,6 +38,7 @@
 
 .exploreprofilepic {
     width: 60px;
+    height: 57px;
     position: absolute;
     border-radius: 50px;
 }
@@ -109,6 +110,7 @@ h3.sectionrows {
 
 .commentpic {
     width: 35px;
+    height: 35px;
 }
 
 .noprofilepic {
@@ -139,6 +141,11 @@ h3.sectionrows {
 
 .linktoprofilepagebtn:hover {
     text-decoration: underline;
+}
+
+/*to hide the scrollbar*/
+::-webkit-scrollbar {
+    display: none !important;
 }
 
 /*the name to press on*/

@@ -43,18 +43,28 @@
 
     //Werkt nog niet
     function displayData(arrayConvo) {
+        let curUser=document.getElementById("hiddenUSERID");
         let newMessages = document.getElementById('messages');
-        var messageArray=new Array;
-        var messageJSON = JSON.parse(arrayConvo);
-        console.log(messageJSON);
-        for(var i in messageJSON)
-        messageArray.push([i,arrayConvo[i]]);
-        //messageArray.forEach(a=>console.log(a));
+        newMessages.innerHTML = "";
+        //var messageArray=new Array;
+        arrayConvo = JSON.parse(arrayConvo);
+        console.log(arrayConvo);
+        for (var i = 0; i < arrayConvo.length; i++) {
+            let curSegment=``;
+            if(arrayConvo[i].sender.username===curUser.innerText)
+            {
+                curSegment=` <section>Verstuurd!</section>`;
+                newMessages.append(curSegment);
+            }else{
+                curSegment=`<section>Ontvangen!</section>`;
+                newMessages.append(curSegment);
+            }
+        };
     };
 </script>
 <body onload="loadData()">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
-<p id="shownID"></p>
+<p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
     <form th:action="@{|/adduser/${convo.getId()}|}">

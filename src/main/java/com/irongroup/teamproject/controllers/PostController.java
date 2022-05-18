@@ -44,7 +44,7 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style,@RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         /*
         Op de explore page roep je eerst alle posts aan en dan worden de filters in volgorde aangezet, zo moet niks gecombineerd worden!
@@ -54,10 +54,10 @@ public class PostController {
         //Kijken voor de stijl en zoja filteren
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
-            fashUsers=filterPosts(fashUsers,style);
+            fashUsers = filterPosts(fashUsers, style);
         }
-        if(minPrijs!=null || maxPrijs!=null){
-            fashUsers=filterPrice(fashUsers,minPrijs,maxPrijs);
+        if (minPrijs != null || maxPrijs != null) {
+            fashUsers = filterPrice(fashUsers, minPrijs, maxPrijs);
         }
 
         System.out.println(loginName);
@@ -100,26 +100,33 @@ public class PostController {
     }
 
     //Filteren op prijs
-    private ArrayList<FashUser> filterPrice(Collection<FashUser> fashUsers,Double minPrijs, Double maxPrijs){
-        if(minPrijs==null) {minPrijs=Double.POSITIVE_INFINITY;}
-        ArrayList<FashUser> users=new ArrayList<>();
-        for (FashUser f:fashUsers
+    private ArrayList<FashUser> filterPrice(Collection<FashUser> fashUsers, Double minPrijs, Double maxPrijs) {
+        if (maxPrijs == null) {
+            maxPrijs = Double.POSITIVE_INFINITY;
+        }
+        if (minPrijs == null) {
+            minPrijs = 0.0;
+        }
+        ArrayList<FashUser> users = new ArrayList<>();
+        for (FashUser f : fashUsers
         ) {
-            if(f.getLastPost().getTotalPrice()>minPrijs && f.getLastPost().getTotalPrice()<maxPrijs){
+            if (f.getLastPost().getTotalPrice() > minPrijs && f.getLastPost().getTotalPrice() < maxPrijs) {
                 users.add(f);
             }
-        }return users;
+        }
+        return users;
     }
 
     //Filteren op stijl
-    private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl){
-        ArrayList<FashUser> users=new ArrayList<>();
-        for (FashUser f:fashUsers
-             ) {
-            if(f.getLastPost().getStijl().equalsIgnoreCase(stijl)){
+    private ArrayList<FashUser> filterPosts(Collection<FashUser> fashUsers, String stijl) {
+        ArrayList<FashUser> users = new ArrayList<>();
+        for (FashUser f : fashUsers
+        ) {
+            if (f.getLastPost().getStijl()!=null && f.getLastPost().getStijl().equalsIgnoreCase(stijl)) {
                 users.add(f);
             }
-        }return users;
+        }
+        return users;
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand

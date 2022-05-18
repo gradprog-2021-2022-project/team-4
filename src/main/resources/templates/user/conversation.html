@@ -41,13 +41,14 @@
         xhr.send(null);
     };
 
+    //Werkt nog niet
     function displayData(arrayConvo) {
         let newMessages = document.getElementById('messages');
-        newMessages.innerHTML = <article>
-            <section>
-
-            </section>
-        </article>;
+        var messageArray=new Array;
+        var messageJSON = JSON.parse(arrayConvo);
+        for(var i in messageJSON)
+        messageArray.push([i,arrayConvo[i]]);
+        messageArray.forEach(a=>console.log(a));
     };
 </script>
 <body onload="loadData()">

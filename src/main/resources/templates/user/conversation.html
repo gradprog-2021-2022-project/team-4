@@ -46,9 +46,10 @@
         let newMessages = document.getElementById('messages');
         var messageArray=new Array;
         var messageJSON = JSON.parse(arrayConvo);
+        console.log(messageJSON);
         for(var i in messageJSON)
         messageArray.push([i,arrayConvo[i]]);
-        messageArray.forEach(a=>console.log(a));
+        //messageArray.forEach(a=>console.log(a));
     };
 </script>
 <body onload="loadData()">

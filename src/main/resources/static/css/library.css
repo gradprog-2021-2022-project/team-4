@@ -157,7 +157,18 @@ nav a:hover {
     max-width: 140px;
     min-width: 120px;
 }
-
+.btnFilter{
+    top: 0;
+    color: white;
+    margin-top: 20px;
+    background: #B685FF;
+    height: 30px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 900;
+    transition: 0.5s;
+    width: 30px;
+}
 .btnCss:hover {
     background: #781FFF;
 }
@@ -184,18 +195,7 @@ nav a:hover {
    content: "+" ;
 }
 
-.btnFilter{
-    top: 0;
-    color: white;
-    margin-top: 20px;
-    background: #B685FF;
-    height: 30px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-weight: 900;
-    transition: 0.5s;
-    width: 30px;
-}
+
 
 @media only screen and (min-width: 760px) {
 

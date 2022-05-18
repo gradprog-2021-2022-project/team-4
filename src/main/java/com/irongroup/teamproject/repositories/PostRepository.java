@@ -14,6 +14,8 @@ public interface PostRepository extends CrudRepository<FashPost,Integer> {
     @Query("select p from FashPost p where p.poster.id = :user")
     Collection<FashPost> findbyUserId(@Param("user") Integer user);
 
+
+
     /*
     @Query("select f,p from FashUser f,FashPost p where f.postsMade.size>1 and lower(p.stijl) = lower(:stijl)")
     Collection<FashUser> findByStyle(@Param("stijl") String stijl);*/

@@ -11,52 +11,44 @@
           th:href="@{/css/library.css}" href="/css/library.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hide_navbar.css}" href="/css/hide_navbar.css"/>
     <title>Explore</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside class="filterContainer">
-    <div class="filters" name="showFilter">
-        <h2>Filters: </h2>
-        <form>
-            <h3>Style</h3>
-            <select name="style" placeholder="Kies een stijl!">
-                <option value="">Geen</option>
-                <option value="Modern">Modern</option>
-                <option value="Klassiek">Klassiek</option>
-                <option value="Goth">Goth</option>
-            </select>
-            <h3>Filter by location?</h3>
-            <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
-            <label for="noClose" >No</label>
-            <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
-            <label for="yesClose">Yes</label><br>
-            <label for="minprijs">Minimum:</label><br>
-            <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs"><br>
-            <label for="maxprijs">Maximum:</label><br>
-            <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs"><br>
-            <input type="submit" value="search">
-            <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
-            <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
-        </form>
+<aside>
+    <div class="dropdown filterContainer">
+        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
+        <div class="collapse" id="collapseExample">
+            <form class="card card-body">
+                <h3>Style</h3>
+                <select name="style" placeholder="Kies een stijl!">
+                    <option value="">Geen</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Klassiek">Klassiek</option>
+                    <option value="Goth">Goth</option>
+                </select>
+                <h3>Filter by location?</h3>
+                <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
+                <label for="noClose" >No</label>
+                <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
+                <label for="yesClose">Yes</label><br>
+                <label for="minprijs">Minimum:</label><br>
+                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs"><br>
+                <label for="maxprijs">Maximum:</label><br>
+                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs"><br>
+                <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
+                <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
+                <input class="btnCss" type="submit" value="search">
+            </form>
+        </div>
     </div>
-    <div>
-        <button class="btnCss txt" onclick="showFilters()"></button>
-    </div>
+
 </aside>
-<script>
-    function showFilters() {
-        var btn = document.getElementsByClassName("btnFilter")[0];
-        var x = document.getElementsByClassName("filters")[0];
-        console.log("function");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
-        }
-    }
-</script>
 <main>
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">

@@ -27,12 +27,10 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
@@ -219,6 +217,8 @@ public class UserController {
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             user.setProfilePic(multipartFile.getInputStream().readAllBytes());
         }
+
+
         user.setFirst_name(valid.getFirst_name());
         user.setLast_name(valid.getLast_name());
         user.setPost_allowance(3);

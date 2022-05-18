@@ -3,10 +3,7 @@ package com.irongroup.teamproject.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 public class FashUser {
@@ -332,5 +329,18 @@ public class FashUser {
     //Een nieuwe convo toevoegen
     public void addConvo(Conversation c){
         this.conversations.add(c);
+    }
+
+    //Alle posts van volgers vinden
+    public Collection<FashPost> getPostsFromFollowing(){
+        List<FashPost> allPosts=new ArrayList<>();
+        for (FashUser u:this.following
+             ) {
+            for (FashPost p:u.getPostsMade()
+                 ) {
+                allPosts.add(p);
+            }
+        }
+        return allPosts;
     }
 }

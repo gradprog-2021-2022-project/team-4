@@ -166,4 +166,9 @@ public class FashPost {
         }
         return totaal;
     }
+
+    //Compare voor sorteren
+    public int compareTo(FashPost other){
+        return this.getId().compareTo(other.getId());
+    }
 }

@@ -184,12 +184,16 @@ public class PostController {
         }
         if (id == null)  return "foryoupage";
 
+
+
+        /*oude code van Ibrahim die niet correct is
         //Posts van de users die je volgt ophalen
         Optional<FashUser> optionalFashUser = users.findById(id);
         Collection<FashUser> fashUsers = optionalFashUser.get().getFollowing();
+        List<FashUser> listUsers =fashUsers.stream().toList();
         if(optionalFashUser.isPresent()) {
             model.addAttribute("fashUsers", fashUsers);
-        }
+        }*/
         return "foryoupage";
     }
     @PutMapping("/foryoupage")

@@ -334,7 +334,9 @@ public class FashUser {
 
     //Een nieuwe convo toevoegen
     public void addConvo(Conversation c) {
-        this.conversations.add(c);
+        if(!this.conversations.contains(c)){
+            this.conversations.add(c);
+        }
     }
 
     //Zowel followers als following vinden

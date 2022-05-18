@@ -148,21 +148,31 @@ public class MessageController {
         try {
             Conversation currentc=convos.findbyID(convoID);
 
-            Conversation c = new Conversation();
-            String naam= "";
+            //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar toevoegen aan huidige
+            if(currentc.getUsers().size()>2){
+                currentc.addUser(users.findById(id).get());
+                currentc.setConvoNaam(currentc.getConvoNaam()+users.findById(id).get().getUsername()+",");
+                users.findById(id).get().addConvo(currentc);
+                convos.save(currentc);
 
-            for (FashUser u: currentc.getUsers()
-            ) {
-                c.addUser(u);
-                u.addConvo(c);
-                naam = naam + u.username+",";
+                return "redirect:/messages/"+currentc.getId();
+            }else{
+                Conversation c = new Conversation();
+                String naam= "";
+
+                for (FashUser u: currentc.getUsers()
+                ) {
+                    c.addUser(u);
+                    u.addConvo(c);
+                    naam = naam + u.username+",";
+                }
+                c.addUser(users.findById(id).get());
+                users.findById(id).get().addConvo(c);
+                c.setConvoNaam(naam);
+                //Dingen opslaan !!!
+                convos.save(c);
+                return "redirect:/messages/"+c.getId();
             }
-            c.addUser(users.findById(id).get());
-            users.findById(id).get().addConvo(c);
-            c.setConvoNaam(naam);
-            //Dingen opslaan !!!
-            convos.save(c);
-            return "redirect:/messages/"+c.getId();
         } catch (Exception e) {
             e.printStackTrace();
             return "redirect:/messages";

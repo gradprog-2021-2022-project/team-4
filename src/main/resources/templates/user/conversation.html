@@ -12,7 +12,7 @@
 <main sec:authorize="isAuthenticated()" >
         <form th:action="@{|/adduser/${convo.getId()}|}">
             <select name="id">
-                <option th:value="${fuser.getId()}" th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
+                <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}" th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
             </select>
             <button type="submit">Voeg toe!</button>
         </form>

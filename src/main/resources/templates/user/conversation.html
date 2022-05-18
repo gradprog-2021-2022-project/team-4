@@ -9,7 +9,30 @@
 </head>
 <script th:inline="javascript" type="text/javascript">
 
-    window.addEventListener("load", function(){
+    function loadData(){
+        let id = document.getElementById("hiddenID").innerText;
+        console.log(id);
+        //document.getElementById("shownID").innerHTML(id);
+        console.log("werk aub");
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/getconvo/'+id);
+        //xhr.send();
+        xhr.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+            if (xhr.readyState === DONE) {
+                if (xhr.status === OK) {
+                    console.log(xhr.responseText); // 'This is the returned text.'
+                    console.log("status ok");
+                } else {
+                    console.log('Error: ' + xhr.status); // An error occurred during the request.
+                }
+            }
+        };
+        xhr.send();
+    };
+
+    //window.addEventListener("load", function(){
         //console.log("fok");
         let id = document.getElementById("hiddenID").innerText;
         console.log(id);
@@ -31,61 +54,9 @@
             }
         };
         //xhr.send();
-    });
-    /*
-    let id = document.getElementById("hiddenID").innerText;
-    document.getElementById("shownID").innerHTML(id);
-    console.log("werk aub");
-    $.ajax({
-        url: '/getconvo/' + id,
-    })
-        .done(function (res) {
-            console.log("iets");
-            console.log(res);
-        })
-        .fail(function (err) {
-            console.log('Error: ' + err.status);
-        });
-     */
-
-    /*
-    let id= document.getElementById("hiddenID").innerText;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', '/getconvo/'+id);
-    //xhr.send(null);
-    xhr.onreadystatechange = function () {
-        var DONE = 4; // readyState 4 means the request is done.
-        var OK = 200; // status 200 is a successful return.
-        if (xhr.readyState === DONE) {
-            if (xhr.status === OK) {
-                console.log(xhr.responseText); // 'This is the returned text.'
-            } else {
-                console.log('Error: ' + xhr.status); // An error occurred during the request.
-            }
-        }
-    };*/
-
-    /*
-    //Reload het deel maar data wordt niet geupdate?
-    $(document).onload(function () {
-        console.log("laden");
-        let id = document.getElementById("hiddenID").innerText;
-        $.ajax({
-            url: '/getconvo/' + id,
-        })
-            .done(function (res) {
-                console.log("iets");
-                console.log(res);
-            })
-            .fail(function (err) {
-                console.log('Error: ' + err.status);
-            });
-        /*setInterval(function(){
-            $("#messages").load(window.location.href + " #messages" );
-        }, 1000);
-    });*/
+    //});
 </script>
-<body>
+<body onload="loadData()">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
 <p id="shownID"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>

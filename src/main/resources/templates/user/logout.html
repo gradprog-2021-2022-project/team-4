@@ -10,14 +10,14 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main class="mainForm">
-    <div class="container containerLog">
+    <div class="containerCss">
         <form th:action="@{/user/logout}" method="post">
             <div>
                 <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
             </div>
             <h3>Logout?</h3>
             <div>
-                <input type="submit" value="LOGOUT" class="btn">
+                <input type="submit" value="LOGOUT" class="btnCss">
             </div>
             <div>
                 <a href="/" class="cancel">cancel</a>

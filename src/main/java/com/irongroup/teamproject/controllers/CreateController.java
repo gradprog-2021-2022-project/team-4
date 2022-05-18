@@ -1,8 +1,11 @@
 package com.irongroup.teamproject.controllers;
 
+import com.irongroup.teamproject.model.Clothing_Item;
 import com.irongroup.teamproject.model.FashPost;
+import com.irongroup.teamproject.repositories.ClothingRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
+import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -21,6 +26,8 @@ public class CreateController {
     private PostRepository postRepository;
     @Autowired
     private UserRepository users;
+    @Autowired
+    private ClothingRepository clothingRepository;
 
     @GetMapping("/postnew")
     public String postNew(Model model) {
@@ -51,12 +58,24 @@ public class CreateController {
             post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 
+        List<Clothing_Item> clothing_items = new ArrayList<>();
+        postRepository.save(post);
+
+        for (Clothing_Item c: valid.getClothes()) {
+            if(c.getNaam()!=null ||c.getNaam()!=""){
+                c.setUserOwner(users.findFashUserByUsername(principal.getName()));
+                c.setPost(post);
+                clothing_items.add(c);
+                clothingRepository.save(c);
+            }
+        }
         post.setLikes(0);
+        post.setClothes(clothing_items);
+        post.setLocation(valid.getLocation());
         post.setDate(java.time.LocalDate.now());
         post.setTime(java.time.LocalTime.now());
         post.setPoster(users.findFashUserByUsername(principal.getName()));
         post.setText(valid.getText());
-        post.setLocation(valid.getLocation());
         postRepository.save(post);
         return "redirect:/postDetails/"+post.getId();
     }

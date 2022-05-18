@@ -24,7 +24,7 @@ public class FashUser {
     private Double longitude;
     private Double latitude;
 
-    @Column(length = 100000)
+    @Column(length = 10000000)
     private byte[] profilePic;
 
     @ManyToMany

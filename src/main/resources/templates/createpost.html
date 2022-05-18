@@ -42,9 +42,9 @@
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 
             <label for="text">Tekst:</label><br>
-            <input class="inputCss" type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError"><br>
+            <input class="inputCss" type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError" required><br>
             <label for="locatie">Locatie:</label><br>
-            <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}"><br>
+            <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required><br>
             <div id="newClothing" th:field="*{clothes}">
                 <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item 1"><br>
                 <div class="collapse" id="collapseExample">
@@ -62,7 +62,7 @@
             <button type="button"  onclick="createNewElement()">New clothing Item</button><br>
 
             <label for="image">Upload outfit :</label><br>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="file" name="image" id="image" accept="image/png, image/jpeg" required><br>
 
             <input type="submit" value="create" class="btnCss"><br>
             <div>

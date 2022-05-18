@@ -21,16 +21,16 @@
                 <span th:text="${error.getDefaultMessage()}"></span>
             </div>
             <label for="firstName">Firstname:</label>
-            <input type="text" id="firstName" th:field="*{first_name}" th:errorclass="fieldError"><br>
+            <input class="inputCss" type="text" id="firstName" th:field="*{first_name}" th:errorclass="fieldError"><br>
             <label for="lastName">Lastname:</label>
-            <input type="text" id="lastName" th:field="*{last_name}" th:errorclass="fieldError"><br>
+            <input class="inputCss" type="text" id="lastName" th:field="*{last_name}" th:errorclass="fieldError"><br>
             <label for="Username">Username:</label>
-            <input type="text" id="Username" th:field="*{username}" th:errorclass="fieldError"><br>
+            <input class="inputCss" type="text" id="Username" th:field="*{username}" th:errorclass="fieldError"><br>
             <label for="Password">Password: </label>
-            <input type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
+            <input class="inputCss" type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
             <label for="image">Profile picture</label>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
-            <input type="submit" value="Register" class="btn">
+            <input class="inputCss" type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
+            <input type="submit" value="Register" class="btnCss">
             <div>
                 <a href="/" class="cancel">cancel</a>
             </div>

@@ -30,6 +30,7 @@ public class FashPost {
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private Collection<FashComment> comments;
 
+    @Column(length = 10000000)
     private byte[] postPic;
 
     //Date and time of the post

@@ -59,15 +59,19 @@ public class CreateController {
         }
 
         List<Clothing_Item> clothing_items = new ArrayList<>();
+        postRepository.save(post);
 
         for (Clothing_Item c: valid.getClothes()) {
-            c.setUserOwner(users.findFashUserByUsername(principal.getName()));
-            System.out.println("//////////////////////////////////////////////////////////////////// WE ARE HERE"+ c);
-            clothing_items.add(c);
-            clothingRepository.save(c);
+            if(c.getNaam()!=null ||c.getNaam()!=""){
+                c.setUserOwner(users.findFashUserByUsername(principal.getName()));
+                c.setPost(post);
+                clothing_items.add(c);
+                clothingRepository.save(c);
+            }
         }
         post.setLikes(0);
         post.setClothes(clothing_items);
+        post.setLocation(valid.getLocation());
         post.setDate(java.time.LocalDate.now());
         post.setTime(java.time.LocalTime.now());
         post.setPoster(users.findFashUserByUsername(principal.getName()));

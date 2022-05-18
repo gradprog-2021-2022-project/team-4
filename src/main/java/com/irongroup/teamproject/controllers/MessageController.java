@@ -148,7 +148,7 @@ public class MessageController {
         try {
             Conversation currentc=convos.findbyID(convoID);
 
-            //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar toevoegen aan huidige
+            //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar gebruiker toevoegen aan huidige
             if(currentc.getUsers().size()>2){
                 currentc.addUser(users.findById(id).get());
                 currentc.setConvoNaam(currentc.getConvoNaam()+users.findById(id).get().getUsername()+",");
@@ -157,16 +157,20 @@ public class MessageController {
 
                 return "redirect:/messages/"+currentc.getId();
             }else{
+                //Anders wel een nieuwe convo maken
                 Conversation c = new Conversation();
                 String naam= "";
 
+                //De gebruikers van de huidige convo toevoegen aan de nieuwe convo
                 for (FashUser u: currentc.getUsers()
                 ) {
                     c.addUser(u);
                     u.addConvo(c);
                     naam = naam + u.username+",";
                 }
+                //De nieuwe user toevoegen
                 c.addUser(users.findById(id).get());
+                //Aan de nieuwe user de convo toevoegen
                 users.findById(id).get().addConvo(c);
                 c.setConvoNaam(naam);
                 //Dingen opslaan !!!

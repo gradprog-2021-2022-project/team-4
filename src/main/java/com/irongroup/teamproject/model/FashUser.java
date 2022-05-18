@@ -334,6 +334,7 @@ public class FashUser {
 
     //Een nieuwe convo toevoegen
     public void addConvo(Conversation c) {
+        //Kijken of de convo al bestaat, dan moet die niet toegevoegd worden
         if(!this.conversations.contains(c)){
             this.conversations.add(c);
         }

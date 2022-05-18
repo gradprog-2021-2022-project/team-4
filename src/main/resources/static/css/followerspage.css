@@ -4,10 +4,6 @@
     justify-content: center;
 }
 
-.followingdiv {
-    margin-right: 30px;
-}
-
 #test2 {
     display: none;
 }
@@ -98,5 +94,9 @@
 
     #test1 {
         display: block!important;
+    }
+
+    .followingdiv {
+        margin-right: 30px;
     }
 }

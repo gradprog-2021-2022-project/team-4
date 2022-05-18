@@ -14,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.xml.stream.events.Comment;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -158,9 +156,44 @@ public class PostController {
         return rad * c;
     }
 
-    @GetMapping({"/foryoupage"})
-    public String foryoupage() {
+
+    @GetMapping({"/foryoupage" , "/foryoupage/{id}"})
+    public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
+            , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
+        final String loginName = principal == null ? "NOBODY" : principal.getName();
+
+        //Posts van de users die je volgt ophalen
+        if (id == null)  return "foryoupage";
+        Optional<FashUser> optionalFashUser = users.findById(id);
+        if(optionalFashUser.isPresent()) {
+            model.addAttribute("fashUsers", optionalFashUser.get().getFollowing());
+        }
+
+        System.out.println(loginName);
+        Collection<FashPost> postsmade = posts.findAll();
+        model.addAttribute("fashposts", postsmade);
+        if (principal != null) {
+            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+            model.addAttribute("curUser", loggedInUser);
+            model.addAttribute("loggedIn", true);
+            if (commentText != null) {
+                FashPost post = posts.findById(postId).get();
+                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                return "redirect:/foryoupage";
+            }
+            if (longitude != null && latitude != null) {
+                loggedInUser.setLatitude(latitude);
+                loggedInUser.setLongitude(longitude);
+                users.save(loggedInUser);
+            }
+        }
         return "foryoupage";
+    }
+    @PutMapping("/foryoupage")
+    public ResponseEntity<FashUser> updateUsers(Principal principal) {
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        users.save(user);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping({"/postDetails/{id}", "/postDetails"})

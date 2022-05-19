@@ -69,7 +69,14 @@ public class PostController {
             model.addAttribute("loggedIn", true);
             if (commentText != null) {
                 FashPost post = posts.findById(id).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                FashComment comment=new FashComment();
+                comment.setUser(loggedInUser);
+                comment.setText(commentText);
+                comment.setPost(post);
+                comment.setTitle(commentTitle);
+                comment.setDate(LocalDate.now());
+                comment.setTime(LocalTime.now());
+                comments.save(comment);
                 return "redirect:/explorepage";
             }
             if (longitude != null && latitude != null) {
@@ -181,8 +188,15 @@ public class PostController {
             model.addAttribute("curUser", loggedInUser);
             model.addAttribute("loggedIn", true);
             if (commentText != null) {
-                FashPost post = posts.findById(postId).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                FashPost post = posts.findById(id).get();
+                FashComment comment=new FashComment();
+                comment.setUser(loggedInUser);
+                comment.setText(commentText);
+                comment.setPost(post);
+                comment.setTitle(commentTitle);
+                comment.setDate(LocalDate.now());
+                comment.setTime(LocalTime.now());
+                comments.save(comment);
                 return "redirect:/foryoupage";
             }
             if (longitude != null && latitude != null) {
@@ -235,7 +249,14 @@ public class PostController {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
             if (commentText != null) {
                 FashPost post = posts.findById(id).get();
-                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                FashComment comment=new FashComment();
+                comment.setUser(loggedInUser);
+                comment.setText(commentText);
+                comment.setPost(post);
+                comment.setTitle(commentTitle);
+                comment.setDate(LocalDate.now());
+                comment.setTime(LocalTime.now());
+                comments.save(comment);
                 return "redirect:/postDetails/" + id;
             }
         }

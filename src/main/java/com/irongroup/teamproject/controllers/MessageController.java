@@ -35,7 +35,7 @@ public class MessageController {
         //In een try catch= geen ifke
         try {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
-            model.addAttribute("followers", loggedIn.followers);
+            model.addAttribute("followers", loggedIn.findBoth());
             model.addAttribute("convos", loggedIn.getConversations());
             return "user/messagelist";
         } catch (Exception e) {

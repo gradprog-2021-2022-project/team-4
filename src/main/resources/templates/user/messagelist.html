@@ -11,7 +11,7 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
   <article>
-    <section th:each="follower : ${followers}">
+    <section style="padding-top: 50px" th:each="follower : ${followers}">
       <a th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
     </section>
   </article>

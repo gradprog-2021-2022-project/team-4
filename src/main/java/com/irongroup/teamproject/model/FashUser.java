@@ -30,9 +30,9 @@ public class FashUser {
     @JsonIgnore
     private Double latitude;
 
-    @Column(length = 10000000)
+
     @JsonIgnore
-    @Column(length = 100000)
+    @Column(length = 10000000)
     private byte[] profilePic;
 
     @JsonIgnore

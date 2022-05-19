@@ -62,7 +62,7 @@ public class CreateController {
         postRepository.save(post);
 
         for (Clothing_Item c: valid.getClothes()) {
-            if(c.getNaam()!=null ||c.getNaam()!=""){
+            if(c.getNaam()!=null && !c.getNaam().equals("")){
                 c.setUserOwner(users.findFashUserByUsername(principal.getName()));
                 c.setPost(post);
                 clothing_items.add(c);

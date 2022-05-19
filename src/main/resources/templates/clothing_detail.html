@@ -13,8 +13,8 @@
     <article>
         <section class="containerCss">
             <h2 th:text="${item.getNaam()}"></h2>
-            <a class="btnCss" th:href="@{|/postDetails/${item.getPost().getId()}|}"><input type="button" class="btnCss" th:value="|Gedeeld door: ${item.getPost().getPoster().getUsername()}|"></a><br>
-            <a class="btnCss" th:href="@{|/buyItem/${item.getId()}|}"><input type="button" class="btnCss" th:value="Koop"></a><br>
+            <a th:href="@{|/postDetails/${item.getPost().getId()}|}"><input type="button" class="btnCss" th:value="|Gedeeld door: ${item.getPost().getPoster().getUsername()}|"></a><br>
+            <a th:href="@{|/buyItem/${item.getId()}|}"><input type="button" class="btnCss" th:value="Koop"></a><br>
             <a th:href="@{|/saveItem/${item.getId()}|}" th:if="${fashuser!=null && !fashuser.getClothing_saved().contains(item)}"><input type="button" class="btnCss" th:value="Opslaan"></a><br>
             <a th:if="${fashuser!=null && fashuser.getClothing_saved().contains(item)}" th:href="@{|/removeItem/${item.getId()}|}"><input type="button" class="btnCss" th:value="|Verwijderen uit saved|"></a><br>
             <p sec:authorize="!isAuthenticated()">

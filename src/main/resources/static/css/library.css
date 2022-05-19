@@ -150,10 +150,15 @@ nav a:hover {
     color: white;
     margin-top: 20px;
     background: #B685FF;
-    height: 40px;
+    min-height: 40px;
+    height: auto;
+    overflow: hidden;
     border-radius: 20px;
     cursor: pointer;
     font-weight: 900;
+    border: solid black;
+    padding-left: 5px;
+    padding-right: 5px;
     transition: 0.5s;
     width: auto;
     min-width: 120px;

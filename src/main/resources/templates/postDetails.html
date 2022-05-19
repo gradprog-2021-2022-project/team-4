@@ -26,8 +26,8 @@
             </section>
             <section class="postitems borderGrid">
                 <h2>Clothes:</h2>
-                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><input type="button"  th:class="btnCss" th:value="${item.getNaam()}"
-                ></a>
+                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  th:class="btnCss" th:text="${item.getNaam()}"></span>
+                </a>
             </section>
         </article>
         <article sec:authorize="isAuthenticated()">

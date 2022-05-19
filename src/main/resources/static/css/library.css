@@ -190,6 +190,7 @@ nav a:hover {
 .filterContainer{
     float: left;
     position: fixed;
+    margin-left: 10px;
 }
 
 .txt::before{

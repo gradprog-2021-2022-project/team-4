@@ -18,6 +18,9 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
+    <a th:href="@{/postnew}">
+        <input type="button" value="Nieuwe post!" class="btnCss" style="float: right">
+    </a>
     <div>
         <div th:if="${user}">
             <section class="hr-lines">
@@ -31,15 +34,25 @@
                 <!--om erachter te komen welke id deze gebruiker heeft-->
                 <!--<h2 th:text="${user.getId()}">id</h2>-->
                 <div class="buttonsdiv" th:if="${follow}">
-                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}" class="followetcbtn followbtn"></a></strong>
-                    <strong><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowers() + ' volgers'}" class="followetcbtn followetcbtncolour"></a></strong>
-                    <strong class="clothesbtn breed"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes" class="followetcbtn followetcbtncolour"></a></strong>
+                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}"
+                               class="followetcbtn followbtn"></a></strong>
+                    <strong><a th:href="@{|/followerspage/${user.getId()}|}"
+                               th:text="${user.aantalFollowers() + ' volgers'}"
+                               class="followetcbtn followetcbtncolour"></a></strong>
+                    <strong class="clothesbtn breed"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
+                                                        class="followetcbtn followetcbtncolour"></a></strong>
                 </div>
                 <div class="buttonsdiv" th:unless="${follow}">
-                    <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowing() + ' volgend'}" class="left followetcbtn"></a></strong>
-                    <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}" th:text="${user.aantalFollowers() + ' volgers'}" class="right followetcbtn"></a></strong>
-                    <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes" class="left followetcbtn"></a></strong>
-                    <strong class="clothesbtn"><a th:href="@{|/messages|}" th:text="messages" class="right followetcbtn"></a></strong>
+                    <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
+                                            th:text="${user.aantalFollowing() + ' volgend'}"
+                                            class="left followetcbtn"></a></strong>
+                    <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
+                                            th:text="${user.aantalFollowers() + ' volgers'}"
+                                            class="right followetcbtn"></a></strong>
+                    <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
+                                                  class="left followetcbtn"></a></strong>
+                    <strong class="clothesbtn"><a th:href="@{|/messages|}" th:text="messages"
+                                                  class="right followetcbtn"></a></strong>
                 </div>
                 <p>bio</p>
             </section>
@@ -59,8 +72,8 @@
                             <img class="postpic" th:src="|/p/image/${post.getId()}|">
                         </article>
                         <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
-                        <p class="sectionbiotext"th:text="${post.getText()}"></p>
-                        <strong><p class="sectionbiolikes"th:text="|${post.getLikes()} likes|"></p></strong>
+                        <p class="sectionbiotext" th:text="${post.getText()}"></p>
+                        <strong><p class="sectionbiolikes" th:text="|${post.getLikes()} likes|"></p></strong>
                         <div class="commentsothers" th:if="${post.getOneComment()}">
                             <div th:if="${user.getProfilePic()}">
                                 <img class="exploreprofilepic commentpic" th:src="|/u/image/${user.getId()}|">
@@ -69,7 +82,7 @@
                                 <i class="noprofilepic fa fa-fw fa-user"></i>
                             </div>
                             <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
-                            <p class="sectionbiotext"th:text="${post.getOneComment().getText()}"></p>
+                            <p class="sectionbiotext" th:text="${post.getOneComment().getText()}"></p>
                         </div>
                     </section>
                 </a>

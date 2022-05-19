@@ -7,30 +7,120 @@
     <title th:text="${convo.getConvoNaam()}">Placeholder</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
-<body>
+<script th:inline="javascript" type="text/javascript">
+
+    function startScript() {
+        setInterval(loadData, 1000);
+    };
+
+    //Dit word aangeroepen na het laden van de pagina
+    function loadData() {
+        let aantalMessages = document.getElementById("hiddenSize");
+        //haal de id op
+        let id = document.getElementById("hiddenID").innerText;
+        console.log(id);
+        //document.getElementById("shownID").innerHTML(id);
+        console.log("werk aub");
+        //Een nieuwe http request maken (deze stuurt mappings door)
+        var xhr = new XMLHttpRequest();
+        //Stuur een mapping door
+        xhr.open('GET', '/getconvo/' + id);
+        let arrayConvo;
+        //xhr.open('GET', '/testje');
+        //xhr.send();
+        xhr.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+
+            if (xhr.readyState === DONE) {
+                console.log("DONE");
+                if (xhr.status === OK) {
+                    arrayConvo = xhr.responseText;
+                    //We zetten de string om naar JSON om te kunnen gebruiken
+                    arrayConvo = JSON.parse(arrayConvo);
+                    arrayConvo.sort(function (a, b) {
+                        return a.id - b.id;
+                    });
+                    displayData(arrayConvo);
+                    console.log(xhr.responseText); // 'This is the returned text.'
+                    console.log("status ok");
+                } else {
+                    console.log('Error: ' + xhr.status); // An error occurred during the request.
+                }
+            }
+        };
+        xhr.send(null);
+    };
+
+    //Toont de data binnen html
+    function displayData(arrayConvo) {
+        //zoek de huidige user
+        let curUser = document.getElementById("hiddenUSERID");
+        //Zoek het element waar de messages in zullen komen
+        let newMessages = document.getElementById('messages');
+        //We maken het element leeg om de messages te laden
+        newMessages.innerHTML = "";
+        //Printen voor debugging
+        console.log(arrayConvo);
+        //Een loop om door de convo te gaan en elke message te zien
+        for (var i = 0; i < arrayConvo.length; i++) {
+            //Elementen maken die in elke message zullen staan
+            let curSegment = document.createElement("section");
+            let curDiv = document.createElement("div");
+            let curPic = document.createElement("img");
+            let textnode = document.createTextNode(arrayConvo[i].text);
+
+            if (arrayConvo[i].sender.username === curUser.innerText) {
+                //Een verstuurd bericht krijgt een andere klasse
+                curDiv.setAttribute("class", "sentMessage");
+                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
+                curDiv.appendChild(curPic);
+            } else {
+                //Een ontvangen bericht krijgt een andere klasse
+                curDiv.setAttribute("class", "receivedMessage");
+                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
+                curDiv.appendChild(curPic);
+            }
+            //Toekennen van attributen aan de elementen (vooral klasses!)
+            curSegment.setAttribute("class", "message");
+            curDiv.appendChild(textnode);
+            curSegment.append(curDiv);
+            newMessages.appendChild(curSegment);
+        }
+        ;
+    };
+</script>
+<body onload="startScript()">
+<p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
+<p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()" >
-        <form th:action="@{|/adduser/${convo.getId()}|}">
-            <select name="id">
-                <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}" th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
-            </select>
-            <button type="submit">Voeg toe!</button>
-        </form>
-    <article id="messages" class="messages" th:each="message : ${convo.getMessages()}">
-        <section th:if="${message.getSender()==loggedUser}" class="message">
-            <div class="sentMessage">
-                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic" class="messagePic" th:src="@{|/u/image/${loggedUser.getId()}|}">
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main sec:authorize="isAuthenticated()">
+    <form th:action="@{|/adduser/${convo.getId()}|}">
+        <select name="id">
+            <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
+                    th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
+        </select>
+        <button type="submit">Voeg toe!</button>
+    </form>
+    <div id="messages">
+        <!--<article class="messages" th:each="message : ${convo.getMessages()}">
+            <section th:if="${message.getSender()==loggedUser}" class="message">
+                <label for="imagepic" th:text="${message.getSender().getUsername()}"></label><img id="imagepic"
+                                                                                                  class="messagePic"
+                                                                                                  th:src="@{|/u/image/${loggedUser.getId()}|}">
                 <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <section th:unless="${message.getSender()==loggedUser}" class="message">
-            <div class="receivedMessage">
-                <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label for="imagepic" th:text="${message.getSender().getUsername()}"></label>
-                <p th:text="${message.getText()}"></p>
-            </div>
-        </section>
-        <br>
-    </article>
+            </section>
+            <section th:unless="${message.getSender()==loggedUser}" class="message">
+                <div class="receivedMessage">
+                    <img id="imagepic" class="messagePic" th:src="@{|/u/image/${message.getSender().getId()}|}"><label
+                        for="imagepic" th:text="${message.getSender().getUsername()}"></label>
+                    <p th:text="${message.getText()}"></p>
+                </div>
+            </section>
+            <br>
+        </article>-->
+    </div>
     <article>
         <form class="messageForm">
             <input name="text" type="text" placeholder="Begin met typen..." required="required">
@@ -38,14 +128,6 @@
         </form>
     </article>
 </main>
-<script type="text/javascript">
-    //Reload het deel maar data wordt niet geupdate?
-    $(document).ready(function(){
-        setInterval(function(){
-            $("#messages").load(window.location.href + " #messages" );
-        }, 1000);
-    });
-</script>
 <main sec:authorize="!isAuthenticated()">
     Niet aangemeld
 </main>

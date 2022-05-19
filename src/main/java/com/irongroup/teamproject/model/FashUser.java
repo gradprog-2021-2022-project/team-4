@@ -1,5 +1,7 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -17,47 +19,66 @@ public class FashUser {
     public Integer id;
     @NotBlank
     public String username;
+    @JsonIgnore
     private String location;
+    @JsonIgnore
     @NotBlank
     private String password;
 
+    @JsonIgnore
     private Double longitude;
+    @JsonIgnore
     private Double latitude;
 
     @Column(length = 10000000)
+    @JsonIgnore
+    @Column(length = 100000)
     private byte[] profilePic;
 
+    @JsonIgnore
     @ManyToMany
     public Collection<FashUser> following;
 
+    @JsonIgnore
     @ManyToMany
     public Collection<FashUser> followers;
 
+    @JsonIgnore
     private String role;
     //These are private unless user wants to share
+    @JsonIgnore
     private String first_name;
+    @JsonIgnore
     private String last_name;
+    @JsonIgnore
     private Integer post_allowance;
 
     //Posts and comments user has made
+    @JsonIgnore
     @OneToMany(mappedBy = "poster", cascade = CascadeType.REMOVE)
     private Collection<FashPost> postsMade;
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<FashComment> comments;
 
     //Clothing that the user has posted and saved
+    @JsonIgnore
     @OneToMany(mappedBy = "userOwner")
     private List<Clothing_Item> clothing_posted;
     //Welke kleren zijn opgeslagen?
+    @JsonIgnore
     @ManyToMany
     private List<Clothing_Item> clothing_saved;
     //Tot welke conversaties behoort deze persoon?
+    @JsonIgnore
     @ManyToMany(mappedBy = "users")
     private Collection<Conversation> conversations;
     //Berichtjes verstuurd door deze persoon
+    @JsonIgnore
     @OneToMany(mappedBy = "sender")
     private Collection<Message> messagesSend;
     //Berichtjes ontvangen door deze persoon
+    @JsonIgnore
     @ManyToMany(mappedBy = "receivers")
     private Collection<Message> messagesReceived;
 
@@ -122,7 +143,7 @@ public class FashUser {
     public void setClothing_saved(List<Clothing_Item> clothing_saved) {
         this.clothing_saved = clothing_saved;
     }
-
+    @JsonIgnore
     public FashPost getLastPost() {
         ArrayList<FashPost> posts = new ArrayList<FashPost>();
         for (FashPost p : postsMade
@@ -287,7 +308,7 @@ public class FashUser {
     public void setMessagesReceived(Collection<Message> messagesReceived) {
         this.messagesReceived = messagesReceived;
     }
-
+    @JsonIgnore
     //nakijken of een convo bestaat met een user
     public Boolean hasConvoWithUser(FashUser user) {
         Boolean ja = false;
@@ -305,9 +326,8 @@ public class FashUser {
         }
         return ja;
     }
-
+    @JsonIgnore
     //Oproepen van convo met 1 user
-    // DONE : BUG FIXEN
     public Conversation conversationWith(FashUser user) {
         //Maak een lege convo
         Conversation convo = null;
@@ -340,7 +360,7 @@ public class FashUser {
             this.conversations.add(c);
         }
     }
-
+    @JsonIgnore
     //Zowel followers als following vinden
     public Collection<FashUser> findBoth() {
         ArrayList<FashUser> users = new ArrayList<>();

@@ -1,5 +1,7 @@
 package com.irongroup.teamproject.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -14,17 +16,21 @@ public class FashComment {
     public Integer id;
 
     //User that has made the comment
+    @JsonIgnore
     @ManyToOne(optional = false)
     private FashUser user;
 
     //Post on which the comment was made
+    @JsonIgnore
     @ManyToOne
     private FashPost post;
 
     //Basic info of the post itself
     private String title;
     private String text;
+    @JsonIgnore
     private LocalDate date;
+    @JsonIgnore
     private LocalTime time;
 
     public FashComment() {

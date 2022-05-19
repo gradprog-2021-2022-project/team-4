@@ -26,31 +26,41 @@
             <i class="fa fa-fw fa-search"></i>
             <input class="searchbar" type="text" id="keyword" name="keyword" th:value="${keyword}" placeholder="Search">
         </form>
+        <button id="idbuttonfollower" class="buttonchange" onclick="getfollower()" title="change">follower</button>
+        <button id="idbuttonfollowing" class="buttonchange" onclick="getfollowing()" title="change">following</button>
         <div class="followerpage">
-            <div class="followingdiv">
+            <div class="followingdiv" id="test1">
                 <h2 th:text="${nrfollowing + ' Following'}">aantal volgend</h2>
-                <div class="followingperson" th:each="followingPerson : ${following}">
-                    <div th:if="${followingPerson.getProfilePic()}">
-                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${followingPerson.getId()}|">
-                    </div>
-                    <div th:unless="${followingPerson.getProfilePic()}">
-                        <i class="noprofilepic fa fa-fw fa-user"></i>
-                    </div>
-                    <strong><p class="sectionbioname" th:text="${followingPerson.getUsername()}"></p></strong>
-                    <p class="sectionbiofullname" th:text="${followingPerson.getFirst_name()} + ${followingPerson.getLast_name()}"></p>
+                <div th:each="followingPerson : ${following}">
+                    <form method="get" th:action="@{|/profilepage/${followingPerson.getId()}|}">
+                        <button class="person"  type="submit">
+                            <div th:if="${followingPerson.getProfilePic()}">
+                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${followingPerson.getId()}|">
+                            </div>
+                            <div th:unless="${followingPerson.getProfilePic()}">
+                                <i class="noprofilepic fa fa-fw fa-user"></i>
+                            </div>
+                            <strong><p class="sectionbioname" th:text="${followingPerson.getUsername()}"></p></strong>
+                            <p class="sectionbiofullname" th:text="${followingPerson.getFirst_name()} + ${followingPerson.getLast_name()}"></p>
+                        </button>
+                    </form>
                 </div>
             </div>
-            <div class="followerdiv">
+            <div class="followerdiv" id="test2">
                 <h2 th:text="${nrfollowers + ' Followers'}">aantal followers</h2>
-                <div class="followerperson" th:each="followersPerson : ${followers}">
-                    <div th:if="${followersPerson.getProfilePic()}">
-                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${followersPerson.getId()}|">
-                    </div>
-                    <div th:unless="${followersPerson.getProfilePic()}">
-                        <i class="noprofilepic fa fa-fw fa-user"></i>
-                    </div>
-                    <strong><p class="sectionbioname" th:text="${followersPerson.getUsername()}"></p></strong>
-                    <p class="sectionbiofullname" th:text="${followersPerson.getFirst_name()} + ${followersPerson.getLast_name()}"></p>
+                <div th:each="followersPerson : ${followers}">
+                    <form method="get" th:action="@{|/profilepage/${followersPerson.getId()}|}">
+                        <button class="person"  type="submit">
+                            <div th:if="${followersPerson.getProfilePic()}">
+                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${followersPerson.getId()}|">
+                            </div>
+                            <div th:unless="${followersPerson.getProfilePic()}">
+                                <i class="absolute noprofilepic fa fa-fw fa-user"></i>
+                            </div>
+                            <strong><p class="sectionbioname" th:text="${followersPerson.getUsername()}"></p></strong>
+                            <p class="sectionbiofullname" th:text="${followersPerson.getFirst_name()} + ${followersPerson.getLast_name()}"></p>
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -64,6 +74,35 @@
     </div>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
-<script th:replace="fragments/head_foot :: script"></script>
+<script>
+    // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
+    document.getElementById("titlebalk").innerHTML = document.title;
+
+    //Om de button te krijgen
+    var followingdiv = document.getElementById("test1");
+    var followerdiv = document.getElementById("test2");
+    var followerbtndiv = document.getElementById("idbuttonfollower");
+    var followingbtndiv = document.getElementById("idbuttonfollowing");
+
+    // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
+    function getfollower() {
+        if (followerdiv.style.display = "none") {
+            followerdiv.style.display = "block";
+            followingdiv.style.display = "none";
+        }
+        followerbtndiv.style.backgroundColor = "#E8D7FF";
+        followingbtndiv.style.backgroundColor = "#efefef";
+    }
+
+    // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
+    function getfollowing() {
+        if (followerdiv.style.display = "block") {
+            followerdiv.style.display = "none";
+            followingdiv.style.display = "block";
+        }
+        followingbtndiv.style.backgroundColor = "#E8D7FF";
+        followerbtndiv.style.backgroundColor = "#efefef";
+    }
+</script>
 </body>
 </html>

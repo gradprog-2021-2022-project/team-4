@@ -38,6 +38,7 @@
 
 .exploreprofilepic {
     width: 60px;
+    height: 57px;
     position: absolute;
     border-radius: 50px;
     z-index: -1; /*go under the navbar*/
@@ -141,6 +142,34 @@ h3.sectionrows {
     color: #FAFF7F;
 }
 
+/*form button to profile page (press on name)*/
+.linktoprofilepage {
+    flex: 1 0 60%;
+}
+
+/*button to profile page (press on name)*/
+.linktoprofilepagebtn {
+    display: flex;
+    border: none;
+    background: none;
+    padding: 0;
+    height: 100%;
+}
+
+.linktoprofilepagebtn:hover {
+    text-decoration: underline;
+}
+
+/*to hide the scrollbar*/
+::-webkit-scrollbar {
+    display: none !important;
+}
+
+/*the name to press on*/
+.name {
+    font-size: 1.8em;
+}
+
 .postInfo {
     grid-area: ginfo;
 }
@@ -155,7 +184,6 @@ h3.sectionrows {
     padding: 5px;
     background: #E8D7FF;
 }
-
 .picDetail{
     width: available;
     height: auto;

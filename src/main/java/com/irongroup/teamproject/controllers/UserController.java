@@ -74,21 +74,28 @@ public class UserController {
                     FashUser userpage = users.findFashUserByUsername(optionalFashUser.get().getUsername());
                     FashUser userloggedin = users.findFashUserByUsername(principal.getName());
 
-                    //inlog check
-                    if(principal !=null)
-                    {
-                        //Kijken of ge al volgt en zoniet, volgen
-                        if (!userpage.followers.contains(userloggedin)){
-                            //follow button veranderen naar follow
-                            model.addAttribute("follow", "follow");
-                        }
-                        //Als ge wel volgt, unfollow doen
-                        else {
-                            //follow button veranderen naar unfollow
-                            model.addAttribute("follow", "unfollow");
-                        }
+                    //kijken of gezochte pagina niet die van jezelf is
+                    if (userpage == userloggedin) {
+                        model.addAttribute("user", userloggedin);
+                        model.addAttribute("following",userloggedin.getFollowing());
                     }
-                    model.addAttribute("user", optionalFashUser.get());
+                    else {
+                        //inlog check
+                        if(principal !=null)
+                        {
+                            //Kijken of ge al volgt en zoniet, volgen
+                            if (!userpage.followers.contains(userloggedin)){
+                                //follow button veranderen naar follow
+                                model.addAttribute("follow", "follow");
+                            }
+                            //Als ge wel volgt, unfollow doen
+                            else {
+                                //follow button veranderen naar unfollow
+                                model.addAttribute("follow", "unfollow");
+                            }
+                        }
+                        model.addAttribute("user", optionalFashUser.get());
+                    }
                 }
                 return "profilepage";
             }

@@ -4,22 +4,33 @@
     justify-content: center;
 }
 
-.followingdiv {
-    margin-right: 30px;
+#test2 {
+    display: none;
 }
 
-.followingperson {
+#idbuttonfollowing {
+    background-color: #E8D7FF;
+}
+
+.person {
     display: flex;
     flex-wrap: wrap;
     text-align: left;
     margin-bottom: 20px;
+    background: none;
+    padding: 0;
+    border: 0.5px solid #00000030;
+    border-radius: 50px;
+    width: 400px;
 }
 
-.followerperson {
-    display: flex;
-    flex-wrap: wrap;
-    text-align: left;
-    margin-bottom: 20px;
+/*making pictures or logos absolute on certain places*/
+.absolute {
+    position: absolute;
+}
+
+.person:hover {
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 
 .sectionbioname {
@@ -51,9 +62,41 @@
     border: 0.5px solid #00000030;
 }
 
+.buttonchange {
+    margin-top: 20px;
+    width: 40%;
+    height: 35px;
+    border-radius: 10px;
+    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    border: 0.5px solid #00000030;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+/*to hide the scrollbar*/
+::-webkit-scrollbar {
+    display: none !important;
+}
+
 @media only screen and (min-width: 760px) {
     .searchbar {
         width: 300px;
         height: 30px;
+    }
+
+    .buttonchange {
+        display: none;
+    }
+
+    #test2 {
+        display: block!important;
+    }
+
+    #test1 {
+        display: block!important;
+    }
+
+    .followingdiv {
+        margin-right: 30px;
     }
 }

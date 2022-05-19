@@ -180,6 +180,6 @@ public class FashPost implements Comparable<FashPost>{
     //Compare voor sorteren
     @Override
     public int compareTo(FashPost other){
-        return this.getId().compareTo(other.getId());
+        return other.getDate().compareTo(this.getDate());
     }
 }

@@ -196,6 +196,7 @@ public class PostController {
         FashUser optionalFashUser = users.findById(id).get();
         List<FashPost> postsFromFollowers = optionalFashUser.getPostsFromFollowing();
         Collections.sort(postsFromFollowers);
+        Collections.reverse(postsFromFollowers);
         model.addAttribute("allposts",postsFromFollowers);
         /*andere manier om te sorteren
         Collections.sort(postsFromFollowers, new Comparator<FashPost>() {

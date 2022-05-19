@@ -33,7 +33,6 @@
                 <form class="formbtn" method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
                     <button type="submit" class="bttnExplore section">Follow</button>
                 </form>
-                <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashPost.getPoster().getLocation()}"></i></h3>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashPost.getId()}|">
                 </article>

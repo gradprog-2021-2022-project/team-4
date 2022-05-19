@@ -155,7 +155,7 @@ nav a:hover {
     cursor: pointer;
     font-weight: 900;
     transition: 0.5s;
-    max-width: 140px;
+    width: auto;
     min-width: 120px;
 }
 .btnFilter{

@@ -83,10 +83,9 @@ public class FashUser {
     public FashUser() {
     }
 
-    public FashUser(Integer id, Double latitude, Double longitude, String username, String location, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
+    public FashUser(Integer id, Double latitude, Double longitude, String username, String first_name, String last_name, Integer post_allowance, Collection<FashPost> postsMade, List<FashComment> comments, List<Clothing_Item> clothing_posted, List<Clothing_Item> clothing_saved, String password, String role) {
         this.id = id;
         this.username = username;
-        this.location = location;
         this.first_name = first_name;
         this.last_name = last_name;
         this.role = role;
@@ -214,14 +213,6 @@ public class FashUser {
         return clothing_saved;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public void follow(FashUser gebruiker) {
         if (!this.following.contains(gebruiker)) {
             this.following.add(gebruiker);
@@ -325,6 +316,7 @@ public class FashUser {
     }
     @JsonIgnore
     //Oproepen van convo met 1 user
+    // DONE : BUG FIXEN
     public Conversation conversationWith(FashUser user) {
         //Maak een lege convo
         Conversation convo = null;

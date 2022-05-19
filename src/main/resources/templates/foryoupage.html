@@ -1,6 +1,6 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -9,39 +9,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/library.css}" href="/css/library.css"/>
-    <title>Info</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hide_navbar.css}" href="/css/hide_navbar.css"/>
+    <title>For you</title>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <h1>Welkom!</h1>
-    <article>
-        <section>
-            <h2>Wat is Fash?</h2>
-            <p>
-                Fash zal een website worden waar je je outfit op kan delen en andere outfits kan bekijken. Bovendien zal elke outfit links bevatten zodat je snel en gemakkelijk de kleren kan kopen die je mooi vindt!
-            </p>
-            <p>Dit idee is gemaakt door:</p>
-            <lu>
-                <li>Brittney De Maeyer</li>
-                <li>Thomas De Smet</li>
-                <li>Lauranne Vandeputte</li>
-                <li>Myrthe Cleas</li>
-            </lu>
+    <h2 style= "border-style: solid; background-color: #E8D7FF"> <strong>Especially for you... </strong></h2>
+
+    <div sec:authorize="!isAuthenticated()">
+        <p>Gelieve eerst in te loggen</p>
+        <a href="/login"><i class=btn></i> LOGIN</a><br>
+        <p>Nog geen account</p>
+        <a href="/register"><i class=btn></i> REGISTER</a>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="postCardDiv" th:each="fashPost : ${fashposts}">
+        <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
+            <section class="sectionclass">
+                <img class="exploreprofilepic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
+                <h1 class="sectionrows" th:text="${fashPost.getPoster().getUsername()}"></h1>
+                <form class="formbtn" method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
+                    <button type="submit" class="bttnExplore section">Follow</button>
+                </form>
+                <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${fashPost.getPoster().getLocation()}"></i></h3>
+                <article>
+                    <img class="postpic" th:src="|/p/image/${fashPost.getId()}|">
+                </article>
+                <strong><p class="sectionbioname" th:text="${fashPost.getPoster().getUsername()}"></p></strong>
+                <p class="sectionbiotext"th:text="${fashPost.getText()}"></p>
+                <strong><p class="sectionbiolikes"th:text="|${fashPost.getLikes()} likes|"></p></strong>
+                <div class="commentsothers" th:if="${fashPost.getOneComment()}">
+                    <div th:if="${fashPost.getPoster().getProfilePic()}">
+                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
+                    </div>
+                    <div th:unless="${fashPost.getPoster().getProfilePic()}">
+                        <i class="noprofilepic fa fa-fw fa-user"></i>
+                    </div>
+                    <strong><p class="sectionbioname" th:text="${fashPost.getOneComment().getUser().getUsername()}"></p></strong>
+                    <p th:if="${fashPost.getOneComment()!=null}" class="sectionbiotext"th:text="${fashPost.getOneComment().getText()}"></p>
+                </div>
+            </section>
+        </a>
+        <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
+            <form>
+                <input type="hidden" name="id" th:value="${fashPost.getId()}">
+                <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
+                <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
+                <button type="submit" class="btn commentbutton">Plaats comment!</button>
+            </form>
         </section>
-        <section>
-            <h2>Wie zijn wij?</h2>
-            <p>Wij zijn enkele studenten uit Thomas More die samen dit project aanpakken. Samen zullen we er iets mooi van maken!</p>
-            <lu>
-                <li>Brent Budts</li>
-                <li>Matthew De Schepper</li>
-                <li>Ibrahim El Moudden</li>
-                <li>Elias Neel</li>
-            </lu>
-        </section>
-    </article>
+    </div>
+    <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
+
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
-<script th:replace="fragments/head_foot :: script"></script>
+<script>
+    //Om de button te krijgen
+    var mybutton = document.getElementById("myBtn");
+
+    // als de gebruiker 20px scrollt naar beneden, dan is de button zichtbaar
+    window.onscroll = function () {
+        scrollFunction()
+    };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
+    document.getElementById("titlebalk").innerHTML = document.title;
+</script>
 </body>
 </html>

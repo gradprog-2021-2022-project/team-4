@@ -165,9 +165,62 @@ public class PostController {
         return rad * c;
     }
 
-    @GetMapping({"/foryoupage"})
-    public String foryoupage() {
+
+    @GetMapping({"/foryoupage", "/foryoupage/{id}"})
+    public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
+            , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
+        final String loginName = principal == null ? "NOBODY" : principal.getName();
+
+        System.out.println(loginName);
+        Collection<FashPost> postsmade = posts.findAll();
+        model.addAttribute("fashposts", postsmade);
+
+        if (principal != null) {
+            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+            id = loggedInUser.getId();
+            model.addAttribute("curUser", loggedInUser);
+            model.addAttribute("loggedIn", true);
+            if (commentText != null) {
+                FashPost post = posts.findById(postId).get();
+                comments.save(new FashComment(Math.toIntExact(comments.count()) + 1, loggedInUser, post, commentTitle, commentText, LocalDate.now(), LocalTime.now()));
+                return "redirect:/foryoupage";
+            }
+            if (longitude != null && latitude != null) {
+                loggedInUser.setLatitude(latitude);
+                loggedInUser.setLongitude(longitude);
+                users.save(loggedInUser);
+            }
+        }
+        if (id == null) return "foryoupage";
+
+        FashUser optionalFashUser = users.findById(id).get();
+        List<FashPost> postsFromFollowers = optionalFashUser.getPostsFromFollowing();
+        Collections.sort(postsFromFollowers);
+        model.addAttribute("allposts",postsFromFollowers);
+        /*andere manier om te sorteren
+        Collections.sort(postsFromFollowers, new Comparator<FashPost>() {
+            @Override
+            public int compare(FashPost o1, FashPost o2) {
+                return o1.id.compareTo(o2.id);
+            }
+        });*/
+
+        /*oude code van Ibrahim die niet correct is
+        //Posts van de users die je volgt ophalen
+        Optional<FashUser> optionalFashUser = users.findById(id);
+        Collection<FashUser> fashUsers = optionalFashUser.get().getFollowing();
+        List<FashUser> listUsers =fashUsers.stream().toList();
+        if(optionalFashUser.isPresent()) {
+            model.addAttribute("fashUsers", fashUsers);
+        }*/
         return "foryoupage";
+    }
+
+    @PutMapping("/foryoupage")
+    public ResponseEntity<FashUser> updateUsers(Principal principal) {
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        users.save(user);
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping({"/postDetails/{id}", "/postDetails"})

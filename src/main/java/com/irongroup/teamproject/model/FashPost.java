@@ -7,9 +7,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 @Entity
-public class FashPost {
+public class FashPost implements Comparable<FashPost>{
 
     //ID
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "post_generator")
@@ -174,5 +175,11 @@ public class FashPost {
             totaal+=c.getPrijs();
         }
         return totaal;
+    }
+
+    //Compare voor sorteren
+    @Override
+    public int compareTo(FashPost other){
+        return this.getId().compareTo(other.getId());
     }
 }

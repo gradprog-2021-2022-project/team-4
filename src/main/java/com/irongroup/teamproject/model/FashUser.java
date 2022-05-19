@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Entity
 public class FashUser {
@@ -374,5 +371,18 @@ public class FashUser {
             }
         }
         return users;
+    }
+
+    //Alle posts van volgers vinden
+    public List<FashPost> getPostsFromFollowing(){
+        List<FashPost> allPosts=new ArrayList<>();
+        for (FashUser u:this.following
+             ) {
+            for (FashPost p:u.getPostsMade()
+                 ) {
+                allPosts.add(p);
+            }
+        }
+        return allPosts;
     }
 }

@@ -34,7 +34,7 @@ public class ForYouController {
 
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
-            , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
+            ,@RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
         //ystem.out.println(principal.getName());
         Collection<FashPost> postsmade = posts.findAll();
         model.addAttribute("fashposts", postsmade);
@@ -49,7 +49,6 @@ public class ForYouController {
                 comment.setUser(loggedInUser);
                 comment.setText(commentText);
                 comment.setPost(post);
-                comment.setTitle(commentTitle);
                 comment.setDate(LocalDate.now());
                 comment.setTime(LocalTime.now());
                 comments.save(comment);

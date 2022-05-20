@@ -38,7 +38,7 @@
         <p>Nog geen account</p>
         <a href="/register"><i class=btn></i> REGISTER</a>
     </div>
-    <div sec:authorize="isAuthenticated()" class="postCardDiv" th:each="fashPost : ${fashposts}">
+    <div sec:authorize="isAuthenticated()" class="postCardDiv" th:each="fashPost : ${allposts}">
         <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
             <section class="sectionclass">
                 <img class="exploreprofilepic" th:src="|/u/image/${fashPost.getPoster().getId()}|">

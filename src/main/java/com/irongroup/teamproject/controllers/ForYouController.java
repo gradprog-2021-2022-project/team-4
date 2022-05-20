@@ -33,12 +33,8 @@ public class ForYouController {
     CommentRepository comments;
 
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
-    public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
+    public String foryoupage(Model model, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
             ,@RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
-        //ystem.out.println(principal.getName());
-        Collection<FashPost> postsmade = posts.findAll();
-        model.addAttribute("fashposts", postsmade);
-
         if (principal != null) {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
             model.addAttribute("curUser", loggedInUser);
@@ -60,10 +56,10 @@ public class ForYouController {
                 users.save(loggedInUser);
             }
         }
-        if (id == null) return "foryoupage";
+        //if (id == null) return "foryoupage";
 
-        FashUser optionalFashUser = users.findById(id).get();
-        List<FashPost> postsFromFollowers = optionalFashUser.getPostsFromFollowing();
+        FashUser loggedUser = users.findFashUserByUsername(principal.getName());
+        List<FashPost> postsFromFollowers = loggedUser.getPostsFromFollowing();
         Collections.sort(postsFromFollowers);
         Collections.reverse(postsFromFollowers);
         model.addAttribute("allposts",postsFromFollowers);

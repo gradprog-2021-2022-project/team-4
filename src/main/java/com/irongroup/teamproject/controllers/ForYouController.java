@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -34,7 +35,7 @@ public class ForYouController {
 
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
-            ,@RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
+            ,@RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude,@RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
         if (principal != null) {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
             model.addAttribute("curUser", loggedInUser);
@@ -62,23 +63,17 @@ public class ForYouController {
         List<FashPost> postsFromFollowers = loggedUser.getPostsFromFollowing();
         Collections.sort(postsFromFollowers);
         Collections.reverse(postsFromFollowers);
-        model.addAttribute("allposts",postsFromFollowers);
-        /*andere manier om te sorteren
-        Collections.sort(postsFromFollowers, new Comparator<FashPost>() {
-            @Override
-            public int compare(FashPost o1, FashPost o2) {
-                return o1.id.compareTo(o2.id);
-            }
-        });*/
 
-        /*oude code van Ibrahim die niet correct is
-        //Posts van de users die je volgt ophalen
-        Optional<FashUser> optionalFashUser = users.findById(id);
-        Collection<FashUser> fashUsers = optionalFashUser.get().getFollowing();
-        List<FashUser> listUsers =fashUsers.stream().toList();
-        if(optionalFashUser.isPresent()) {
-            model.addAttribute("fashUsers", fashUsers);
-        }*/
+        //Filters uitvoeren
+        if (style != null && style.length() > 1) {
+            System.out.println("met stijl");
+            postsFromFollowers = filterPosts(postsFromFollowers, style);
+        }
+        if (minPrijs != null || maxPrijs != null) {
+            postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);
+        }
+
+        model.addAttribute("allposts",postsFromFollowers);
         return "foryoupage";
     }
 
@@ -87,5 +82,34 @@ public class ForYouController {
         FashUser user = users.findFashUserByUsername(principal.getName());
         users.save(user);
         return ResponseEntity.ok(user);
+    }
+    //Filteren op prijs
+    private ArrayList<FashPost> filterPrice(Collection<FashPost> posts, Double minPrijs, Double maxPrijs) {
+        if (maxPrijs == null) {
+            maxPrijs = Double.POSITIVE_INFINITY;
+        }
+        if (minPrijs == null) {
+            minPrijs = 0.0;
+        }
+        ArrayList<FashPost> filtered = new ArrayList<>();
+        for (FashPost p:posts
+        ) {
+            if (p.getTotalPrice() > minPrijs && p.getTotalPrice() < maxPrijs) {
+                filtered.add(p);
+            }
+        }
+        return filtered;
+    }
+
+    //Filteren op stijl
+    private ArrayList<FashPost> filterPosts(Collection<FashPost> posts, String stijl) {
+        ArrayList<FashPost> filtered = new ArrayList<>();
+        for (FashPost p : posts
+        ) {
+            if (p.getStijl()!=null && p.getStijl().equalsIgnoreCase(stijl)) {
+                posts.add(p);
+            }
+        }
+        return filtered;
     }
 }

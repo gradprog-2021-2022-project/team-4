@@ -35,19 +35,16 @@ public class ForYouController {
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @PathVariable(required = false) Integer id, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
             , @RequestParam(required = false) String commentTitle, @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude) {
-        final String loginName = principal == null ? "NOBODY" : principal.getName();
-
-        System.out.println(loginName);
+        //ystem.out.println(principal.getName());
         Collection<FashPost> postsmade = posts.findAll();
         model.addAttribute("fashposts", postsmade);
 
         if (principal != null) {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
-            id = loggedInUser.getId();
             model.addAttribute("curUser", loggedInUser);
             model.addAttribute("loggedIn", true);
             if (commentText != null) {
-                FashPost post = posts.findById(id).get();
+                FashPost post = posts.findById(postId).get();
                 FashComment comment=new FashComment();
                 comment.setUser(loggedInUser);
                 comment.setText(commentText);

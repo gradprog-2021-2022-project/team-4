@@ -66,7 +66,7 @@
         </a>
         <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
-                <input type="hidden" name="id" th:value="${fashPost.getId()}">
+                <input type="hidden" name="postId" th:value="${fashPost.getId()}">
                 <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn commentbutton">Plaats comment!</button>
             </form>

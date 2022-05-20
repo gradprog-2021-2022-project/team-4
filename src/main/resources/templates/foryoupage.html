@@ -2,23 +2,36 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/library.css}" href="/css/library.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/posts.css}" href="/css/posts.css"/>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hide_navbar.css}" href="/css/hide_navbar.css"/>
     <title>For you</title>
+    <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
+<aside>
+    <div class="dropdown filterContainer position-fixed">
+        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
+        <div class="collapse" id="collapseExample">
+            <form class="card card-body">
+                <h3>Style</h3>
+                <select name="style" placeholder="Kies een stijl!">
+                    <option value="">Geen</option>
+                    <option value="Modern">Modern</option>
+                    <option value="Klassiek">Klassiek</option>
+                    <option value="Goth">Goth</option>
+                </select>
+                <label for="minprijs">Minimum:</label>
+                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+                <label for="maxprijs">Maximum:</label>
+                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
+                <input class="btnCss" type="submit" value="search">
+            </form>
+        </div>
+    </div>
+</aside>
 <main>
-    <h2 style= "border-style: solid; background-color: #E8D7FF"> <strong>Especially for you... </strong></h2>
-
     <div sec:authorize="!isAuthenticated()">
         <p>Gelieve eerst in te loggen</p>
         <a href="/login"><i class=btn></i> LOGIN</a><br>
@@ -54,7 +67,6 @@
         <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashPost.getId()}">
-                <input required="required" class="border commenttitle" name="commentTitle" placeholder="Titel">
                 <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn commentbutton">Plaats comment!</button>
             </form>

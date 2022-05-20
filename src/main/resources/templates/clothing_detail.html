@@ -13,6 +13,7 @@
     <article>
         <section class="containerCss">
             <h2 th:text="${item.getNaam()}"></h2>
+            <img th:src="@{|/p/image/${item.getPost().getId()}|}" style="max-width: 100%">
             <a th:href="@{|/postDetails/${item.getPost().getId()}|}"><input type="button" class="btnCss" th:value="|Gedeeld door: ${item.getPost().getPoster().getUsername()}|"></a><br>
             <a th:href="@{|/buyItem/${item.getId()}|}"><input type="button" class="btnCss" th:value="Koop"></a><br>
             <a th:href="@{|/saveItem/${item.getId()}|}" th:if="${fashuser!=null && !fashuser.getClothing_saved().contains(item)}"><input type="button" class="btnCss" th:value="Opslaan"></a><br>

@@ -59,9 +59,16 @@
                         <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
                     </button>
                 </form>
-                <form class="formbtn" method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                    <button type="submit" class="bttnExplore section">Follow</button>
-                </form>
+                <div class="buttonsdiv formbtn" th:if="${curUser.following.contains(fashUser)}">
+                    <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                        <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                    </form>
+                </div>
+                <div class="buttonsdiv formbtn" th:unless="${curUser.following.contains(fashUser)}">
+                    <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                        <button type="submit" class="bttnExplore section">Follow</button><br>
+                    </form>
+                </div>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">
                 </article>
@@ -83,7 +90,7 @@
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
                 <input required="required" class="border commenttext" type="text" name="commentText" placeholder="Jouw comment">
-                <button type="submit" class="btnCss commentbutton">Plaatsen</button><br>
+                <button type="submit" class="btnCss commentbutton bttnExplore section">Plaatsen</button><br>
             </form>
         </section>
     </div>

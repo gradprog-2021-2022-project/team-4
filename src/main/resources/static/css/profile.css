@@ -5,6 +5,13 @@
     padding: 10px 0px;
 }
 
+/*nieuw post button on profilepage absolute so image won't shift*/
+.nieuwpost {
+    float: none;
+    margin-left: 78%;
+    margin-top: auto;
+    margin-bottom: 10px;
+}
 
 /*algemene button voor volgen en volgers, etc*/
 .followetcbtn {
@@ -88,4 +95,14 @@
 /*de rechtse buttons dichter naar center*/
 .right {
     float: left;
+}
+
+@media only screen and (min-width: 760px) {
+    .nieuwpost {
+        position: absolute;
+        right: 96.5px;
+        margin-left: 0px;
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
 }

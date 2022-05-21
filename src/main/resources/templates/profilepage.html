@@ -18,11 +18,11 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <a th:href="@{/postnew}">
-        <input type="button" value="Nieuwe post!" class="btnCss" style="float: right">
-    </a>
     <div>
         <div th:if="${user}">
+            <a th:href="@{/postnew}">
+                <input type="button" value="Nieuwe post!" class="btnCss nieuwpost" style="float: right">
+            </a>
             <section class="hr-lines">
                 <div th:if="${user.getProfilePic()}">
                     <img class="profilepic" src="/u/image" alt="image not found">

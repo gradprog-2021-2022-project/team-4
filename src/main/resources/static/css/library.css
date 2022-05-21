@@ -194,8 +194,12 @@ nav a:hover {
 
 .filterContainer{
     float: left;
-    position: fixed;
     margin-left: 10px;
+}
+
+.scroll{
+    height: 60vh;
+    overflow: scroll;
 }
 
 .txt::before{

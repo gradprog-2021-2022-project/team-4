@@ -60,13 +60,17 @@
                 <p class="sectionbiotext"th:text="${fashPost.getText()}"></p>
                 <strong><p class="sectionbiolikes"th:text="|${fashPost.getLikes()} likes|"></p></strong>
                 <div class="commentsothers" th:if="${fashPost.getOneComment()}">
-                    <div th:if="${fashPost.getPoster().getProfilePic()}">
-                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
-                    </div>
-                    <div th:unless="${fashPost.getPoster().getProfilePic()}">
-                        <i class="noprofilepic fa fa-fw fa-user"></i>
-                    </div>
-                    <strong><p class="sectionbioname" th:text="${fashPost.getOneComment().getUser().getUsername()}"></p></strong>
+                    <form method="get" th:action="@{|/profilepage/${fashPost.getOneComment().getUser().getId()}|}">
+                        <button class="linktoprofilepagebtn" type="submit">
+                            <div th:if="${fashPost.getOneComment().getUser().getProfilePic()}">
+                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashPost.getOneComment().getUser().getId()}|">
+                            </div>
+                            <div th:unless="${fashPost.getOneComment().getUser().getProfilePic()}">
+                                <i class="noprofilepic fa fa-fw fa-user"></i>
+                            </div>
+                            <strong><p class="sectionbioname" th:text="${fashPost.getOneComment().getUser().getUsername()}"></p></strong>
+                        </button>
+                    </form>
                     <p th:if="${fashPost.getOneComment()!=null}" class="sectionbiotext"th:text="${fashPost.getOneComment().getText()}"></p>
                 </div>
             </section>

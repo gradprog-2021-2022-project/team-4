@@ -25,7 +25,7 @@
             </a>
             <section class="hr-lines">
                 <div th:if="${user.getProfilePic()}">
-                    <img class="profilepic" src="/u/image" alt="image not found">
+                    <img class="profilepic" th:src="|/u/image/${user.getId()}|" alt="image not found">
                 </div>
                 <div th:unless="${user.getProfilePic()}">
                     <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>

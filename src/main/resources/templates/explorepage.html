@@ -43,7 +43,7 @@
                 <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs"><br>
                 <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
                 <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
-                <input class="btnCss" type="submit" value="search">
+                <input class="btn-dark borderBtn" type="submit" value="search">
             </form>
         </div>
     </div>
@@ -59,8 +59,8 @@
                         <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
                     </button>
                 </form>
-                <form class="formbtn" method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                    <button type="submit" class="bttnExplore section">Follow</button>
+                <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                    <button type="submit" class="btn-dark borderBtn">Follow</button>
                 </form>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">

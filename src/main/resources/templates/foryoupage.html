@@ -43,9 +43,16 @@
             <section class="sectionclass">
                 <img class="exploreprofilepic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
                 <h1 class="sectionrows" th:text="${fashPost.getPoster().getUsername()}"></h1>
-                <form class="formbtn" method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
-                    <button type="submit" class="bttnExplore section">Follow</button>
-                </form>
+                <div class="buttonsdiv formbtn" th:if="${curUser.following.contains(fashPost.getPoster())}">
+                    <form method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
+                        <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                    </form>
+                </div>
+                <div class="buttonsdiv formbtn" th:unless="${curUser.following.contains(fashPost.getPoster())}">
+                    <form method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
+                        <button type="submit" class="bttnExplore section">Follow</button><br>
+                    </form>
+                </div>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashPost.getId()}|">
                 </article>

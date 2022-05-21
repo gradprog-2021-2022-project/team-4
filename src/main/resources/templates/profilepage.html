@@ -73,15 +73,18 @@
                         </article>
                         <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
                         <p class="sectionbiotext" th:text="${post.getText()}"></p>
-                        <strong><p class="sectionbiolikes" th:text="|${post.getLikes()} likes|"></p></strong>
                         <div class="commentsothers" th:if="${post.getOneComment()}">
-                            <div th:if="${user.getProfilePic()}">
-                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${user.getId()}|">
-                            </div>
-                            <div th:unless="${user.getProfilePic()}">
-                                <i class="noprofilepic fa fa-fw fa-user"></i>
-                            </div>
-                            <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                            <form method="get" th:action="@{|/profilepage/${post.getOneComment().getUser().getId()}|}">
+                                <button class="linktoprofilepagebtn" type="submit">
+                                    <div th:if="${post.getOneComment().getUser().getProfilePic()}">
+                                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${post.getOneComment().getUser().getId()}|">
+                                    </div>
+                                    <div th:unless="${post.getOneComment().getUser().getProfilePic()}">
+                                        <i class="noprofilepic fa fa-fw fa-user"></i>
+                                    </div>
+                                    <strong><p class="sectionbioname" th:text="${post.getOneComment().getUser().getUsername()}"></p></strong>
+                                </button>
+                            </form>
                             <p class="sectionbiotext" th:text="${post.getOneComment().getText()}"></p>
                         </div>
                     </section>

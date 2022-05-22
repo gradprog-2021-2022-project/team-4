@@ -52,15 +52,15 @@ public class EditPostController {
         if (bindingResult.hasErrors()) {
             return "/editpost";
         }
-        //FashPost post = new FashPost();
         postRepository.save(valid);
         //photo
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             valid.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
-
-        List<Clothing_Item> clothing_items = new ArrayList<>();
+        /////////////////////////////////
+        List<Clothing_Item> clothing_items = valid.getPoster().getClothing_posted() ;
         postRepository.save(valid);
+        //model.addAttribute("allclothes" , clothing_items);
 
         for (Clothing_Item c: valid.getClothes()) {
             if(c.getNaam()!=null && !c.getNaam().equals("")){
@@ -70,11 +70,7 @@ public class EditPostController {
                 clothingRepository.save(c);
             }
         }
-
-        valid.setClothes(clothing_items);
-        valid.setText(valid.getText());
         postRepository.save(valid);
         return "redirect:/postDetails/"+ id;
     }
-
 }

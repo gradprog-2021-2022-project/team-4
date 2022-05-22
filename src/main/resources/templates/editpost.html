@@ -25,18 +25,15 @@
         <div>
             <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
         </div>
-
         <div>
             <h2>Edit post :</h2>
         </div>
-
-<div>
-
+    <div sec:authorize="isAuthenticated()">
     <form th:action="@{|/editpost/${valid.id}|}" th:object="${valid}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 
         <label for="text">Tekst:</label><br>
-        <input class="inputCss" type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
+        <input class="inputCss" type="text" id="text" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
         <label for="locatie">Locatie:</label><br>
         <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required="required"><br>
         <div id="newClothing" th:field="*{clothes}">
@@ -53,47 +50,17 @@
             </div>
         </div>
         <br>
-        <button type="button"  onclick="createNewElement()">New clothing Item</button><br>
-
         <label for="image">Upload outfit :</label><br>
-        <input type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
 
         <input type="submit" value="save" class="btnCss"><br>
         <div>
-            <a th:href="@{/explorepage}" class="cancel">cancel</a>
+            <a th:href="@{'/postDetails/' + ${valid.id}}" class="cancel">cancel</a>
         </div>
     </form>
 </div>
 </div>
 </main>
-
-<script th:inline="javascript">
-    let counter = 1;
-    function createNewElement() {
-        // First create a DIV element.
-        let newClothing = document.createElement('div');
-        let item = counter+1;
-        // Then add the content (a new input box) of the element.
-        newClothing.innerHTML = ` <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample${counter}" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item ${item}">
-                <div class="collapse" id="collapseExample${counter}">
-                    <label for="type">Type:</label><br>
-                    <input class="inputCss" id="type" type="text" name="clothes[${counter}].type"><br>
-                    <label for="name">Name:</label><br>
-                    <input class="inputCss" id="name" type="text" name="clothes[${counter}].naam"><br>
-                    <label for="price">Price:</label><br>
-                    <input class="inputCss" id="price" type="number" step="0.01" name="clothes[${counter}].prijs"><br>
-                    <label for="link">Link to shop:</label><br>
-                    <input class="inputCss" id="link" type="text" name="clothes[${counter}].linkShop"><br>
-                </div>`;
-
-        // Finally put it where it is supposed to appear.
-        document.getElementById("newClothing").appendChild(newClothing);
-        counter++;
-    }
-</script>
-
-
-
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

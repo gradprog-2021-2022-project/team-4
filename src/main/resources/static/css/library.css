@@ -209,6 +209,8 @@ nav a:hover {
 .borderBtn{
     border: none;
     padding: 5px;
+    margin: 10px;
+    min-width: 100px;
     border-bottom: solid #89B6A5 5px !important;
 }
 

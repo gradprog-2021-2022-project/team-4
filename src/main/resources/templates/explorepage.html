@@ -67,18 +67,20 @@
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
-                <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
-                    <div th:if="${fashUser.getProfilePic()}">
-                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getId()}|">
-                    </div>
-                    <div th:unless="${fashUser.getProfilePic()}">
-                        <i class="noprofilepic fa fa-fw fa-user"></i>
-                    </div>
-                    <strong><p class="sectionbioname" th:text="${fashUser.getLastPost().getOneComment().getUser().getUsername()}"></p></strong>
-                    <p th:if="${fashUser.getLastPost().getOneComment()!=null}" class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
-                </div>
             </section>
         </a>
+        <section>
+            <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
+                <div th:if="${fashUser.getProfilePic()}">
+                    <img class="commentpic" th:src="|/u/image/${fashUser.getId()}|">
+                </div>
+                <div th:unless="${fashUser.getProfilePic()}">
+                    <i class="noprofilepic fa fa-fw fa-user"></i>
+                </div>
+                <strong><p class="sectionbioname" th:text="${fashUser.getLastPost().getOneComment().getUser().getUsername()}"></p></strong>
+                <p th:if="${fashUser.getLastPost().getOneComment()!=null}" class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
+            </div>
+        </section>
         <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
@@ -87,7 +89,7 @@
             </form>
         </section>
     </div>
-    <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <button class="btn-dark borderBtn" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
 <script type="text/javascript">
     if (navigator.geolocation) {

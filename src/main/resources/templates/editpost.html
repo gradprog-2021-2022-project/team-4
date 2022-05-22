@@ -1,0 +1,99 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/library.css}" href="/css/library.css"/>
+    <link rel="stylesheet" type="text/css" media="all"
+          th:href="@{/css/register.css}" href="/css/register.css"/>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <title>Edit post</title>
+</head>
+<body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
+<main class="mainForm">
+    <div class="containerCss">
+        <div>
+            <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
+        </div>
+
+        <div>
+            <h2>Edit post :</h2>
+        </div>
+
+<div>
+
+    <form th:action="@{|/editpost/${valid.id}|}" th:object="${valid}" method="post" enctype="multipart/form-data">
+        <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
+
+        <label for="text">Tekst:</label><br>
+        <input class="inputCss" type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
+        <label for="locatie">Locatie:</label><br>
+        <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required="required"><br>
+        <div id="newClothing" th:field="*{clothes}">
+            <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item 1"><br>
+            <div class="collapse" id="collapseExample">
+                <label for="type">Type:</label><br>
+                <input class="inputCss" id="type" type="text" th:field="*{clothes[0].type}" required="required"><br>
+                <label for="name">Name:</label><br>
+                <input class="inputCss" id="name" type="text" th:field="*{clothes[0].naam}" required="required"><br>
+                <label for="price">Price:</label><br>
+                <input class="inputCss" id="price" type="number" step="0.01" th:field="*{clothes[0].prijs}" required="required"><br>
+                <label for="link">Link to shop:</label><br>
+                <input class="inputCss" id="link" type="text" th:field="*{clothes[0].linkShop}" required="required"><br>
+            </div>
+        </div>
+        <br>
+        <button type="button"  onclick="createNewElement()">New clothing Item</button><br>
+
+        <label for="image">Upload outfit :</label><br>
+        <input type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>
+
+        <input type="submit" value="save" class="btnCss"><br>
+        <div>
+            <a th:href="@{/explorepage}" class="cancel">cancel</a>
+        </div>
+    </form>
+</div>
+</div>
+</main>
+
+<script th:inline="javascript">
+    let counter = 1;
+    function createNewElement() {
+        // First create a DIV element.
+        let newClothing = document.createElement('div');
+        let item = counter+1;
+        // Then add the content (a new input box) of the element.
+        newClothing.innerHTML = ` <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample${counter}" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item ${item}">
+                <div class="collapse" id="collapseExample${counter}">
+                    <label for="type">Type:</label><br>
+                    <input class="inputCss" id="type" type="text" name="clothes[${counter}].type"><br>
+                    <label for="name">Name:</label><br>
+                    <input class="inputCss" id="name" type="text" name="clothes[${counter}].naam"><br>
+                    <label for="price">Price:</label><br>
+                    <input class="inputCss" id="price" type="number" step="0.01" name="clothes[${counter}].prijs"><br>
+                    <label for="link">Link to shop:</label><br>
+                    <input class="inputCss" id="link" type="text" name="clothes[${counter}].linkShop"><br>
+                </div>`;
+
+        // Finally put it where it is supposed to appear.
+        document.getElementById("newClothing").appendChild(newClothing);
+        counter++;
+    }
+</script>
+
+
+
+<footer th:replace="fragments/head_foot :: footerfrag"></footer>
+</body>
+</html>

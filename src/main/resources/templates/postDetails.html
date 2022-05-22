@@ -2,31 +2,25 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
 <head>
-
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/posts.css}" href="/css/posts.css"/>
     <title th:text="${post.getPoster().getUsername()}">Info</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
+   </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <div th:if="${post}">
         <article class="postDetails">
             <section class="sidePic borderGrid">
+                <img class="picDetail" th:src="|/p/image/${post.getId()}|">
+            </section>
+            <section class="postitems borderGrid">
                 <h2 th:text="|${post.getPoster().getUsername()}|"></h2>
                 <p th:if="${post.getText()!=null}" th:text="${post.getText()}"></p>
                 <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
-                <img class="picDetail" th:src="|/p/image/${post.getId()}|">
                 <h3 class="pad" th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
-            </section>
-            <section class="postitems borderGrid">
                 <h2>Clothes:</h2>
-                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  th:class="btnCss" th:text="${item.getNaam()}"></span>
+                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
                 </a>
             </section>
         </article>

@@ -24,9 +24,9 @@
                     <option th:selected="${stijlFilter!= null && stijlFilter.equals('Goth')}" value="Goth">Goth</option>
                 </select>
                 <label for="minprijs">Minimum:</label>
-                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+                <input th:value="${minFilter}" type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
                 <label for="maxprijs">Maximum:</label>
-                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
+                <input th:value="${maxFilter}" type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <input class="btnCss" type="submit" value="search">
             </form>
         </div>

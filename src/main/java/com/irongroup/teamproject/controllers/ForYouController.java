@@ -52,6 +52,8 @@ public class ForYouController {
             }
             if (minPrijs != null || maxPrijs != null) {
                 postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);
+                model.addAttribute("minFilter",minPrijs);
+                model.addAttribute("maxFilter",maxPrijs);
             }
 
             model.addAttribute("allposts",postsFromFollowers);

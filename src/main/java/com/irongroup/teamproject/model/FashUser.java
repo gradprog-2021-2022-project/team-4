@@ -237,18 +237,19 @@ public class FashUser {
         }
     }
 
+    @JsonIgnore
     public Collection<FashUser> getFollowing() {
         return following;
     }
-
+    @JsonIgnore
     public Collection<FashUser> getFollowers() {
         return followers;
     }
-
+    @JsonIgnore
     public int aantalFollowing() {
         return this.following.size();
     }
-
+    @JsonIgnore
     public int aantalFollowers() {
         return this.followers.size();
     }
@@ -256,15 +257,14 @@ public class FashUser {
     public void setFollowers(Collection<FashUser> followers) {
         this.followers = followers;
     }
-
+    @JsonIgnore
     public Double getLongitude() {
         return longitude;
     }
-
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
-
+    @JsonIgnore
     public Double getLatitude() {
         return latitude;
     }
@@ -272,7 +272,7 @@ public class FashUser {
     public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
-
+    @JsonIgnore
     public Collection<Conversation> getConversations() {
         return conversations;
     }
@@ -365,6 +365,7 @@ public class FashUser {
         return users;
     }
 
+    @JsonIgnore
     //Alle posts van volgers vinden
     public List<FashPost> getPostsFromFollowing(){
         List<FashPost> allPosts=new ArrayList<>();

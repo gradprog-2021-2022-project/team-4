@@ -13,19 +13,28 @@ public class MessageRestController {
     ConversationRepository convos;
 
     @GetMapping("/getconvo/{id}")
-    public String convo(@PathVariable Integer id){
+    public String convo(@PathVariable Integer id) {
         try {
             //Dit zet een object om naar een json formaat
             return new ObjectMapper().writeValueAsString(convos.findbyID(id).getMessages());
-        }catch (Exception e){
+        } catch (Exception e) {
             //Enkel printen bij debuggen
             //e.printStackTrace();
             return "da werkte ni";
         }
     }
 
+    @GetMapping("/getMessageSize/{id}")
+    public String convoSize(@PathVariable Integer id) {
+        try {
+            return new ObjectMapper().writeValueAsString(convos.findsizeofconvo(id));
+        } catch (Exception e) {
+            return "Geen message size gevonden!";
+        }
+    }
+
     @GetMapping("/testje")
-    public String testje(){
+    public String testje() {
         return "dit is een test";
     }
 }

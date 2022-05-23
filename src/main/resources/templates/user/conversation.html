@@ -10,10 +10,41 @@
 <script th:inline="javascript" type="text/javascript">
 
     function startScript() {
-        setInterval(loadData, 1000);
+        //de eerste keer data laden
+        loadData();
+        //Daarna enkel kijken of een nieuw bericht komt en dan pas alle data opnieuw laden
+        setInterval(checkData, 5000);
     };
 
-    //Dit word aangeroepen na het laden van de pagina
+    function checkData() {
+        let id = document.getElementById("hiddenID").innerText;
+        let sizes=document.getElementById("hiddenConvoSize");
+        var xhr=new XMLHttpRequest();
+        xhr.open('GET','/getMessageSize/'+id);
+        xhr.onreadystatechange = function () {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+
+            if (xhr.readyState === DONE) {
+                console.log("DONE");
+                if (xhr.status === OK) {
+                    let sizefound=xhr.responseText;
+                    if(sizefound.localeCompare(sizes.innerText) != 0){
+                        sizes.innerText=sizefound;
+                        loadData();
+                        console.log("data loaded");
+                    }
+                    console.log(xhr.responseText);
+                    console.log("status ok");
+                } else {
+                    console.log('Error: ' + xhr.status); // An error occurred during the request.
+                }
+            }
+        };
+        xhr.send(null);
+    };
+
+    //Dit word aangeroepen als een nieuwe message bestaat zodat niet constant lange queries lopen
     function loadData() {
         let aantalMessages = document.getElementById("hiddenSize");
         //haal de id op
@@ -68,8 +99,8 @@
             let curSegment = document.createElement("section");
             let curDiv = document.createElement("div");
             let textnode = document.createTextNode(arrayConvo[i].text);
-            let namenode=document.createElement("h3");
-            let nametext=document.createTextNode(arrayConvo[i].sender.username)
+            let namenode = document.createElement("h3");
+            let nametext = document.createTextNode(arrayConvo[i].sender.username)
             if (arrayConvo[i].sender.username === curUser.innerText) {
                 //Een verstuurd bericht krijgt een andere klasse
                 curDiv.setAttribute("class", "sentMessage");
@@ -93,6 +124,7 @@
 <body onload="startScript()" style="background-color: lightgray;">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
 <p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
+<p style="display: none" id="hiddenConvoSize" th:text="${convo.getMessages().size()}"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside sec:authorize="isAuthenticated()" class="messageAddUser">

@@ -18,6 +18,10 @@ public interface ConversationRepository extends CrudRepository<Conversation,Inte
     @Query("select c.id from Conversation c")
     Collection<Integer> findOptByID(@Param("id") Integer id);
 
+    //Message size vinden
+    @Query("select c.messages.size from Conversation c where c.id = :id")
+    Integer findsizeofconvo(@Param("id") Integer id);
+
     /*werkt niet
     @Query("select c from Conversation c where :user in c.users")
     Collection<Conversation> findConvosByUser(@Param("user")FashUser user);*/

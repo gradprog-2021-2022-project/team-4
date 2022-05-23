@@ -59,6 +59,9 @@
                 </div>
             </div>
             <br>
+            <select name="style" placeholder="Kies een stijl!" th:field="*{stijl}" required>
+                <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
+            </select>
             <button type="button"  onclick="createNewElement()">New clothing Item</button><br>
 
             <label for="image">Upload outfit :</label><br>

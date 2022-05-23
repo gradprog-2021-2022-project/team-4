@@ -7,7 +7,6 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 
 @Entity
 public class FashPost implements Comparable<FashPost>{
@@ -53,8 +52,9 @@ public class FashPost implements Comparable<FashPost>{
     public FashPost() {
     }
 
-    public FashPost(Integer id, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location,String text,Integer likes,byte[] postPic) {
+    public FashPost(Integer id, String stijl, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location, String text, Integer likes, byte[] postPic) {
         this.id = id;
+        this.stijl = stijl;
         this.clothes = clothes;
         this.poster = poster;
         this.comments = comments;
@@ -99,6 +99,10 @@ public class FashPost implements Comparable<FashPost>{
 
     public LocalTime getTime() {
         return time;
+    }
+
+    public void setStijl(String stijl) {
+        this.stijl = stijl;
     }
 
     public void setTime(LocalTime time) {

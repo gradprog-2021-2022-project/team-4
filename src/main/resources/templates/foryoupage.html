@@ -9,7 +9,6 @@
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
-<header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="dropdown filterContainer position-fixed">
         <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
@@ -17,7 +16,7 @@
             <form class="card card-body">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
-                    <option value="">Geen</option>
+                    <option value="">Alle</option>
                     <option value="Modern">Modern</option>
                     <option value="Klassiek">Klassiek</option>
                     <option value="Goth">Goth</option>
@@ -31,14 +30,16 @@
         </div>
     </div>
 </aside>
-<main>
-    <div sec:authorize="!isAuthenticated()">
+<main sec:authorize="!isAuthenticated()">
+    <div>
         <p>Gelieve eerst in te loggen</p>
         <a href="/login"><i class=btn></i> LOGIN</a><br>
         <p>Nog geen account</p>
         <a href="/register"><i class=btn></i> REGISTER</a>
     </div>
-    <div sec:authorize="isAuthenticated()" class="postCardDiv" th:each="fashPost : ${allposts}">
+</main>
+<main sec:authorize="isAuthenticated()">
+    <div class="postCardDiv" th:each="fashPost : ${allposts}">
         <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
             <section class="sectionclass">
                 <img class="exploreprofilepic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
@@ -74,7 +75,6 @@
     </div>
     <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
-
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
     //Om de button te krijgen

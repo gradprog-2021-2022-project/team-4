@@ -37,13 +37,26 @@ public class ForYouController {
     public String foryoupage(Model model, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
             ,@RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude,@RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
         if (principal != null) {
-            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
-            model.addAttribute("curUser", loggedInUser);
-            model.addAttribute("loggedIn", true);
+            //model.addAttribute("loggedIn", true);
+            FashUser loggedUser = users.findFashUserByUsername(principal.getName());
+            List<FashPost> postsFromFollowers = loggedUser.getPostsFromFollowing();
+            Collections.sort(postsFromFollowers);
+            Collections.reverse(postsFromFollowers);
+            model.addAttribute("curUser", loggedUser);
+            //Filters uitvoeren
+            if (style != null && style.length() > 1) {
+                System.out.println("met stijl");
+                postsFromFollowers = filterPosts(postsFromFollowers, style);
+            }
+            if (minPrijs != null || maxPrijs != null) {
+                postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);
+            }
+
+            model.addAttribute("allposts",postsFromFollowers);
             if (commentText != null) {
                 FashPost post = posts.findById(postId).get();
                 FashComment comment=new FashComment();
-                comment.setUser(loggedInUser);
+                comment.setUser(loggedUser);
                 comment.setText(commentText);
                 comment.setPost(post);
                 comment.setDate(LocalDate.now());
@@ -52,28 +65,12 @@ public class ForYouController {
                 return "redirect:/foryoupage";
             }
             if (longitude != null && latitude != null) {
-                loggedInUser.setLatitude(latitude);
-                loggedInUser.setLongitude(longitude);
-                users.save(loggedInUser);
+                loggedUser.setLatitude(latitude);
+                loggedUser.setLongitude(longitude);
+                users.save(loggedUser);
             }
         }
         //if (id == null) return "foryoupage";
-
-        FashUser loggedUser = users.findFashUserByUsername(principal.getName());
-        List<FashPost> postsFromFollowers = loggedUser.getPostsFromFollowing();
-        Collections.sort(postsFromFollowers);
-        Collections.reverse(postsFromFollowers);
-
-        //Filters uitvoeren
-        if (style != null && style.length() > 1) {
-            System.out.println("met stijl");
-            postsFromFollowers = filterPosts(postsFromFollowers, style);
-        }
-        if (minPrijs != null || maxPrijs != null) {
-            postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);
-        }
-
-        model.addAttribute("allposts",postsFromFollowers);
         return "foryoupage";
     }
 

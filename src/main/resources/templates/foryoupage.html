@@ -9,11 +9,12 @@
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
+<header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="dropdown filterContainer position-fixed">
         <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
         <div class="collapse" id="collapseExample">
-            <form class="card card-body">
+            <form class="card card-body scroll">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
                     <option value="">Alle</option>

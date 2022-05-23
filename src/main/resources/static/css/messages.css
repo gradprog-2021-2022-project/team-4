@@ -1,16 +1,28 @@
 .receivedMessage{
     text-align: left;
     margin-right: 50%;
+    background-color: cornflowerblue;
+    width: fit-content;
+    border-radius: 25px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 .sentMessage{
     text-align: right;
-    margin-left: 50%;
+    margin-left: auto;
+    margin-right: 0;
+    background-color: lightslategray;
+    width: fit-content;
+    border-radius: 25px;
+    padding: 5px;
+    margin-bottom: 5px;
 }
 .messageForm{
     width: available;
     height: 100px;
 }
 .message{
+    display: flex;
     width: available;
 }
 .messages{

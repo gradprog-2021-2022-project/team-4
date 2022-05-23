@@ -203,6 +203,11 @@ public class PostController {
             //De comments worden pas gezocht als de post bestaat
             model.addAttribute("comments", comments.findCommentsForPost(optionalFashPost.get()));
         }
+        if ((principal.getName()) == (posts.findById(id).get().getPoster().getFirst_name())) {
+            model.addAttribute("canedit", "true");
+        }
+        model.addAttribute("user", principal.getName());
+        model.addAttribute("poster", posts.findById(id).get().getPoster().getFirst_name());
         return "postDetails";
     }
 

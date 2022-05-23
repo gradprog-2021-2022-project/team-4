@@ -57,15 +57,13 @@ public class EditPostController {
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             valid.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
-        /////////////////////////////////
-        List<Clothing_Item> clothing_items = valid.getPoster().getClothing_posted() ;
+
+        List<Clothing_Item> clothing_items = new ArrayList<>();
+        //clothing_items = valid.getClothes().stream().toList();
         postRepository.save(valid);
-        //model.addAttribute("allclothes" , clothing_items);
 
         for (Clothing_Item c: valid.getClothes()) {
             if(c.getNaam()!=null && !c.getNaam().equals("")){
-                c.setUserOwner(users.findFashUserByUsername(principal.getName()));
-                c.setPost(valid);
                 clothing_items.add(c);
                 clothingRepository.save(c);
             }

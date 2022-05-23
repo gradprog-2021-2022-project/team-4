@@ -15,6 +15,15 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
+    <p th:text="| poster : ${poster}|"></p>
+    <p th:text="| current user : ${user}|"></p>
+    <p th:text="${canedit}"></p>
+
+    <div>
+        <a th:href="@{'/editpost/' + ${post.id}}">
+            <input type="button" value="Edit post!" class="btnCss" style="text-align:center">
+        </a>
+    </div>
     <div th:if="${post}">
         <article class="postDetails">
             <section class="sidePic borderGrid">

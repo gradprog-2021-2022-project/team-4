@@ -43,6 +43,7 @@ public class ForYouController {
             Collections.sort(postsFromFollowers);
             Collections.reverse(postsFromFollowers);
             model.addAttribute("curUser", loggedUser);
+
             //Filters uitvoeren
             if (style != null && style.length() > 1) {
                 System.out.println("met stijl");
@@ -52,11 +53,15 @@ public class ForYouController {
             }
             if (minPrijs != null || maxPrijs != null) {
                 postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);
+
+                //Doorgeven van de filters aan het model
                 model.addAttribute("minFilter",minPrijs);
                 model.addAttribute("maxFilter",maxPrijs);
             }
-
+            //Toevoegen van gesorteerde en gefilterde posts aan het model
             model.addAttribute("allposts",postsFromFollowers);
+
+            //Comment enkel toevoegen als die geplaats kan worden
             if (commentText != null) {
                 FashPost post = posts.findById(postId).get();
                 FashComment comment=new FashComment();
@@ -68,13 +73,7 @@ public class ForYouController {
                 comments.save(comment);
                 return "redirect:/foryoupage";
             }
-            if (longitude != null && latitude != null) {
-                loggedUser.setLatitude(latitude);
-                loggedUser.setLongitude(longitude);
-                users.save(loggedUser);
-            }
         }
-        //if (id == null) return "foryoupage";
         return "foryoupage";
     }
 

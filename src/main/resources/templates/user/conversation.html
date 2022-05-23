@@ -90,26 +90,29 @@
         ;
     };
 </script>
-<body onload="startScript()">
+<body onload="startScript()" style="background-color: lightgray;">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
 <p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()">
+<aside sec:authorize="isAuthenticated()" class="messageAddUser">
     <form th:action="@{|/adduser/${convo.getId()}|}">
         <select name="id">
             <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
                     th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
         </select>
-        <button type="submit">Voeg toe!</button>
+        <br>
+        <button class="btn btn-dark" type="submit">Voeg toe!</button>
     </form>
+</aside>
+<main sec:authorize="isAuthenticated()" class="messages">
     <div id="messages">
         Berichtjes laden...
     </div>
     <article>
         <form class="messageForm">
             <input name="text" type="text" placeholder="Begin met typen..." required="required">
-            <button type="submit">Stuur!</button>
+            <button class="btn btn-dark" type="submit">Stuur!</button>
         </form>
     </article>
 </main>

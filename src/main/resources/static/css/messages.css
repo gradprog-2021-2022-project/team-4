@@ -1,20 +1,22 @@
 .receivedMessage{
     text-align: left;
     margin-right: 50%;
-    background-color: cornflowerblue;
+    background-color: #89B6A5;
+    color: white;
     width: fit-content;
-    border-radius: 25px;
-    padding: 5px;
+    border-radius: 5px;
+    padding: 15px;
     margin-bottom: 5px;
 }
 .sentMessage{
     text-align: right;
     margin-left: auto;
     margin-right: 0;
-    background-color: lightslategray;
+    color:black;
+    background-color:white;
     width: fit-content;
-    border-radius: 25px;
-    padding: 5px;
+    border-radius: 5px;
+    padding: 15px;
     margin-bottom: 5px;
 }
 .messageForm{
@@ -26,9 +28,15 @@
     width: available;
 }
 .messages{
-    width: 100%;
+    width: available;
+    background-color: lightgray;
+    height: available;
 }
 .messagePic{
     width: auto;
     height: 25px;
+}
+.messageAddUser{
+    float: right;
+    margin-right: 10%;
 }

@@ -57,12 +57,12 @@
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashPost.getPoster().getUsername()}"></p></strong>
                 <p class="sectionbiotext"th:text="${fashPost.getText()}"></p>
-                <strong><p class="sectionbiolikes"th:text="|${fashPost.getLikes()} likes|"></p></strong>
+<!--                <strong><p class="sectionbiolikes"th:text="|${fashPost.getLikes()} likes|"></p></strong>-->
                 <div class="commentsothers" th:if="${fashPost.getOneComment()}">
-                    <div th:if="${fashPost.getPoster().getProfilePic()}">
-                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
+                    <div th:if="${fashPost.getOneComment().getUser().getId()}">
+                        <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashPost.getOneComment().getUser().getId()}|">
                     </div>
-                    <div th:unless="${fashPost.getPoster().getProfilePic()}">
+                    <div th:unless="${fashPost.getOneComment().getUser().getId()}">
                         <i class="noprofilepic fa fa-fw fa-user"></i>
                     </div>
                     <strong><p class="sectionbioname" th:text="${fashPost.getOneComment().getUser().getUsername()}"></p></strong>

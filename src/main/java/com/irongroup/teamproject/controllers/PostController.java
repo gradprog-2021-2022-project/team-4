@@ -6,7 +6,10 @@ import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
+import com.sun.jdi.event.MethodExitEvent;
 import org.apache.commons.io.IOUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +29,7 @@ import java.util.*;
 
 @Controller
 public class PostController {
+    private Logger logger = LoggerFactory.getLogger(PostController.class);
     @Autowired
     PostRepository posts;
     @Autowired
@@ -42,19 +46,42 @@ public class PostController {
 
     //FILTERS WERKEN!!!
     @GetMapping("/explorepage")
-    public String explorepage(Model model, Principal principal, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
+    public String explorepage(Model model, Principal principal, @RequestParam(required = false) String naamPerson, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
                               @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs) {
+        logger.info("explorepage -- naamPerson=" + naamPerson);
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         //Eerst alle posts ophalen!
         Collection<FashUser> fashUsers = users.findUsersWithPosts();
+
+        Collection<FashUser> thesame = new ArrayList<>();
+
+        //kijken of er een naam gezocht wordt
+        if (naamPerson != null && naamPerson != "") {
+            Collection<FashUser> fashUsersKeyword = users.findByKeyword(naamPerson);
+            for (FashUser user:fashUsersKeyword) {
+                for (FashUser user2:fashUsers) {
+                    if (user2.getId() == user.getId()) {
+                        thesame.add(user);
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            for (FashUser user:fashUsers) {
+                thesame.add(user);
+            }
+        }
+
+
         //Kijken voor de stijl en zoja filteren
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
-            fashUsers = filterPosts(fashUsers, style);
+            thesame = filterPosts(thesame, style);
         }
         if (minPrijs != null || maxPrijs != null) {
-            fashUsers = filterPrice(fashUsers, minPrijs, maxPrijs);
+            thesame = filterPrice(thesame, minPrijs, maxPrijs);
         }
 
         System.out.println(loginName);
@@ -84,10 +111,12 @@ public class PostController {
         }
         System.out.println("closeby = " + closeby);
         if (closeby != null && closeby && principal != null) {
-            model.addAttribute("fashUsers", orderByLocation(principal, fashUsers));
+            model.addAttribute("fashUsers", orderByLocation(principal, thesame));
         } else {
-            model.addAttribute("fashUsers", fashUsers);
+            model.addAttribute("fashUsers", thesame);
         }
+        model.addAttribute("naamPerson", naamPerson);
+        model.addAttribute("style", style);
         model.addAttribute("longitude", longitude);
         model.addAttribute("latitude", latitude);
         model.addAttribute("closeby", closeby);

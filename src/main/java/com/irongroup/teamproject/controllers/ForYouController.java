@@ -44,6 +44,8 @@ public class ForYouController {
             Collections.reverse(postsFromFollowers);
             model.addAttribute("curUser", loggedUser);
 
+            // TODO : enkel filters tonen als je ingelogd bent!
+
             //Filters uitvoeren
             if (style != null && style.length() > 1) {
                 System.out.println("met stijl");

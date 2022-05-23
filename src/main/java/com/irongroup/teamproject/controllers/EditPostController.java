@@ -29,11 +29,6 @@ public class EditPostController {
     @Autowired
     private ClothingRepository clothingRepository;
 
-    @GetMapping("/editpost/{id}")
-    public String postEdit() {
-        return "editpost";
-    }
-
     //post edit
     @ModelAttribute("valid")
     public FashPost findPost(@PathVariable(required = false) Integer id) {
@@ -44,6 +39,13 @@ public class EditPostController {
         return new FashPost();
     }
 
+    @GetMapping("/editpost/{id}")
+    public String postEdit(Model model, @PathVariable int id) {
+        FashPost post = postRepository.findById(id).get();
+        postRepository.save(post);
+        return "editpost";
+    }
+
     @PostMapping("/editpost/{id}")
     public String postEditPost(Model model,@PathVariable int id, Principal principal,
                               @ModelAttribute("valid") @Valid FashPost valid, BindingResult bindingResult,
@@ -52,23 +54,26 @@ public class EditPostController {
         if (bindingResult.hasErrors()) {
             return "/editpost";
         }
-        postRepository.save(valid);
+        FashPost post = postRepository.findById(id).get();
+        postRepository.save(post);
         //photo
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
-            valid.setPostPic(multipartFile.getInputStream().readAllBytes());
+            post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 
-        List<Clothing_Item> clothing_items = new ArrayList<>();
-        //clothing_items = valid.getClothes().stream().toList();
-        postRepository.save(valid);
+        List<Clothing_Item> clothing_items = postRepository.findById(id).get().getClothes().stream().toList();
+        postRepository.save(post);
+        model.addAttribute("clothes", clothing_items.size());
 
-        for (Clothing_Item c: valid.getClothes()) {
+        for (Clothing_Item c: post.getClothes()) {
             if(c.getNaam()!=null && !c.getNaam().equals("")){
-                clothing_items.add(c);
                 clothingRepository.save(c);
             }
         }
-        postRepository.save(valid);
+        // om te kijken of de current user is de poster
+        model.addAttribute("user", principal.getName());
+        model.addAttribute("poster", postRepository.findById(id).get().getPoster().getFirst_name());
+        postRepository.save(post);
         return "redirect:/postDetails/"+ id;
     }
 }

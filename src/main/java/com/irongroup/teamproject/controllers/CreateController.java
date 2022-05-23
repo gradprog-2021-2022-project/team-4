@@ -5,7 +5,6 @@ import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.repositories.ClothingRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
-import org.hibernate.mapping.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -27,8 +27,13 @@
         </div>
         <div>
             <h2>Edit post :</h2>
+            <!--
+    <p th:text="| poster : ${poster}|"></p>
+    <p th:text="| current user : ${user}|"></p>
+    <p th:text="| clothes : ${clothes}|"></p>
+    -->
         </div>
-    <div sec:authorize="isAuthenticated()">
+    <div>
     <form th:action="@{|/editpost/${valid.id}|}" th:object="${valid}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 

@@ -67,23 +67,23 @@
             //Elementen maken die in elke message zullen staan
             let curSegment = document.createElement("section");
             let curDiv = document.createElement("div");
-            let curPic = document.createElement("img");
             let textnode = document.createTextNode(arrayConvo[i].text);
-
+            let namenode=document.createElement("h3");
+            let nametext=document.createTextNode(arrayConvo[i].sender.username)
             if (arrayConvo[i].sender.username === curUser.innerText) {
                 //Een verstuurd bericht krijgt een andere klasse
                 curDiv.setAttribute("class", "sentMessage");
-                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
-                curDiv.appendChild(curPic);
             } else {
                 //Een ontvangen bericht krijgt een andere klasse
                 curDiv.setAttribute("class", "receivedMessage");
-                curPic.setAttribute("th:src", "@{/u/image/" + arrayConvo[i].sender.id + "}");
-                curDiv.appendChild(curPic);
             }
-            //Toekennen van attributen aan de elementen (vooral klasses!)
+            //Toekennen van attributen aan de elementen
+            namenode.appendChild(nametext);
+            curDiv.appendChild(namenode);
+
             curSegment.setAttribute("class", "message");
             curDiv.appendChild(textnode);
+
             curSegment.append(curDiv);
             newMessages.appendChild(curSegment);
         }

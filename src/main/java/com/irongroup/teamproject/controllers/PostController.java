@@ -46,9 +46,6 @@ public class PostController {
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
                               @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs) {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
-        /*
-        Op de explore page roep je eerst alle posts aan en dan worden de filters in volgorde aangezet, zo moet niks gecombineerd worden!
-        */
         //Eerst alle posts ophalen!
         Collection<FashUser> fashUsers = users.findUsersWithPosts();
         //Kijken voor de stijl en zoja filteren

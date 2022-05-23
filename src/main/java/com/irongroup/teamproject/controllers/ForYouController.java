@@ -47,6 +47,8 @@ public class ForYouController {
             if (style != null && style.length() > 1) {
                 System.out.println("met stijl");
                 postsFromFollowers = filterPosts(postsFromFollowers, style);
+                //Toevoegen aan model voor filter check
+                model.addAttribute("stijlFilter",style);
             }
             if (minPrijs != null || maxPrijs != null) {
                 postsFromFollowers= filterPrice(postsFromFollowers, minPrijs, maxPrijs);

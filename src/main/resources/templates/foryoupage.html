@@ -18,10 +18,10 @@
             <form class="card card-body scroll">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
-                    <option value="">Alle</option>
-                    <option value="Modern">Modern</option>
-                    <option value="Klassiek">Klassiek</option>
-                    <option value="Goth">Goth</option>
+                    <option th:selected="${stijlFilter==null}" value="">Alle</option>
+                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Modern')}" value="Modern">Modern</option>
+                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Klassiek')}" value="Klassiek">Klassiek</option>
+                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Goth')}" value="Goth">Goth</option>
                 </select>
                 <label for="minprijs">Minimum:</label>
                 <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">

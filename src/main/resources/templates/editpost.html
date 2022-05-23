@@ -31,7 +31,6 @@
     <div sec:authorize="isAuthenticated()">
     <form th:action="@{|/editpost/${valid.id}|}" th:object="${valid}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
-
         <label for="text">Tekst:</label><br>
         <input class="inputCss" type="text" id="text" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
         <label for="locatie">Locatie:</label><br>

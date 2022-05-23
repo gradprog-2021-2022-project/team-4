@@ -203,6 +203,7 @@ public class PostController {
             //De comments worden pas gezocht als de post bestaat
             model.addAttribute("comments", comments.findCommentsForPost(optionalFashPost.get()));
         }
+        // kijken of de current user is de poster ???!!
         if ((principal.getName()) == (posts.findById(id).get().getPoster().getFirst_name())) {
             model.addAttribute("canedit", "true");
         }

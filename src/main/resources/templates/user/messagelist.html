@@ -9,16 +9,16 @@
 </head>
 <body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside class="userListMessages">
-  <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers" value="Gebruikers">
-  <article class="collapse" id="collapseUsers">
-    <section th:each="follower : ${followers}">
-      <a class="btn btn-dark" th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
-    </section>
-  </article>
-</aside>
 <main sec:authorize="isAuthenticated()" class="convoList">
-  <h2>Gesprekken:</h2>
+  <div class="userListMessages">
+    <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers" value="Gebruikers">
+    <article class="collapse card-body " id="collapseUsers">
+      <section th:each="follower : ${followers}">
+        <a class="btn btn-dark" th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
+      </section>
+    </article>
+  </div>
+  <h2>Gesprekken</h2>
   <article th:each="convo : ${convos}">
     <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
       <h2 th:text="${convo.getConvoNaam()}"></h2>

@@ -60,15 +60,6 @@
     font-size: small;
     color:lightgray;
 }
-
-.userListMessages{
-    margin-top: 100px;
-    margin-left: 5%;
-    position: absolute;
-}
-.userListMessages a{
-    margin-top: 5px;
-}
 .convoList{
     width: available;
     background-color: lightgray;
@@ -86,4 +77,11 @@
 .convoList a{
     margin-top: 5px;
     width: 100%;
+}
+
+.userListMessages{
+    position: absolute;
+}
+.userListMessages a{
+    margin-top: 5px;
 }

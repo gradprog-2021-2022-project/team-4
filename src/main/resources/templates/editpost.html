@@ -27,49 +27,30 @@
         </div>
         <div>
             <h2>Edit post :</h2>
-            <!--
-    <p th:text="| poster : ${poster}|"></p>
-    <p th:text="| current user : ${user}|"></p>
-    <p th:text="| clothes : ${clothes}|"></p>
-    -->
         </div>
     <div>
-    <form th:action="@{|/editpost/${valid.id}|}" th:object="${valid}" method="post" enctype="multipart/form-data">
+    <form th:action="@{|/editpost/${post.id}|}" th:object="${post}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 
         <label for="text">Tekst:</label><br>
         <input class="inputCss" type="text" id="text" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
         <label for="locatie">Locatie:</label><br>
         <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required="required"><br>
-        <div id="newClothing" th:field="*{clothes}">
-            <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item 1"><br>
-            <div class="collapse" id="collapseExample">
-                <label for="type">Type:</label><br>
-                <input class="inputCss" id="type" type="text" th:field="*{clothes[0].type}" required="required"><br>
-                <label for="name">Name:</label><br>
-                <input class="inputCss" id="name" type="text" th:field="*{clothes[0].naam}" required="required"><br>
-                <label for="price">Price:</label><br>
-                <input class="inputCss" id="price" type="number" step="0.01" th:field="*{clothes[0].prijs}" required="required"><br>
-                <label for="link">Link to shop:</label><br>
-                <input class="inputCss" id="link" type="text" th:field="*{clothes[0].linkShop}" required="required"><br>
-            </div>
-            <!--
-            <div>
-            <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item 2"><br>
-            <div class="collapse" id="collapseExample2">
-                <label for="type">Type:</label><br>
-                <input class="inputCss" id="type2" type="text" th:field="*{clothes[1].type}" ><br>
-                <label for="name">Name:</label><br>
-                <input class="inputCss" id="name2" type="text" th:field="*{clothes[1].naam}" ><br>
-                <label for="price">Price:</label><br>
-                <input class="inputCss" id="price2" type="number" step="0.01" th:field="*{clothes[1].prijs}" ><br>
-                <label for="link">Link to shop:</label><br>
-                <input class="inputCss" id="link2" type="text" th:field="*{clothes[1].linkShop}" ><br>
-            </div>
-            </div>
-            -->
-        </div>
 
+        <div id="editClothing" th:each="items, itemStat: *{clothes}">
+            <div>
+                <br>
+                <label> <h6 style="color: white; border: 3px solid black; border-radius: 20px; background-color: #B685FF; padding: 8px;" > <strong th:text="|Clothing Item ${itemStat.index+1} :|" ></strong> </h6> </label><br>
+                <label for="type">Type:</label><br>
+                <input class="inputCss" id="type" type="text" th:field="*{clothes[__${itemStat.index}__].type}" th:value="${items.getType()}" required="required"><br>
+                <label for="name">Name:</label><br>
+                <input class="inputCss" id="name" type="text" th:field="*{clothes[__${itemStat.index}__].naam}" th:value="${items.getNaam()}" required="required"><br>
+                <label for="price">Price:</label><br>
+                <input class="inputCss" id="price" type="number" step="0.01" th:field="*{clothes[__${itemStat.index}__].prijs}" th:value="${items.getPrijs()}" required="required"><br>
+                <label for="link">Link to shop:</label><br>
+                <input class="inputCss" id="link" type="text" th:field="*{clothes[__${itemStat.index}__].linkShop}" th:value="${items.getLinkShop()}" required="required"><br>
+            </div>
+        </div>
         <br>
         <label for="image">Upload outfit :</label><br>
         <input type="file" name="image" id="image" accept="image/png, image/jpeg"><br>

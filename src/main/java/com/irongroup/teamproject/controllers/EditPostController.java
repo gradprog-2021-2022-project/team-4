@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +42,7 @@ public class EditPostController {
     public String postEdit(Model model, @PathVariable int id) {
         FashPost post = postRepository.findById(id).get();
         postRepository.save(post);
+        model.addAttribute("post", post);
         return "editpost";
     }
 
@@ -63,16 +63,12 @@ public class EditPostController {
 
         List<Clothing_Item> clothing_items = postRepository.findById(id).get().getClothes().stream().toList();
         postRepository.save(post);
-        model.addAttribute("clothes", clothing_items.size());
 
         for (Clothing_Item c: post.getClothes()) {
             if(c.getNaam()!=null && !c.getNaam().equals("")){
                 clothingRepository.save(c);
             }
         }
-        // om te kijken of de current user is de poster
-        model.addAttribute("user", principal.getName());
-        model.addAttribute("poster", postRepository.findById(id).get().getPoster().getFirst_name());
         postRepository.save(post);
         return "redirect:/postDetails/"+ id;
     }

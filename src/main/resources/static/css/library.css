@@ -138,12 +138,23 @@ nav a:hover {
     display: none;
 }
 
+/*the img in navbar*/
 .imgNavbar {
     width: 57px;
+    border-radius: 0px 0px 0px 0px;
+}
+
+/*class for a-tag around the img in navbar*/
+.imgNavbarlink {
+    width: fit-content;
     left: 0;
     position: absolute;
-    margin-left: 2%;
-    border-radius: 0px 0px 0px 0px;
+    padding: 0;
+    margin-left: 30px;
+}
+
+.imgNavbarlink:hover {
+    background-color: #faff7f;
 }
 
 .btnCss{

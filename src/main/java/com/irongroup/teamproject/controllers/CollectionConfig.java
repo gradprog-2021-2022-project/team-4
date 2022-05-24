@@ -11,7 +11,7 @@ public class CollectionConfig {
 
     @Bean
     public List<String> nameList(){
-        return Arrays.asList("Modern","Klassiek","Goth");
+        return Arrays.asList("Preppy","Street style","Classic","Comfy","Streetwear","Casual","Y2K","Cute");
     }
 
 

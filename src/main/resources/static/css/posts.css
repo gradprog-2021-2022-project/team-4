@@ -194,29 +194,29 @@ h3.sectionrows {
     width: 100%;
     display: grid;
     grid-template-areas: 'gpic gitems';
-    grid-column-gap: 25px;
     grid-row-gap: 25px;
     border-radius: 20px;
-    box-sizing: border-box;
     min-width: 250px;
+    max-width: max-content;
     background: #F7F7FD;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 .sidePic{
     grid-area: gpic;
     align-content: center;
+    display: flex;
     justify-content: center;
+    border-radius: 20px 0% 0% 20px;
+    background: black;
     height: auto;
 }
 .sidePic img{
-    min-width: 250px;
-    min-height: 550px;
     border-radius: 20px 0% 0% 20px;
-    height: auto;
-    max-height: 500px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: auto;
     width: 100%;
-    aspect-ratio: 15/20;
-    object-fit: cover;
+    float: left;
 }
 .postitems lu {
     display: inline;
@@ -250,8 +250,8 @@ h3.sectionrows {
 }
 main{
     margin-top: 100px;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 /*Voor de username in een comment*/
 .username{

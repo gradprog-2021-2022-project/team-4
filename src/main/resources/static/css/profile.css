@@ -26,14 +26,17 @@
     color: black;
 }
 
-.followetcbtncolour {
+/*paarse button voor volgen en volgers, etc*/
+.followetcbtnpurple {
     background-color: #E8D7FF;
-}
-
-/*follow button op iemand anders pagina*/
-.followbtn {
-    background-color: #E8D7FF;
-    margin-right: 45px;
+    border-radius: 8px;
+    font-style: italic;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 5px 7px;
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
 }
 
 .hr-lines:after{
@@ -74,11 +77,6 @@
 .clothesbtn {
     margin-top: 20px;
     flex: 1 0 50%;
-}
-
-/*om clothes button op hele breedte te zetten op iemand anders profilepage*/
-.breed {
-    flex: 1 0 100%;
 }
 
 /*buttons op 1ste lijn*/

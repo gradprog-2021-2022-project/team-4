@@ -31,15 +31,30 @@
 .messages{
     width: available;
     background-color: lightgray;
+    height: 500px;
+    overflow:scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.messages::-webkit-scrollbar{
+    display: none;
+}
+.messagemain{
+    background-color: lightgray;
+    height: auto;
+}
+.messagebody{
+    overflow: hidden;
     height: available;
+    background-color: lightgray;
 }
 .messagePic{
     width: auto;
     height: 25px;
 }
 .messageAddUser{
-    float: right;
-    margin-right: 10%;
+    margin-left: 85%;
+    position: absolute;
 }
 .message h3{
     font-size: small;

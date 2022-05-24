@@ -34,8 +34,8 @@
                         loadData();
                         console.log("data loaded");
                     }
-                    console.log(xhr.responseText);
-                    console.log("status ok");
+                    //console.log(xhr.responseText);
+                    //console.log("status ok");
                 } else {
                     console.log('Error: ' + xhr.status); // An error occurred during the request.
                 }
@@ -119,13 +119,15 @@
             newMessages.appendChild(curSegment);
         }
         ;
+        //Naar het laatste bericht gaan met auto scroll
+        var objDiv = document.getElementById("messages");
+        objDiv.scrollTop = objDiv.scrollHeight;
     };
 </script>
-<body onload="startScript()" style="background-color: lightgray;">
+<body onload="startScript()" class="messagebody">
 <p style="display: none" th:text="${convo.getId()}" id="hiddenID"></p>
 <p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
 <p style="display: none" id="hiddenConvoSize" th:text="${convo.getMessages().size()}"></p>
-<header th:replace="fragments/head_foot :: headerfrag"></header>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside sec:authorize="isAuthenticated()" class="messageAddUser">
     <form th:action="@{|/adduser/${convo.getId()}|}">
@@ -137,8 +139,8 @@
         <button class="btn btn-dark" type="submit">Voeg toe!</button>
     </form>
 </aside>
-<main sec:authorize="isAuthenticated()" class="messages">
-    <div id="messages">
+<main sec:authorize="isAuthenticated()" class="messagemain">
+    <div id="messages" class="messages">
         Berichtjes laden...
     </div>
     <article>

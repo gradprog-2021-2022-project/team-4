@@ -14,4 +14,7 @@ public class CollectionConfig {
         return Arrays.asList("Modern","Klassiek","Goth");
     }
 
+
+    @Bean
+    public List<String> typeList(){ return Arrays.asList("Broek","Sokken","Trui","T-shirt","Sieraad","Sokken","Schoenen");}
 }

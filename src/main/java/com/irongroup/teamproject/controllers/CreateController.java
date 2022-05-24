@@ -33,9 +33,13 @@ public class CreateController {
     @Autowired
     List<String> nameList;
 
+    @Autowired
+    List<String> typeList;
+
     @GetMapping("/postnew")
     public String postNew(Model model) {
         model.addAttribute("styles", nameList);
+        model.addAttribute("types", typeList);
         return "createpost";
     }
 

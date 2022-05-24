@@ -60,3 +60,30 @@
     font-size: small;
     color:lightgray;
 }
+
+.userListMessages{
+    margin-top: 100px;
+    margin-left: 5%;
+    position: absolute;
+}
+.userListMessages a{
+    margin-top: 5px;
+}
+.convoList{
+    width: available;
+    background-color: lightgray;
+    height: 500px;
+    overflow:scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.convoList::-webkit-scrollbar{
+    display: none;
+}
+.messagelistbody{
+    background-color: lightgray;
+}
+.convoList a{
+    margin-top: 5px;
+    width: 100%;
+}

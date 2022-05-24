@@ -3,22 +3,24 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
 <head>
   <link rel="stylesheet" type="text/css" media="all"
-        th:href="@{/css/posts.css}" href="/css/posts.css"/>
+        th:href="@{/css/messages.css}" href="/css/messages.css"/>
   <title>Messages</title>
   <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
-<body>
+<body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside>
-  <article>
-    <section style="padding-top: 50px" th:each="follower : ${followers}">
-      <a th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
+<aside class="userListMessages">
+  <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers" value="Gebruikers">
+  <article class="collapse" id="collapseUsers">
+    <section th:each="follower : ${followers}">
+      <a class="btn btn-dark" th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
     </section>
   </article>
 </aside>
-<main sec:authorize="isAuthenticated()">
+<main sec:authorize="isAuthenticated()" class="convoList">
+  <h2>Gesprekken:</h2>
   <article th:each="convo : ${convos}">
-    <a th:href="@{|/messages/${convo.getId()}|}">
+    <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
       <h2 th:text="${convo.getConvoNaam()}"></h2>
     </a>
   </article>

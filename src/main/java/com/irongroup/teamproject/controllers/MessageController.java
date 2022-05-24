@@ -133,6 +133,7 @@ public class MessageController {
                 dingetje = "redirect:/messages/" + c.getId();
                 //dingetje= "redirect:/nergens";
             } else {
+                System.out.println("We zijn hier");
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             }
         } catch (Exception e) {

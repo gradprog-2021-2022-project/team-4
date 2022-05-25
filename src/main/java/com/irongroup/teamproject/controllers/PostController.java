@@ -173,37 +173,42 @@ public class PostController {
     public String postDetails(Model model, @PathVariable(required = false) Integer id, Principal
             principal, @RequestParam(required = false) String commentText, @RequestParam(required = false) String
                                       commentTitle) {
-        //Kijken of je aangemeld bent;
-        //boolean aangemeld= principal != null;
-        //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
-        if (principal != null) {
-            FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
-            if (commentText != null) {
-                FashPost post = posts.findById(id).get();
-                FashComment comment=new FashComment();
-                comment.setUser(loggedInUser);
-                comment.setText(commentText);
-                comment.setPost(post);
-                comment.setTitle(commentTitle);
-                comment.setDate(LocalDate.now());
-                comment.setTime(LocalTime.now());
-                comments.save(comment);
-                return "redirect:/postDetails/" + id;
+        try{
+            //Kijken of je aangemeld bent;
+            //boolean aangemeld= principal != null;
+            //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
+            if (principal != null) {
+                FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
+                if (commentText != null) {
+                    FashPost post = posts.findById(id).get();
+                    FashComment comment=new FashComment();
+                    comment.setUser(loggedInUser);
+                    comment.setText(commentText);
+                    comment.setPost(post);
+                    comment.setTitle(commentTitle);
+                    comment.setDate(LocalDate.now());
+                    comment.setTime(LocalTime.now());
+                    comments.save(comment);
+                    return "redirect:/postDetails/" + id;
+                }
             }
-        }
-        if (id == null) return "postDetails";
+            if (id == null) return "postDetails";
 
-        //Kijken of de post bestaat en toevoegen aan model
-        Optional<FashPost> optionalFashPost = posts.findById(id);
-        if (optionalFashPost.isPresent()) {
-            model.addAttribute("post", optionalFashPost.get());
-            //De comments worden pas gezocht als de post bestaat
-            model.addAttribute("comments", comments.findCommentsForPost(optionalFashPost.get()));
+            //Kijken of de post bestaat en toevoegen aan model
+            Optional<FashPost> optionalFashPost = posts.findById(id);
+            if (optionalFashPost.isPresent()) {
+                model.addAttribute("post", optionalFashPost.get());
+                //De comments worden pas gezocht als de post bestaat
+                model.addAttribute("comments", comments.findCommentsForPost(optionalFashPost.get()));
+            }
+            // om te kijken of de current user is de poster
+            model.addAttribute("user", principal.getName());
+            model.addAttribute("poster", posts.findById(id).get().getPoster().getUsername());
+            return "postDetails";
+        }catch (Exception e){
+            //NIKS
+            return "postDetails";
         }
-        // om te kijken of de current user is de poster
-        model.addAttribute("user", principal.getName());
-        model.addAttribute("poster", posts.findById(id).get().getPoster().getUsername());
-        return "postDetails";
     }
 
     //Liken stuurt gewoon terug naar dezelfde pagina met toegevoegde like

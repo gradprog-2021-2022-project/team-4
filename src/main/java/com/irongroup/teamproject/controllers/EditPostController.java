@@ -39,10 +39,13 @@ public class EditPostController {
     }
 
     @GetMapping("/editpost/{id}")
-    public String postEdit(Model model, @PathVariable int id) {
+    public String postEdit(Model model, @PathVariable int id, Principal principal) {
         FashPost post = postRepository.findById(id).get();
         postRepository.save(post);
         model.addAttribute("post", post);
+        // om te kijken of de current user is de poster
+        model.addAttribute("user", principal.getName());
+        model.addAttribute("poster", postRepository.findById(id).get().getPoster().getFirst_name());
         return "editpost";
     }
 

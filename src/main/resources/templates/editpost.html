@@ -28,7 +28,7 @@
         <div>
             <h2>Edit post :</h2>
         </div>
-    <div>
+    <div th:if="${poster.equals(user)}">
     <form th:action="@{|/editpost/${post.id}|}" th:object="${post}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
 

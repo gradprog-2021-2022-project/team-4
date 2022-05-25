@@ -4,7 +4,6 @@ import com.irongroup.teamproject.model.Clothing_Item;
 import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.repositories.ClothingRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
-import com.irongroup.teamproject.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,25 +14,17 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class CreateController {
+public class EditPostController {
+
     @Autowired
     private PostRepository postRepository;
     @Autowired
-    private UserRepository users;
-    @Autowired
     private ClothingRepository clothingRepository;
 
-    @GetMapping("/postnew")
-    public String postNew(Model model) {
-        return "createpost";
-    }
-
-    //post create
+    //post edit
     @ModelAttribute("valid")
     public FashPost findPost(@PathVariable(required = false) Integer id) {
         if (id!=null) {
@@ -43,39 +34,38 @@ public class CreateController {
         return new FashPost();
     }
 
-    @PostMapping("/postnew")
-    public String postNewPost(Model model, Principal principal,
+    @GetMapping("/editpost/{id}")
+    public String postEdit(Model model, @PathVariable int id, Principal principal) {
+        FashPost post = postRepository.findById(id).get();
+        postRepository.save(post);
+        model.addAttribute("post", post);
+        // om te kijken of de current user is de poster
+        model.addAttribute("user", principal.getName());
+        model.addAttribute("poster", postRepository.findById(id).get().getPoster().getUsername());
+        return "editpost";
+    }
+
+    @PostMapping("/editpost/{id}")
+    public String postEditPost(@PathVariable int id,
                               @ModelAttribute("valid") @Valid FashPost valid, BindingResult bindingResult,
                               @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         if (bindingResult.hasErrors()) {
-            return "createpost";
+            return "/editpost";
         }
-        FashPost post = new FashPost();
+        FashPost post = postRepository.findById(id).get();
+        postRepository.save(post);
         //photo
         if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
             post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 
-        List<Clothing_Item> clothing_items = new ArrayList<>();
-        postRepository.save(post);
-
-        for (Clothing_Item c: valid.getClothes()) {
+        for (Clothing_Item c: post.getClothes()) {
             if(c.getNaam()!=null && !c.getNaam().equals("")){
-                c.setUserOwner(users.findFashUserByUsername(principal.getName()));
-                c.setPost(post);
-                clothing_items.add(c);
                 clothingRepository.save(c);
             }
         }
-        post.setLikes(0);
-        post.setClothes(clothing_items);
-        post.setLocation(valid.getLocation());
-        post.setDate(java.time.LocalDate.now());
-        post.setTime(java.time.LocalTime.now());
-        post.setPoster(users.findFashUserByUsername(principal.getName()));
-        post.setText(valid.getText());
         postRepository.save(post);
-        return "redirect:/postDetails/"+post.getId();
+        return "redirect:/postDetails/"+ id;
     }
 }

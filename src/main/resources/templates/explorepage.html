@@ -59,12 +59,12 @@
                         <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
                     </button>
                 </form>
-                <div class="buttonsdiv formbtn" th:if="${curUser.following.contains(fashUser)}">
+                <div class="buttonsdiv formbtn" th:if="${curUser !=null && curUser.following.contains(fashUser)}">
                     <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
                         <button type="submit" class="bttnExplore section">Unfollow</button><br>
                     </form>
                 </div>
-                <div class="buttonsdiv formbtn" th:unless="${curUser.following.contains(fashUser)}">
+                <div class="buttonsdiv formbtn" th:unless="${curUser!=null && curUser.following.contains(fashUser)}">
                     <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
                         <button type="submit" class="bttnExplore section">Follow</button><br>
                     </form>

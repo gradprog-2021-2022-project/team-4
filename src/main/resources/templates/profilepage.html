@@ -26,13 +26,15 @@
                 <!--om erachter te komen welke id deze gebruiker heeft-->
                 <!--<h2 th:text="${user.getId()}">id</h2>-->
                 <div class="buttonsdiv" th:if="${follow}">
-                    <strong><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}"
-                               class="followetcbtn followbtn"></a></strong>
-                    <strong><a th:href="@{|/followerspage/${user.getId()}|}"
+                    <strong class="flex"><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}"
+                               class="left followetcbtnpurple"></a></strong>
+                    <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
                                th:text="${user.aantalFollowers() + ' volgers'}"
-                               class="followetcbtn followetcbtncolour"></a></strong>
-                    <strong class="clothesbtn breed"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
-                                                        class="followetcbtn followetcbtncolour"></a></strong>
+                               class="right followetcbtnpurple"></a></strong>
+                    <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
+                                                        class="left followetcbtnpurple"></a></strong>
+                    <strong class="clothesbtn"><a th:href="@{|/checkconvo/${user.getId()}|}" th:text="message"
+                                                  class="right followetcbtnpurple"></a></strong>
                 </div>
                 <div class="buttonsdiv" th:unless="${follow}">
                     <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"

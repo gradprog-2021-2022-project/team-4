@@ -13,6 +13,8 @@
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
                 <h3>Style</h3>
+                <label for="naamPerson">name:</label><br>
+                <input type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username"><br>
                 <select name="style" placeholder="Kies een stijl!">
                     <option th:value="${null}" th:text="Alle"></option>
                     <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
@@ -44,15 +46,17 @@
                         <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
                     </button>
                 </form>
-                <div  th:if="${curUser !=null && curUser.following.contains(fashUser)}">
-                    <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                        <button type="submit" class="btn-dark borderBtn">Unfollow</button><br>
-                    </form>
-                </div>
-                <div  th:unless="${curUser!=null && curUser.following.contains(fashUser)}">
-                    <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                        <button type="submit" class="btn-dark borderBtn">Follow</button><br>
-                    </form>
+                <div sec:authorize="isAuthenticated()">
+                    <div class="buttonsdiv formbtn" th:if="${curUser !=null &&curUser.following.contains(fashUser)}">
+                        <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                            <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                        </form>
+                    </div>
+                    <div class="buttonsdiv formbtn" th:unless="${curUser!=null &&curUser.following.contains(fashUser)}">
+                        <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
+                            <button type="submit" class="bttnExplore section">Follow</button><br>
+                        </form>
+                    </div>
                 </div>
                 <article>
                     <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">

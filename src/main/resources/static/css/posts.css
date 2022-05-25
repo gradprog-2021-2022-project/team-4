@@ -197,7 +197,6 @@ h3.sectionrows {
     grid-row-gap: 25px;
     border-radius: 20px;
     min-width: 250px;
-    max-width: max-content;
     background: #F7F7FD;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }

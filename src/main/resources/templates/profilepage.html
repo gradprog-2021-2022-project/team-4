@@ -13,7 +13,7 @@
     <div>
         <div th:if="${user}">
             <a th:href="@{/postnew}">
-                <input type="button" value="Nieuwe post!" class="btnCss nieuwpost" style="float: right">
+                <input type="button" value="Nieuwe post!" class="btn-dark borderBtn nieuwpost" style="float: right">
             </a>
             <section class="hr-lines">
                 <div th:if="${user.getProfilePic()}">

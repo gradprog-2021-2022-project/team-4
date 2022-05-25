@@ -205,7 +205,7 @@ public class PostController {
         }
         // om te kijken of de current user is de poster
         model.addAttribute("user", principal.getName());
-        model.addAttribute("poster", posts.findById(id).get().getPoster().getFirst_name());
+        model.addAttribute("poster", posts.findById(id).get().getPoster().getUsername());
         return "postDetails";
     }
 

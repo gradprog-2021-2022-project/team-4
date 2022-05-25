@@ -4,9 +4,7 @@ main{
 
 header{
     width: 100%;
-    border-top: 2px solid black;
-    padding-bottom: 10px;
-    color: #89B6A5;
+    border-top: 5px solid #89B6A5;
     text-align: center;
     background-color: #FAFF7F;
     padding-top: 8px;
@@ -109,13 +107,13 @@ nav a{
     font-weight: 700;
     border-radius: 25px;
     transition: all .3s ease-in-out;
-    background-color: rgb(211, 187, 250);
-    color: #FAFF7F;
+    background-color: #343a40;
+    color: white;
 }
 
 nav a:hover {
-    background-color: rgb(211, 187, 250);
-    color: #FAFF7F;
+    background-color: #343a40;
+    color: rgb(211, 187, 250);
     /*
     andere optie
     background-color: rgba(19, 19, 0, 0.62);
@@ -176,7 +174,7 @@ nav a:hover {
     width: 30px;
 }
 .btnCss:hover {
-    background: #781FFF;
+    background: #343a40;
 }
 
 .footerCopyright {
@@ -206,6 +204,14 @@ nav a:hover {
    content: "+" ;
 }
 
+.borderBtn{
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+    border-bottom: solid #89B6A5 5px !important;
+}
 
 
 @media only screen and (min-width: 760px) {
@@ -221,18 +227,14 @@ nav a:hover {
 
     header{
         border-top: none;
-        border-bottom: 2px solid black;
+        border-bottom: 5px solid #89B6A5;
         position: fixed;
         top: 0;
         bottom: unset;
         z-index: 10;
     }
 
-    main{
-        margin-top: 100px;
-        margin-left: 25%;
-        margin-right: 25%;
-    }
+
     #myLinksPhone{
         display: none;
     }
@@ -251,6 +253,11 @@ nav a:hover {
 }
 
 @media only screen and (min-width: 930px) {
+    main{
+        margin-top: 100px;
+        margin-left: 25%;
+        margin-right: 25%;
+    }
     .info {
         display: block;
     }

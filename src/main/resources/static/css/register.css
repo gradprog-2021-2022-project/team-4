@@ -43,7 +43,7 @@
 .error{
     margin: 15px;
     text-align: center;
-    padding-top: 65px;
+    padding-top: 75px;
 }
 
 @media only screen and (min-width: 760px) {
@@ -73,9 +73,5 @@
 
     .mainForm{
         margin-bottom: 50px;
-    }
-
-    .container{
-        margin-top: 150px;
     }
 }

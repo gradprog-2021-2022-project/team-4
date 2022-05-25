@@ -13,7 +13,8 @@
 }
 
 .postpic {
-    border-radius: 50px 50px 50px 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
     width: 419px;
 }
 
@@ -40,6 +41,7 @@
     height: 57px;
     position: absolute;
     border-radius: 50px;
+    margin: 4px;
     z-index: -1; /*go under the navbar*/
 }
 
@@ -111,6 +113,9 @@ h3.sectionrows {
 .commentpic {
     width: 35px;
     height: auto;
+    position: absolute;
+    border-radius: 50px;
+    z-index: -1;
 }
 
 .comment-wrapper .panel-body {
@@ -184,41 +189,33 @@ h3.sectionrows {
     padding: 5px;
     background: #E8D7FF;
 }
-.picDetail{
-    width: available;
-    height: auto;
-    transition: all .4s ease;
-    box-shadow: 20px 20px rgba(0,0,0,.15);
-    border-radius: 0% 0% 0% 0% / 0% 0% 0% 0% ;
-
-}
-.picDetail:hover{
-    border-radius: 0% 0% 50% 50% / 0% 0% 5% 5% ;
-    box-shadow: 10px 10px rgba(0,0,0,.25);
-}
 .postDetails {
     width: 100%;
     display: grid;
     grid-template-areas: 'gpic gitems';
-    grid-template-columns: 50% 50%;
-    grid-column-gap: 25px;
     grid-row-gap: 25px;
     border-radius: 20px;
-    padding: 40px;
-    box-sizing: border-box;
-    background: #E8D7FF;
+    min-width: 250px;
+    max-width: max-content;
+    background: #F7F7FD;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
 }
 .sidePic{
     grid-area: gpic;
     align-content: center;
+    display: flex;
     justify-content: center;
+    border-radius: 20px 0% 0% 20px;
+    background: black;
     height: auto;
 }
 .sidePic img{
-    max-width: 250px;
-    height: auto;
+    border-radius: 20px 0% 0% 20px;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: auto;
     width: 100%;
+    float: left;
 }
 .postitems lu {
     display: inline;
@@ -252,8 +249,8 @@ h3.sectionrows {
 }
 main{
     margin-top: 100px;
-    margin-left: 5%;
-    margin-right: 5%;
+    margin-left: 2%;
+    margin-right: 2%;
 }
 /*Voor de username in een comment*/
 .username{

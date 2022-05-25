@@ -28,6 +28,7 @@
         <div>
             <h2>Edit post :</h2>
         </div>
+
     <div th:if="${poster.equals(user)}">
     <form th:action="@{|/editpost/${post.id}|}" th:object="${post}" method="post" enctype="multipart/form-data">
         <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
@@ -35,13 +36,19 @@
         <input class="inputCss" type="text" id="text" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
         <label for="locatie">Locatie:</label><br>
         <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required="required"><br>
+        <label for="style">Style:</label><br>
+        <select name="style" id="style" placeholder="Kies een stijl!" th:field="*{stijl}" required>
+            <option th:each="style : ${styles}" th:value="${style}" th:text="${style}"></option>
+        </select><br>
 
         <div id="editClothing" th:each="items, itemStat: *{clothes}">
             <div>
                 <br>
                 <label> <h6 style="color: white; border: 3px solid black; border-radius: 20px; background-color: #B685FF; padding: 8px;" > <strong th:text="|Clothing Item ${itemStat.index+1} :|" ></strong> </h6> </label><br>
                 <label for="type">Type:</label><br>
-                <input class="inputCss" id="type" type="text" th:field="*{clothes[__${itemStat.index}__].type}" th:value="${items.getType()}" required="required"><br>
+                <select name="type" id="type" placeholder="Kies een type!" th:field="*{clothes[__${itemStat.index}__].type}" th:value="${items.getType()}" required>
+                    <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+                </select><br>
                 <label for="name">Name:</label><br>
                 <input class="inputCss" id="name" type="text" th:field="*{clothes[__${itemStat.index}__].naam}" th:value="${items.getNaam()}" required="required"><br>
                 <label for="price">Price:</label><br>
@@ -56,7 +63,7 @@
 
         <input type="submit" value="save" class="btnCss"><br>
         <div>
-            <a th:href="@{'/postDetails/' + ${valid.id}}" class="cancel">cancel</a>
+            <a th:href="@{'/postDetails/' + ${post.id}}" class="cancel">cancel</a>
         </div>
     </form>
 </div>

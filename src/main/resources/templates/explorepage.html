@@ -8,16 +8,14 @@
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
-    <div class="dropdown filterContainer position-fixed">
+    <div class="filterContainer position-fixed">
         <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
-                    <option value="">Geen</option>
-                    <option value="Modern">Modern</option>
-                    <option value="Klassiek">Klassiek</option>
-                    <option value="Goth">Goth</option>
+                    <option th:value="${null}" th:text="Alle"></option>
+                    <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
                 </select>
                 <h3>Filter by location?</h3>
                 <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">

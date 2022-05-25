@@ -8,6 +8,8 @@ import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +35,9 @@ public class PostController {
     @Autowired
     CommentRepository comments;
 
+    @Autowired
+    List<String> nameList;
+
     //De gewone / redirecten naar explorepage zodat de gebruiker nooit een lege URL kan zien
     @GetMapping("/")
     public String redirectje() {
@@ -49,6 +54,7 @@ public class PostController {
         //Eerst alle posts ophalen!
         Collection<FashUser> fashUsers = users.findUsersWithPosts();
         //Kijken voor de stijl en zoja filteren
+        model.addAttribute("styles", nameList);
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
             fashUsers = filterPosts(fashUsers, style);

@@ -28,8 +28,17 @@ public class CreateController {
     @Autowired
     private ClothingRepository clothingRepository;
 
+
+    @Autowired
+    List<String> nameList;
+
+    @Autowired
+    List<String> typeList;
+
     @GetMapping("/postnew")
     public String postNew(Model model) {
+        model.addAttribute("styles", nameList);
+        model.addAttribute("types", typeList);
         return "createpost";
     }
 
@@ -69,6 +78,7 @@ public class CreateController {
             }
         }
         post.setLikes(0);
+        post.setStijl(valid.getStijl());
         post.setClothes(clothing_items);
         post.setLocation(valid.getLocation());
         post.setDate(java.time.LocalDate.now());

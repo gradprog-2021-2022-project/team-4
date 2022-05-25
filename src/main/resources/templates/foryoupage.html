@@ -61,7 +61,7 @@
                 </form>
                 <div class="buttonsdiv formbtn" th:if="${curUser !=null && curUser.following.contains(fashPost.getPoster())}">
                     <form method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
-                        <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                        <button type="submit" class="btn-dark borderBtn">Unfollow</button><br>
                     </form>
                 </div>
                 <article>
@@ -89,13 +89,13 @@
         <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="postId" th:value="${fashPost.getId()}">
-                <input required="required" class="border commenttext" type="text" name="commentText"
+                <input required="required" class="inputCss" type="text" name="commentText"
                        placeholder="Jouw comment">
-                <button type="submit" class="btnCss commentbutton">Plaats comment!</button>
+                <button type="submit" class="btn-dark borderBtn">Plaatsen</button>
             </form>
         </section>
     </div>
-    <button class="bttnExplore" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
+    <button class="btn-dark btn" onclick="topFunction()" id="myBtn" title="Go to top">Top</button>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>

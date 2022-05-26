@@ -46,6 +46,7 @@ public class MessageController {
             Collections.sort(convos);
             Collections.reverse(convos);
             model.addAttribute("convos", convos);
+            model.addAttribute("loggedIn",loggedIn);
             return "user/messagelist";
         } catch (Exception e) {
             e.printStackTrace();

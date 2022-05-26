@@ -8,6 +8,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class Conversation implements Comparable<Conversation> {
@@ -30,6 +31,10 @@ public class Conversation implements Comparable<Conversation> {
     @JsonIgnore
     @ManyToMany
     private Collection<FashUser> users;
+
+    @JsonIgnore
+    @ManyToMany
+    private List<FashUser> readUsers;
 
     public Conversation() {
     }
@@ -106,6 +111,20 @@ public class Conversation implements Comparable<Conversation> {
 
     public void setLastMessage(LocalDateTime lastMessage) {
         this.lastMessage = lastMessage;
+    }
+
+    //De convo op read zetten voor een gebruiker
+    public void setOnRead(FashUser user){
+        if(this.users.contains(user) && readUsers.contains(user)){
+            readUsers.remove(user);
+        }else if(this.users.contains(user) && !readUsers.contains(user)){
+            readUsers.add(user);
+        }
+    }
+
+    @JsonIgnore
+    public List<FashUser> getReadUsers() {
+        return readUsers;
     }
 
     //Kunnen sorteren op datum

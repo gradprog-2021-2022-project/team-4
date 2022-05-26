@@ -381,6 +381,20 @@ public class FashUser {
         return allPosts;
     }
     public void putOnRead(Conversation convo){
-        //Nog iets aan doen
+        //bezig hiermee
+        convo.setOnRead(this);
+    }
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "readUsers")
+    private Collection<Conversation> readConvos;
+
+    @JsonIgnore
+    public Collection<Conversation> getReadConvos() {
+        return readConvos;
+    }
+
+    public void setReadConvos(Collection<Conversation> readConvos) {
+        this.readConvos = readConvos;
     }
 }

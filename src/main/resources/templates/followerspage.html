@@ -35,7 +35,7 @@
                     <form method="get" th:action="@{|/profilepage/${followingPerson.getId()}|}">
                         <button class="person"  type="submit">
                             <div th:if="${followingPerson.getProfilePic()}">
-                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${followingPerson.getId()}|">
+                                <img class="commentpic" th:src="|/u/image/${followingPerson.getId()}|">
                             </div>
                             <div th:unless="${followingPerson.getProfilePic()}">
                                 <i class="noprofilepic fa fa-fw fa-user"></i>
@@ -52,7 +52,7 @@
                     <form method="get" th:action="@{|/profilepage/${followersPerson.getId()}|}">
                         <button class="person"  type="submit">
                             <div th:if="${followersPerson.getProfilePic()}">
-                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${followersPerson.getId()}|">
+                                <img class="commentpic" th:src="|/u/image/${followersPerson.getId()}|">
                             </div>
                             <div th:unless="${followersPerson.getProfilePic()}">
                                 <i class="absolute noprofilepic fa fa-fw fa-user"></i>
@@ -90,8 +90,8 @@
             followerdiv.style.display = "block";
             followingdiv.style.display = "none";
         }
-        followerbtndiv.style.backgroundColor = "#E8D7FF";
-        followingbtndiv.style.backgroundColor = "#efefef";
+        followerbtndiv.style.borderBottom = "solid #89B6A5 5px";
+        followingbtndiv.style.borderBottom = "none";
     }
 
     // als de gebruiker op de button klikt, dan wordt er gescrollt naar de top van de pagina
@@ -100,8 +100,8 @@
             followerdiv.style.display = "none";
             followingdiv.style.display = "block";
         }
-        followingbtndiv.style.backgroundColor = "#E8D7FF";
-        followerbtndiv.style.backgroundColor = "#efefef";
+        followingbtndiv.style.borderBottom = "solid #89B6A5 5px";
+        followerbtndiv.style.borderBottom = "none";
     }
 </script>
 </body>

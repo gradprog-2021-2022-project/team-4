@@ -21,7 +21,7 @@
     margin-bottom: 5px;
 }
 .messageForm{
-    width: available;
+    width: 100%;
     height: 100px;
 }
 .message{
@@ -41,7 +41,12 @@
 }
 .messagemain{
     background-color: lightgray;
-    height: auto;
+    overflow:scroll;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.messagemain::-webkit-scrollbar{
+    display: none;
 }
 .messagebody{
     overflow: hidden;

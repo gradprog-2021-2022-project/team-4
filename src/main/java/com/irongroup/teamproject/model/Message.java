@@ -18,6 +18,8 @@ public class Message {
     @ManyToOne(optional = false)
     private Conversation conversation;
 
+    private Boolean isRead;
+
     //De persoon die het bericht verstuurde
     //@JsonIgnore
     @ManyToOne

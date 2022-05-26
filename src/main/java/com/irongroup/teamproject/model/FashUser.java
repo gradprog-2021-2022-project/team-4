@@ -325,11 +325,13 @@ public class FashUser {
             for (Conversation c : conversations
             ) {
                 //Een privegesprek heeft maar 2 gebruikers
-                if (c.getUsers().size() == 2) {
+                if (c.getUsers().size() <= 2) {
                     //De twee gebruikers zijn de huidige gebruiker en de persoon waar hij mee wil praten
-                    if (c.getUsers().contains(this) && c.getUsers().contains(user)) {
-                        convo = c;
+                    if (c.getUsers().contains(user)) {
+                        //Direct returnen anders gaan we niet uit de loop en krijg je een error pagina
+                        return c;
                     } else {
+                        System.out.println("convo is null");
                         convo = null;
                     }
                 } else {

@@ -68,6 +68,7 @@ public class MessageController {
                 Conversation conversation = convos.findbyID(id);
                 if (conversation.getUsers().contains(loggedIn)) {
                     //Toevoegen aan het model enkel als de gebruiker toegang heeft tot de convo
+                    loggedIn.putOnRead(conversation);
                     model.addAttribute("convo", conversation);
                     model.addAttribute("loggedUser", loggedIn);
                     return "user/conversation";

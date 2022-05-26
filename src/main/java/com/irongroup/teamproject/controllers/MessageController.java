@@ -68,8 +68,12 @@ public class MessageController {
                 //Convo vinden die gevraagd word
                 Conversation conversation = convos.findbyID(id);
                 if (conversation.getUsers().contains(loggedIn)) {
+                    //Items op read zetten en opslaan in de database
+                    conversation.forceOnRead(loggedIn);
+                    loggedIn.forceOnRead(conversation);
+                    convos.save(conversation);
+                    users.save(loggedIn);
                     //Toevoegen aan het model enkel als de gebruiker toegang heeft tot de convo
-                    loggedIn.putOnRead(conversation);
                     model.addAttribute("convo", conversation);
                     model.addAttribute("loggedUser", loggedIn);
                     return "user/conversation";
@@ -98,10 +102,25 @@ public class MessageController {
                 messages.add(message);
                 //Belangrijk, de messages setten en ook opslaan in de database;
                 convo.setMessages(messages);
+                //Alle receivers hebben sowieso niet gelezen
+                for (FashUser fu:receivers
+                ) {
+                    //Deze moeten geforceerd op niet gelzen gezet worden!
+                    convo.forceNotRead(fu);
+                    fu.forceNotRead(convo);
+                    users.save(fu);
+                }
+
                 //Voor opslaan, de gebruiker er terug inzetten, anders kan hij de conversatie ni meer in!
                 receivers.add(sender);
                 convo.setUsers(receivers);
+                //Tijd van message veranderen voor sorteren
                 convo.setLastMessage(LocalDateTime.now());
+                //Dingen op gelezen/ongelezen zetten zetten
+                convo.forceOnRead(sender);
+                sender.forceOnRead(convo);
+
+                users.save(sender);
                 convos.save(convo);
             } catch (Exception e) {
                 e.printStackTrace();

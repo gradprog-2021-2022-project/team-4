@@ -114,11 +114,26 @@ public class Conversation implements Comparable<Conversation> {
     }
 
     //De convo op read zetten voor een gebruiker
-    public void setOnRead(FashUser user){
-        if(this.users.contains(user) && readUsers.contains(user)){
-            readUsers.remove(user);
-        }else if(this.users.contains(user) && !readUsers.contains(user)){
+    public void forceOnRead(FashUser user) {
+        if (this.readUsers != null) {
+            if (this.users.contains(user) && !readUsers.contains(user)) {
+                System.out.println("User toegevoegd");
+                readUsers.add(user);
+            }
+        } else if (this.readUsers == null && this.users.contains(user)) {
+            System.out.println("nieuw gemaakt en toegevoegd");
+            this.readUsers = new ArrayList<FashUser>();
             readUsers.add(user);
+        } else {
+            //NIKSKE
+            System.out.println("Niks gedaan");
+        }
+    }
+
+    //forceren op gelezen
+    public void forceNotRead(FashUser u) {
+        if (readUsers != null && readUsers.contains(u)) {
+            readUsers.remove(u);
         }
     }
 

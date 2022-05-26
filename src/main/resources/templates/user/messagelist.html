@@ -23,6 +23,7 @@
     <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
       <h2 th:text="${convo.getConvoNaam()}"></h2>
       <h3 th:if="${convo.readUsers==null || !convo.readUsers.contains(loggedIn)}">Ongelezen!</h3>
+      <h3 th:if="${convo.readUsers!=null && convo.readUsers.contains(loggedIn)}">Gelezen!</h3>
     </a>
   </article>
 </main>

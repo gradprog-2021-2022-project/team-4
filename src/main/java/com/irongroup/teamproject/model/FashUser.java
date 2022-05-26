@@ -380,9 +380,33 @@ public class FashUser {
         }
         return allPosts;
     }
-    public void putOnRead(Conversation convo){
-        //bezig hiermee
-        convo.setOnRead(this);
+
+    //Forceren om op read te zetten!
+    public void forceOnRead(Conversation convo){
+        if(this.readConvos!=null){
+            if(!this.readConvos.contains(convo)){
+                readConvos.add(convo);
+            }
+        }
+        else{
+            this.readConvos=new ArrayList<Conversation>();
+            forceOnRead(convo);
+        }
+    }
+
+    //Je moet kunnen forceren om op op ongelzen te zetten
+    public void forceNotRead(Conversation c){
+        if(this.readConvos!=null){
+            //Enkel als de convo er nog niet in zit!
+            if(this.readConvos.contains(c)){
+                readConvos.remove(c);
+            }
+        }
+        else{
+            //Anders een nieuwe maken en opnieuw proberen
+            this.readConvos=new ArrayList<Conversation>();
+            forceNotRead(c);
+        }
     }
 
     @JsonIgnore

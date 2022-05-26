@@ -21,7 +21,6 @@ body {
 .followetcbtn {
     color: #fff;
     background-color: #343a40;
-    box-shadow: 14px 14px 20px #343a40;
     border: none;
     padding: 5px;
     margin: 10px;
@@ -34,16 +33,17 @@ body {
 }
 
 .followetcbtn:hover {
-    color: #89B6A5;
+    color: #fff;
+    background-color: #23272b;
+    border-bottom: solid #89B6A5 5px !important;
     text-decoration: none;
-    box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #75bea2;
+    /*box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #75bea2;*/
 }
 
 /*paarse button voor volgen en volgers, etc*/
 .followetcbtnpurple {
     color: #fff;
     background-color: #343a40;
-    box-shadow: 14px 14px 20px #343a40;
     border: none;
     padding: 5px;
     margin: 10px;
@@ -56,9 +56,11 @@ body {
 }
 
 .followetcbtnpurple:hover {
-    color: rgb(211, 187, 250);
+    color: #fff;
+    background-color: #23272b;
+    border-bottom: solid rgb(211, 187, 250) 5px !important;
     text-decoration: none;
-    box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #bd8dff;
+    /*box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #bd8dff;*/
 }
 
 .hr-lines:after{

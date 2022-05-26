@@ -50,9 +50,7 @@
     width: 37px;
     height: 35px;
     border: 1px solid black;
-
-    /*test*/
-    z-index: 1;
+    z-index: 1!important;
 }
 
 /*test*/

@@ -46,7 +46,12 @@
                 <li th:unless="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
                     <a class="btn-dark borderNone" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
                 </li>
-                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="btn-dark borderNone smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
             </div>
             <div id="myLinksPhone">
                 <!-- icons:  https://fontawesome.com/v4/icons/ -->
@@ -70,7 +75,12 @@
                 <li th:unless="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
                     <a class="btn-dark borderNone smallborderBtn" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
                 </li>
-                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="btn-dark borderNone smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
             </div>
         </ul>
     </nav>

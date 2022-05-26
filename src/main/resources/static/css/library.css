@@ -125,7 +125,6 @@ nav a:hover {
 .info {
     float: right;
     padding-right: 10px;
-    display: none;
 }
 
 /*the img in navbar*/
@@ -190,6 +189,7 @@ nav a:hover {
     padding: 10px;
     border-radius: 15%;
     display: block;
+    margin-bottom: 10px;
 }
 
 
@@ -266,9 +266,6 @@ nav a:hover {
         margin-top: 100px;
         margin-left: 20%;
         margin-right: 20%;
-    }
-    .info {
-        display: block;
     }
 }
 

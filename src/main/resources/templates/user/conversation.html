@@ -140,6 +140,7 @@
     </form>
 </aside>
 <main sec:authorize="isAuthenticated()" class="messagemain">
+    <a type="submit" class="btn btn-dark backbuttonMessages" th:href="@{/messages}"><<</a>
     <div id="messages" class="messages">
         Berichtjes laden...
     </div>

@@ -2,7 +2,7 @@
     text-align: left;
     margin-right: auto;
     background-color: #89B6A5;
-    color: white;
+    color: black;
     width: fit-content;
     border-radius: 5px;
     margin-left: 5px;
@@ -14,7 +14,7 @@
     margin-left: auto;
     margin-right: 5px;
     color:black;
-    background-color:white;
+    background-color: lightgray;
     width: fit-content;
     border-radius: 5px;
     padding: 15px;
@@ -30,7 +30,7 @@
 }
 .messages{
     width: available;
-    background-color: lightgray;
+    background-color:white;
     height: 500px;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -40,7 +40,7 @@
     display: none;
 }
 .messagemain{
-    background-color: lightgray;
+    background-color: white;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -51,7 +51,7 @@
 .messagebody{
     overflow: hidden;
     height: available;
-    background-color: lightgray;
+    background-color: white;
 }
 .messagePic{
     width: auto;
@@ -63,11 +63,11 @@
 }
 .message h3{
     font-size: small;
-    color:lightgray;
+    color:white;
 }
 .convoList{
     width: available;
-    background-color: lightgray;
+    background-color: white;
     height: 500px;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -77,7 +77,7 @@
     display: none;
 }
 .messagelistbody{
-    background-color: lightgray;
+    background-color: white;
 }
 .convoList a{
     margin-top: 5px;
@@ -89,4 +89,7 @@
 }
 .userListMessages a{
     margin-top: 5px;
+}
+.backbuttonMessages{
+    float: left;
 }

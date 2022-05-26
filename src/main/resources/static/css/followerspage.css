@@ -32,14 +32,14 @@
 }
 
 .sectionbioname {
-    padding-left: 50px;
+    padding-left: 50px!important;
     margin-top: auto;
     margin-bottom: auto;
     font-size: 20px;
 }
 
 .sectionbiofullname {
-    flex: 1 0 80%;
+    flex: 1 0 90%;
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 50px;
@@ -47,23 +47,24 @@
 }
 
 .commentpic {
-    width: 37px;
-    height: 35px;
+    width: 37px!important;
+    height: 35px!important;
     border: 1px solid black;
     z-index: 1!important;
 }
 
+
 /*test*/
 p {
-    color: white;
+    color: white!important;
 }
 
 .searchbar {
     width: 90%;
     height: 40px;
     border-radius: 10px;
-    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
-    border: 0.5px solid #00000030;
+    border: 0.5px solid #00000045;
+    background-color: #ececec;
 }
 
 /*follower and following button on followerspage in small design*/
@@ -79,6 +80,13 @@ p {
     color: #fff;
     background-color: #343a40;
 }
+
+.noprofilepic {
+    width: 40px!important;
+    width: 40px!important;
+    height: 39px;
+}
+
 
 /*standard the followingbutton is pressed in small design*/
 #idbuttonfollowing {

@@ -14,8 +14,30 @@
         <a th:href="@{'/editpost/' + ${post.id}}">
             <input type="button" value="Edit post" class="btnCss" style="text-align:center">
         </a>
+        <input type="button" value="Delete post" class="btnCss" style="text-align:center" data-toggle="modal"
+               data-target="#myModal">
     </div>
     <br>
+        <!-- The Modal -->
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Post verwijderen?</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success"
+                                data-dismiss="modal">Annuleren</button>
+                        <a th:href="@{'/deletepost/' + ${post.id}}"><button
+                                type="button" class="btn btn-danger">Verwijderen</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     <div th:if="${post}">
         <article class="postDetails">
             <section class="sidePic borderGrid">

@@ -9,25 +9,27 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="filterContainer position-fixed">
-        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Filters">
+        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Search">
         <div class="collapse" id="collapseExample">
-            <form class="card card-body scroll">
-                <h3>Style</h3>
-                <label for="naamPerson">name:</label><br>
-                <input type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username"><br>
+            <form class="card card-body scroll displayChange">
+                <strong for="naamPerson">Name:</strong>
+                <input type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username">
+                <strong>Style:</strong>
                 <select name="style" placeholder="Kies een stijl!">
                     <option th:value="${null}" th:text="Alle"></option>
                     <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
                 </select>
-                <h3>Filter by location?</h3>
-                <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
+                <strong>Nearby:</strong>
+                <div>
                 <label for="noClose" >No</label>
+                <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
+                <label for="yesClose">Yes</label>
                 <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
-                <label for="yesClose">Yes</label><br>
-                <label for="minprijs">Minimum:</label><br>
-                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs"><br>
-                <label for="maxprijs">Maximum:</label><br>
-                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs"><br>
+                </div>
+                <strong for="minprijs">Minimum:</strong>
+                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+                <strong for="maxprijs">Maximum:</strong>
+                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
                 <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
                 <input class="btn-dark borderBtn" type="submit" value="search">
@@ -49,12 +51,12 @@
                 <div sec:authorize="isAuthenticated()">
                     <div class="buttonsdiv formbtn" th:if="${curUser !=null &&curUser.following.contains(fashUser)}">
                         <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                            <button type="submit" class="btn-dark borderBtn">Unfollow</button><br>
                         </form>
                     </div>
                     <div class="buttonsdiv formbtn" th:unless="${curUser!=null &&curUser.following.contains(fashUser)}">
                         <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="bttnExplore section">Follow</button><br>
+                            <button type="submit" class="btn-dark borderBtn">Follow</button><br>
                         </form>
                     </div>
                 </div>

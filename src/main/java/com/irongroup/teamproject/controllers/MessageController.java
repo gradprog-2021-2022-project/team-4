@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 @Controller
 public class MessageController {
@@ -34,11 +37,18 @@ public class MessageController {
     public String messagelist(Principal p, Model model) {
         //In een try catch= geen ifke
         try {
+            //Kijken of de ingelogde user bestaat
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
+            //De volgers en volgende van de user toevoegen om nieuwe convos te starten
             model.addAttribute("followers", loggedIn.findBoth());
-            model.addAttribute("convos", loggedIn.getConversations());
+            //Alle convos opvragen van de user en daarna sorteren
+            List<Conversation> convos= loggedIn.getConversations();
+            Collections.sort(convos);
+            Collections.reverse(convos);
+            model.addAttribute("convos", convos);
             return "user/messagelist";
         } catch (Exception e) {
+            e.printStackTrace();
             return "redirect:/explorepage";
         }
     }
@@ -89,6 +99,7 @@ public class MessageController {
                 //Voor opslaan, de gebruiker er terug inzetten, anders kan hij de conversatie ni meer in!
                 receivers.add(sender);
                 convo.setUsers(receivers);
+                convo.setLastMessage(LocalDateTime.now());
                 convos.save(convo);
             } catch (Exception e) {
                 e.printStackTrace();

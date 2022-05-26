@@ -69,7 +69,7 @@ public class FashUser {
     //Tot welke conversaties behoort deze persoon?
     @JsonIgnore
     @ManyToMany(mappedBy = "users")
-    private Collection<Conversation> conversations;
+    private List<Conversation> conversations;
     //Berichtjes verstuurd door deze persoon
     @JsonIgnore
     @OneToMany(mappedBy = "sender")
@@ -273,11 +273,11 @@ public class FashUser {
         this.latitude = latitude;
     }
     @JsonIgnore
-    public Collection<Conversation> getConversations() {
+    public List<Conversation> getConversations() {
         return conversations;
     }
 
-    public void setConversations(Collection<Conversation> conversations) {
+    public void setConversations(List<Conversation> conversations) {
         this.conversations = conversations;
     }
 

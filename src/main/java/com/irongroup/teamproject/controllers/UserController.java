@@ -103,7 +103,7 @@ public class UserController {
         return "redirect:/profilepage";
     }
 
-    @GetMapping({"/follow/{id}/{page}" })
+    @GetMapping({"/follow/{id}" })
     public String follow(Principal principal, @PathVariable Integer id){
         try{
             //Kijken of ge wel bent ingelogd

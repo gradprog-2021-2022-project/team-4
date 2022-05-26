@@ -12,8 +12,11 @@
 <main>
     <div>
         <div th:if="${user}">
-            <a th:href="@{/postnew}">
-                <input type="button" value="Nieuwe post!" class="btn-dark borderBtn nieuwpost" style="float: right">
+            <a th:href="@{/postnew}" th:if="${follow}">
+                <input type="button" value="Nieuwe post!" class="followetcbtnpurple nieuwpost" style="float: right">
+            </a>
+            <a th:href="@{/postnew}" th:unless="${follow}">
+                <input type="button" value="Nieuwe post!" class="followetcbtn nieuwpost" style="float: right">
             </a>
             <section class="hr-lines">
                 <div th:if="${user.getProfilePic()}">

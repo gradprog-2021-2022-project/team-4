@@ -1,3 +1,7 @@
+body {
+    background-color: lightgray!important;
+}
+
 .noprofilepic {
     background-color: #FAFF7F;
     border-radius: 25px;
@@ -15,28 +19,46 @@
 
 /*algemene button voor volgen en volgers, etc*/
 .followetcbtn {
-    background-color: #89B6A5;
-    border-radius: 8px;
+    color: #fff;
+    background-color: #343a40;
+    box-shadow: 14px 14px 20px #343a40;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 115px;
+    border-radius: 5px;
+    border-bottom: solid #89B6A5 5px;
     font-style: italic;
     cursor: pointer;
-    border: 1px solid black;
-    padding: 5px 7px;
     font-size: 20px;
+}
+
+.followetcbtn:hover {
+    color: #89B6A5;
     text-decoration: none;
-    color: black;
+    box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #75bea2;
 }
 
 /*paarse button voor volgen en volgers, etc*/
 .followetcbtnpurple {
-    background-color: #E8D7FF;
-    border-radius: 8px;
+    color: #fff;
+    background-color: #343a40;
+    box-shadow: 14px 14px 20px #343a40;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 115px;
+    border-radius: 5px;
+    border-bottom: solid #E8D7FF 5px;
     font-style: italic;
     cursor: pointer;
-    border: 1px solid black;
-    padding: 5px 7px;
     font-size: 20px;
+}
+
+.followetcbtnpurple:hover {
+    color: rgb(211, 187, 250);
     text-decoration: none;
-    color: black;
+    box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #bd8dff;
 }
 
 .hr-lines:after{

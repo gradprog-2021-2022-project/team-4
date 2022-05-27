@@ -177,21 +177,20 @@ public class MessageController {
     }
 
     // DONE : ZORGEN VOOR EEN NAAM (werkt)
-    // TODO : fix bug voor nieuwe convo!
+    // DONE : fix bug voor nieuwe convo!
     @GetMapping("/adduser/{convoID}")
     public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
         try {
             Conversation currentc=convos.findbyID(convoID);
 
             //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar gebruiker toevoegen aan huidige
-            if(currentc.getUsers().size()==2){
+            if(currentc.getUsers().size()>2){
                 currentc.addUser(users.findById(id).get());
                 currentc.setConvoNaam(currentc.getConvoNaam()+users.findById(id).get().getUsername()+",");
                 users.findById(id).get().addConvo(currentc);
                 convos.save(currentc);
-
                 return "redirect:/messages/"+currentc.getId();
-            }else{
+            }else if(currentc.getUsers().size()<=2){
                 //Anders wel een nieuwe convo maken
                 Conversation c = new Conversation();
                 String naam= "";
@@ -211,6 +210,9 @@ public class MessageController {
                 //Dingen opslaan !!!
                 convos.save(c);
                 return "redirect:/messages/"+c.getId();
+            }
+            else{
+                return "redirect:/explorepage";
             }
         } catch (Exception e) {
             e.printStackTrace();

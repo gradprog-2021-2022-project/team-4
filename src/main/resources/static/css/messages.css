@@ -38,7 +38,7 @@
 .messages{
     width: available;
     background-color:white;
-    height: 500px;
+    height: 500px; !important;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -47,7 +47,6 @@
     display: none;
 }
 .messagemain{
-    height: available; !important;
     background-color: white;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -57,7 +56,7 @@
     display: none;
 }
 .messagebody{
-    height: available; !important;
+    height: 100%; !important;
     overflow: hidden;
     background-color: white;
 }
@@ -112,7 +111,4 @@
 }
 .messageButtonsTop select{
     width: available;
-}
-body, html{
-    height: 100%; !important;
 }

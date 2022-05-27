@@ -10,7 +10,9 @@
 <body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
-  <button class="btn btn-dark btnToggler" onclick="toggleDivs()" id="buttonToggle">Gebruikers</button>
+  <button class="btn-dark btnToggler" onclick="toggleDivs()">
+    <h3 id="buttonToggle">Gebruikers</h3>
+  </button>
   <div id="userDiv" style="display: none;" class="convoList">
     <article>
       <section th:each="follower : ${followers}">

@@ -137,7 +137,7 @@
                 <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
                         th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
             </select>
-            <button class="btn btn-dark" type="submit">Voeg toe!</button>
+            <button class="btn btn-dark" type="submit">+</button>
         </form>
     </article>
     <div id="messages" class="messages">

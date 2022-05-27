@@ -129,24 +129,23 @@
 <p id="hiddenUSERID" style="display: none" th:text="${loggedUser.getUsername()}"></p>
 <p style="display: none" id="hiddenConvoSize" th:text="${convo.getMessages().size()}"></p>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside sec:authorize="isAuthenticated()" class="messageAddUser">
-    <form th:action="@{|/adduser/${convo.getId()}|}">
-        <select name="id">
-            <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
-                    th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
-        </select>
-        <br>
-        <button class="btn btn-dark" type="submit">Voeg toe!</button>
-    </form>
-</aside>
 <main sec:authorize="isAuthenticated()" class="messagemain">
-    <a type="submit" class="btn btn-dark backbuttonMessages" th:href="@{/messages}"><<</a>
+    <article class="messageButtonsTop">
+        <a type="submit" class="btn btn-dark backbuttonMessages" th:href="@{/messages}"><<</a>
+        <form th:action="@{|/adduser/${convo.getId()}|}">
+            <select name="id" class="messageAddUser">
+                <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"
+                        th:each="fuser: ${loggedUser.findBoth()}" th:text="${fuser.getUsername()}"></option>
+            </select>
+            <button class="btn btn-dark" type="submit">Voeg toe!</button>
+        </form>
+    </article>
     <div id="messages" class="messages">
         Berichtjes laden...
     </div>
     <article>
         <form class="messageForm">
-            <input name="text" type="text" placeholder="Begin met typen..." required="required">
+            <input class="form-control" name="text" type="text" placeholder="Begin met typen..." required="required">
             <button class="btn btn-dark" type="submit">Stuur!</button>
         </form>
     </article>

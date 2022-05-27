@@ -177,13 +177,14 @@ public class MessageController {
     }
 
     // DONE : ZORGEN VOOR EEN NAAM (werkt)
+    // TODO : fix bug voor nieuwe convo!
     @GetMapping("/adduser/{convoID}")
     public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
         try {
             Conversation currentc=convos.findbyID(convoID);
 
             //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar gebruiker toevoegen aan huidige
-            if(currentc.getUsers().size()>2){
+            if(currentc.getUsers().size()==2){
                 currentc.addUser(users.findById(id).get());
                 currentc.setConvoNaam(currentc.getConvoNaam()+users.findById(id).get().getUsername()+",");
                 users.findById(id).get().addConvo(currentc);

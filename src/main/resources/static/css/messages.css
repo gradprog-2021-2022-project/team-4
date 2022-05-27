@@ -47,6 +47,7 @@
     display: none;
 }
 .messagemain{
+    height: available; !important;
     background-color: white;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
@@ -56,8 +57,8 @@
     display: none;
 }
 .messagebody{
+    height: available; !important;
     overflow: hidden;
-    height: available;
     background-color: white;
 }
 .messagePic{
@@ -111,4 +112,7 @@
 }
 .messageButtonsTop select{
     width: available;
+}
+body, html{
+    height: 100%; !important;
 }

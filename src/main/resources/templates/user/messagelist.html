@@ -10,27 +10,46 @@
 <body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
-  <div>
-    <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="true" aria-controls="collapseUsers" value="Gebruikers">
-    <article class="collapse card-body " id="collapseUsers">
+  <button class="btn btn-dark" onclick="toggleDivs()" id="buttonToggle">Gebruikers</button>
+  <div id="userDiv" style="display: none;" class="convoList">
+    <article>
       <section th:each="follower : ${followers}">
-        <a class="btn btn-dark" th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>
+        <a class="btn btn-dark" th:href="@{|/checkconvo/${follower.getId()}|}">
+          <h2 th:text="${follower.getUsername()}"></h2>
+        </a>
       </section>
     </article>
   </div>
-  <h2>Gesprekken</h2>
-  <article th:each="convo : ${convos}" class="convoList">
-    <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
-      <h2 th:text="${convo.getConvoNaam()}"></h2>
-      <h3 th:if="${convo.readUsers==null || !convo.readUsers.contains(loggedIn)}">Ongelezen!</h3>
-      <h3 th:if="${convo.readUsers!=null && convo.readUsers.contains(loggedIn)}">Gelezen!</h3>
-    </a>
-  </article>
+  <div id="convoDiv">
+    <article th:each="convo : ${convos}" class="convoList">
+      <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
+        <h2 th:text="${convo.getConvoNaam()}"></h2>
+        <h3 th:if="${convo.readUsers==null || !convo.readUsers.contains(loggedIn)}">Ongelezen!</h3>
+        <h3 th:if="${convo.readUsers!=null && convo.readUsers.contains(loggedIn)}">Gelezen!</h3>
+      </a>
+    </article>
+  </div>
 </main>
 <main sec:authorize="!isAuthenticated()">
   Niet aangemeld
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script th:replace="fragments/head_foot :: script"></script>
+<script>
+  function toggleDivs() {
+    var users = document.getElementById("userDiv");
+    var convos = document.getElementById("convoDiv");
+    var button=document.getElementById("buttonToggle");
+    if (users.style.display === "none") {
+      users.style.display = "block";
+      convos.style.display="none"
+      button.innerText="Gesprekken";
+    } else {
+      convos.style.display="block"
+      users.style.display = "none";
+      button.innerText = "Gebruikers";
+    }
+  }
+</script>
 </body>
 </html>

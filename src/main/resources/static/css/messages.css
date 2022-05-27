@@ -89,13 +89,6 @@
     margin-top: 5px;
     width: 100%;
 }
-
-.userListMessages{
-    position: absolute;
-}
-.userListMessages a{
-    margin-top: 5px;
-}
 .backbuttonMessages{
     align-self: flex-start;
     width: 10%;

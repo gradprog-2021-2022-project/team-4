@@ -10,8 +10,8 @@
 <body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
-  <div class="userListMessages">
-    <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers" value="Gebruikers">
+  <div>
+    <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="true" aria-controls="collapseUsers" value="Gebruikers">
     <article class="collapse card-body " id="collapseUsers">
       <section th:each="follower : ${followers}">
         <a class="btn btn-dark" th:text="${follower.getUsername()}" th:href="@{|/checkconvo/${follower.getId()}|}"></a>

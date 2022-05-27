@@ -9,7 +9,7 @@
 </head>
 <body class="messagelistbody">
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main sec:authorize="isAuthenticated()" class="convoList">
+<main sec:authorize="isAuthenticated()">
   <div class="userListMessages">
     <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseUsers" role="button" aria-expanded="false" aria-controls="collapseUsers" value="Gebruikers">
     <article class="collapse card-body " id="collapseUsers">
@@ -19,7 +19,7 @@
     </article>
   </div>
   <h2>Gesprekken</h2>
-  <article th:each="convo : ${convos}">
+  <article th:each="convo : ${convos}" class="convoList">
     <a th:href="@{|/messages/${convo.getId()}|}" class="btn btn-dark">
       <h2 th:text="${convo.getConvoNaam()}"></h2>
       <h3 th:if="${convo.readUsers==null || !convo.readUsers.contains(loggedIn)}">Ongelezen!</h3>

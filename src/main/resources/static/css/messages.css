@@ -104,3 +104,6 @@
 .messageButtonsTop select{
     width: available;
 }
+.btnToggler{
+    width: 100%;
+}

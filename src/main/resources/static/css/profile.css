@@ -1,3 +1,12 @@
+h1 {
+    color: black!important;
+}
+
+h3 {
+    color: black!important;
+    font-size: 1.2em!important;
+}
+
 .noprofilepic {
     background-color: #FAFF7F;
     border-radius: 25px;

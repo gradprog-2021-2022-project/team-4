@@ -60,7 +60,7 @@
 
 .sectionrows {
     padding-left: 70px;
-    flex: 1 0 45%;
+    flex: 1 0 100%;
     margin-top: auto;
     margin-bottom: auto;
 }

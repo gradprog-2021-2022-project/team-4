@@ -32,6 +32,8 @@ public class ForYouController {
     UserRepository users;
     @Autowired
     CommentRepository comments;
+    @Autowired
+    List<String> nameList;
 
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
@@ -44,7 +46,7 @@ public class ForYouController {
             Collections.reverse(postsFromFollowers);
             model.addAttribute("curUser", loggedUser);
 
-            // TODO : enkel filters tonen als je ingelogd bent!
+            model.addAttribute("styles", nameList);
 
             //Filters uitvoeren
             if (style != null && style.length() > 1) {

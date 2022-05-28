@@ -12,22 +12,20 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="dropdown filterContainer position-fixed">
-        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
-               aria-expanded="false" aria-controls="collapseExample" value="Filters">
+        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
-                    <option th:selected="${stijlFilter==null}" value="">Alle</option>
-                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Modern')}" value="Modern">Modern</option>
-                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Klassiek')}" value="Klassiek">Klassiek</option>
-                    <option th:selected="${stijlFilter!= null && stijlFilter.equals('Goth')}" value="Goth">Goth</option>
+                    <option th:value="${null}" th:text="Alle"></option>
+                    <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
                 </select>
                 <label for="minprijs">Minimum:</label>
                 <input th:value="${minFilter}" type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
                 <label for="maxprijs">Maximum:</label>
                 <input th:value="${maxFilter}" type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
-                <input class="btnCss" type="submit" value="search">
+                <input class="btn btn-dark borderBtn" type="submit" value="Zoek!">
             </form>
         </div>
     </div>
@@ -99,6 +97,17 @@
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
+    //Om het plusje in een minnetje te zetten en omgekeerd
+    function filterBTN(){
+        var btnFilters=document.getElementById("btnFilters");
+        if(btnFilters.innerText=="+"){
+            btnFilters.innerText="-";
+        }
+        else {
+            btnFilters.innerText="+";
+        }
+    };
+
     //Om de button te krijgen
     var mybutton = document.getElementById("myBtn");
 

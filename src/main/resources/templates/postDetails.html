@@ -25,7 +25,7 @@
                 <h2 th:text="|${post.getPoster().getUsername()}|"></h2>
                 <p th:if="${post.getText()!=null}" th:text="${post.getText()}"></p>
                 <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
-                <h3 class="pad" th:text="|Foto geplaatst in: ${post.getLocation()}|"></h3>
+                <h3 class="pad" th:text="|Posted in: ${post.getLocation()}|"></h3>
                 <h2>Clothes:</h2>
                 <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
                 </a>

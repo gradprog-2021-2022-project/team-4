@@ -47,10 +47,10 @@
         </a>
     </div>
 </main>
-<main sec:authorize="isAuthenticated()">
-    <div class="postCardDiv" th:each="fashPost : ${allposts}">
-        <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
-            <section class="sectionclass">
+<main sec:authorize="isAuthenticated()" class="foryoumain">
+    <div class="postCardDiv foryoucard" th:each="fashPost : ${allposts}">
+        <a th:href="@{|/postDetails/${fashPost.getId()}}">
+            <section class="foryousection">
                 <form class="linktoprofilepage" method="get" th:action="@{|/profilepage/${fashPost.getPoster().getId()}|}">
                     <button class="linktoprofilepagebtn" type="submit">
                         <img class="exploreprofilepic" th:src="|/u/image/${fashPost.getPoster().getId()}|">
@@ -84,7 +84,7 @@
                 </div>
             </section>
         </a>
-        <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
+        <section class="sectioncommentexplore">
             <form>
                 <input type="hidden" name="postId" th:value="${fashPost.getId()}">
                 <input required="required" class="inputCss" type="text" name="commentText"

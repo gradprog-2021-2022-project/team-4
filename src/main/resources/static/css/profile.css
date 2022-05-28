@@ -7,6 +7,16 @@ h3 {
     font-size: 1.2em!important;
 }
 
+main {
+    margin-left: 0%!important;
+    margin-right: 0%!important;
+}
+
+.postsprofilepage {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .noprofilepic {
     background-color: #FAFF7F;
     border-radius: 25px;

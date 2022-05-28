@@ -213,20 +213,9 @@ public class FashUser {
         return clothing_saved;
     }
 
-    public void follow(FashUser gebruiker) {
-        if (!this.following.contains(gebruiker)) {
-            this.following.add(gebruiker);
-        }
-    }
-
-    public void unFollow(FashUser gebruiker) {
-        if (this.following.contains(gebruiker)) {
-            this.following.remove(gebruiker);
-        }
-    }
-
+    //Vanaf nu kan ge uzelf ni meer volgen!
     public void addFollower(FashUser gebruiker) {
-        if (!this.followers.contains(gebruiker)) {
+        if (!this.followers.contains(gebruiker) && gebruiker!=this) {
             this.followers.add(gebruiker);
         }
     }

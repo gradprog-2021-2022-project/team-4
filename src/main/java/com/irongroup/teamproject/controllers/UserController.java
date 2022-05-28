@@ -114,12 +114,12 @@ public class UserController {
                     FashUser userpage = users.findById(id).get();
                     //Kijken of ge al volgt en zoniet, volgen
                     if(!userloggedin.following.contains(userpage)){
-                        userloggedin.follow(users.findById(id).get());
+                        userloggedin.addFollower(users.findById(id).get());
                         userpage.addFollower(userloggedin);
                     }
                     //Als ge wel volgt, unfollow doen
                     else {
-                        userloggedin.unFollow(users.findById(id).get());
+                        userloggedin.removeFollower(users.findById(id).get());
                         users.findById(id).get().removeFollower(userloggedin);
                     }
                     //Natuurlijk opslaan zoals altijd

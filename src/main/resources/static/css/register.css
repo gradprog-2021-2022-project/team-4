@@ -2,8 +2,10 @@
     border-radius: 20px;
     padding: 40px;
     box-sizing: border-box;
-    background: #E8D7FF;
-    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    border: solid #89b6a5 8px;
+    color: white;
+    background: #343a40;
+    box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
     margin-top: 100px;
     width: 350px;
     height: auto;
@@ -33,11 +35,10 @@
 }
 
 .inputCss {
-    background: #ecf0f3;
     padding: 10px;
-    height: 20px;
+    height: 25px;
     font-size: 14px;
-    border-radius: 50px;
+    border-radius: 15px;
 }
 
 .error{

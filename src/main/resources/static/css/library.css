@@ -109,8 +109,34 @@ nav a:hover {
     */
 }
 
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
 .borderNone{
     border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+.borderInputFile{
+    border: solid #89b6a5 2px !important;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+.borderPrpl{
+    border: none;
+    border-bottom: solid #E8D7FF 5px !important;
     padding: 5px;
     margin: 10px;
     min-width: 100px;

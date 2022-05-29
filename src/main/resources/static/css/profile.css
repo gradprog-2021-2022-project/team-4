@@ -58,10 +58,9 @@ main {
 
 /*nieuw post button on profilepage absolute so image won't shift*/
 .nieuwpost {
-    float: none;
-    margin-left: 78%;
-    margin-top: auto;
-    margin-bottom: 10px;
+    float: none!important;
+    margin-left: 73%!important;
+    margin-top: auto!important;
 }
 
 /*algemene button voor volgen en volgers, etc*/

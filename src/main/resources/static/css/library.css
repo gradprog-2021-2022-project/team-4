@@ -223,7 +223,17 @@ nav a:hover {
     border-radius: 5px;
     border-bottom: solid #89B6A5 5px !important;
 }
+.btnModal{
+    background-color: #B685FF;
+    color: white
+}
 
+.modal {
+    margin-top: 80px;
+}
+.modal-header{
+    background-color: #FAFF7F;
+}
 
 @media only screen and (min-width: 760px) {
 

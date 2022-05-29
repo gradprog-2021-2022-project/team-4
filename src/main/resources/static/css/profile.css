@@ -19,15 +19,14 @@ main {
 
 #list {
     width: 100%;
-    column-count: 3;
+    column-count: 1;
     column-gap: 1.875em;
     column-fill: auto;
 }
 
 .postCardDivProfile {
     -webkit-column-break-inside: avoid;
-    padding-bottom: 0.9em;
-    padding-top: 0.9em;
+    padding: 20px;
 }
 
 .imgarticle {
@@ -167,6 +166,12 @@ main {
     float: left;
 }
 
+@media only screen and (min-width: 700px) {
+    #list {
+        column-count: 2;
+    }
+}
+
 @media only screen and (min-width: 760px) {
     .nieuwpost {
         position: absolute;
@@ -174,5 +179,18 @@ main {
         margin-left: 0;
         margin-top: 20px;
         margin-bottom: 0;
+    }
+}
+
+@media only screen and (min-width: 996px) {
+    #list {
+        column-count: 3;
+    }
+
+    .postCardDivProfile {
+        padding-bottom: 0.9em;
+        padding-top: 0.9em;
+        padding-left: 0;
+        padding-right: 0;
     }
 }

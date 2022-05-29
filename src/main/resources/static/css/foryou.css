@@ -6,8 +6,6 @@
         flex-wrap: wrap;
     }
     .foryoucard{
-        border-radius: 5px;
-        border: lightgray 5px solid;
         flex: 0 1 auto;
         margin-top: 0%;
         width: 15%; !important;

@@ -8,8 +8,8 @@ h3 {
 }
 
 main {
-    margin-left: 0%!important;
-    margin-right: 0%!important;
+    margin-left: 0!important;
+    margin-right: 0!important;
 }
 
 .postsprofilepage {
@@ -19,22 +19,15 @@ main {
 
 #list {
     width: 100%;
-    -webkit-column-count: 3;
-    -webkit-column-gap: 1.875em;
-    -webkit-column-fill: auto;
-    moz-column-count: 3;
-    moz-column-gap: 1.875em;
-    moz-column-fill: auto;
     column-count: 3;
     column-gap: 1.875em;
     column-fill: auto;
 }
 
 .postCardDivProfile {
-    margin-bottom: 1.875em;
     -webkit-column-break-inside: avoid;
-    -moz-column-break-inside: avoid;
-    column-break-inside: avoid;
+    padding-bottom: 0.9em;
+    padding-top: 0.9em;
 }
 
 .imgarticle {
@@ -45,11 +38,23 @@ main {
     width: 100%!important;
 }
 
+.sectionclass {
+    width: 100%!important;
+}
+
+.sectioncommentexplore {
+    width: 100%!important;
+}
+
+.inputCss {
+    width: 80%;
+}
+
 .noprofilepic {
     background-color: #FAFF7F;
     border-radius: 25px;
     border: 2px solid black;
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
 /*nieuw post button on profilepage absolute so image won't shift*/
@@ -166,8 +171,8 @@ main {
     .nieuwpost {
         position: absolute;
         right: 96.5px;
-        margin-left: 0px;
+        margin-left: 0;
         margin-top: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 }

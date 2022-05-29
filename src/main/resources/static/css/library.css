@@ -136,6 +136,7 @@ nav a:hover {
 
 .borderPrpl{
     border: none;
+    text-align: center;
     border-bottom: solid #E8D7FF 5px !important;
     padding: 5px;
     margin: 10px;

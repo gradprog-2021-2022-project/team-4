@@ -15,7 +15,7 @@
           th:href="@{/css/posts.css}" href="/css/posts.css"/>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/followerspage.css}" href="/css/followerspage.css"/>
-    <title>follow</title>
+    <title>volgers</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
@@ -25,13 +25,13 @@
         <h1 th:text="${user.getUsername()}"></h1>
         <form>
             <i class="fa fa-fw fa-search"></i>
-            <input class="searchbar" type="text" id="keyword" name="keyword" th:value="${keyword}" placeholder="Search">
+            <input class="searchbar" type="text" id="keyword" name="keyword" th:value="${keyword}" placeholder="Zoek">
         </form>
-        <button id="idbuttonfollower" class="buttonchange" onclick="getfollower()" title="change">follower</button>
-        <button id="idbuttonfollowing" class="buttonchange" onclick="getfollowing()" title="change">following</button>
+        <button id="idbuttonfollower" class="buttonchange" onclick="getfollower()" title="change">volgers</button>
+        <button id="idbuttonfollowing" class="buttonchange" onclick="getfollowing()" title="change">volgend</button>
         <div class="followerpage">
             <div class="followingdiv" id="test1">
-                <h2 th:text="${nrfollowing + ' Following'}">aantal volgend</h2>
+                <h2 th:text="${nrfollowing + ' Volgend'}">aantal volgend</h2>
                 <div th:each="followingPerson : ${following}">
                     <form method="get" th:action="@{|/profilepage/${followingPerson.getId()}|}">
                         <button class="person"  type="submit">
@@ -48,7 +48,7 @@
                 </div>
             </div>
             <div class="followerdiv" id="test2">
-                <h2 th:text="${nrfollowers + ' Followers'}">aantal followers</h2>
+                <h2 th:text="${nrfollowers + ' Volgers'}">aantal volgers</h2>
                 <div th:each="followersPerson : ${followers}">
                     <form method="get" th:action="@{|/profilepage/${followersPerson.getId()}|}">
                         <button class="person"  type="submit">

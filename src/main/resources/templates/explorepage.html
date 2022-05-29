@@ -49,12 +49,12 @@
                 <div sec:authorize="isAuthenticated()">
                     <div class="buttonsdiv formbtn" th:if="${curUser !=null &&curUser.following.contains(fashUser)}">
                         <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="bttnExplore section">Unfollow</button><br>
+                            <button type="submit" class="bttnExplore section">Ontvolgen</button><br>
                         </form>
                     </div>
                     <div class="buttonsdiv formbtn" th:unless="${curUser!=null &&curUser.following.contains(fashUser)}">
                         <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="bttnExplore section">Follow</button><br>
+                            <button type="submit" class="bttnExplore section">Volgen</button><br>
                         </form>
                     </div>
                 </div>

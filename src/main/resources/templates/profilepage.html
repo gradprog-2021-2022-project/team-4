@@ -4,7 +4,7 @@
 <head>
     <link rel="stylesheet" type="text/css" media="all"
           th:href="@{/css/profile.css}" href="/css/profile.css"/>
-    <title>profilepage</title>
+    <title>profiel</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
@@ -33,9 +33,9 @@
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
                                         th:text="${user.aantalFollowers() + ' volgers'}"
                                         class="right followetcbtnpurple"></a></strong>
-                <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
+                <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="kleren"
                                               class="left followetcbtnpurple"></a></strong>
-                <strong class="clothesbtn"><a th:href="@{|/checkconvo/${user.getId()}|}" th:text="message"
+                <strong class="clothesbtn"><a th:href="@{|/checkconvo/${user.getId()}|}" th:text="stuur"
                                               class="right followetcbtnpurple"></a></strong>
             </div>
             <div class="buttonsdiv" th:unless="${follow}">
@@ -45,18 +45,12 @@
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
                                         th:text="${user.aantalFollowers() + ' volgers'}"
                                         class="right followetcbtn"></a></strong>
-                <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
+                <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="kleren"
                                               class="left followetcbtn"></a></strong>
-                <strong class="clothesbtn"><a th:href="@{|/messages|}" th:text="messages"
+                <strong class="clothesbtn"><a th:href="@{|/messages|}" th:text="berichten"
                                               class="right followetcbtn"></a></strong>
             </div>
             <p>bio</p>
-        </section>
-        <section class="profileposts">
-            <dl class="profileinfo">
-                <dt><span>clothing posted : </span></dt>
-                <dd><span th:text="${user.getPostsMade().size()}"></span></dd>
-            </dl>
         </section>
         <div class="postsprofilepage">
             <div id="list">

@@ -13,10 +13,36 @@ main {
 }
 
 .postsprofilepage {
-    display: flex;
-    flex-wrap: wrap;
     max-width: 1000px;
     margin: auto;
+}
+
+#list {
+    width: 100%;
+    -webkit-column-count: 3;
+    -webkit-column-gap: 1.875em;
+    -webkit-column-fill: auto;
+    moz-column-count: 3;
+    moz-column-gap: 1.875em;
+    moz-column-fill: auto;
+    column-count: 3;
+    column-gap: 1.875em;
+    column-fill: auto;
+}
+
+.postCardDivProfile {
+    margin-bottom: 1.875em;
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
+}
+
+.imgarticle {
+    width: 100%;
+}
+
+.postpic {
+    width: 100%!important;
 }
 
 .noprofilepic {

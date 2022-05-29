@@ -29,12 +29,12 @@
             <!--<h2 th:text="${user.getId()}">id</h2>-->
             <div class="buttonsdiv" th:if="${follow}">
                 <strong class="flex"><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}"
-                           class="left followetcbtnpurple"></a></strong>
+                                        class="left followetcbtnpurple"></a></strong>
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
-                           th:text="${user.aantalFollowers() + ' volgers'}"
-                           class="right followetcbtnpurple"></a></strong>
+                                        th:text="${user.aantalFollowers() + ' volgers'}"
+                                        class="right followetcbtnpurple"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="clothes"
-                                                    class="left followetcbtnpurple"></a></strong>
+                                              class="left followetcbtnpurple"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/checkconvo/${user.getId()}|}" th:text="message"
                                               class="right followetcbtnpurple"></a></strong>
             </div>
@@ -59,41 +59,43 @@
             </dl>
         </section>
         <div class="postsprofilepage">
-            <div class="postCardDiv" th:each="post : ${user.getPostsMade()}">
-                <div class="boxposts">
-                    <a class="postCard" th:if="${post!=null}" th:href="@{|/postDetails/${post.getId()}}">
-                        <section class="sectionclass">
-                            <img class="exploreprofilepic" th:src="|/u/image/${user.getId()}|">
-                            <h1 class="sectionrows name" th:text="${user.getUsername()}"></h1>
-                            <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${post.getLocation()}"></i></h3>
-                            <article>
-                                <img class="postpic" th:src="|/p/image/${post.getId()}|">
-                            </article>
-                            <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
-                            <p class="sectionbiotext" th:text="${post.getText()}"></p>
-                            <div class="commentsothers" th:if="${post.getOneComment()}">
-                                <form method="get" th:action="@{|/profilepage/${post.getOneComment().getUser().getId()}|}">
-                                    <button class="linktoprofilepagebtn" type="submit">
-                                        <div th:if="${post.getOneComment().getUser().getProfilePic()}">
-                                            <img class="exploreprofilepic commentpic" th:src="|/u/image/${post.getOneComment().getUser().getId()}|">
-                                        </div>
-                                        <div th:unless="${post.getOneComment().getUser().getProfilePic()}">
-                                            <i class="noprofilepic fa fa-fw fa-user"></i>
-                                        </div>
-                                        <strong><p class="sectionbioname" th:text="${post.getOneComment().getUser().getUsername()}"></p></strong>
-                                    </button>
-                                </form>
-                                <p class="sectionbiotext" th:text="${post.getOneComment().getText()}"></p>
-                            </div>
+            <div id="list">
+                <div class="postCardDivProfile" th:each="post : ${user.getPostsMade()}">
+                    <div class="boxposts">
+                        <a class="postCard" th:if="${post!=null}" th:href="@{|/postDetails/${post.getId()}}">
+                            <section class="sectionclass">
+                                <img class="exploreprofilepic" th:src="|/u/image/${user.getId()}|">
+                                <h1 class="sectionrows name" th:text="${user.getUsername()}"></h1>
+                                <h3 class="sectionrows"><i class="fa fa-map-marker" th:text="${post.getLocation()}"></i></h3>
+                                <article class="imgarticle">
+                                    <img class="postpic" th:src="|/p/image/${post.getId()}|">
+                                </article>
+                                <strong><p class="sectionbioname" th:text="${user.getUsername()}"></p></strong>
+                                <p class="sectionbiotext" th:text="${post.getText()}"></p>
+                                <div class="commentsothers" th:if="${post.getOneComment()}">
+                                    <form method="get" th:action="@{|/profilepage/${post.getOneComment().getUser().getId()}|}">
+                                        <button class="linktoprofilepagebtn" type="submit">
+                                            <div th:if="${post.getOneComment().getUser().getProfilePic()}">
+                                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${post.getOneComment().getUser().getId()}|">
+                                            </div>
+                                            <div th:unless="${post.getOneComment().getUser().getProfilePic()}">
+                                                <i class="noprofilepic fa fa-fw fa-user"></i>
+                                            </div>
+                                            <strong><p class="sectionbioname" th:text="${post.getOneComment().getUser().getUsername()}"></p></strong>
+                                        </button>
+                                    </form>
+                                    <p class="sectionbiotext" th:text="${post.getOneComment().getText()}"></p>
+                                </div>
+                            </section>
+                        </a>
+                        <section class="sectioncommentexplore" th:if="${follow}">
+                            <form>
+                                <input type="hidden" name="postId" th:value="${post.getId()}">
+                                <input required="required" class="inputCss" type="text" name="commentText" placeholder="Jouw comment">
+                                <button type="submit" class="btn-dark borderBtn">Plaatsen</button><br>
+                            </form>
                         </section>
-                    </a>
-                    <section class="sectioncommentexplore" th:if="${follow}">
-                        <form>
-                            <input type="hidden" name="postId" th:value="${post.getId()}">
-                            <input required="required" class="inputCss" type="text" name="commentText" placeholder="Jouw comment">
-                            <button type="submit" class="btn-dark borderBtn">Plaatsen</button><br>
-                        </form>
-                    </section>
+                    </div>
                 </div>
             </div>
         </div>

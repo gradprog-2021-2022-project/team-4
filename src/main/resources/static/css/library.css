@@ -234,7 +234,12 @@ nav a:hover {
 .modal-header{
     background-color: #FAFF7F;
 }
-
+.list{
+    width:235px;
+    background: #ecf0f3;
+    font-size: 15px;
+    border-radius: 50px;
+}
 @media only screen and (min-width: 760px) {
 
     .txt::before{

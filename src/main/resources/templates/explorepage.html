@@ -9,21 +9,21 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="filterContainer position-fixed">
-        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Search">
+        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="zoek">
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll displayChange">
-                <strong for="naamPerson">Name:</strong>
+                <strong for="naamPerson">Naam:</strong>
                 <input type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username">
-                <strong>Style:</strong>
+                <strong>Stijl:</strong>
                 <select name="style" placeholder="Kies een stijl!">
                     <option th:value="${null}" th:text="Alle"></option>
                     <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
                 </select>
-                <strong>Nearby:</strong>
+                <strong>In de buurt:</strong>
                 <div>
-                <label for="noClose" >No</label>
+                <label for="noClose" >Nee</label>
                 <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
-                <label for="yesClose">Yes</label>
+                <label for="yesClose">Ja</label>
                 <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
                 </div>
                 <strong for="minprijs">Minimum:</strong>
@@ -32,7 +32,7 @@
                 <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
                 <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
-                <input class="btn-dark borderBtn" type="submit" value="search">
+                <input class="btn-dark borderBtn" type="submit" value="zoeken">
             </form>
         </div>
     </div>

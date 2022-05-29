@@ -20,15 +20,15 @@
             <div th:if="${error!=null}">
                 <span th:text="${error.getDefaultMessage()}"></span>
             </div>
-            <label for="firstName">Firstname:</label>
+            <label for="firstName">VOORNAAM:</label>
             <input class="inputCss" type="text" id="firstName" th:field="*{first_name}" th:errorclass="fieldError"><br>
-            <label for="lastName">Lastname:</label>
+            <label for="lastName">ACHTERNAAM:</label>
             <input class="inputCss" type="text" id="lastName" th:field="*{last_name}" th:errorclass="fieldError"><br>
-            <label for="Username">Username:</label>
+            <label for="Username">GEBRUIKERSNAAM:</label>
             <input class="inputCss" type="text" id="Username" th:field="*{username}" th:errorclass="fieldError"><br>
-            <label for="Password">Password: </label>
+            <label for="Password">WACHTWOORD: </label>
             <input class="inputCss" type="password" id="Password" th:field="*{password}" th:errorclass="fieldError"><br>
-            <label for="image" class="btn-dark borderInputFile"><i class="fa fa-download" aria-hidden="true"></i> Choose Profile Picture</label>
+            <label for="image" class="btn-dark borderInputFile"><i class="fa fa-download" aria-hidden="true"></i> KIES JE PROFIELFOTO:</label>
             <input class="inputfile" type="file" name="image" id="image" accept="image/png, image/jpeg"><br>
             <input type="submit" value="Register" class="btn-dark borderPrpl">
             <div>

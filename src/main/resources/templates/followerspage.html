@@ -22,6 +22,7 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <div th:if="${user}">
+        <a class="btn btn-dark backbuttonFollow" th:href="@{|/profilepage/${user.getId()}|}">Terug</a>
         <h1 th:text="${user.getUsername()}"></h1>
         <form>
             <i class="fa fa-fw fa-search"></i>

@@ -1,3 +1,9 @@
+.backbuttonFollow {
+    position: absolute;
+    left: 0;
+    margin-left: 10%;
+}
+
 .followerpage {
     display: flex;
     flex-direction: row;

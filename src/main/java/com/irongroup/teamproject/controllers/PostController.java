@@ -53,7 +53,8 @@ public class PostController {
     @GetMapping("/explorepage")
     public String explorepage(Model model, Principal principal, @RequestParam(required = false) String naamPerson, @RequestParam(required = false) Boolean closeby, @RequestParam(required = false) Boolean showFilter
             , @RequestParam(required = false) Integer id, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle,
-                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs) {
+                              @RequestParam(required = false) Double latitude, @RequestParam(required = false) Double longitude, @RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs, @RequestParam(required = false) Double maxPrijs,
+                              @RequestParam(required = false) Integer slider) {
         logger.info("explorepage -- naamPerson=" + naamPerson);
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         //Eerst alle posts ophalen!
@@ -62,7 +63,7 @@ public class PostController {
         Collection<FashUser> thesame = new ArrayList<>();
 
         //kijken of er een naam gezocht wordt
-        if (naamPerson != null && naamPerson != "") {
+        if (naamPerson != null && !naamPerson.equals("")) {
             Collection<FashUser> fashUsersKeyword = users.findByKeyword(naamPerson);
             for (FashUser user:fashUsersKeyword) {
                 for (FashUser user2:fashUsers) {
@@ -115,9 +116,8 @@ public class PostController {
                 users.save(loggedInUser);
             }
         }
-        System.out.println("closeby = " + closeby);
         if (closeby != null && closeby && principal != null) {
-            model.addAttribute("fashUsers", orderByLocation(principal, thesame));
+            model.addAttribute("fashUsers", orderByLocation(principal, thesame, slider));
         } else {
             model.addAttribute("fashUsers", thesame);
         }
@@ -169,7 +169,7 @@ public class PostController {
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
-    private ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers) {
+    private ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers, Integer slider) {
         FashUser user = users.findFashUserByUsername(principal.getName());
 
         ArrayList<FashUser> closest = new ArrayList<>();
@@ -180,7 +180,7 @@ public class PostController {
                 Double distanceInKm = haversine(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
 
                 //Nu kan je ook filteren op stijl !
-                if (distanceInKm < 5) {
+                if (distanceInKm < slider) {
                     closest.add(u);
                 }
             }

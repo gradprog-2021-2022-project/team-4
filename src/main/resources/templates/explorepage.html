@@ -22,10 +22,11 @@
                 </select>
                 <strong>In de buurt:</strong>
                 <div>
-                <label for="noClose" >Nee</label>
-                <input type="radio" id="noClose" name="closeby" value="no" th:checked="${closeby == false || closeby == null}">
-                <label for="yesClose">Ja</label>
-                <input type="radio" id="yesClose" name="closeby" value="yes" th:checked="${closeby == true}">
+                    <label for="noClose" >Nee</label>
+                    <input type="radio" id="noClose" name="closeby" value="false" th:checked="${closeby == false || closeby == null}">
+                    <label for="yesClose">Ja</label>
+                    <input type="radio" id="yesClose" name="closeby" value="true" th:checked="${closeby == true}">
+                    <input type="range" min="1" max="50" id="slider" name="slider">
                 </div>
                 <strong for="minprijs">Minimum:</strong>
                 <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">

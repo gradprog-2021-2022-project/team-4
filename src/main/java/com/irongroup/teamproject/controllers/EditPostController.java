@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -23,6 +24,10 @@ public class EditPostController {
     private PostRepository postRepository;
     @Autowired
     private ClothingRepository clothingRepository;
+    @Autowired
+    List<String> nameList;
+    @Autowired
+    List<String> typeList;
 
     //post edit
     @ModelAttribute("valid")
@@ -39,6 +44,9 @@ public class EditPostController {
         FashPost post = postRepository.findById(id).get();
         postRepository.save(post);
         model.addAttribute("post", post);
+        // de styles en types lijsten
+        model.addAttribute("styles", nameList);
+        model.addAttribute("types", typeList);
         // om te kijken of de current user is de poster
         model.addAttribute("user", principal.getName());
         model.addAttribute("poster", postRepository.findById(id).get().getPoster().getUsername());

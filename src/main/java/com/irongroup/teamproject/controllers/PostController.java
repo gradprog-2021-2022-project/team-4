@@ -268,4 +268,9 @@ public class PostController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }
+    @GetMapping("/deletepost/{id}")
+    public String deletePost(@PathVariable int id){
+        posts.deleteById(id);
+        return "redirect:/profilepage";
+    }
 }

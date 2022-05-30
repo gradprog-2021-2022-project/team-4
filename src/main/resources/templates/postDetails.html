@@ -49,7 +49,8 @@
                 <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
                 <h3 class="pad" th:text="|Posted in: ${post.getLocation()}|"></h3>
                 <h2>Clothes:</h2>
-                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
+                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}">
+                    <span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
                 </a>
             </section>
         </article>

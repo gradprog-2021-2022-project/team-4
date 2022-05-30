@@ -1,7 +1,9 @@
 package com.irongroup.teamproject.controllers;
 
+import com.irongroup.teamproject.model.FashComment;
 import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
+import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
 import org.apache.commons.io.FileUtils;
@@ -27,6 +29,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 import java.security.Principal;
@@ -37,6 +41,10 @@ import java.util.stream.Collectors;
 public class UserController {
     private Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
+    PostRepository posts;
+    @Autowired
+    CommentRepository comments;
+    @Autowired
     UserRepository users;
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -44,7 +52,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping({"/profilepage", "/profilepage/{id}" })
-    public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal){
+    public String profilepage(Model model, @PathVariable(required = false)Integer id, Principal principal, @RequestParam(required = false) Integer postId, @RequestParam(required = false) String commentText, @RequestParam(required = false) String commentTitle){
         try{
             //Dit is als je naar je eigen profiel gaat
             if(id==null) {
@@ -84,15 +92,29 @@ public class UserController {
                             //Kijken of ge al volgt en zoniet, volgen
                             if (!userpage.followers.contains(userloggedin)){
                                 //follow button veranderen naar follow
-                                model.addAttribute("follow", "follow");
+                                model.addAttribute("follow", "Volg");
                             }
                             //Als ge wel volgt, unfollow doen
                             else {
                                 //follow button veranderen naar unfollow
-                                model.addAttribute("follow", "unfollow");
+                                model.addAttribute("follow", "Ontvolgen");
                             }
                         }
                         model.addAttribute("user", optionalFashUser.get());
+                    }
+                    if (principal != null) {
+                        if (commentText != null) {
+                            FashPost post = posts.findById(postId).get();
+                            FashComment comment = new FashComment();
+                            comment.setUser(userloggedin);
+                            comment.setText(commentText);
+                            comment.setPost(post);
+                            comment.setTitle(commentTitle);
+                            comment.setDate(LocalDate.now());
+                            comment.setTime(LocalTime.now());
+                            comments.save(comment);
+                            return "redirect:/profilepage/" + userpage.getId();
+                        }
                     }
                 }
                 return "profilepage";
@@ -103,7 +125,7 @@ public class UserController {
         return "redirect:/profilepage";
     }
 
-    @GetMapping({"/follow/{id}/{page}" })
+    @GetMapping({"/follow/{id}" })
     public String follow(Principal principal, @PathVariable Integer id){
         try{
             //Kijken of ge wel bent ingelogd

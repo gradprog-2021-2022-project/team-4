@@ -10,6 +10,13 @@
     border-radius: 12px 12px 12px 12px;
 }
 
+.boxposts {
+    width: 100%;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+    border-radius: 12px 12px 12px 12px;
+    margin: auto;
+}
+
 .postpic {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -62,7 +69,7 @@
 
 .sectionrows {
     padding-left: 70px;
-    flex: 1 0 45%;
+    flex: 1 0 100%;
     margin-top: auto;
     margin-bottom: auto;
 }

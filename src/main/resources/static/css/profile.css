@@ -1,42 +1,112 @@
+h1 {
+    color: black!important;
+}
+
+h3 {
+    color: black!important;
+    font-size: 1.2em!important;
+}
+
+main {
+    margin-left: 0!important;
+    margin-right: 0!important;
+}
+
+.postsprofilepage {
+    max-width: 1000px;
+    margin: auto;
+}
+
+#list {
+    width: 100%;
+    column-count: 1;
+    column-gap: 1.875em;
+    column-fill: auto;
+}
+
+.postCardDivProfile {
+    -webkit-column-break-inside: avoid;
+    padding: 20px;
+}
+
+.imgarticle {
+    width: 100%;
+}
+
+.postpic {
+    width: 100%!important;
+}
+
+.sectionclass {
+    width: 100%!important;
+}
+
+.sectioncommentexplore {
+    width: 100%!important;
+}
+
+.inputCss {
+    width: 80%;
+}
+
 .noprofilepic {
     background-color: #FAFF7F;
     border-radius: 25px;
     border: 2px solid black;
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
 /*nieuw post button on profilepage absolute so image won't shift*/
 .nieuwpost {
-    float: none;
-    margin-left: 78%;
-    margin-top: auto;
-    margin-bottom: 10px;
+    float: none!important;
+    margin-left: 73%!important;
+    margin-top: auto!important;
 }
 
 /*algemene button voor volgen en volgers, etc*/
 .followetcbtn {
-    background-color: #89B6A5;
-    border-radius: 8px;
+    color: #fff;
+    background-color: #343a40;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 145px;
+    border-radius: 5px;
+    border-bottom: solid #89B6A5 5px;
     font-style: italic;
     cursor: pointer;
-    border: 1px solid black;
-    padding: 5px 7px;
     font-size: 20px;
+}
+
+.followetcbtn:hover {
+    color: #fff;
+    background-color: #23272b;
+    border-bottom: solid #89B6A5 5px !important;
     text-decoration: none;
-    color: black;
+    /*box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #75bea2;*/
 }
 
 /*paarse button voor volgen en volgers, etc*/
 .followetcbtnpurple {
-    background-color: #E8D7FF;
-    border-radius: 8px;
+    color: #fff;
+    background-color: #343a40;
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 145px;
+    border-radius: 5px;
+    border-bottom: solid #E8D7FF 5px;
     font-style: italic;
     cursor: pointer;
-    border: 1px solid black;
-    padding: 5px 7px;
     font-size: 20px;
+}
+
+.followetcbtnpurple:hover {
+    color: #fff;
+    background-color: #23272b;
+    border-bottom: solid rgb(211, 187, 250) 5px !important;
     text-decoration: none;
-    color: black;
+    /*box-shadow: 14px 14px 20px #343a40, 14px 14px 20px #bd8dff;*/
 }
 
 .hr-lines:after{
@@ -95,12 +165,31 @@
     float: left;
 }
 
+@media only screen and (min-width: 700px) {
+    #list {
+        column-count: 2;
+    }
+}
+
 @media only screen and (min-width: 760px) {
     .nieuwpost {
         position: absolute;
         right: 96.5px;
-        margin-left: 0px;
+        margin-left: 0;
         margin-top: 20px;
-        margin-bottom: 0px;
+        margin-bottom: 0;
+    }
+}
+
+@media only screen and (min-width: 996px) {
+    #list {
+        column-count: 3;
+    }
+
+    .postCardDivProfile {
+        padding-bottom: 0.9em;
+        padding-top: 0.9em;
+        padding-left: 0;
+        padding-right: 0;
     }
 }

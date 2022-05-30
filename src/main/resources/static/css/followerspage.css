@@ -8,19 +8,16 @@
     display: none;
 }
 
-#idbuttonfollowing {
-    background-color: #E8D7FF;
-}
-
 .person {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 5px;
+    border-bottom: solid #89B6A5 5px !important;
+    background-color: #343a40;
     display: flex;
     flex-wrap: wrap;
     text-align: left;
-    margin-bottom: 20px;
-    background: none;
-    padding: 0;
     border: 0.5px solid #00000030;
-    border-radius: 50px;
     width: 400px;
 }
 
@@ -30,19 +27,19 @@
 }
 
 .person:hover {
-    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    box-shadow: 14px 14px 20px #343a40;
     cursor: pointer;
 }
 
 .sectionbioname {
-    padding-left: 50px;
+    padding-left: 50px!important;
     margin-top: auto;
     margin-bottom: auto;
     font-size: 20px;
 }
 
 .sectionbiofullname {
-    flex: 1 0 80%;
+    flex: 1 0 90%;
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 50px;
@@ -50,28 +47,53 @@
 }
 
 .commentpic {
-    width: 37px;
-    height: 35px;
+    width: 37px!important;
+    height: 35px!important;
     border: 1px solid black;
+    z-index: 1!important;
+}
+
+
+/*test*/
+p {
+    color: white!important;
 }
 
 .searchbar {
     width: 90%;
     height: 40px;
-    border-radius: 10px;
-    box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
+    border-radius: 5px;
+    border: 0.5px solid #00000045;
+    background-color: #ececec;
+    /*box-shadow: 14px 14px 20px #cbced1;
     border: 0.5px solid #00000030;
+    background-color: #e3e3e3;*/
 }
 
+/*follower and following button on followerspage in small design*/
 .buttonchange {
     margin-top: 20px;
     width: 40%;
     height: 35px;
-    border-radius: 10px;
     box-shadow: 14px 14px 20px #cbced1, -14px -14px 20px white;
-    border: 0.5px solid #00000030;
+    border: 0.5px solid #343a40;
     margin-right: 10px;
     margin-left: 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #343a40;
+}
+
+.noprofilepic {
+    width: 40px!important;
+    width: 40px!important;
+    height: 39px;
+}
+
+
+/*standard the followingbutton is pressed in small design*/
+#idbuttonfollowing {
+    border-bottom: solid #89B6A5 5px;
 }
 
 /*to hide the scrollbar*/

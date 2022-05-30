@@ -1,0 +1,16 @@
+main {
+    text-align: left!important;
+}
+
+h1, h2, h3 {
+    text-align: center;
+}
+
+.grid {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+

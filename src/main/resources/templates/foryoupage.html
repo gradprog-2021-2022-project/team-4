@@ -49,7 +49,7 @@
 </main>
 <main sec:authorize="isAuthenticated()" class="foryoumain">
     <div class="postCardDiv foryoucard" th:each="fashPost : ${allposts}">
-        <a th:href="@{|/postDetails/${fashPost.getId()}}">
+        <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
             <section class="foryousection">
                 <form class="linktoprofilepage" method="get" th:action="@{|/profilepage/${fashPost.getPoster().getId()}|}">
                     <button class="linktoprofilepagebtn" type="submit">

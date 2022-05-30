@@ -12,7 +12,7 @@
 
 .boxposts {
     width: 100%;
-    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 20%);
+    box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
     border-radius: 12px 12px 12px 12px;
     margin: auto;
 }
@@ -169,7 +169,11 @@ h3.sectionrows {
 }
 
 .linktoprofilepagebtn:hover {
-    text-decoration: underline;
+    color: rgb(211, 187, 250);
+}
+
+.linktoprofilepagebtn p:hover {
+    color: rgb(211, 187, 250);
 }
 
 /*to hide the scrollbar*/

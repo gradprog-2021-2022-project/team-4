@@ -50,10 +50,12 @@ main {
 }
 
 .noprofilepic {
-    background-color: #FAFF7F;
-    border-radius: 25px;
-    border: 2px solid black;
-    padding: 10px 0;
+    background-color: #89b6a5!important;
+}
+
+/*noprofilepic but in purple for another account*/
+.purple {
+    background-color: rgb(211, 187, 250) !important;
 }
 
 /*nieuw post button on profilepage absolute so image won't shift*/

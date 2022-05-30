@@ -11,9 +11,6 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
     <div th:if="${user}">
-        <a th:href="@{/postnew}" th:if="${follow}">
-            <input type="button" value="Nieuwe post!" class="followetcbtnpurple nieuwpost" style="float: right">
-        </a>
         <a th:href="@{/postnew}" th:unless="${follow}">
             <input type="button" value="Nieuwe post!" class="followetcbtn nieuwpost" style="float: right">
         </a>
@@ -22,7 +19,12 @@
                 <img class="profilepic" th:src="|/u/image/${user.getId()}|" alt="image not found">
             </div>
             <div th:unless="${user.getProfilePic()}">
-                <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
+                <div th:if="${follow}">
+                    <i class="noprofilepic purple fa fa-fw fa-user fa-5x"></i>
+                </div>
+                <div th:unless="${follow}">
+                    <i class="noprofilepic fa fa-fw fa-user fa-5x"></i>
+                </div>
             </div>
             <h2 th:text="${user.getUsername()}">username</h2>
             <!--om erachter te komen welke id deze gebruiker heeft-->

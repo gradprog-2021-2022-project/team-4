@@ -253,17 +253,22 @@ nav a:hover {
 .modal-header{
     background-color: #FAFF7F;
 }
-.list{
-    width:235px;
-    background: #ecf0f3;
-    font-size: 15px;
-    border-radius: 50px;
-}
 .smallborderBtn{
     min-width: 50px;
     text-align: center;
     padding: 0;
 }
+.clothingLabel{
+    color: white;
+    border: 2px solid #89B6A5 !important;
+    border-radius: 5px;
+    background-color: #343a40;
+    padding: 8px;
+}
+.space{
+    line-height: 0;
+}
+
 
 
 @media only screen and (min-width: 760px) {

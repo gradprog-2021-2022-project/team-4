@@ -213,6 +213,16 @@ public class FashUser {
         return clothing_saved;
     }
 
+    public void follow(FashUser gebruiker) {
+        if (!this.following.contains(gebruiker) && gebruiker!=this) {
+            this.following.add(gebruiker);
+        }
+    }
+
+    public void unFollow(FashUser gebruiker) {
+        this.following.remove(gebruiker);
+    }
+
     //Vanaf nu kan ge uzelf ni meer volgen!
     public void addFollower(FashUser gebruiker) {
         if (!this.followers.contains(gebruiker) && gebruiker!=this) {
@@ -221,9 +231,7 @@ public class FashUser {
     }
 
     public void removeFollower(FashUser gebruiker) {
-        if (this.followers.contains(gebruiker)) {
-            this.followers.remove(gebruiker);
-        }
+        this.followers.remove(gebruiker);
     }
 
     @JsonIgnore

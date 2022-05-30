@@ -13,7 +13,8 @@
                 aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll displayChange">
-                <input type="text" placeholder="Zoek op naam!" name="kledingname">
+                <input th:if="${naampje!=null}" th:value="${naampje}" type="text" placeholder="Zoek op naam!" name="kledingname">
+                <input th:if="${naampje==null}" type="text" placeholder="Zoek op naam!" name="kledingname">
                 Sorteren op datum?
                 <input th:checked="${date!=null && date}" type="radio" name="date" value="true" id="yes"><label for="yes">Ja</label>
                 <input th:checked="${date == null || !date}" type="radio" name="date" value="false" id="no"><label for="no">Nee</label>

@@ -50,6 +50,7 @@ public class ClothingController {
             }
             //Filteren op naam
             if(kledingname!=null && kledingname.length()>0){
+                model.addAttribute("naampje",kledingname);
                 clothes=sorted(clothes,kledingname);
             }
             model.addAttribute("clothes", clothes);

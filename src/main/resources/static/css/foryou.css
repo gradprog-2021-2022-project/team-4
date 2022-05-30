@@ -10,13 +10,13 @@
         margin-top: 0%;
         width: 15%; !important;
     }
-    .foryousection{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: flex-start;
-        text-align: left;
-        width: 419px;
-        margin-top: 50px;
-        padding-bottom: 20px;
-    }
+}
+.foryousection{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    text-align: left;
+    width: 419px;
+    margin-top: 50px;
+    padding-bottom: 20px;
 }

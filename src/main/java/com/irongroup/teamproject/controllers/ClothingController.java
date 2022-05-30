@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.lang.reflect.Array;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 @Controller
 public class ClothingController {
@@ -24,21 +28,26 @@ public class ClothingController {
     UserRepository userRepository;
 
     @GetMapping("/clothing/{id}")
-    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname, @RequestParam(required = false) Boolean date) {
+    public String clothing(Model model, @PathVariable Integer id, @RequestParam(required = false) String kledingname, @RequestParam(required = false) Boolean date, Principal p) {
         try {
-            model.addAttribute("user", userRepository.findById(id).get());
-            //Als de date op yes staat, sorteren op datum en kledingnaam (omdat die null mag zijn)
-            if ((date != null && date)) {
-                model.addAttribute("clothes", clothingRepository.findClothingByFilterandDate(id, kledingname));
+            FashUser loggedIn=userRepository.findFashUserByUsername(p.getName());
+            FashUser userChosen=userRepository.findById(id).get();
+            ArrayList<Clothing_Item> clothes=(ArrayList<Clothing_Item>) clothingRepository.findClothingOfUser(id);
+
+            //Je eigen kleding kunnen bekijken!
+            if(loggedIn!=null && loggedIn.getId()==userChosen.id){
+                clothes= (ArrayList<Clothing_Item>) clothingRepository.findSavedClothing(loggedIn.id);
             }
-            //Als de datum null is maar kleding ni, dan alleen filteren op kleding!!
-            else if (kledingname != null && kledingname.length() > 0) {
-                model.addAttribute("clothes", clothingRepository.findClothingByFilter(id, kledingname));
+            //Als de date op yes staat, sorteren op datum
+            if(date!=null){
+                Collections.sort(clothes);
+                Collections.reverse(clothes);
             }
-            //Als geen filters aangeduid zijn, enkel sorteren per post!
-            else {
-                model.addAttribute("fashposts", posts.findbyUserId(id));
+            //Filteren op naam
+            if(kledingname!=null && kledingname.length()>0){
+                clothes=sorted(clothes,kledingname);
             }
+            model.addAttribute("clothes", clothes);
         } catch (Exception e) {
             //NOG NIKS
         }
@@ -105,8 +114,19 @@ public class ClothingController {
             userRepository.save(user);
             //Redirect zonder een / kan gebruikt worden voor een externe website
             return "redirect:" + item.getLinkShop();
-        }catch (Exception e){
-           return "redirect:/";
+        } catch (Exception e) {
+            return "redirect:/";
         }
+    }
+
+    //Sorteer functie zodat beide lists kunnen gesorteerd worden!
+    private ArrayList<Clothing_Item> sorted(ArrayList<Clothing_Item> clothes,String naam){
+        for (Clothing_Item c:clothes
+             ) {
+            if (!c.getNaam().equalsIgnoreCase(naam)){
+                clothes.remove(c);
+            }
+        }
+        return clothes;
     }
 }

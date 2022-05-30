@@ -13,13 +13,6 @@ public interface ClothingRepository extends CrudRepository<Clothing_Item,Integer
     @Query("select c from Clothing_Item c where c.userOwner.id = :user group by c.post, c.id")
     Collection<Clothing_Item> findClothingOfUser(@Param("user")Integer userID);
 
-    //,@Param("datumSort")Boolean date
-    //order by case when :datumSort then c.post.id else c.id end desc
-    //order by case when :date ='no' then c.post.id else c.post.date end desc
-    //,@Param("date")String date
-    @Query("select c from Clothing_Item c where c.userOwner.id= :user and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%')))")
-    Collection<Clothing_Item> findClothingByFilter(@Param("user") Integer userID,@Param("kledingname") String kledingname);
-
-    @Query("select c from Clothing_Item c where c.userOwner.id= :user and (:kledingname is null or lower(c.naam) like lower(concat('%',:kledingname,'%'))) order by c.post.date")
-    Collection<Clothing_Item> findClothingByFilterandDate(@Param("user") Integer userID,@Param("kledingname") String kledingname);
+    @Query("select c.clothing_saved from FashUser c where c.id=:user")
+    Collection<Clothing_Item> findSavedClothing(@Param("user") Integer userID);
 }

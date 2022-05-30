@@ -2,58 +2,43 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/clothing.css}" href="/css/clothing.css"/>
     <title>Clothing</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside class="filterContainer">
-    <div class="filters" name="showFilter">
-        <h2>Filters: </h2>
-        <form>
-            <input type="text" placeholder="Zoek op naam!" name="kledingname">
-            Sorteren op datum?
-            <input type="radio" name="date" value="true" id="yes"><label for="yes">Jep!</label>
-            <input type="radio" name="date" value="false" id="no"><label for="no">Nop!</label>
-            <button type="submit">Zoek!</button>
-        </form>
-    </div>
-    <div>
-        <button class="btnFilter txt" onclick="showFilters()"></button>
+<aside>
+    <div class="filterContainer position-fixed">
+        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
+        <div class="collapse" id="collapseExample">
+            <form class="card card-body scroll displayChange">
+                <input type="text" placeholder="Zoek op naam!" name="kledingname">
+                Sorteren op datum?
+                <input type="radio" name="date" value="true" id="yes"><label for="yes">Ja</label>
+                <input type="radio" name="date" value="false" id="no"><label for="no">Nee</label>
+                <button type="submit" class="btn-dark borderBtn">Zoek!</button>
+            </form>
+        </div>
     </div>
 </aside>
 <script>
-    function showFilters() {
-        var btn = document.getElementsByClassName("btnFilter")[0];
-        var x = document.getElementsByClassName("filters")[0];
-        console.log("function");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-        } else {
-            x.style.display = "none";
+    //Om het plusje in een minnetje te zetten en omgekeerd
+    function filterBTN(){
+        var btnFilters=document.getElementById("btnFilters");
+        if(btnFilters.innerText=="+"){
+            btnFilters.innerText="-";
         }
-    }
+        else {
+            btnFilters.innerText="+";
+        }
+    };
 </script>
-<main class="clothepage">
-    <article th:if="${fashposts.size()!=null}" class="containerCloth" th:each="post:  ${fashposts}">
-        <a th:href="@{|/profilepage/${user.getId()}|}">
-            <h1 class="btntoPost" th:text="${user.getUsername()}"></h1>
-        </a>
-        <a th:href="@{|/postDetails/${post.getId()}|}">
-            <h2 class="btntoPost" th:text="${post.getLocation()}"></h2>
-        </a>
-        <section th:each="clothing : ${post.getClothes()}">
-            <a th:href="@{|/clothingdetail/${clothing.getId()}|}">
-                <h2 class="btnClothes" th:text="${clothing.getNaam()}"></h2>
-            </a>
-        </section>
-    </article>
-    <article class="containerCloth" th:unless="${fashposts!=null}">
+<main>
+    <article>
         <section th:each="cloth : ${clothes}">
             <a th:href="@{|/clothingdetail/${cloth.getId()}|}">
-                <h2 class="btnClothes" th:text="${cloth.getNaam()}"></h2>
+                <h2 class="btn-dark borderBtn" th:text="${cloth.getNaam()}"></h2>
             </a>
         </section>
     </article>

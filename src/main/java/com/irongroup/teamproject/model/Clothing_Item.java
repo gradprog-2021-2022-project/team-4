@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
-public class Clothing_Item {
+public class Clothing_Item implements Comparable<Clothing_Item>{
 
     //ID
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clothing_generator")
@@ -112,5 +112,11 @@ public class Clothing_Item {
 
     public void setUserOwner(FashUser userOwner) {
         this.userOwner = userOwner;
+    }
+
+    //Comparable voor sorteren op datum!
+    @Override
+    public int compareTo(Clothing_Item o) {
+        return o.getPost().getDate().compareTo(this.getPost().getDate());
     }
 }

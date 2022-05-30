@@ -18,13 +18,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/hide_navbar.css}" href="/css/hide_navbar.css"/>
 </head>
-
 <header th:fragment="headerfrag">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <nav th:fragment="navbar">
         <ul>
             <div id="myLinksPc">
-                <!-- icons:  https://fontawesome.com/v4/icons/ -->
                 <a class="imgNavbarlink" th:href="@{/explorepage}"><img class="imgNavbar" th:src="@{/img/LogoFashTransparant3.png}"></a>
                 <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected btn-dark borderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="btn-dark borderNone" th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
@@ -54,7 +52,6 @@
                 </li>
             </div>
             <div id="myLinksPhone">
-                <!-- icons:  https://fontawesome.com/v4/icons/ -->
                 <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="btn-dark borderNone smallborderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
                 <li th:if="${#httpServletRequest.requestURI.contains('foryou')}"><a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
@@ -88,12 +85,10 @@
         <h3 id="titlebalk"></h3>
     </div>
 </header>
-
 <footer th:fragment="footerfrag" class="footerCopyright">
     Copyright Elias Neel - Brent Budts - Matthew de Schepper - Ibrahim El Moudden
     <!--Is zien hoe lang het duurt voor mensen echt de code bekijken. Gelieve hier iets te zetten!-->
 </footer>
-
 <script th:fragment="script">
     // de title van de pagina verkrijgen en doorsturen naar het id 'titlebalk' in de head/foot template
     document.getElementById("titlebalk").innerHTML = document.title;

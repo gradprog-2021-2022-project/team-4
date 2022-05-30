@@ -59,7 +59,7 @@
                 </form>
                 <div class="buttonsdiv formbtn" th:if="${curUser !=null && curUser.following.contains(fashPost.getPoster())}">
                     <form method="get" th:action="@{|/follow/${fashPost.getPoster().getId()}|}">
-                        <button type="submit" class="btn-dark borderBtn">Unfollow</button><br>
+                        <button type="submit" class="btn-dark borderBtn">Ontvolgen</button><br>
                     </form>
                 </div>
                 <article>
@@ -67,7 +67,6 @@
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashPost.getPoster().getUsername()}"></p></strong>
                 <p class="sectionbiotext" th:text="${fashPost.getText()}"></p>
-                <!--                <strong><p class="sectionbiolikes"th:text="|${fashPost.getLikes()} likes|"></p></strong>-->
                 <div class="commentsothers" th:if="${fashPost.getOneComment()}">
                     <form method="get" th:action="@{|/profilepage/${fashPost.getOneComment().getUser().getId()}|}">
                         <button class="linktoprofilepagebtn" type="submit">

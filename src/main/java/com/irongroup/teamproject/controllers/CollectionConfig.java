@@ -16,5 +16,5 @@ public class CollectionConfig {
 
 
     @Bean
-    public List<String> typeList(){ return Arrays.asList("Broek","Sokken","Trui","T-shirt","Sieraad","Sokken","Schoenen");}
+    public List<String> typeList(){ return Arrays.asList("Broek","Sokken","Trui","T-shirt","Sieraad","Schoenen");}
 }

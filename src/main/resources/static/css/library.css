@@ -6,8 +6,9 @@ header{
     width: 100%;
     border-top: 5px solid #89B6A5;
     text-align: center;
-    background-color: #FAFF7F;
-    padding-top: 8px;
+    background-color: #343a40;
+    padding-top: 5px;
+    padding-bottom: 5px;
     position: fixed;
     bottom: 0;
     z-index: 10;
@@ -82,8 +83,6 @@ ul{
 nav a{
     color: black;
     display: inline-block;
-    height: 50px;
-    line-height: 50px;
     padding: 0 25px;
     margin: 0 5px;
     text-align: left;
@@ -91,22 +90,9 @@ nav a{
     list-style: none;
     font-size: 18px;
     font-weight: 700;
-    border-radius: 25px;
     transition: all .3s ease-in-out;
 }
 .aselected{
-    display: inline-block;
-    height: 50px;
-    line-height: 50px;
-    padding: 0 25px;
-    margin: 0 5px;
-    text-align: left;
-    text-decoration: none;
-    list-style: none;
-    font-size: 18px;
-    font-weight: 700;
-    border-radius: 25px;
-    transition: all .3s ease-in-out;
     background-color: #343a40;
     color: white;
 }
@@ -114,6 +100,8 @@ nav a{
 nav a:hover {
     background-color: #343a40;
     color: rgb(211, 187, 250);
+    border-bottom: solid rgb(211, 187, 250) 5px !important;
+    text-decoration: none;
     /*
     andere optie
     background-color: rgba(19, 19, 0, 0.62);
@@ -121,19 +109,49 @@ nav a:hover {
     */
 }
 
-#myLinksPc{
-    display: none;
-    padding-left: 76.438px;
+.inputfile {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }
 
-#myLinksPhone{
+.borderNone{
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+.borderInputFile{
+    border: solid #89b6a5 2px !important;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+.borderPrpl{
+    border: none;
+    text-align: center;
+    border-bottom: solid #E8D7FF 5px !important;
+    padding: 5px;
+    margin: 10px;
+    min-width: 100px;
+    border-radius: 5px;
+}
+
+#myLinksPc{
+    display: none;
     padding-left: 76.438px;
 }
 
 .info {
     float: right;
     padding-right: 10px;
-    display: none;
 }
 
 /*the img in navbar*/
@@ -198,6 +216,7 @@ nav a:hover {
     padding: 10px;
     border-radius: 15%;
     display: block;
+    margin-bottom: 10px;
 }
 
 
@@ -222,6 +241,12 @@ nav a:hover {
     min-width: 100px;
     border-radius: 5px;
     border-bottom: solid #89B6A5 5px !important;
+}
+
+.smallborderBtn{
+    min-width: 50px;
+    text-align: center;
+    padding: 0;
 }
 
 
@@ -268,9 +293,6 @@ nav a:hover {
         margin-top: 100px;
         margin-left: 20%;
         margin-right: 20%;
-    }
-    .info {
-        display: block;
     }
 }
 

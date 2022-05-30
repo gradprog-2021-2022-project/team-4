@@ -25,53 +25,62 @@
         <ul>
             <div id="myLinksPc">
                 <!-- icons:  https://fontawesome.com/v4/icons/ -->
-                <a class="imgNavbarlink" th:href="@{/explorepage}"><img class="imgNavbar" th:src="@{/img/LogoFashTransparantBlack.png}"></a>
-                <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected" th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('foryou')}"><a class="aselected" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i> FOR YOU</a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('foryou')}"><a th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i> FOR YOU</a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="aselected" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="aselected" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
+                <a class="imgNavbarlink" th:href="@{/explorepage}"><img class="imgNavbar" th:src="@{/img/LogoFashTransparant3.png}"></a>
+                <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected btn-dark borderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="btn-dark borderNone" th:href="@{/explorepage}"><i class="fa fa-compass"></i> EXPLORE</a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('foryou')}"><a class="aselected btn-dark borderBtn" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i> FOR YOU</a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('foryou')}"><a class="btn-dark borderNone" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i> FOR YOU</a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="aselected btn-dark borderBtn" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="btn-dark borderNone" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i> PROFILE</a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="aselected btn-dark borderBtn" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="btn-dark borderNone" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
                 <li th:if="${#httpServletRequest.requestURI.contains('login')}" sec:authorize="!isAuthenticated()">
-                    <a class="aselected" href="/login"><i class="fa fa-fw fa-user"></i> LOGIN</a>
+                    <a class="aselected btn-dark borderBtn" href="/login"><i class="fa fa-fw fa-user"></i> LOGIN</a>
                 </li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('login')}" sec:authorize="!isAuthenticated()">
-                    <a href="/login"><i class="fa fa-fw fa-user"></i> LOGIN</a>
+                    <a class="btn-dark borderNone" href="/login"><i class="fa fa-fw fa-user"></i> LOGIN</a>
                 </li>
                 <li th:if="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
-                    <a class="aselected" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
+                    <a class="aselected btn-dark borderBtn" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
                 </li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
-                    <a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
+                    <a class="btn-dark borderNone" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a>
                 </li>
-                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="btn-dark borderNone smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
             </div>
             <div id="myLinksPhone">
                 <!-- icons:  https://fontawesome.com/v4/icons/ -->
-                <a class="imgNavbarlink" th:href="@{/explorepage}"><img class="imgNavbar" th:src="@{/img/LogoFashTransparantBlack.png}"></a>
-                <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected" th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('foryou')}"><a class="aselected" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('foryou')}"><a th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="aselected" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i></a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i></a></li>
-                <li th:if="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="aselected" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
-                <li th:unless="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('explorepage')}"><a class="btn-dark borderNone smallborderBtn" th:href="@{/explorepage}"><i class="fa fa-compass"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('foryou')}"><a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('foryou')}"><a class="btn-dark borderNone smallborderBtn" th:href="@{/foryoupage}"><i class="fa fa-fw fa-search"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i></a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('profilepage')}" sec:authorize="hasAuthority('user')"><a class="btn-dark borderNone smallborderBtn" th:href="@{/profilepage}"><i class="fa fa-fw fa-user"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="aselected btn-dark borderBtn smallborderBtn" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('logout')}" sec:authorize="isAuthenticated()"><a class="btn-dark borderNone smallborderBtn" href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
                 <li th:if="${#httpServletRequest.requestURI.contains('login')}" sec:authorize="!isAuthenticated()">
-                    <a class="aselected" href="/login"><i class="fa fa-fw fa-user"></i></a>
+                    <a class="aselected btn-dark borderBtn smallborderBtn" href="/login"><i class="fa fa-fw fa-user"></i></a>
                 </li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('login')}" sec:authorize="!isAuthenticated()">
-                    <a href="/login"><i class="fa fa-fw fa-user"></i></a>
+                    <a class="btn-dark borderNone smallborderBtn" href="/login"><i class="fa fa-fw fa-user"></i></a>
                 </li>
                 <li th:if="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
-                    <a class="aselected" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                    <a class="aselected btn-dark borderBtn smallborderBtn" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
                 </li>
                 <li th:unless="${#httpServletRequest.requestURI.contains('register')}" sec:authorize="!isAuthenticated()">
-                    <a href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
+                    <a class="btn-dark borderNone smallborderBtn" href="/register"><i class="fa fa-user-plus" aria-hidden="true"></i></a>
                 </li>
-                <li class="info"><a th:href="@{/infopage}"><i class="fa fa-info"></i></a></li>
+                <li th:if="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="aselected btn-dark borderBtn smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
+                <li th:unless="${#httpServletRequest.requestURI.contains('infopage')}" class="info">
+                    <a class="btn-dark borderNone smallborderBtn" th:href="@{/infopage}"><i class="fa fa-info"></i></a>
+                </li>
             </div>
         </ul>
     </nav>

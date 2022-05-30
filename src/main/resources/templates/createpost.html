@@ -24,11 +24,11 @@
 <main class="mainForm">
     <div class="containerCss">
         <div>
-            <img th:src="@{/img/LogoFashTransparantBlack.png}" class="fashLogo">
+            <img th:src="@{/img/LogoFashTransparant3.png}" class="fashLogo">
         </div>
 
         <div>
-            <h2>New post :</h2>
+            <h2>New post</h2>
         </div>
         <div sec:authorize="!isAuthenticated()">
             <p>Gelieve eerst in te loggen om een post aan te maken</p>
@@ -40,16 +40,15 @@
         <div sec:authorize="isAuthenticated()">
         <form th:action="@{|/postnew|}" th:object="${valid}" method="post" enctype="multipart/form-data">
             <div class="error" th:if="${#fields.hasErrors('*')}">ERROR - data is not saved</div>
-
             <label for="text">Tekst:</label><br>
             <input class="inputCss" type="text" id="text" placeholder="schrijf iets" th:field="*{text}" th:errorclass="fieldError" required="required"><br>
             <label for="locatie">Locatie:</label><br>
             <input class="inputCss" type="text" name="locatie" id="locatie" th:field="*{location}" required="required"><br>
             <div id="newClothing" th:field="*{clothes}">
-                <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item 1"><br>
+                <button type="button" class="btn-dark borderInputFile" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Clothing Item 1<br><i class="fa fa-sort-desc" aria-hidden="true"></i></button><br>
                 <div class="collapse" id="collapseExample">
                     <label for="type">Type:</label><br>
-                    <select name="type" id="type" placeholder="Kies een type!" th:field="*{clothes[0].type}" required>
+                    <select name="type" class="btn-dark borderPrpl" id="type" placeholder="Kies een type!" th:field="*{clothes[0].type}" required>
                         <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
                     </select><br>
                     <label for="name">Name:</label><br>
@@ -60,16 +59,15 @@
                     <input class="inputCss" id="link" type="text" th:field="*{clothes[0].linkShop}" required="required"><br>
                 </div>
             </div>
-            <br>
-            <select name="style" placeholder="Kies een stijl!" th:field="*{stijl}" required>
+            <label for="style">Kies een stijl:</label><br>
+            <select class="btn-dark borderPrpl" name="style" id="style" th:field="*{stijl}" required>
                 <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
             </select><br>
-            <br>
-            <button type="button"  onclick="createNewElement()">New clothing Item</button><br>
+            <button type="button" class="btn-dark borderBtn" onclick="createNewElement()">Extra kledingstuk</button><br>
 
-            <label for="image">Upload outfit :</label><br>
-            <input type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>
-            <input type="submit" value="create" class="btn-dark borderBtn"><br>
+            <label for="image" class="btn-dark borderInputFile"><i class="fa fa-download" aria-hidden="true"></i> Upload outfit:</label><br>
+            <input class="inputfile" type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>
+            <input type="submit" value="Post" class="btn-dark borderPrpl"><br>
             <div>
                 <a th:href="@{/explorepage}" class="cancel">cancel</a>
             </div>
@@ -80,13 +78,14 @@
 <script th:inline="javascript">
     let counter = 1;
     function createNewElement() {
-        // First create a DIV element.
-        var types = [[${types}]];
-        let newClothing2 = document.createElement('div');
-        let item = counter+1;
-        console.log("//////////////////////////////////////////////////////////////////////" + types);
-        // Then add the content (a new input box) of the element.
-        newClothing2.innerHTML = ` <input type="button" class="btnCss" data-toggle="collapse" href="#collapseExample${counter}" role="button" aria-expanded="false" aria-controls="collapseExample" value="Clothing Item ${item}">
+        if(counter<5){
+            // First create a DIV element.
+            var types = [[${types}]];
+            let newClothing2 = document.createElement('div');
+            let item = counter+1;
+            console.log("//////////////////////////////////////////////////////////////////////" + types);
+            // Then add the content (a new input box) of the element.
+            newClothing2.innerHTML = `  <button type="button" class="btn-dark borderInputFile" data-toggle="collapse" href="#collapseExample${counter}" role="button" aria-expanded="false" aria-controls="collapseExample${counter}">Clothing Item ${item}<br><i class="fa fa-sort-desc" aria-hidden="true"></i></button><br>
                 <div class="collapse" id="collapseExample${counter}">
                     <label for="type">Type:</label><br>
                     <div id="selectList${counter}">
@@ -99,26 +98,32 @@
                     <input class="inputCss" id="link" type="text" name="clothes[${counter}].linkShop"><br>
                 </div>`;
 
-        // Finally put it where it is supposed to appear.
-        document.getElementById("newClothing").appendChild(newClothing2);
+            // Finally put it where it is supposed to appear.
+            document.getElementById("newClothing").appendChild(newClothing2);
 
-        const createElementPlus = (type, options = {}) => Object.assign(document.createElement(type), options);
+            const createElementPlus = (type, options = {}) => Object.assign(document.createElement(type), options);
 
-        const newClothing = document.createElement('div');
+            const newClothing = document.createElement('div');
 
-        const select = createElementPlus("select", {
-            name: `clothes[${counter}].type`,
-            id: `select-type-${counter}`,
-            placeholder: "Kies een type!",
-            require: true,
-        });
-        // The bit you were originally interested in
-        select.append(...types.map(type => createElementPlus("option", {textContent: type})));
+            const select = createElementPlus("select", {
+                name: `clothes[${counter}].type`,
+                id: `select-type-${counter}`,
+                placeholder: "Kies een type!",
+                require: true,
+                className: "btn-dark borderPrpl",
+            });
 
-        newClothing.append(select);
-        document.body.append(newClothing);
-        document.getElementById(`selectList${counter}`).appendChild(newClothing);
-        counter++;
+            // The bit you were originally interested in
+            select.append(...types.map(type => createElementPlus("option", {textContent: type})));
+
+            newClothing.append(select);
+            document.body.append(newClothing);
+            document.getElementById(`selectList${counter}`).appendChild(newClothing);
+            counter++;
+        }
+       else {
+           alert("Max aantal kledingstukken bereikt!");
+        }
     }
 </script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

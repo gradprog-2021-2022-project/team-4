@@ -34,9 +34,13 @@ public class ClothingController {
             FashUser userChosen=userRepository.findById(id).get();
             ArrayList<Clothing_Item> clothes=(ArrayList<Clothing_Item>) clothingRepository.findClothingOfUser(id);
 
+            model.addAttribute("user",userChosen);
+
             //Je eigen kleding kunnen bekijken!
             if(loggedIn!=null && loggedIn.getId()==userChosen.id){
+                model.addAttribute("user",loggedIn);
                 clothes= (ArrayList<Clothing_Item>) clothingRepository.findSavedClothing(loggedIn.id);
+                model.addAttribute("ownClothes",true);
             }
             //Als de date op yes staat, sorteren op datum
             if(date!=null){

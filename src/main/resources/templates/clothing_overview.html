@@ -22,6 +22,17 @@
         </div>
     </div>
 </aside>
+<main>
+    <article>
+        <h2 th:if="${ownClothes!=null}" th:text="|Opgeslagen kleren van ${user.getUsername()}|"></h2>
+        <h2 th:if="${ownClothes==null}" th:text="|Kleren gepost door ${user.getUsername()}|"></h2>
+        <section th:each="cloth : ${clothes}">
+            <a th:href="@{|/clothingdetail/${cloth.getId()}|}">
+                <h2 class="btn-dark borderBtn" th:text="${cloth.getNaam()}"></h2>
+            </a>
+        </section>
+    </article>
+</main>
 <script>
     //Om het plusje in een minnetje te zetten en omgekeerd
     function filterBTN(){
@@ -34,15 +45,6 @@
         }
     };
 </script>
-<main>
-    <article>
-        <section th:each="cloth : ${clothes}">
-            <a th:href="@{|/clothingdetail/${cloth.getId()}|}">
-                <h2 class="btn-dark borderBtn" th:text="${cloth.getNaam()}"></h2>
-            </a>
-        </section>
-    </article>
-</main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>
 </html>

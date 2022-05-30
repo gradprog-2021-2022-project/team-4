@@ -92,12 +92,12 @@ public class UserController {
                             //Kijken of ge al volgt en zoniet, volgen
                             if (!userpage.followers.contains(userloggedin)){
                                 //follow button veranderen naar follow
-                                model.addAttribute("follow", "follow");
+                                model.addAttribute("follow", "Volg");
                             }
                             //Als ge wel volgt, unfollow doen
                             else {
                                 //follow button veranderen naar unfollow
-                                model.addAttribute("follow", "unfollow");
+                                model.addAttribute("follow", "Ontvolgen");
                             }
                         }
                         model.addAttribute("user", optionalFashUser.get());

@@ -20,13 +20,14 @@
                     <option th:value="${null}" th:text="Alle"></option>
                     <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
                 </select>
-                <strong>In de buurt:</strong>
-                <div>
+                <div sec:authorize="isAuthenticated()">
+                    <strong>In de buurt:</strong>
                     <label for="noClose" >Nee</label>
                     <input type="radio" id="noClose" name="closeby" value="false" th:checked="${closeby == false || closeby == null}">
                     <label for="yesClose">Ja</label>
-                    <input type="radio" id="yesClose" name="closeby" value="true" th:checked="${closeby == true}">
-                    <input type="range" min="1" max="50" id="slider" name="slider">
+                    <input type="radio" id="yesClose" name="closeby" value="true" th:checked="${closeby == true}"><br>
+                    <input type="range" min="1" max="50" id="slider" name="slider" onchange="updateTextInput(this.value);">
+                    <span id="sliderId">26</span>
                 </div>
                 <strong for="minprijs">Minimum:</strong>
                 <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
@@ -107,6 +108,9 @@
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
 
+    function updateTextInput(val) {
+        document.getElementById('sliderId').innerText=val;
+    }
     //Om het plusje in een minnetje te zetten en omgekeerd
     function filterBTN(){
         var btnFilters=document.getElementById("btnFilters");

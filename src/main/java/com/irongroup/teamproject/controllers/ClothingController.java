@@ -97,7 +97,7 @@ public class ClothingController {
     //Kopen van een item, dit is een voorlopige oplossing
     @GetMapping("/buyItem/{id}")
     public String buyItem(@PathVariable Integer id) {
-        if (clothingRepository.existsById(id)) {
+        try {
             Clothing_Item item = clothingRepository.findById(id).get();
             FashUser user = userRepository.findFashUserByUsername(item.getUserOwner().getUsername());
             //Aanpassen en altijd opslaan zodat de database aangepast kan worden.
@@ -105,7 +105,8 @@ public class ClothingController {
             userRepository.save(user);
             //Redirect zonder een / kan gebruikt worden voor een externe website
             return "redirect:" + item.getLinkShop();
+        }catch (Exception e){
+           return "redirect:/";
         }
-        return "redirect:/clothingdetail/" + id;
     }
 }

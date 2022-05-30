@@ -9,7 +9,8 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="filterContainer position-fixed">
-        <input type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" value="zoek">
+        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll displayChange">
                 <strong for="naamPerson">Naam:</strong>
@@ -32,7 +33,7 @@
                 <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
                 <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
-                <input class="btn-dark borderBtn" type="submit" value="zoeken">
+                <input class="btn-dark borderBtn" type="submit" value="Zoek!">
             </form>
         </div>
     </div>
@@ -104,6 +105,18 @@
 </script>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 <script>
+
+    //Om het plusje in een minnetje te zetten en omgekeerd
+    function filterBTN(){
+        var btnFilters=document.getElementById("btnFilters");
+        if(btnFilters.innerText=="+"){
+            btnFilters.innerText="-";
+        }
+        else {
+            btnFilters.innerText="+";
+        }
+    };
+
     //Om de button te krijgen
     var mybutton = document.getElementById("myBtn");
 

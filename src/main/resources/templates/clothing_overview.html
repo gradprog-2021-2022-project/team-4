@@ -15,8 +15,8 @@
             <form class="card card-body scroll displayChange">
                 <input type="text" placeholder="Zoek op naam!" name="kledingname">
                 Sorteren op datum?
-                <input type="radio" name="date" value="true" id="yes"><label for="yes">Ja</label>
-                <input type="radio" name="date" value="false" id="no"><label for="no">Nee</label>
+                <input th:checked="${date!=null && date}" type="radio" name="date" value="true" id="yes"><label for="yes">Ja</label>
+                <input th:checked="${date == null || !date}" type="radio" name="date" value="false" id="no"><label for="no">Nee</label>
                 <button type="submit" class="btn-dark borderBtn">Zoek!</button>
             </form>
         </div>

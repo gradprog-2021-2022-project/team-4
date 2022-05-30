@@ -46,6 +46,7 @@ public class ClothingController {
             if(date!=null){
                 Collections.sort(clothes);
                 Collections.reverse(clothes);
+                model.addAttribute("date",date);
             }
             //Filteren op naam
             if(kledingname!=null && kledingname.length()>0){
@@ -127,7 +128,7 @@ public class ClothingController {
     private ArrayList<Clothing_Item> sorted(ArrayList<Clothing_Item> clothes,String naam){
         for (Clothing_Item c:clothes
              ) {
-            if (!c.getNaam().equalsIgnoreCase(naam)){
+            if (!c.getNaam().toLowerCase().contains(naam.toLowerCase())){
                 clothes.remove(c);
             }
         }

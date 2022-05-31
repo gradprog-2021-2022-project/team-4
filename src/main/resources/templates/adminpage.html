@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/posts.css}" href="/css/posts.css"/>
+          th:href="@{/css/admin.css}" href="/css/admin.css"/>
     <title>Admin only</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
@@ -11,39 +11,74 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <aside>
     <div class="dropdown filterContainer position-fixed">
-        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
-                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
+        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample"
+                role="button"
+                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+
+        </button>
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
-                <form>
-                    <h3>Filter by user?</h3>
-                    <label for="noFilter" >No</label>
-                    <input type="radio" id="noFilter" name="filter" value="false" th:checked="${filtered == false || filtered == null}">
-                    <label for="yesFilter">Yes</label>
-                    <input type="radio" id="yesFilter" name="filter" value="true" th:checked="${filtered == true}">
-                    <input type="submit" value="search" th:if="${filtered == null || !filtered}">
-                </form>
-                <form th:if="${filtered!=null && filtered}">
-                    <label for="username">Search by user:</label>
-                    <input type="text" placeholder="eg. Elias" name="username" id="username">
-                    <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
-                    <button type="submit">Zoek!</button>
-                </form>
+                <label for="username">Search by user:</label>
+                <input type="text" placeholder="eg. Elias" name="username" id="username">
+                <button type="submit" class="btn-dark borderBtn">Zoek!</button>
             </form>
         </div>
     </div>
 </aside>
 <script>
+
+
+    //Buttons voor het veranderen van de view
+    function showUsers(){
+        let divUsers=document.getElementById("users");
+        let divKleding=document.getElementById("clothes");
+        let divPosts=document.getElementById("posts");
+        let divComments=document.getElementById("comments");
+        divUsers.style.display="block";
+        divKleding.style.display="none";
+        divPosts.style.display="none";
+        divComments.style.display="none";
+    };
+    function showKleding(){
+        let divUsers=document.getElementById("users");
+        let divKleding=document.getElementById("clothes");
+        let divPosts=document.getElementById("posts");
+        let divComments=document.getElementById("comments");
+        divUsers.style.display="none";
+        divKleding.style.display="block";
+        divPosts.style.display="none";
+        divComments.style.display="none";
+    };
+    function showPosts(){
+        let divUsers=document.getElementById("users");
+        let divKleding=document.getElementById("clothes");
+        let divPosts=document.getElementById("posts");
+        let divComments=document.getElementById("comments");
+        divUsers.style.display="none";
+        divKleding.style.display="none";
+        divPosts.style.display="block";
+        divComments.style.display="none";
+    };
+    function showComments(){
+        let divUsers=document.getElementById("users");
+        let divKleding=document.getElementById("clothes");
+        let divPosts=document.getElementById("posts");
+        let divComments=document.getElementById("comments");
+        divUsers.style.display="none";
+        divKleding.style.display="none";
+        divPosts.style.display="none";
+        divComments.style.display="block";
+    };
+
     //Om het plusje in een minnetje te zetten en omgekeerd
-    function filterBTN(){
-        var btnFilters=document.getElementById("btnFilters");
-        if(btnFilters.innerText=="+"){
-            btnFilters.innerText="-";
-        }
-        else {
-            btnFilters.innerText="+";
+    function filterBTN() {
+        var btnFilters = document.getElementById("btnFilters");
+        if (btnFilters.innerText == "+") {
+            btnFilters.innerText = "-";
+        } else {
+            btnFilters.innerText = "+";
         }
     };
+
     function showFilters() {
         var btn = document.getElementsByClassName("btnFilter")[0];
         var x = document.getElementsByClassName("filters")[0];
@@ -56,8 +91,14 @@
     }
 </script>
 <main sec:authorize="hasAuthority('admin')">
+    <article>
+        <button class="btn-dark" onclick="showUsers()" type="button" th:if="${namefound==null}">Gebruikers</button>
+        <button class="btn-dark" onclick="showKleding()" type="button">Kleding</button>
+        <button class="btn-dark" onclick="showPosts()" type="button">Posts</button>
+        <button class="btn-dark" onclick="showComments()" type="button">Comments</button>
+    </article>
     <article th:if="${filtered==null || !filtered}">
-        <section class="containerCss">
+        <section class="containerCss" id="users">
             <h1>USERS</h1>
             <table>
                 <thead>
@@ -86,7 +127,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss">
+        <section class="containerCss" id="clothes" style="display: none">
             <h1>CLOTHES</h1>
             <table>
                 <thead>
@@ -105,7 +146,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss">
+        <section class="containerCss" id="posts" style="display: none">
             <h1>POSTS</h1>
             <table>
                 <thead>
@@ -124,28 +165,28 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss">
+        <section class="containerCss" id="comments" style="display: none">
             <h1>COMMENTS</h1>
             <table>
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Username</th>
+                    <th>Text</th>
                     <th>delete?</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr th:each="fashComment : ${comments}">
                     <td th:text="${fashComment.getId()}"></td>
-                    <td th:text="${fashComment.getUser().getId()}"></td>
+                    <td th:text="${fashComment.getText()}"></td>
                     <td class="btn-dark borderBtn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
         </section>
     </article>
-    <article th:if="${filtered!=null && filtered}" class="adminPage">
-        <section class="adminClothes">
+    <article th:if="${filtered!=null && filtered}">
+        <section class="containerCss" id="clothes">
             <h1>CLOTHES</h1>
             <table>
                 <thead>
@@ -164,7 +205,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="adminPosts">
+        <section class="containerCss" id="posts" style="display: none">
             <h1>POSTS</h1>
             <table>
                 <thead>
@@ -183,7 +224,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="adminComments">
+        <section class="containerCss" id="comments" style="display: none">
             <h1>COMMENTS</h1>
             <table>
                 <thead>

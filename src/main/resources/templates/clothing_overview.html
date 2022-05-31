@@ -25,7 +25,7 @@
 </aside>
 <main>
     <article>
-        <a style="float: left" type="button" th:href="@{|/profilepage/${user.getId()}|}" class="btn-dark borderBtn"><<</a>
+        <a style="float: left; margin-top: 0%" type="button" th:href="@{|/profilepage/${user.getId()}|}" class="btn-dark borderBtn"><<</a>
         <h2 th:if="${ownClothes!=null}" th:text="|Opgeslagen kleren van ${user.getUsername()}|"></h2>
         <h2 th:if="${ownClothes==null}" th:text="|Kleren gepost door ${user.getUsername()}|"></h2>
         <section th:each="cloth : ${clothes}">

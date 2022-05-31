@@ -1,8 +1,5 @@
 package com.irongroup.teamproject.controllers;
 
-import com.irongroup.teamproject.model.Clothing_Item;
-import com.irongroup.teamproject.model.FashComment;
-import com.irongroup.teamproject.model.FashPost;
 import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.ClothingRepository;
 import com.irongroup.teamproject.repositories.CommentRepository;
@@ -14,13 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.DataOutputStream;
-import java.security.Principal;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Collection;
 
 @Controller
 public class AdminController {
@@ -34,23 +24,27 @@ public class AdminController {
     ClothingRepository clothing;
 
     @GetMapping({"/adminpagina"})
-    public String adminpagina(Model model, @RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow, @RequestParam(required = false) Boolean filter, @RequestParam(required = false) String username) {
+    public String adminpagina(Model model, @RequestParam(required = false) Integer id, @RequestParam(required = false) Integer postallow, @RequestParam(required = false) String username) {
 
         try {
+            if(postallow!=null){
+                //Code voor het aanpassen van user allowance
+                FashUser user = users.findById(id).get();
+                user.setPost_allowance(postallow);
+                users.save(user);
+                return "redirect:/adminpagina";
+            }
             //Als de filters aan staan
-            if (filter != null && filter) {
+            if (username != null && username.length() > 0) {
                 model.addAttribute("filtered", true);
-                if (filter) {
-                    //Voeg enkel items toe van de bepaalde gebruiker
-                    FashUser user = users.findFashUserByUsername(username);
-                    model.addAttribute("fashposters", user);
-                    model.addAttribute("fashclothes", clothing.findClothingOfUser(user.getId()));
-                    model.addAttribute("fashposts", posts.findbyUserId(user.getId()));
-                    model.addAttribute("comments", comments.findFashCommentByUserID(user.getId()));
-                    return "adminpage";
-                } else {
-                    return "redirect:/adminpagina";
-                }
+                //Voeg enkel items toe van de bepaalde gebruiker
+                FashUser user = users.findFashUserByUsername(username);
+                model.addAttribute("namefound",username);
+                model.addAttribute("fashposters", user);
+                model.addAttribute("fashclothes", clothing.findClothingOfUser(user.getId()));
+                model.addAttribute("fashposts", posts.findbyUserId(user.getId()));
+                model.addAttribute("comments", comments.findFashCommentByUserID(user.getId()));
+                return "adminpage";
             } else {
                 //Geen filter aan
                 model.addAttribute("fashposters", users.findAll());
@@ -59,38 +53,10 @@ public class AdminController {
                 model.addAttribute("comments", comments.findAll());
                 model.addAttribute("filtered", false);
             }
-            //Code voor het aanpassen van user allowance
-            try {
-                FashUser user = users.findById(id).get();
-                user.setPost_allowance(postallow);
-                users.save(user);
-                return "redirect:/adminpagina";
-            } catch (Exception e) {
-                //NOG NIKS
-            }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
             //NOG NIKS
         }
-
-        /*
-        //alles leegmaken (enkel voor testjes)
-        clothing.deleteAll();
-        comments.deleteAll();
-        posts.deleteAll();
-        users.deleteAll();
-
-        FashUser Allee = new FashUser(1, "Allee", "Elias", "Neel", 5, null, null, null, null);
-        users.save(Allee);
-        FashPost post = new FashPost(1, null, Allee, null, LocalDate.now(), LocalTime.now(), "Antwerpen");
-        posts.save(post);
-        Clothing_Item broekje = new Clothing_Item(1, "Broek", "Geeltje", 29.99, "nergens...", post, null, Allee);
-        clothing.save(broekje);
-        Collection<Clothing_Item> clothes= clothing.findAll();
-        post.setClothes(clothes);
-        posts.save(post);
-        FashComment comment= new FashComment(1,Allee,post,"Neen","dit is een tekstje",LocalDate.now(),LocalTime.now());
-        comments.save(comment);*/
-
         return "adminpage";
     }
 

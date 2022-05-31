@@ -12,9 +12,9 @@
 <main>
     <div th:if="${user!=null &&poster.equals(user)}">
         <a th:href="@{'/editpost/' + ${post.id}}">
-            <input type="button" value="Edit post" class="btnCss" style="text-align:center">
+            <input type="button" value="Edit post" class="btn-dark borderBtn" style="text-align:center">
         </a>
-        <input type="button" value="Delete post" class="btnCss" style="text-align:center" data-toggle="modal"
+        <input type="button" value="Delete post" class="btn-dark borderBtn" style="text-align:center" data-toggle="modal"
                data-target="#myModal">
     </div>
     <br>

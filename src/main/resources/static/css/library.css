@@ -243,15 +243,16 @@ nav a:hover {
     border-bottom: solid #89B6A5 5px !important;
 }
 .btnModal{
-    background-color: #B685FF;
-    color: white
+    background-color: #343a40;
+    color: white;
+    border-bottom: 5px solid #89B6A5 !important;
 }
 
 .modal {
     margin-top: 80px;
 }
 .modal-header{
-    background-color: #FAFF7F;
+    background-color: #89B6A5;
 }
 .smallborderBtn{
     min-width: 50px;

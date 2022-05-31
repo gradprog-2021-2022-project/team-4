@@ -18,15 +18,14 @@
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
                 <label for="username">Search by user:</label>
-                <input type="text" placeholder="eg. Elias" name="username" id="username">
+                <input th:if="${namefound==null}" type="text" placeholder="eg. Elias" name="username" id="username">
+                <input th:if="${namefound!=null}" type="text" th:value="${namefound}" name="username" id="username">
                 <button type="submit" class="btn-dark borderBtn">Zoek!</button>
             </form>
         </div>
     </div>
 </aside>
 <script>
-
-
     //Buttons voor het veranderen van de view
     function showUsers(){
         let divUsers=document.getElementById("users");
@@ -68,6 +67,31 @@
         divPosts.style.display="none";
         divComments.style.display="block";
     };
+    //Gefilterde switches
+    function showFilteredKleding(){
+        let divKleding=document.getElementById("filteredclothes");
+        let divPosts=document.getElementById("filteredposts");
+        let divComments=document.getElementById("filteredcomments");
+        divKleding.style.display="block";
+        divPosts.style.display="none";
+        divComments.style.display="none";
+    };
+    function showFilteredPosts(){
+        let divKleding=document.getElementById("filteredclothes");
+        let divPosts=document.getElementById("filteredposts");
+        let divComments=document.getElementById("filteredcomments");
+        divKleding.style.display="none";
+        divPosts.style.display="block";
+        divComments.style.display="none";
+    };
+    function showFilteredComments(){
+        let divKleding=document.getElementById("filteredclothes");
+        let divPosts=document.getElementById("filteredposts");
+        let divComments=document.getElementById("filteredcomments");
+        divKleding.style.display="none";
+        divPosts.style.display="none";
+        divComments.style.display="block";
+    };
 
     //Om het plusje in een minnetje te zetten en omgekeerd
     function filterBTN() {
@@ -91,13 +115,13 @@
     }
 </script>
 <main sec:authorize="hasAuthority('admin')">
-    <article>
-        <button class="btn-dark borderBtn" onclick="showUsers()" type="button" th:if="${namefound==null}">Gebruikers</button>
-        <button class="btn-dark borderBtn" onclick="showKleding()" type="button">Kleding</button>
-        <button class="btn-dark borderBtn" onclick="showPosts()" type="button">Posts</button>
-        <button class="btn-dark borderBtn" onclick="showComments()" type="button">Comments</button>
-    </article>
-    <article th:if="${filtered==null || !filtered}">
+    <article th:if="${namefound==null}">
+        <section>
+            <button class="btn-dark borderBtn" onclick="showUsers()" type="button" th:if="${namefound==null}">Gebruikers</button>
+            <button class="btn-dark borderBtn" onclick="showKleding()" type="button">Kleding</button>
+            <button class="btn-dark borderBtn" onclick="showPosts()" type="button">Posts</button>
+            <button class="btn-dark borderBtn" onclick="showComments()" type="button">Comments</button>
+        </section>
         <section class="containerCss" id="users">
             <h1>USERS</h1>
             <table>
@@ -185,8 +209,14 @@
             </table>
         </section>
     </article>
-    <article th:if="${filtered!=null && filtered}">
-        <section class="containerCss" id="clothes" style="display: none">
+    <article th:if="${namefound!=null}">
+        <section>
+            <button class="btn-dark borderBtn" type="button" th:if="${namefound==null}">Gebruikers</button>
+            <button class="btn-dark borderBtn" onclick="showFilteredKleding()" type="button">Kleding</button>
+            <button class="btn-dark borderBtn" onclick="showFilteredPosts()" type="button">Posts</button>
+            <button class="btn-dark borderBtn" onclick="showFilteredComments()" type="button">Comments</button>
+        </section>
+        <section class="containerCss" id="filteredclothes" style="display: none">
             <h1>CLOTHES</h1>
             <table>
                 <thead>
@@ -205,7 +235,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss" id="posts">
+        <section class="containerCss" id="filteredposts">
             <h1>POSTS</h1>
             <table>
                 <thead>
@@ -224,7 +254,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss" id="comments" style="display: none">
+        <section class="containerCss" id="filteredcomments" style="display: none">
             <h1>COMMENTS</h1>
             <table>
                 <thead>
@@ -244,6 +274,11 @@
             </table>
         </section>
     </article>
+</main>
+<main sec:authorize="!hasAuthority('admin')">
+    <h1>
+        GEEN TOEGANG!
+    </h1>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>
 </body>

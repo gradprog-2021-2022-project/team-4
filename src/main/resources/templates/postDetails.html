@@ -48,7 +48,8 @@
                 <p th:unless="${post.getText()!=null}">Deze post heeft geen tekst :(</p>
                 <h3 class="pad" th:text="|Posted in: ${post.getLocation()}|"></h3>
                 <h2>Clothes:</h2>
-                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}"><span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
+                <a th:each="item : ${post.getClothes()}" th:href="@{|/clothingdetail/${item.getId()}|}">
+                    <span type="button"  class="btn-dark borderBtn" th:text="${item.getNaam()}"></span>
                 </a>
             </section>
         </article>
@@ -69,10 +70,10 @@
                             </form>
                             <ul class="media-list" th:each="comment : ${comments}">
                                 <li class="media">
-                                    <a href="#" class="pull-left">
+                                    <a href="#" class="pull-left" >
                                         <img th:src="|/u/image/${comment.getUser().getId()}|" alt="" class="img-circle">
                                     </a>
-                                    <div class="media-body">
+                                    <div class="media-body alineLeft">
                                         <strong class="text-success" th:text="${comment.getUser().getUsername()}"></strong>
                                         <p th:text="${comment.getText()}"></p>
                                     </div>

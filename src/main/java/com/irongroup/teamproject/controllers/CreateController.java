@@ -2,6 +2,7 @@ package com.irongroup.teamproject.controllers;
 
 import com.irongroup.teamproject.model.Clothing_Item;
 import com.irongroup.teamproject.model.FashPost;
+import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.ClothingRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
@@ -36,9 +37,11 @@ public class CreateController {
     List<String> typeList;
 
     @GetMapping("/postnew")
-    public String postNew(Model model) {
+    public String postNew(Model model, Principal principal) {
+        FashUser  user = users.findFashUserByUsername(principal.getName());
         model.addAttribute("styles", nameList);
         model.addAttribute("types", typeList);
+        model.addAttribute("user", user);
         return "createpost";
     }
 
@@ -55,7 +58,8 @@ public class CreateController {
     @PostMapping("/postnew")
     public String postNewPost(Model model, Principal principal,
                               @ModelAttribute("valid") @Valid FashPost valid, BindingResult bindingResult,
-                              @RequestParam("image") MultipartFile multipartFile) throws IOException {
+                              @RequestParam("image") MultipartFile multipartFile, @RequestParam(required = false) Double longitude,
+                              @RequestParam(required = false) Double latitude) throws IOException {
 
         if (bindingResult.hasErrors()) {
             return "createpost";
@@ -77,6 +81,10 @@ public class CreateController {
                 clothingRepository.save(c);
             }
         }
+        FashUser user = users.findFashUserByUsername(principal.getName());
+        user.setLatitude(latitude);
+        user.setLongitude(longitude);
+        users.save(user);
         post.setLikes(0);
         post.setStijl(valid.getStijl());
         post.setClothes(clothing_items);

@@ -67,6 +67,8 @@
 
             <label for="image" class="btn-dark borderInputFile"><i class="fa fa-download" aria-hidden="true"></i> Upload outfit:</label><br>
             <input class="inputfile" type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>
+            <input type="hidden" name="latitude" id="latitude">
+            <input type="hidden" name="longitude" id="longitude">
             <input type="submit" value="Post" class="btn-dark borderPrpl"><br>
             <div>
                 <a th:href="@{/explorepage}" class="cancel">cancel</a>
@@ -75,6 +77,17 @@
         </div>
     </div>
 </main>
+<script type="text/javascript">
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            document.getElementById("longitude").value = position.coords.longitude;
+            document.getElementById("latitude").value = position.coords.latitude;
+        });
+    } else {
+        document.getElementById("longitude").value = null;
+        document.getElementById("latitude").value = null;
+    }
+</script>
 <script th:inline="javascript">
     let counter = 1;
     function createNewElement() {

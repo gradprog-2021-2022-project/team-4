@@ -8,6 +8,24 @@
     .foryoucard{
         margin-top: 0%;
         width: 15%; !important;
+        height: 750px;!important;
+    }
+    .foryouarticle{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        height: 450px;!important;
+        background-color: lightgray;
+    }
+    .foryouarticle .postpic{
+        overflow: hidden;
+        height: auto;!important;
+    }
+    .commentsothers{
+        height: 50px;
     }
 }
 .foryousection{

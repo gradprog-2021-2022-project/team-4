@@ -36,7 +36,6 @@ public class AdminController {
             }
             //Als de filters aan staan
             if (username != null && username.length() > 0) {
-                model.addAttribute("filtered", true);
                 //Voeg enkel items toe van de bepaalde gebruiker
                 FashUser user = users.findFashUserByUsername(username);
                 model.addAttribute("namefound",username);
@@ -51,7 +50,6 @@ public class AdminController {
                 model.addAttribute("fashclothes", clothing.findAll());
                 model.addAttribute("fashposts", posts.findAll());
                 model.addAttribute("comments", comments.findAll());
-                model.addAttribute("filtered", false);
             }
         } catch (
                 Exception e) {

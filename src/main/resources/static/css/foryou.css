@@ -6,9 +6,26 @@
         flex-wrap: wrap;
     }
     .foryoucard{
-        flex: 0 1 auto;
         margin-top: 0%;
         width: 15%; !important;
+        height: 750px;!important;
+    }
+    .foryouarticle{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        overflow: hidden;
+        height: 450px;!important;
+        background-color: lightgray;
+    }
+    .foryouarticle .postpic{
+        overflow: hidden;
+        height: auto;!important;
+    }
+    .commentsothers{
+        height: 50px;
     }
 }
 .foryousection{
@@ -16,8 +33,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     text-align: left;
-    width: 419px;
+    max-width: 419px;
     margin-top: 50px;
     padding-bottom: 20px;
-    height: fit-content;
 }

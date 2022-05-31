@@ -62,7 +62,7 @@
                         <button type="submit" class="btn-dark borderBtn">Ontvolgen</button><br>
                     </form>
                 </div>
-                <article>
+                <article class="foryouarticle">
                     <img class="postpic" th:src="|/p/image/${fashPost.getId()}|">
                 </article>
                 <strong><p class="sectionbioname" th:text="${fashPost.getPoster().getUsername()}"></p></strong>
@@ -81,6 +81,7 @@
                     </form>
                     <p th:if="${fashPost.getOneComment()!=null}" class="sectionbiotext"th:text="${fashPost.getOneComment().getText()}"></p>
                 </div>
+                <div th:unless="${fashPost.getOneComment()}" class="commentsothers"></div>
             </section>
         </a>
         <section class="sectioncommentexplore">

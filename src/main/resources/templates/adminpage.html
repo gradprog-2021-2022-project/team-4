@@ -92,10 +92,10 @@
 </script>
 <main sec:authorize="hasAuthority('admin')">
     <article>
-        <button class="btn-dark" onclick="showUsers()" type="button" th:if="${namefound==null}">Gebruikers</button>
-        <button class="btn-dark" onclick="showKleding()" type="button">Kleding</button>
-        <button class="btn-dark" onclick="showPosts()" type="button">Posts</button>
-        <button class="btn-dark" onclick="showComments()" type="button">Comments</button>
+        <button class="btn-dark borderBtn" onclick="showUsers()" type="button" th:if="${namefound==null}">Gebruikers</button>
+        <button class="btn-dark borderBtn" onclick="showKleding()" type="button">Kleding</button>
+        <button class="btn-dark borderBtn" onclick="showPosts()" type="button">Posts</button>
+        <button class="btn-dark borderBtn" onclick="showComments()" type="button">Comments</button>
     </article>
     <article th:if="${filtered==null || !filtered}">
         <section class="containerCss" id="users">
@@ -186,7 +186,7 @@
         </section>
     </article>
     <article th:if="${filtered!=null && filtered}">
-        <section class="containerCss" id="clothes">
+        <section class="containerCss" id="clothes" style="display: none">
             <h1>CLOTHES</h1>
             <table>
                 <thead>
@@ -205,7 +205,7 @@
                 </tbody>
             </table>
         </section>
-        <section class="containerCss" id="posts" style="display: none">
+        <section class="containerCss" id="posts">
             <h1>POSTS</h1>
             <table>
                 <thead>

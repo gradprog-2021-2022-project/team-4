@@ -8,7 +8,6 @@
    </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main class="container">
 <main>
     <div th:if="${user!=null &&poster.equals(user)}">
         <a th:href="@{'/editpost/' + ${post.id}}">

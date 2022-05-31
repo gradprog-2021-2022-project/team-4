@@ -3,35 +3,47 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/admin.css}" href="/css/admin.css"/>
+          th:href="@{/css/posts.css}" href="/css/posts.css"/>
     <title>Admin only</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<aside class="filterContainer">
-    <div class="filters" name="showFilter">
-        <h2>Filters: </h2>
-        <form>
-            <h3>Filter by user?</h3>
-            <label for="noFilter" >No</label>
-            <input type="radio" id="noFilter" name="filter" value="false" th:checked="${filtered == false || filtered == null}">
-            <label for="yesFilter">Yes</label>
-            <input type="radio" id="yesFilter" name="filter" value="true" th:checked="${filtered == true}">
-            <input type="submit" value="search" th:if="${filtered == null || !filtered}">
-        </form>
-        <form th:if="${filtered!=null && filtered}">
-            <label for="username">Search by user:</label>
-            <input type="text" placeholder="eg. Elias" name="username" id="username">
-            <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
-            <button type="submit">Zoek!</button>
-        </form>
-    </div>
-    <div>
-        <button class="btnFilter txt" onclick="showFilters()"></button>
+<aside>
+    <div class="dropdown filterContainer position-fixed">
+        <button onclick="filterBTN()" type="button" class="btn btn-dark" data-toggle="collapse" href="#collapseExample" role="button"
+                aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
+        <div class="collapse" id="collapseExample">
+            <form class="card card-body scroll">
+                <form>
+                    <h3>Filter by user?</h3>
+                    <label for="noFilter" >No</label>
+                    <input type="radio" id="noFilter" name="filter" value="false" th:checked="${filtered == false || filtered == null}">
+                    <label for="yesFilter">Yes</label>
+                    <input type="radio" id="yesFilter" name="filter" value="true" th:checked="${filtered == true}">
+                    <input type="submit" value="search" th:if="${filtered == null || !filtered}">
+                </form>
+                <form th:if="${filtered!=null && filtered}">
+                    <label for="username">Search by user:</label>
+                    <input type="text" placeholder="eg. Elias" name="username" id="username">
+                    <input type="radio" value="true" name="filter" th:checked="${filtered == true}">
+                    <button type="submit">Zoek!</button>
+                </form>
+            </form>
+        </div>
     </div>
 </aside>
 <script>
+    //Om het plusje in een minnetje te zetten en omgekeerd
+    function filterBTN(){
+        var btnFilters=document.getElementById("btnFilters");
+        if(btnFilters.innerText=="+"){
+            btnFilters.innerText="-";
+        }
+        else {
+            btnFilters.innerText="+";
+        }
+    };
     function showFilters() {
         var btn = document.getElementsByClassName("btnFilter")[0];
         var x = document.getElementsByClassName("filters")[0];
@@ -44,8 +56,8 @@
     }
 </script>
 <main sec:authorize="hasAuthority('admin')">
-    <article th:if="${filtered==null || !filtered}" class="adminPage">
-        <section class="adminUsers">
+    <article th:if="${filtered==null || !filtered}">
+        <section class="containerCss">
             <h1>USERS</h1>
             <table>
                 <thead>
@@ -53,7 +65,6 @@
                     <th>ID</th>
                     <th>Username</th>
                     <th>credit</th>
-                    <th>save?</th>
                     <th>delete?</th>
                 </tr>
                 </thead>
@@ -61,21 +72,21 @@
                 <tr th:each="fashposter : ${fashposters}">
                     <td th:text="${fashposter.getId()}"></td>
                     <td th:text="${fashposter.getUsername()}"></td>
-                    <td>
+                    <td style="width: 150px">
                         <form style="width:50px">
                             <input style="display: none" type="number" th:value="${fashposter.getId()}" name="id">
                             <input style="width: 50px;" type="number"
                                    th:value="${fashposter.getPost_allowance()}"
                                    name="postallow">
-                            <button class="btnCss" style="width: 50px;" type="submit">save</button>
+                            <button class="btn-dark borderBtn" type="submit">save</button>
                         </form>
                     </td>
-                    <td><a class="btnCss" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</a></td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deleteUser/${fashposter.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
         </section>
-        <section class="adminClothes">
+        <section class="containerCss">
             <h1>CLOTHES</h1>
             <table>
                 <thead>
@@ -89,12 +100,12 @@
                 <tr th:each="item : ${fashclothes}">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getNaam()}"></td>
-                    <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
         </section>
-        <section class="adminPosts">
+        <section class="containerCss">
             <h1>POSTS</h1>
             <table>
                 <thead>
@@ -108,12 +119,12 @@
                 <tr th:each="fashpost : ${fashposts}">
                     <td th:text="${fashpost.getId()}"></td>
                     <td th:text="${fashpost.getPoster().getUsername()}"></td>
-                    <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
         </section>
-        <section class="adminComments">
+        <section class="containerCss">
             <h1>COMMENTS</h1>
             <table>
                 <thead>
@@ -127,7 +138,7 @@
                 <tr th:each="fashComment : ${comments}">
                     <td th:text="${fashComment.getId()}"></td>
                     <td th:text="${fashComment.getUser().getId()}"></td>
-                    <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
@@ -148,7 +159,7 @@
                 <tr th:each="item : ${fashclothes}">
                     <td th:text="${item.getId()}"></td>
                     <td th:text="${item.getNaam()}"></td>
-                    <td class="btn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deleteItem/${item.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
@@ -167,7 +178,7 @@
                 <tr th:each="fashpost : ${fashposts}">
                     <td th:text="${fashpost.getId()}"></td>
                     <td th:text="${fashpost.getPoster().getUsername()}"></td>
-                    <td><a class="btn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</a></td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deletePost/${fashpost.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>
@@ -186,7 +197,7 @@
                 <tr th:each="fashComment : ${comments}">
                     <td th:text="${fashComment.getId()}"></td>
                     <td th:text="${fashComment.getUser().getId()}"></td>
-                    <td><a class="btn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</a></td>
+                    <td class="btn-dark borderBtn" th:href="@{|/deleteComment/${fashComment.getId()}|}">DELETE</td>
                 </tr>
                 </tbody>
             </table>

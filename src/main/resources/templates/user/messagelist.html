@@ -11,7 +11,7 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()">
   <button class="btn-dark btnToggler" onclick="toggleDivs()">
-    <h3 id="buttonToggle">Gebruikers</h3>
+    <h3 id="buttonToggle">>></h3>
   </button>
   <div id="userDiv" style="display: none;" class="convoList">
     <article>
@@ -45,11 +45,11 @@
     if (users.style.display === "none") {
       users.style.display = "block";
       convos.style.display="none"
-      button.innerText="Gesprekken";
+      button.innerText="<<";
     } else {
       convos.style.display="block"
       users.style.display = "none";
-      button.innerText = "Gebruikers";
+      button.innerText = ">>";
     }
   }
 </script>

@@ -6,21 +6,19 @@ import com.irongroup.teamproject.model.FashUser;
 import com.irongroup.teamproject.repositories.CommentRepository;
 import com.irongroup.teamproject.repositories.PostRepository;
 import com.irongroup.teamproject.repositories.UserRepository;
-import com.sun.jdi.event.MethodExitEvent;
+
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
-import javax.xml.stream.events.Comment;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -244,15 +242,6 @@ public class PostController {
             //NIKS
             return "postDetails";
         }
-    }
-
-    //Liken stuurt gewoon terug naar dezelfde pagina met toegevoegde like
-    @GetMapping({"/likePost/{id}"})
-    public String likePost(Model model, @PathVariable Integer id) {
-        FashPost post = posts.findById(id).get();
-        post.addLike();
-        posts.save(post);
-        return "redirect:/postDetails/" + id;
     }
 
     //Laden van een foto van post, gebaseerd op Brent zijn profielfotof

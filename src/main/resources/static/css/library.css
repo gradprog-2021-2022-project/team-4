@@ -80,8 +80,8 @@ nav li{
 }
 
 ul{
-    margin: 0px!important;
-    padding: 0px;
+    margin: 0!important;
+    padding: 0;
 }
 
 nav a{
@@ -166,7 +166,7 @@ nav a:hover {
 /*the img in navbar*/
 .imgNavbar {
     width: 57px;
-    border-radius: 0px 0px 0px 0px;
+    border-radius: 0 0 0 0;
 }
 
 /*class for a-tag around the img in navbar*/

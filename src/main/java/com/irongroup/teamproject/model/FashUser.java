@@ -17,8 +17,6 @@ public class FashUser {
     @NotBlank
     public String username;
     @JsonIgnore
-    private String location;
-    @JsonIgnore
     @NotBlank
     private String password;
 

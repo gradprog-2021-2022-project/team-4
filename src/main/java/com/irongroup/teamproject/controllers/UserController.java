@@ -242,7 +242,7 @@ public class UserController {
         }
         FashUser user = new FashUser();
 
-        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
+        if(multipartFile!=null&&!multipartFile.getOriginalFilename().equals("")){
             user.setProfilePic(multipartFile.getInputStream().readAllBytes());
         }
 

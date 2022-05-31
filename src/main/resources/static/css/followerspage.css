@@ -18,12 +18,12 @@
     padding: 5px;
     margin: 10px;
     border-radius: 5px;
-    border-bottom: solid #89B6A5 5px !important;
     background-color: #343a40;
     display: flex;
     flex-wrap: wrap;
     text-align: left;
     border: 0.5px solid #00000030;
+    border-bottom: solid #89B6A5 5px !important;
     width: 400px;
 }
 
@@ -91,7 +91,6 @@ p {
 }
 
 .noprofilepic {
-    width: 40px!important;
     width: 40px!important;
     height: 39px;
 }

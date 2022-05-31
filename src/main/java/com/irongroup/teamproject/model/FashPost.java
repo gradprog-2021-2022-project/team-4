@@ -18,7 +18,6 @@ public class FashPost implements Comparable<FashPost>{
     public Integer id;
     @Column(length = 1000)
     private String text;
-    private Integer likes;
     private String stijl;
 
     //Clothes in the post
@@ -52,7 +51,7 @@ public class FashPost implements Comparable<FashPost>{
     public FashPost() {
     }
 
-    public FashPost(Integer id, String stijl, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location, String text, Integer likes, byte[] postPic) {
+    public FashPost(Integer id, String stijl, Collection<Clothing_Item> clothes, FashUser poster, Collection<FashComment> comments, LocalDate date, LocalTime time, String location, String text, byte[] postPic) {
         this.id = id;
         this.stijl = stijl;
         this.clothes = clothes;
@@ -62,7 +61,6 @@ public class FashPost implements Comparable<FashPost>{
         this.time = time;
         this.location = location;
         this.text=text;
-        this.likes=likes;
         this.postPic=postPic;
     }
 
@@ -146,20 +144,10 @@ public class FashPost implements Comparable<FashPost>{
         return text;
     }
 
-    public Integer getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
-
     public byte[] getPostPic() {
         return postPic;
     }
 
-    //Geschreven door eliasje voor een easy like counter
-    public void addLike(){likes++;};
 
     public void setText(String text) {
         this.text = text;

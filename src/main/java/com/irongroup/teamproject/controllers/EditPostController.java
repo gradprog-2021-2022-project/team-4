@@ -64,7 +64,7 @@ public class EditPostController {
         FashPost post = postRepository.findById(id).get();
         postRepository.save(post);
         //photo
-        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
+        if(multipartFile!=null&&!multipartFile.getOriginalFilename().equals("")){
             post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 

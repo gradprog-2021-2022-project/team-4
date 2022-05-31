@@ -66,7 +66,7 @@ public class CreateController {
         }
         FashPost post = new FashPost();
         //photo
-        if(!multipartFile.getOriginalFilename().equals("")||multipartFile==null){
+        if(multipartFile!=null&&!multipartFile.getOriginalFilename().equals("")){
             post.setPostPic(multipartFile.getInputStream().readAllBytes());
         }
 
@@ -85,7 +85,6 @@ public class CreateController {
         user.setLatitude(latitude);
         user.setLongitude(longitude);
         users.save(user);
-        post.setLikes(0);
         post.setStijl(valid.getStijl());
         post.setClothes(clothing_items);
         post.setLocation(valid.getLocation());

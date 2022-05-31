@@ -113,11 +113,11 @@
 }
 .backbuttonMessages{
     width: 10%;
-    margin-left: 0%;
+    margin-left: 0;
     margin-right: auto;
 }
 .messageAddUser{
-    margin-right: 0%;
+    margin-right: 0;
     margin-left: auto;
 }
 .messageButtonsTop form{

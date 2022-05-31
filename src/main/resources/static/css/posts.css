@@ -6,13 +6,13 @@
     width: fit-content;
     margin: auto;
     margin-top: 50px;
-    box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
+    box-shadow: rgb(9 30 66 / 25%) 0 1px 1px, rgb(9 30 66 / 13%) 0 0 1px 1px;
     border-radius: 12px 12px 12px 12px;
 }
 
 .boxposts {
     width: 100%;
-    box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
+    box-shadow: rgb(9 30 66 / 25%) 0 1px 1px, rgb(9 30 66 / 13%) 0 0 1px 1px;
     border-radius: 12px 12px 12px 12px;
     margin: auto;
 }
@@ -209,7 +209,7 @@ h3.sectionrows {
     min-width: 250px;
     background: #1c1f22d1;
     color: white;
-    box-shadow: rgb(9 30 66 / 25%) 0px 1px 1px, rgb(9 30 66 / 13%) 0px 0px 1px 1px;
+    box-shadow: rgb(9 30 66 / 25%) 0 1px 1px, rgb(9 30 66 / 13%) 0 0 1px 1px;
 }
 
 .postDetails p {
@@ -221,7 +221,7 @@ h3.sectionrows {
     align-content: center;
     display: flex;
     justify-content: center;
-    border-radius: 15px 0% 0% 15px;
+    border-radius: 15px 0 0 15px;
     overflow: hidden;
     background: #343a40;
     height: auto;

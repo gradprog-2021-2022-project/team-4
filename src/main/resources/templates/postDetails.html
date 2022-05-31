@@ -8,7 +8,7 @@
    </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
-<main>
+<main class="container">
     <div th:if="${user!=null &&poster.equals(user)}">
         <a th:href="@{'/editpost/' + ${post.id}}">
             <input type="button" value="Edit post" class="btnCss" style="text-align:center">

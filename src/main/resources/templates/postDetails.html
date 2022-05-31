@@ -71,10 +71,10 @@
                             </form>
                             <ul class="media-list" th:each="comment : ${comments}">
                                 <li class="media">
-                                    <a href="#" class="pull-left">
+                                    <a href="#" class="pull-left" >
                                         <img th:src="|/u/image/${comment.getUser().getId()}|" alt="" class="img-circle">
                                     </a>
-                                    <div class="media-body">
+                                    <div class="media-body alineLeft">
                                         <strong class="text-success" th:text="${comment.getUser().getUsername()}"></strong>
                                         <p th:text="${comment.getText()}"></p>
                                     </div>

@@ -138,6 +138,10 @@ nav a:hover {
     min-width: 100px;
     border-radius: 5px;
 }
+.alineLeft{
+    text-align: left;
+    padding-left: 10px;
+}
 
 .borderPrpl{
     border: none;

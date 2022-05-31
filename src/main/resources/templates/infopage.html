@@ -4,35 +4,43 @@
 <head>
     <title>Info</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/infopage.css}" href="/css/infopage.css"/>
 </head>
 <body>
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main>
-    <h1>Welkom!</h1>
-    <article>
-        <section>
-            <h2>Wat is Fash?</h2>
-            <p>
-                Fash zal een website worden waar je je outfit op kan delen en andere outfits kan bekijken. Bovendien zal elke outfit links bevatten zodat je snel en gemakkelijk de kleren kan kopen die je mooi vindt!
-            </p>
-            <p>Dit idee is gemaakt door:</p>
-            <lu>
-                <li>Brittney De Maeyer</li>
-                <li>Thomas De Smet</li>
-                <li>Lauranne Vandeputte</li>
-                <li>Myrthe Cleas</li>
-            </lu>
-        </section>
-        <section>
-            <h2>Wie zijn wij?</h2>
-            <p>Wij zijn enkele studenten uit Thomas More die samen dit project aanpakken. Samen zullen we er iets mooi van maken!</p>
-            <lu>
-                <li>Brent Budts</li>
-                <li>Matthew De Schepper</li>
-                <li>Ibrahim El Moudden</li>
-                <li>Elias Neel</li>
-            </lu>
-        </section>
+    <article class="infopage">
+        <h1>Wat is Fash?</h1>
+        <p>
+            Fash zal een website worden waar je je outfit op kan delen en andere outfits kan bekijken. Bovendien zal elke outfit links bevatten zodat je snel en gemakkelijk de kleren kan kopen die je mooi vindt!
+        </p>
+        <div class="grid">
+            <section>
+                <h2>Bedacht door:</h2>
+                <lu>
+                    <li>Brittney De Maeyer</li>
+                    <li>Thomas De Smet</li>
+                    <li>Lauranne Vandeputte</li>
+                    <li>Myrthe Cleas</li>
+                </lu>
+            </section>
+            <section>
+                <h2>Uitgewerkt door:</h2>
+                <lu>
+                    <li>Brent Budts</li>
+                    <li>Matthew De Schepper</li>
+                    <li>Ibrahim El Moudden</li>
+                    <li>Elias Neel</li>
+                </lu>
+            </section>
+        </div>
+        <p>Wij zijn enkele studenten uit Thomas More van
+            <a href="https://www.thomasmore.be/opleidingen/professionele-bachelor/media-en-entertainment-business-overzicht/media-en-entertainment-business">Media en Entertainment Business</a>
+             en
+            <a href="https://www.thomasmore.be/opleidingen/graduaat/programmeren-dag-avondonderwijs/programmeren-dagonderwijs/antwerpen-0">graduaat programmeren</a>
+            die samen dit project aanpakken.
+        </p>
+        <strong><p>Samen zullen we er iets mooi van maken!</p></strong>
     </article>
 </main>
 <footer th:replace="fragments/head_foot :: footerfrag"></footer>

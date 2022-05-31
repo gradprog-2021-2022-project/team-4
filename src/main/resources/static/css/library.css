@@ -127,6 +127,7 @@ nav a:hover {
     padding: 5px;
     margin: 10px;
     min-width: 100px;
+    border-bottom: solid transparent 5px !important;
     border-radius: 5px;
 }
 

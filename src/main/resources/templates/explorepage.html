@@ -42,6 +42,9 @@
 
 </aside>
 <main>
+    <div th:if="${fashUsers==null || fashUsers.size()==0}">
+        <h1>Niets gevonden! Probeer iets anders te zoeken.</h1>
+    </div>
     <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
         <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
             <section class="sectionclass">

@@ -48,6 +48,9 @@
     </div>
 </main>
 <main sec:authorize="isAuthenticated()" class="foryoumain">
+    <div th:if="${allposts==null || allposts.size()==0}">
+        <h1>Niets gevonden! Probeer iets anders te zoeken.</h1>
+    </div>
     <div class="postCardDiv foryoucard" th:each="fashPost : ${allposts}">
         <a class="postCard" th:href="@{|/postDetails/${fashPost.getId()}}">
             <section class="foryousection">

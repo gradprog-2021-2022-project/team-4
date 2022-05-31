@@ -1,6 +1,6 @@
 @media only screen and (min-width: 930px) {
     .messagemain{
-        margin-top: 50px;
+        padding-top: 25px;
     }
 }
 .receivedMessage{
@@ -33,10 +33,15 @@
     font-size: small;
     color: black;
 }
+.receivedMessage h3{
+    font-size: small;
+    color: black;
+}
 .messageForm{
     width: 100%;
     height: 50px;
     display: flex; !important;
+    float: bottom;
 }
 .messageForm input{
     width: available;
@@ -51,7 +56,7 @@
 .messages{
     width: available;
     background-color:white;
-    height: 500px; !important;
+    height: 75vh; !important;
     overflow:scroll;
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
@@ -70,7 +75,7 @@
     display: none;
 }
 .messagebody{
-    height: 100%; !important;
+    height: 100vh; !important;
     overflow: hidden;
     background-color: white;
 }

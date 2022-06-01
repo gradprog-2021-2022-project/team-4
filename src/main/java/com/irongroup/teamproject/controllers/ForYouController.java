@@ -42,7 +42,7 @@ public class ForYouController {
             FashUser loggedUser = users.findFashUserByUsername(principal.getName());
             List<FashPost> postsFromFollowers = loggedUser.getPostsFromFollowing();
             Collections.sort(postsFromFollowers);
-            //Collections.reverse(postsFromFollowers);
+            Collections.reverse(postsFromFollowers);
             model.addAttribute("curUser", loggedUser);
 
             model.addAttribute("styles", nameList);
@@ -110,7 +110,7 @@ public class ForYouController {
         for (FashPost p : posts
         ) {
             if (p.getStijl()!=null && p.getStijl().equalsIgnoreCase(stijl)) {
-                posts.add(p);
+                filtered.add(p);
             }
         }
         return filtered;

@@ -36,7 +36,7 @@ public class FashPost implements Comparable<FashPost>{
     private Collection<FashComment> comments;
 
     @JsonIgnore
-    @Column(length = 10000000)
+    @Column(columnDefinition="BLOB")
     private byte[] postPic;
 
     //Date and time of the post

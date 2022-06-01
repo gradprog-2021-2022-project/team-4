@@ -27,7 +27,7 @@ public class FashUser {
 
 
     @JsonIgnore
-    @Column(length = 10000000)
+    @Column(columnDefinition="BLOB")
     private byte[] profilePic;
 
     @JsonIgnore

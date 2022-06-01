@@ -63,22 +63,19 @@ public class PostController {
         //kijken of er een naam gezocht wordt
         if (naamPerson != null && !naamPerson.equals("")) {
             Collection<FashUser> fashUsersKeyword = users.findByKeyword(naamPerson);
-            for (FashUser user:fashUsersKeyword) {
-                for (FashUser user2:fashUsers) {
+            for (FashUser user : fashUsersKeyword) {
+                for (FashUser user2 : fashUsers) {
                     if (user2.getId() == user.getId()) {
                         thesame.add(user);
                         break;
                     }
                 }
             }
-        }
-        else {
-            for (FashUser user:fashUsers) {
+        } else {
+            for (FashUser user : fashUsers) {
                 thesame.add(user);
             }
         }
-
-
         //Kijken voor de stijl en zoja filteren
         model.addAttribute("styles", nameList);
         if (style != null && style.length() > 1) {
@@ -90,15 +87,15 @@ public class PostController {
         }
 
         System.out.println(loginName);
-        Collection<FashPost> postsmade = posts.findAll();
-        model.addAttribute("fashposts", postsmade);
+        //Collection<FashPost> postsmade = posts.findAll();
+        //model.addAttribute("fashposts", postsmade);
         if (principal != null) {
             FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
             model.addAttribute("curUser", loggedInUser);
             model.addAttribute("loggedIn", true);
             if (commentText != null) {
                 FashPost post = posts.findById(id).get();
-                FashComment comment=new FashComment();
+                FashComment comment = new FashComment();
                 comment.setUser(loggedInUser);
                 comment.setText(commentText);
                 comment.setPost(post);
@@ -115,11 +112,18 @@ public class PostController {
             }
         }
         if (closeby != null && closeby && principal != null) {
-            model.addAttribute("fashUsers", orderByLocation(principal, thesame, slider));
+            ArrayList<FashPost> posts = new ArrayList<>();
+            for (FashUser p : thesame
+            ) {
+                posts.add(p.getLastPost());
+            }
+            Collections.sort(posts);
+            model.addAttribute("fashposts", posts);
+            model.addAttribute("fashposts", orderByLocation(principal,slider, posts));
         } else {
-            ArrayList<FashPost> posts=new ArrayList<>();
-            for (FashUser p:thesame
-                 ) {
+            ArrayList<FashPost> posts = new ArrayList<>();
+            for (FashUser p : thesame
+            ) {
                 posts.add(p.getLastPost());
             }
             Collections.sort(posts);
@@ -130,7 +134,8 @@ public class PostController {
         model.addAttribute("longitude", longitude);
         model.addAttribute("latitude", latitude);
         model.addAttribute("closeby", closeby);
-        model.addAttribute("showFilter", showFilter);
+        model.addAttribute("minPrice", minPrijs);
+        model.addAttribute("maxPrice", maxPrijs);
         return "explorepage";
     }
 
@@ -165,7 +170,7 @@ public class PostController {
         ArrayList<FashUser> users = new ArrayList<>();
         for (FashUser f : fashUsers
         ) {
-            if (f.getLastPost().getStijl()!=null && f.getLastPost().getStijl().equalsIgnoreCase(stijl)) {
+            if (f.getLastPost().getStijl() != null && f.getLastPost().getStijl().equalsIgnoreCase(stijl)) {
                 users.add(f);
             }
         }
@@ -173,24 +178,25 @@ public class PostController {
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand
-    private ArrayList<FashUser> orderByLocation(Principal principal, Collection<FashUser> fashUsers, Integer slider) {
+    private ArrayList<FashPost> orderByLocation(Principal principal, Integer slider, Collection<FashPost> posts) {
         FashUser user = users.findFashUserByUsername(principal.getName());
+        ArrayList<FashPost> closest = new ArrayList<>();
 
-        ArrayList<FashUser> closest = new ArrayList<>();
-
-        for (FashUser u : fashUsers) {
-            if (u.getLongitude() != null && u.getLatitude() != null && user.getLongitude() != null && user.getLatitude() != null) {
-                System.out.println(haversine(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude()));
-                Double distanceInKm = haversine(user.getLatitude(), user.getLongitude(), u.getLatitude(), u.getLongitude());
+        for (FashPost p : posts) {
+            if (p.getPoster().getLongitude() != null && p.getPoster().getLatitude() != null && user.getLongitude() != null && user.getLatitude() != null) {
+                System.out.println(haversine(user.getLatitude(), user.getLongitude(), p.getPoster().getLatitude(), p.getPoster().getLongitude()));
+                Double distanceInKm = haversine(user.getLatitude(), user.getLongitude(), p.getPoster().getLatitude(), p.getPoster().getLongitude());
 
                 //Nu kan je ook filteren op stijl !
                 if (distanceInKm < slider) {
-                    closest.add(u);
+                    closest.add(p);
                 }
             }
         }
+
         return closest;
     }
+
 
     //Haversine formule om afstand tussen 2 coordinaten te berekennen
     public Double haversine(Double lat1, Double lon1, Double lat2, Double lon2) {
@@ -212,7 +218,7 @@ public class PostController {
     public String postDetails(Model model, @PathVariable(required = false) Integer id, Principal
             principal, @RequestParam(required = false) String commentText, @RequestParam(required = false) String
                                       commentTitle) {
-        try{
+        try {
             //Kijken of je aangemeld bent;
             //boolean aangemeld= principal != null;
             //Als de gebruiker niet aangemeld is, kan je geen comments plaatsen
@@ -220,7 +226,7 @@ public class PostController {
                 FashUser loggedInUser = users.findFashUserByUsername(principal.getName());
                 if (commentText != null) {
                     FashPost post = posts.findById(id).get();
-                    FashComment comment=new FashComment();
+                    FashComment comment = new FashComment();
                     comment.setUser(loggedInUser);
                     comment.setText(commentText);
                     comment.setPost(post);
@@ -244,7 +250,7 @@ public class PostController {
             model.addAttribute("user", principal.getName());
             model.addAttribute("poster", posts.findById(id).get().getPoster().getUsername());
             return "postDetails";
-        }catch (Exception e){
+        } catch (Exception e) {
             //NIKS
             return "postDetails";
         }
@@ -263,8 +269,9 @@ public class PostController {
             IOUtils.copy(is, response.getOutputStream());
         }
     }
+
     @GetMapping("/deletepost/{id}")
-    public String deletePost(@PathVariable int id){
+    public String deletePost(@PathVariable int id) {
         posts.deleteById(id);
         return "redirect:/profilepage";
     }

@@ -14,7 +14,8 @@
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll displayChange">
                 <strong for="naamPerson">Naam:</strong>
-                <input type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username">
+                <input th:if="${naamPerson==null}" type="text" id="naamPerson" name="naamPerson" placeholder="username">
+                <input th:if="${naamPerson!=null}" type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username">
                 <strong>Stijl:</strong>
                 <select name="style" placeholder="Kies een stijl!">
                     <option th:value="${null}" th:text="Alle"></option>
@@ -30,9 +31,11 @@
                     <span id="sliderId">26</span>
                 </div>
                 <strong for="minprijs">Minimum:</strong>
-                <input type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+                <input th:if="${minPrice==null}" type="number" min="0" name="minPrijs" placeholder="0" id="minprijs">
+                <input th:if="${minPrice!=null}" th:value="${minPrice}" type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <strong for="maxprijs">Maximum:</strong>
-                <input type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
+                <input th:if="${maxPrice==null}" type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
+                <input th:if="${maxPrice!=null}" th:value="${maxPrice}" type="number" min="0" name="maxPrijs" placeholder="0" id="maxprijs">
                 <input type="hidden" name="latitude" id="latitude" th:value="${latitude}">
                 <input type="hidden" name="longitude" id="longitude" th:value="${longitude}">
                 <input class="btn-dark borderBtn" type="submit" value="Zoek!">
@@ -42,7 +45,7 @@
 
 </aside>
 <main>
-    <div th:if="${(fashUsers==null || fashUsers.size()==0) && (fashposts==null || fashposts.size()==0)}">
+    <div th:if="${fashposts==null || fashposts.size()==0}">
         <h1>Niets gevonden! Probeer iets anders te zoeken.</h1>
     </div>
     <div class="postCardDiv" th:each="fashUser : ${fashposts}">
@@ -90,56 +93,6 @@
         <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
             <form>
                 <input type="hidden" name="id" th:value="${fashUser.getId()}">
-                <input required="required" class="inputCss" type="text" name="commentText" placeholder="Jouw comment">
-                <button type="submit" class="btn-dark borderBtn">Plaatsen</button><br>
-            </form>
-        </section>
-    </div>
-    <div class="postCardDiv" th:each="fashUser : ${fashUsers}">
-        <a class="postCard" th:if="${fashUser.getLastPost()!=null}" th:href="@{|/postDetails/${fashUser.getLastPost().getId()}}">
-            <section class="sectionclass">
-                <form class="linktoprofilepage" method="get" th:action="@{|/profilepage/${fashUser.getId()}|}">
-                    <button class="linktoprofilepagebtn" type="submit">
-                        <img class="exploreprofilepic" th:src="|/u/image/${fashUser.getId()}|">
-                        <h1 class="sectionrows name" th:text="${fashUser.getUsername()}"></h1>
-                    </button>
-                </form>
-                <div sec:authorize="isAuthenticated()">
-                    <div class="buttonsdiv formbtn" th:if="${curUser !=null &&curUser.following.contains(fashUser)}">
-                        <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="btn-dark borderBtn">Ontvolgen</button><br>
-                        </form>
-                    </div>
-                    <div class="buttonsdiv formbtn" th:unless="${curUser!=null &&curUser.following.contains(fashUser)}">
-                        <form method="get" th:action="@{|/follow/${fashUser.getId()}|}">
-                            <button type="submit" class="btn-dark borderBtn">Volgen</button><br>
-                        </form>
-                    </div>
-                </div>
-                <article>
-                    <img class="postpic" th:src="|/p/image/${fashUser.getLastPost().getId()}|">
-                </article>
-                <strong><p class="sectionbioname" th:text="${fashUser.getUsername()}"></p></strong>
-                <p class="sectionbiotext"th:text="${fashUser.getLastPost().getText()}"></p>
-                <div class="commentsothers" th:if="${fashUser.getLastPost().getOneComment()}">
-                    <form method="get" th:action="@{|/profilepage/${fashUser.getLastPost().getOneComment().getUser().getId()}|}">
-                        <button class="linktoprofilepagebtn" type="submit">
-                            <div th:if="${fashUser.getLastPost().getOneComment().getUser().getProfilePic()}">
-                                <img class="exploreprofilepic commentpic" th:src="|/u/image/${fashUser.getLastPost().getOneComment().getUser().getId()}|">
-                            </div>
-                            <div th:unless="${fashUser.getLastPost().getOneComment().getUser().getProfilePic()}">
-                                <i class="noprofilepic fa fa-fw fa-user"></i>
-                            </div>
-                            <strong><p class="sectionbioname" th:text="${fashUser.getLastPost().getOneComment().getUser().getUsername()}"></p></strong>
-                        </button>
-                    </form>
-                    <p th:if="${fashUser.getLastPost().getOneComment()!=null}" class="sectionbiotext"th:text="${fashUser.getLastPost().getOneComment().getText()}"></p>
-                </div>
-            </section>
-        </a>
-        <section class="sectioncommentexplore" sec:authorize="isAuthenticated()">
-            <form>
-                <input type="hidden" name="id" th:value="${fashUser.getLastPost().getId()}">
                 <input required="required" class="inputCss" type="text" name="commentText" placeholder="Jouw comment">
                 <button type="submit" class="btn-dark borderBtn">Plaatsen</button><br>
             </form>

@@ -59,11 +59,11 @@
                     <input class="inputCss" id="link" type="text" th:field="*{clothes[0].linkShop}" required="required"><br>
                 </div>
             </div>
+            <button type="button" class="btn-dark borderBtn" onclick="createNewElement()">Extra kledingstuk</button><br>
             <label for="style">Kies een stijl:</label><br>
             <select class="btn-dark borderPrpl" name="style" id="style" th:field="*{stijl}" required>
                 <option th:each="s : ${styles}" th:value="${s}" th:text="${s}"></option>
             </select><br>
-            <button type="button" class="btn-dark borderBtn" onclick="createNewElement()">Extra kledingstuk</button><br>
 
             <label for="image" class="btn-dark borderInputFile"><i class="fa fa-download" aria-hidden="true"></i> Upload outfit:</label><br>
             <input class="inputfile" type="file" name="image" id="image" accept="image/png, image/jpeg" required="required"><br>

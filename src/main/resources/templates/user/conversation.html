@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org" xmlns:sec="">
 <head>
     <link rel="stylesheet" type="text/css" media="all"
-          th:href="@{/css/messages.css}" href="/css/posts.css"/>
+          th:href="@{/css/messages.css}" href="/css/messages.css"/>
     <title th:text="${convo.getConvoNaam()}">Placeholder</title>
     <div th:insert="fragments/head_foot :: headfrag"></div>
 </head>
@@ -131,7 +131,7 @@
 <header th:replace="fragments/head_foot :: headerfrag"></header>
 <main sec:authorize="isAuthenticated()" class="messagemain">
     <article class="messageButtonsTop">
-        <a class="btn btn-dark backbuttonMessages" th:href="@{/messages}"><<</a>
+        <a class="btn btn-dark backbuttonMessages" th:href="@{/messages}">Terug</a>
         <form th:action="@{|/adduser/${convo.getId()}|}">
             <select name="id" class="messageAddUser form-select">
                 <option th:if="${!convo.getUsers().contains(fuser)}" th:value="${fuser.getId()}"

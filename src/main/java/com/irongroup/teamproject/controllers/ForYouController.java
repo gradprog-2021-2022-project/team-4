@@ -17,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class ForYouController {
@@ -36,7 +33,7 @@ public class ForYouController {
 
     @GetMapping({"/foryoupage", "/foryoupage/{id}"})
     public String foryoupage(Model model, @RequestParam(required = false) Integer postId, Principal principal, @RequestParam(required = false) String commentText
-            ,@RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs) {
+            ,@RequestParam(required = false) String style, @RequestParam(required = false) Double minPrijs,@RequestParam(required = false) Double maxPrijs,@RequestParam(required = false) String naamPerson) {
         if (principal != null) {
             //model.addAttribute("loggedIn", true);
             FashUser loggedUser = users.findFashUserByUsername(principal.getName());
@@ -61,6 +58,12 @@ public class ForYouController {
                 model.addAttribute("minFilter",minPrijs);
                 model.addAttribute("maxFilter",maxPrijs);
             }
+
+            if(naamPerson!=null && naamPerson.length()>0){
+                postsFromFollowers= filterName(postsFromFollowers,naamPerson);
+                model.addAttribute("naamPerson", naamPerson);
+            }
+
             //Toevoegen van gesorteerde en gefilterde posts aan het model
             model.addAttribute("allposts",postsFromFollowers);
 
@@ -110,6 +113,18 @@ public class ForYouController {
         for (FashPost p : posts
         ) {
             if (p.getStijl()!=null && p.getStijl().equalsIgnoreCase(stijl)) {
+                filtered.add(p);
+            }
+        }
+        return filtered;
+    }
+
+    //Filteren op naam
+    private ArrayList<FashPost> filterName(Collection<FashPost> posts, String naam) {
+        ArrayList<FashPost> filtered = new ArrayList<>();
+        for (FashPost p : posts
+        ) {
+            if (p.getPoster().getUsername()!=null && p.getPoster().getUsername().toLowerCase().contains(naam.toLowerCase())) {
                 filtered.add(p);
             }
         }

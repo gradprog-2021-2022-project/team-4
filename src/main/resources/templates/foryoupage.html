@@ -16,6 +16,9 @@
                 aria-expanded="false" aria-controls="collapseExample" id="btnFilters">+</button>
         <div class="collapse" id="collapseExample">
             <form class="card card-body scroll">
+                <strong for="naamPerson">Naam:</strong>
+                <input th:if="${naamPerson==null}" type="text" id="naamPerson" name="naamPerson" placeholder="username">
+                <input th:if="${naamPerson!=null}" type="text" id="naamPerson" name="naamPerson" th:value="${naamPerson}" placeholder="username">
                 <h3>Style</h3>
                 <select name="style" placeholder="Kies een stijl!">
                     <option th:value="${null}" th:text="Alle"></option>

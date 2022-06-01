@@ -55,35 +55,21 @@ public class PostController {
                               @RequestParam(required = false) Integer slider) {
         logger.info("explorepage -- naamPerson=" + naamPerson);
         final String loginName = principal == null ? "NOBODY" : principal.getName();
-        //Eerst alle posts ophalen!
+        //Eerst alle posts ophalen! (dit zal nooit doorgegeven worden aan het model)
         Collection<FashUser> fashUsers = users.findUsersWithPosts();
-
-        Collection<FashUser> thesame = new ArrayList<>();
-
-        //kijken of er een naam gezocht wordt
-        if (naamPerson != null && !naamPerson.equals("")) {
-            Collection<FashUser> fashUsersKeyword = users.findByKeyword(naamPerson);
-            for (FashUser user : fashUsersKeyword) {
-                for (FashUser user2 : fashUsers) {
-                    if (user2.getId() == user.getId()) {
-                        thesame.add(user);
-                        break;
-                    }
-                }
-            }
-        } else {
-            for (FashUser user : fashUsers) {
-                thesame.add(user);
-            }
-        }
+        
         //Kijken voor de stijl en zoja filteren
         model.addAttribute("styles", nameList);
         if (style != null && style.length() > 1) {
             System.out.println("met stijl");
-            thesame = filterPosts(thesame, style);
+            fashUsers = filterPosts(fashUsers, style);
         }
         if (minPrijs != null || maxPrijs != null) {
-            thesame = filterPrice(thesame, minPrijs, maxPrijs);
+            fashUsers = filterPrice(fashUsers, minPrijs, maxPrijs);
+        }
+        if(naamPerson!=null && naamPerson.length()>0){
+            fashUsers= filterName(fashUsers,naamPerson);
+            model.addAttribute("naamPerson", naamPerson);
         }
 
         System.out.println(loginName);
@@ -111,9 +97,10 @@ public class PostController {
                 users.save(loggedInUser);
             }
         }
+        //Hier alvast maken! (dit zal doorgegeven worden naar het model!)
+        ArrayList<FashPost> posts = new ArrayList<>();
         if (closeby != null && closeby && principal != null) {
-            ArrayList<FashPost> posts = new ArrayList<>();
-            for (FashUser p : thesame
+            for (FashUser p : fashUsers
             ) {
                 posts.add(p.getLastPost());
             }
@@ -121,8 +108,7 @@ public class PostController {
             model.addAttribute("fashposts", posts);
             model.addAttribute("fashposts", orderByLocation(principal,slider, posts));
         } else {
-            ArrayList<FashPost> posts = new ArrayList<>();
-            for (FashUser p : thesame
+            for (FashUser p : fashUsers
             ) {
                 posts.add(p.getLastPost());
             }
@@ -175,6 +161,17 @@ public class PostController {
             }
         }
         return users;
+    }
+    //Filteren op naam
+    private ArrayList<FashUser> filterName(Collection<FashUser> users, String naam) {
+        ArrayList<FashUser> filtered = new ArrayList<>();
+        for (FashUser u: users
+        ) {
+            if (u.getUsername()!=null && u.getUsername().toLowerCase().contains(naam.toLowerCase())) {
+                filtered.add(u);
+            }
+        }
+        return filtered;
     }
 
     //Lijst die gebasseerd is op locatie filteren op 5km afstand

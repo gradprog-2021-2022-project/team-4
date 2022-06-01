@@ -67,7 +67,7 @@ public class ForYouController {
             //Toevoegen van gesorteerde en gefilterde posts aan het model
             model.addAttribute("allposts",postsFromFollowers);
 
-            //Comment enkel toevoegen als die geplaats kan worden
+            //Comment enkel toevoegen als die geplaatst kan worden
             if (commentText != null) {
                 FashPost post = posts.findById(postId).get();
                 FashComment comment=new FashComment();
@@ -106,7 +106,6 @@ public class ForYouController {
         }
         return filtered;
     }
-
     //Filteren op stijl
     private ArrayList<FashPost> filterPosts(Collection<FashPost> posts, String stijl) {
         ArrayList<FashPost> filtered = new ArrayList<>();
@@ -118,7 +117,6 @@ public class ForYouController {
         }
         return filtered;
     }
-
     //Filteren op naam
     private ArrayList<FashPost> filterName(Collection<FashPost> posts, String naam) {
         ArrayList<FashPost> filtered = new ArrayList<>();

@@ -130,21 +130,22 @@ public class MessageController {
 
             //Als de gebruiker nog geen convo heeft met de gebruiker
             if (!loggedIn.hasConvoWithUser(newUser)) {
+                //Een nieuwe convo maken en de nodige dingen doorgeven en opslaan
                 Conversation c = new Conversation();
                 ArrayList<FashUser> usersconvo=new ArrayList<>();
                 c.setConvoNaam(newUser.getUsername());
-
                 usersconvo.add(loggedIn);
                 usersconvo.add(newUser);
                 c.setUsers(usersconvo);
                 loggedIn.addConvo(c);
-                newUser.addConvo(c);//Dingen opslaan !!!
+                newUser.addConvo(c);
+                //Dingen opslaan !!!
                 convos.save(c);
                 users.save(loggedIn);
                 users.save(newUser);
                 dingetje = "redirect:/messages/" + c.getId();
             } else {
-                System.out.println("We zijn hier");
+                //System.out.println("We zijn hier");
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             }
         } catch (Exception e) {

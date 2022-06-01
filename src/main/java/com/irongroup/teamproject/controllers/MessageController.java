@@ -29,7 +29,6 @@ public class MessageController {
     @Autowired
     MessageRepository allMessages;
 
-    // TODO : checks toevoegen aub eliasje
     @GetMapping("/messages")
     public String messagelist(Principal p, Model model) {
         //In een try catch= geen ifke
@@ -41,7 +40,7 @@ public class MessageController {
             //Alle convos opvragen van de user en daarna sorteren
             List<Conversation> convos= loggedIn.getConversations();
             Collections.sort(convos);
-            Collections.reverse(convos);
+            //Collections.reverse(convos);
             model.addAttribute("convos", convos);
             model.addAttribute("loggedIn",loggedIn);
             return "user/messagelist";

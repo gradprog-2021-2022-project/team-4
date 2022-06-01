@@ -57,7 +57,7 @@ public class PostController {
         final String loginName = principal == null ? "NOBODY" : principal.getName();
         //Eerst alle posts ophalen! (dit zal nooit doorgegeven worden aan het model)
         Collection<FashUser> fashUsers = users.findUsersWithPosts();
-        
+
         //Kijken voor de stijl en zoja filteren
         model.addAttribute("styles", nameList);
         if (style != null && style.length() > 1) {
@@ -67,8 +67,8 @@ public class PostController {
         if (minPrijs != null || maxPrijs != null) {
             fashUsers = filterPrice(fashUsers, minPrijs, maxPrijs);
         }
-        if(naamPerson!=null && naamPerson.length()>0){
-            fashUsers= filterName(fashUsers,naamPerson);
+        if (naamPerson != null && naamPerson.length() > 0) {
+            fashUsers = filterName(fashUsers, naamPerson);
             model.addAttribute("naamPerson", naamPerson);
         }
 
@@ -99,20 +99,17 @@ public class PostController {
         }
         //Hier alvast maken! (dit zal doorgegeven worden naar het model!)
         ArrayList<FashPost> posts = new ArrayList<>();
+        //Loopen en erin zetten!
+        for (FashUser p : fashUsers
+        ) {
+            posts.add(p.getLastPost());
+        }
+        //Sorteren
+        Collections.sort(posts);
+        //Sorteren op afstand als laatste zodat alle vorige filters niet in conflict komen
         if (closeby != null && closeby && principal != null) {
-            for (FashUser p : fashUsers
-            ) {
-                posts.add(p.getLastPost());
-            }
-            Collections.sort(posts);
-            model.addAttribute("fashposts", posts);
-            model.addAttribute("fashposts", orderByLocation(principal,slider, posts));
+            model.addAttribute("fashposts", orderByLocation(principal, slider, posts));
         } else {
-            for (FashUser p : fashUsers
-            ) {
-                posts.add(p.getLastPost());
-            }
-            Collections.sort(posts);
             model.addAttribute("fashposts", posts);
         }
         model.addAttribute("naamPerson", naamPerson);
@@ -162,12 +159,13 @@ public class PostController {
         }
         return users;
     }
+
     //Filteren op naam
     private ArrayList<FashUser> filterName(Collection<FashUser> users, String naam) {
         ArrayList<FashUser> filtered = new ArrayList<>();
-        for (FashUser u: users
+        for (FashUser u : users
         ) {
-            if (u.getUsername()!=null && u.getUsername().toLowerCase().contains(naam.toLowerCase())) {
+            if (u.getUsername() != null && u.getUsername().toLowerCase().contains(naam.toLowerCase())) {
                 filtered.add(u);
             }
         }

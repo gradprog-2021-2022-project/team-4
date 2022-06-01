@@ -31,7 +31,6 @@ public class MessageController {
 
     @GetMapping("/messages")
     public String messagelist(Principal p, Model model) {
-        //In een try catch= geen ifke
         try {
             //Kijken of de ingelogde user bestaat
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
@@ -45,18 +44,15 @@ public class MessageController {
             model.addAttribute("loggedIn",loggedIn);
             return "user/messagelist";
         } catch (Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             return "redirect:/explorepage";
         }
     }
 
-    // DONE : users worden verwijderd na sturen message (gefixt)
-    // done : voeg een check toe om te zien of de gebruiker toegang heeft tot de convo!!
     @GetMapping({"/messages/{id}"})
     public String conversation(Principal p, Model model, @PathVariable Integer id, @RequestParam(required = false) String text) {
         //Als er geen bericht gestuurd word
         if (text == null || text.length() < 1) {
-            //In een try catch= geen ifke
             try {
                 //Gebruiker vinden die ingelogd is
                 FashUser loggedIn = users.findFashUserByUsername(p.getName());
@@ -115,7 +111,6 @@ public class MessageController {
                 //Dingen op gelezen/ongelezen zetten zetten
                 convo.forceOnRead(sender);
                 sender.forceOnRead(convo);
-
                 users.save(sender);
                 convos.save(convo);
             } catch (Exception e) {
@@ -125,8 +120,6 @@ public class MessageController {
         }
     }
 
-    // DONE : users worden niet goed toegevoegd aan gesprek (hier zit niet de fout)
-    // DONE : BUG FIXEN
     @GetMapping("/checkconvo/{id}")
     public String checkConvo(@PathVariable Integer id, Principal p) {
         String dingetje = "/explorepage";
@@ -135,50 +128,36 @@ public class MessageController {
             FashUser loggedIn = users.findFashUserByUsername(p.getName());
             FashUser newUser = users.findById(id).get();
 
-            /*//Tijdelijke code voor testing
-            if(newUser==null) System.out.println("Gene user!");*/
-
             //Als de gebruiker nog geen convo heeft met de gebruiker
             if (!loggedIn.hasConvoWithUser(newUser)) {
                 Conversation c = new Conversation();
-                //int idke=c.getId();
-                //c.setId(idke);
                 ArrayList<FashUser> usersconvo=new ArrayList<>();
                 c.setConvoNaam(newUser.getUsername());
 
                 usersconvo.add(loggedIn);
                 usersconvo.add(newUser);
                 c.setUsers(usersconvo);
-                /*
-                c.addUser(loggedIn);
-                c.addUser(newUser);
-                */
                 loggedIn.addConvo(c);
                 newUser.addConvo(c);//Dingen opslaan !!!
                 convos.save(c);
                 users.save(loggedIn);
                 users.save(newUser);
                 dingetje = "redirect:/messages/" + c.getId();
-                //dingetje= "redirect:/nergens";
             } else {
                 System.out.println("We zijn hier");
                 dingetje = "redirect:/messages/" + loggedIn.conversationWith(newUser).getId();
             }
         } catch (Exception e) {
-            //Nogniks
-            e.printStackTrace();
+            //e.printStackTrace();
             return "/profilepage";
         }
         return dingetje;
     }
 
-    // DONE : ZORGEN VOOR EEN NAAM (werkt)
-    // DONE : fix bug voor nieuwe convo!
     @GetMapping("/adduser/{convoID}")
     public String newConvo(Principal p,@RequestParam Integer id,@PathVariable Integer convoID) {
         try {
             Conversation currentc=convos.findbyID(convoID);
-
             //Als een convo al meer dan 2 users heeft, geen nieuwe maken maar gebruiker toevoegen aan huidige
             if(currentc.getUsers().size()>2){
                 currentc.addUser(users.findById(id).get());
@@ -215,9 +194,4 @@ public class MessageController {
             return "redirect:/messages";
         }
     }
-
-    /*
-    @GetMapping("/sendmessage/{id}")
-    public String sendMessage(@PathVariable Integer id, @RequestParam String text, Principal p) {
-    }*/
 }

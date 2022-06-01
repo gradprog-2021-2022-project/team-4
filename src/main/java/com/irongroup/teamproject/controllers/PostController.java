@@ -117,7 +117,13 @@ public class PostController {
         if (closeby != null && closeby && principal != null) {
             model.addAttribute("fashUsers", orderByLocation(principal, thesame, slider));
         } else {
-            model.addAttribute("fashUsers", thesame);
+            ArrayList<FashPost> posts=new ArrayList<>();
+            for (FashUser p:thesame
+                 ) {
+                posts.add(p.getLastPost());
+            }
+            Collections.sort(posts);
+            model.addAttribute("fashposts", posts);
         }
         model.addAttribute("naamPerson", naamPerson);
         model.addAttribute("style", style);

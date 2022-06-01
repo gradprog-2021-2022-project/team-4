@@ -373,6 +373,7 @@ public class FashUser {
                 allPosts.add(p);
             }
         }
+        Collections.sort(allPosts);
         return allPosts;
     }
 

@@ -143,28 +143,64 @@ main {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin-bottom: 30px;
 }
 
 /*buttons op 2de lijn*/
 .clothesbtn {
     margin-top: 20px;
-    flex: 1 0 50%;
+    flex: 100%;
 }
 
 /*buttons op 1ste lijn*/
 .flex {
-    flex: 1 0 50%;
+    flex: 100%;
+    margin-top: 20px;
 }
 
 /*de linkse buttons dichter naar center*/
 .left {
-    float: right;
-    margin-right: 20px;
+    float: none;
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 32px;
+    padding-right: 32px;
 }
 
 /*de rechtse buttons dichter naar center*/
 .right {
-    float: left;
+    float: none;
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+.noPadding {
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+@media only screen and (min-width: 370px) {
+    .flex {
+        flex: 1 0 50%;
+        margin-top: 0;
+    }
+
+    .clothesbtn {
+        flex: 1 0 50%;
+    }
+
+    .left {
+        float: right;
+        margin-right: 20px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .right {
+        float: left;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
 }
 
 @media only screen and (min-width: 700px) {

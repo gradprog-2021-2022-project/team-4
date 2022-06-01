@@ -33,22 +33,22 @@
                 <strong class="flex"><a th:href="@{|/follow/${user.getId()}|}" th:text="${follow}"
                                         class="left followetcbtnpurple"></a></strong>
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
-                                        th:text="${user.aantalFollowers() + ' Volgers'}"
+                                        th:text="${user.aantalFollowers() + ' volgers'}"
                                         class="right followetcbtnpurple"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="Kledingstukken"
-                                              class="left followetcbtnpurple"></a></strong>
+                                              class="left noPadding followetcbtnpurple"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/checkconvo/${user.getId()}|}" th:text="Stuur"
                                               class="right followetcbtnpurple"></a></strong>
             </div>
             <div class="buttonsdiv" th:unless="${follow}">
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
-                                        th:text="${user.aantalFollowing() + ' Volgend'}"
+                                        th:text="${user.aantalFollowing() + ' volgend'}"
                                         class="left followetcbtn"></a></strong>
                 <strong class="flex"><a th:href="@{|/followerspage/${user.getId()}|}"
-                                        th:text="${user.aantalFollowers() + ' Volgers'}"
+                                        th:text="${user.aantalFollowers() + ' volgers'}"
                                         class="right followetcbtn"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/clothing/${user.getId()}|}" th:text="Kledingstukken"
-                                              class="left followetcbtn"></a></strong>
+                                              class="left noPadding followetcbtn"></a></strong>
                 <strong class="clothesbtn"><a th:href="@{|/messages|}" th:text="Berichten"
                                               class="right followetcbtn"></a></strong>
             </div>
